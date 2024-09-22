@@ -1,0 +1,23 @@
+{
+  "name": "wakanda-group",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "jquery": "^3.7.1",
+    "slick-carousel": "^1.8.1",
+    "tiny-slider": "^2.9.4",
+    "vite-plugin-require": "^1.2.14",
+    "vue": "^3.4.29",
+    "vue-router": "^4.3.3"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.0.5",
+    "vite": "^5.3.1"
+  }
+}
