@@ -1,78 +1,6 @@
 <template >
     <div>
-      <div class="row mt-4">
-         <!-- col -->
-         <div class="col-12">
-            <!-- breadcrumb -->
-            <nav class="mb-3" aria-label="breadcrumb">
-            <ol class="breadcrumb mb-0">
-               <li class="breadcrumb-item"><a href="/">Accueil </a></li>
-               <li class="breadcrumb-item"><router-link to="/categories">commande ></router-link></li>
-               <li class="breadcrumb-item active" aria-current="page">Electroniques</li>
-            </ol>
-         </nav>
-         </div>
-      </div>
-        <main>
-         <!-- section -->
-         <section>
-          
-               <!-- row -->
-               <div class="row mt-2">
-                  <!-- col -->
-                  <div class="col-12">
-                     <div class="d-flex justify-content-between align-items-center d-md-none py-4">
-                        <!-- heading -->
-                        <h3 class="fs-5 mb-0">Account Setting</h3>
-                        <!-- button -->
-                        <button
-                           class="btn btn-outline-gray-400 text-muted d-md-none btn-icon btn-sm ms-3"
-                           type="button"
-                           data-bs-toggle="offcanvas"
-                           data-bs-target="#offcanvasAccount"
-                           aria-controls="offcanvasAccount">
-                           <i class="bi bi-text-indent-left fs-3"></i>
-                        </button>
-                     </div>
-                  </div>
-                  <!-- col -->
-                  <div class="col_xl-3 col-lg-3  col-md-4 col-12  d-none d-md-block ">
-                     <div class="pt-10 pe-lg-10 bg-white me-2">
-                        <!-- nav -->
-                        <ul class="nav flex-column nav-pills nav-pills-dark">
-                           <!-- nav item -->
-                           <li class="nav-item">
-                              <router-link class="nav-link active" aria-current="page" to="#">
-                                 <i class="feather-icon icon-user me-2"></i>
-                                 Votre compte
-                              </router-link>
-                           </li>
-                           <!-- nav item -->
-                           <li class="nav-item">
-                              <router-link to="/commandes" class="nav-link" >
-                                 <i class="feather-icon icon-shopping-bag me-2"></i>
-                                 Vos commandes
-                              </router-link>
-                           </li>
-                           <!-- nav item -->
-                           <li class="nav-item">
-                              <router-link to="/user-adresse" class="nav-link" >
-                                 <i class="feather-icon icon-map-pin me-2"></i>
-                                 Adresse
-                              </router-link>
-                           </li>
-                           <!-- nav item -->
-                           <li class="nav-item">
-                              <a class="nav-link" href="account-payment-method.html">
-                                 <i class="feather-icon icon-credit-card me-2"></i>
-                                 Mode de payement
-                              </a>
-                           </li>
-                        </ul>
-                     </div>
-                  </div>
-                  <div class=" col_xl-9 col-lg-9  col-md-8 col-12 ">
-                     <div class="py-6 p-md-6 p-lg-10 bg-white ms-2">
+      <div class="py-6 p-md-6 p-lg-10 bg-white ms-2">
                         <!-- heading -->
                         <h2 class="mb-6">Your Orders</h2>
 
@@ -115,7 +43,7 @@
                                   
 
                                     <div class="col-md-2 ">
-                                        <router-link to="/commandes-detail" class="btn btn-sm btn-primary">DETAILS</router-link>
+                                        <router-link to="/client/commandes-detail" class="btn btn-sm btn-primary">DETAILS</router-link>
                                        
                                     </div>
                                  </div>
@@ -413,13 +341,8 @@
                            </div>
                         </div>
                       
-        </div>
+                        </div>
                      </div>
-                  </div>
-               </div>
-           
-         </section>
-      </main>
     </div>
 </template>
 <script>

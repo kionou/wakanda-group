@@ -1,0 +1,21 @@
+{
+    "assistance":{
+        "label":"Centre d'assistance",
+        "value":"Services clientèle Wakanda"
+    },
+    "categorie":{
+        "label":"Categories"
+    },
+    "search":{
+        "label":"Rechercher",
+        "searchPlaceholder":{
+        "label":"Rechercher des produits"
+
+        }
+    },
+    "inscription":{
+        "item1":"Bienvenue",
+        "item2":"Se connecter",
+        "item3":"S'inscrire"
+    }
+}

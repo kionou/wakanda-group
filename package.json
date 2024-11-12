@@ -9,12 +9,21 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@kyvg/vue3-notification": "^3.3.0",
+    "@vuelidate/core": "^2.0.3",
+    "@vuelidate/validators": "^2.0.4",
+    "axios": "^1.7.7",
     "jquery": "^3.7.1",
+    "libphonenumber-js": "^1.11.7",
+    "maz-ui": "^3.45.1",
     "slick-carousel": "^1.8.1",
     "tiny-slider": "^2.9.4",
-    "vite-plugin-require": "^1.2.14",
     "vue": "^3.4.29",
-    "vue-router": "^4.3.3"
+    "vue-i18n": "^9.14.1",
+    "vue-lazyload": "^3.0.0",
+    "vue-router": "^4.3.3",
+    "vue-toastification": "^2.0.0-rc.5",
+    "vuex": "^4.0.2"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.0.5",

@@ -1,78 +1,6 @@
 <template >
     <div>
-      <div class="row mt-4">
-         <!-- col -->
-         <div class="col-12">
-            <!-- breadcrumb -->
-            <nav class="mb-3" aria-label="breadcrumb">
-            <ol class="breadcrumb mb-0">
-               <li class="breadcrumb-item"><a href="/">Accueil </a>></li>
-               <li class="breadcrumb-item"><router-link to="/categories">commande ></router-link></li>
-               <li class="breadcrumb-item"><router-link to="/categories">detail ></router-link></li>
-               <li class="breadcrumb-item active" aria-current="page">Electroniques</li>
-            </ol>
-         </nav>
-         </div>
-      </div>
-        <main>
-         <!-- section -->
-         <section>
-          
-               <!-- row -->
-               <div class="row mt-2">
-                  <!-- col -->
-                  <div class="col-12">
-                     <div class="d-flex justify-content-between align-items-center d-md-none py-4">
-                        <!-- heading -->
-                        <h3 class="fs-5 mb-0">Account Setting</h3>
-                        <!-- button -->
-                        <button
-                           class="btn btn-outline-gray-400 text-muted d-md-none btn-icon btn-sm ms-3"
-                           type="button"
-                           data-bs-toggle="offcanvas"
-                           data-bs-target="#offcanvasAccount"
-                           aria-controls="offcanvasAccount">
-                           <i class="bi bi-text-indent-left fs-3"></i>
-                        </button>
-                     </div>
-                  </div>
-                  <div class="col_xl-3 col-lg-3  col-md-4 col-12  d-none d-md-block ">
-                     <div class="pt-10 pe-lg-10 bg-white me-2">
-                        <!-- nav -->
-                        <ul class="nav flex-column nav-pills nav-pills-dark">
-                           <!-- nav item -->
-                           <li class="nav-item">
-                              <router-link class="nav-link active" aria-current="page" to="#">
-                                 <i class="feather-icon icon-user me-2"></i>
-                                 Votre compte
-                              </router-link>
-                           </li>
-                           <!-- nav item -->
-                           <li class="nav-item">
-                              <router-link to="/commandes" class="nav-link" >
-                                 <i class="feather-icon icon-shopping-bag me-2"></i>
-                                 Vos commandes
-                              </router-link>
-                           </li>
-                           <!-- nav item -->
-                           <li class="nav-item">
-                              <router-link to="/user-adresse" class="nav-link" >
-                                 <i class="feather-icon icon-map-pin me-2"></i>
-                                 Adresse
-                              </router-link>
-                           </li>
-                           <!-- nav item -->
-                           <li class="nav-item">
-                              <a class="nav-link" href="account-payment-method.html">
-                                 <i class="feather-icon icon-credit-card me-2"></i>
-                                 Mode de payement
-                              </a>
-                           </li>
-                        </ul>
-                     </div>
-                  </div>
-                  <div class=" col_xl-9 col-lg-9  col-md-8 col-12 ">
-                     <div class="py-3 p-md-3 p-lg-5 bg-white ms-2">
+      <div class="py-3 p-md-3 p-lg-5 bg-white ms-2">
                         
                         <section >
            
@@ -99,33 +27,7 @@
                      </div>
                   </div>
                   <div class="col-xl-12">
-                     <!-- card -->
-                     <div class="card p-4 flex-row mb-4">
-                        <div class="col-xl-8 d-flex align-items-center">
-                            <div class="me-3">
-                          
-                          <img src="@/assets/images/stores-logo/stores-logo-2.svg" alt="" class=" icon-shape icon-xxl" style="width:100px ; height:100px !important;">
-                       </div>
-                       <div class="mt-4">
-                         
-                          <h2 class="mb-1 h5"><a href="#!" class="text-inherit">DealShare Mrt</a></h2>
-                          <div class="small text-muted">
-                             <span class="me-2">Quantité: 2</span> <br>
-                             <span class="me-2">prix:2344323</span>
-                          </div>
-                          
-                         
-                       </div>
-                        </div>
-                        <div class="col-xl-4">
-                            <button class="btn btn-primary btn-sm">
-                                <router-link to="#" class="text-white">Commander  à nouveau</router-link> 
-                            </button> <br>
-                                <router-link to="/commandes-historique">Voir l'historiquez</router-link>
-                            
-                        </div>
-                      
-                     </div>
+                   
 
                      <div class="table-responsive-xxl border-1 mb-4">
                            <!-- Table -->
@@ -263,15 +165,10 @@
                 </div>
                </div>
            
-         </section>
+                           </section>
 
                        
                      </div>
-                  </div>
-               </div>
-           
-         </section>
-      </main>
     </div>
 </template>
 <script>

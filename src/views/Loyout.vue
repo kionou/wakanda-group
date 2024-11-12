@@ -3,8 +3,9 @@
         <Navbar />
         <navbarMobile />
         <RouterView />
-      
             <Footer />
+            <Bottom />
+
         
     </div>
 </template>
@@ -12,12 +13,14 @@
 import Footer from '@/components/loyout/footer.vue';
 import Navbar from '@/components/loyout/navbar.vue';
 import navbarMobile from '@/components/loyout/navbar-mobile.vue';
+import Bottom from '@/components/others/bottom.vue';
+
 
 
 
 export default {
     components:{
-        Navbar , Footer , navbarMobile
+        Navbar , Footer , navbarMobile , Bottom
 
     }
     

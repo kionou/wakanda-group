@@ -468,6 +468,7 @@ import GridPlus from '@/components/Categories/gridPlus.vue';
 
 
 export default {
+   props:['id'],
     components:{
         Listes , grid , GridPlus
     },
@@ -475,6 +476,14 @@ export default {
         return {
             
         }
+    },
+    mounted() {
+      console.log('id',this.id);
+      
+      
+    },
+    methods: {
+      
     },
     
 }

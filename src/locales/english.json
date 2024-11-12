@@ -1,0 +1,22 @@
+{
+    "assistance":{
+        "label":"Support center",
+        "value":"Wakanda customer services"
+    },
+    "categorie":{
+        "label":"Category"
+    },
+   
+    "search":{
+        "label":"Search",
+        "searchPlaceholder":{
+        "label":"Search for products"
+
+        }
+    },
+    "inscription":{
+        "item1":"Welcome",
+        "item2":"Login ",
+        "item3":"Register"
+    }
+}

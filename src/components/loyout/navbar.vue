@@ -1,202 +1,1136 @@
 <template >
-    <div>
-        <header>
-	<div class="">
-	
-        <div class="row mb-2  d-flex align-items-center bg-white rounded">
-         <div class="col-xl-3 col-md-3 col-sm-12 ">
-                        <div class="d-lg-flex align-items-center">
-                           <a href="/">
-                           <img src="@/assets/img/logo_wakanda.png" alt="" class="img-fluid" style="height: 50px !important;">
-                           </a>
-                        </div>
-                     </div>
-                  <div class="col-xl-9 col-md-9 col-sm-12">
-                     
-
-                     <div class="row d-none d-md-flex d-lg-flex">
-                        <div class="col-xl-7 col-md-7 col-sm-12  text-sm-center">
-                           <p class="fs-6 mb-1 text-dark fw-bold">Centre d'assistance <span class=""  style="color:var(--fc-secondary)">Services clientèle Wakanda</span> </p>
-
-                        </div>
-                        <div class="col-xl-5 col-sm-12 col-md-5 text-sm-center">
-                           <p class="fs-6 mb-1 text-dark fw-bold">Contact :<span class=""  style="color:var(--fc-secondary)">+228 99 12 33 44 55</span> </p>
-
-                        </div>
-                     </div>
-                  
-                     <!-- <div class="bg-white d-lg-flex justify-content-between align-items-center  px-8 text-center text-lg-start rounded">
-                     
-                        <div class="d-lg-flex align-items-center">
-                          
-                          
-                           <div class="ms-lg-4">
-
-                           <p class="fs-6 mb-1 text-dark fw-bold">Centre d'assistance <span class=""  style="color:var(--fc-secondary)">Services clientèle Wakanda</span> </p>
-
-                           </div>
-                           <div class="ms-lg-4">
-
-                              <p class="fs-6 mb-1 text-dark fw-bold">Contact :<span class=""  style="color:var(--fc-secondary)">+228 99 12 33 44 55</span> </p>
-
-                              </div>
-                           
-                        </div>
-                       
-                     </div> -->
+   <div>
+      <header>
+         <div class="">
+   
+            <div class="row mb-2  d-flex align-items-center bg-white  py-3">
+               <!-- <div class="col-xl-3 col-md-3 col-sm-12 ">
+                  <div class="d-lg-flex align-items-center">
+                     <a href="/">
+                        <img src="@/assets/img/logo_wakanda.png" alt="" class="img-fluid" style="height: 50px !important;">
+                     </a>
                   </div>
-               </div>
-
-
-               
-       
-		<div class="row align-items-center justify-content-center p-2 mt-4 mt-lg-0 bg-white">
-			
-            <div class="col-xxl-3 col-xl-3 col-lg-3 d-none d-lg-block fw-bold " >
-              
-                   
-				<h6 class="fs-3">
-             <i class="bi bi-list"> </i> Catégories  
-            </h6>
-			
-	
-            </div>
-			<div class="col-xxl-5 col-xl-5 col-lg-5 col-md-9">
-            <div class="row align-items-center">
-               <div class="col-11">
-                  <form action="#" class="me-2">
-					<div class="input-group">
-						<input class="form-control" type="search" placeholder="Search for products" aria-label="Recipient's username" aria-describedby="button-addon2" />
-						<button class="btn btn-primary" type="button" id="button-addon2">Search</button>
-					</div>
-				</form>
-               </div>
-               <div class="col-1">
-                  <a href="#">  <i class="bi bi-mic fs-3" ></i></a>
-          
-
+               </div> -->
+               <div class="col-xl-9 col-md-9 col-sm-12">
+   
+   
+                  <div class="row d-none d-md-flex d-lg-flex">
+                     <div class="col-xl-7 col-md-7 col-sm-12  text-sm-center">
+                        <p class="fs-6 mb-1 text-dark fw-bold">{{ $t('assistance.label')}} <span class=""
+                              style="color:var(--fc-secondary)">{{ $t('assistance.value')}}</span> </p>
+   
+                     </div>
+                     <div class="col-xl-5 col-sm-12 col-md-5 text-sm-center">
+                        <p class="fs-6 mb-1 text-dark fw-bold">Contact :<span class=""
+                              style="color:var(--fc-secondary)">+228 99 12 33 44 55</span> </p>
+   
+                     </div>
+                  </div>
+   
                </div>
             </div>
-				
-			</div>
-			<div class="col-xxl-4 col-xl-4 col-lg-4 d-none d-lg-block">
-				<div class="d-flex align-items-center justify-content-end">
-               
-					<div class="text-center me-8">
-						<div class="dropdown">
-							<router-link to="/connexion" class="text-reset" >
-								<div class="lh-1">
-									<div class="position-relative d-inline-block mb-2">
-										<i class="bi bi-person-circle fs-4"></i>
-									
-									</div>
-									<p class="mb-0 d-none d-xl-block small"></p>
-								</div>
-							</router-link>
-
-						</div>
-					</div>
-
-              
-                <div class="text-center me-8">
-						<div class="dropdown">
-							<router-link to="/panier" class="text-reset" >
-								<div class="lh-1">
-									<div class="position-relative d-inline-block mb-2">
-										<i class="bi bi-cart2 fs-4"></i>
-										<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-											1
-										</span>
-									</div>
-									<p class="mb-0 d-none d-xl-block small"></p>
-								</div>
-							</router-link>
-
-							
-						</div>
-					</div>
-					
-
-					<div class="dropdown selectBox ">
-                        <a class="dropdown-toggle selectValue text-reset show" href="javascript:void(0)" data-bs-toggle="dropdown" aria-expanded="true">
-                           <span class="me-2">
-                              <svg width="16" height="13" viewBox="0 0 16 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                 <g clip-path="url(#selectedlang)">
-                                    <path d="M0 0.5H16V12.5H0V0.5Z" fill="#012169"></path>
-                                    <path d="M1.875 0.5L7.975 5.025L14.05 0.5H16V2.05L10 6.525L16 10.975V12.5H14L8 8.025L2.025 12.5H0V11L5.975 6.55L0 2.1V0.5H1.875Z" fill="white"></path>
-                                    <path d="M10.6 7.525L16 11.5V12.5L9.225 7.525H10.6ZM6 8.025L6.15 8.9L1.35 12.5H0L6 8.025ZM16 0.5V0.575L9.775 5.275L9.825 4.175L14.75 0.5H16ZM0 0.5L5.975 4.9H4.475L0 1.55V0.5Z" fill="#C8102E"></path>
-                                    <path d="M6.025 0.5V12.5H10.025V0.5H6.025ZM0 4.5V8.5H16V4.5H0Z" fill="white"></path>
-                                    <path d="M0 5.325V7.725H16V5.325H0ZM6.825 0.5V12.5H9.225V0.5H6.825Z" fill="#C8102E"></path>
-                                 </g>
-                                 <defs>
-                                    <clipPath id="selectedlang">
-                                       <rect width="16" height="12" fill="white" transform="translate(0 0.5)"></rect>
-                                    </clipPath>
-                                 </defs>
+   
+   
+   
+   
+            <div class="row align-items-center justify-content-center p-2 mt-4 mt-lg-0 bg-white">
+   
+               <div class="col-xxl-2 col-xl-2 col-lg-2 d-none d-lg-block fw-bold ">
+   
+                  <a href="/">
+                        <img src="@/assets/img/logo_wakanda.png" alt="" class="img-fluid" style="height: 50px !important;">
+                     </a>
+   
+   
+               </div>
+               <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-9">
+                  <div class="row align-items-center">
+                     <div class="col-10">
+                        <form action="#" class="me-2">
+                           <div class="input-group">
+                              <input class="form-control" type="search" :placeholder="$t('search.searchPlaceholder.label')"
+                                 aria-label="Recipient's username" aria-describedby="button-addon2" />
+                              <button class="btn btn-primary" type="button" id="button-addon2">{{
+                                 $t('search.label')}}</button>
+                           </div>
+                        </form>
+                     </div>
+                     <div class="col-1 position-relative" @mouseenter="showDropdown = true"
+                        @mouseleave="showDropdown = false">
+                        <img src="@/assets/img/search.png" alt="search by picture" class="w-50 cursor-pointer">
+   
+                        <!-- Dropdown de recherche par image avec transition -->
+                        <Transition enter-active-class="animate__animated animate__fadeIn"
+                           leave-active-class="animate__animated animate__fadeOut">
+                           <div v-if="showDropdown" class="dropdown-container position-absolute end-0 mt-1">
+                              <!-- Triangle pointant vers l'icône -->
+                              <div class="dropdown-arrow"></div>
+   
+                              <!-- Contenu du dropdown -->
+                              <div class="dropdown-content p-3 bg-white rounded shadow border">
+                                 <h5 class="mb-1">Recherche par image</h5>
+                                 <p class="text-muted small mb-1">
+                                    Trouvez ce que vous aimez à prix réduit sur Wakanda grâce à la recherche par image.
+                                 </p>
+   
+                                 <!-- Zone de drop -->
+                                 <div class="drop-zone p-3 border border-2 border-dashed rounded text-center"
+                                    :class="{ 'border-primary bg-light': isDragging }"
+                                    @dragenter.prevent="isDragging = true" @dragleave.prevent="isDragging = false"
+                                    @dragover.prevent @drop.prevent="handleDrop" @paste.prevent="handlePaste">
+                                    <div v-if="!previewImage">
+                                       <div class="mb-1">Faites glisser une image ici</div>
+                                       <div class="text-muted">ou</div>
+                                       <input ref="fileInput" type="file" class="d-none" accept="image/*"
+                                          @change="handleFileSelect">
+                                       <button class="btn btn-primary " @click="$refs.fileInput.click()">
+                                          Importez une photo
+                                       </button>
+                                    </div>
+   
+                                    <!-- Prévisualisation de l'image -->
+                                    <div v-else class="preview-container">
+                                       <img :src="previewImage" alt="Preview" class="img-fluid" style="max-height: 330px">
+                                       <button class="btn btn-sm btn-outline-danger" @click="clearImage">
+                                          Supprimer
+                                       </button>
+                                    </div>
+                                 </div>
+   
+                                 <div class="mt-1 text-muted small">
+                                    *Pour une recherche rapide, appuyez sur CTRL + V pour coller une image
+                                 </div>
+                              </div>
+                           </div>
+                        </Transition>
+                     </div>
+                     <div class="col-1">
+                        <a href="#"> <i class="bi bi-mic fs-3"></i></a>
+                     </div>
+                  </div>
+   
+               </div>
+               <div class="col-xxl-4 col-xl-4 col-lg-4 d-none d-lg-block">
+                  <div class="row align-items-center">
+                     <div class="col-xl-5">
+                        <div ref="dropdownWrapper" class="my-account--menuItem--1GDZChA" @click="toggleDropdown">
+                           <span class="comet-icon comet-icon-myaccount my-account--accountIcon--ECZEGeo"><svg
+                                 viewBox="0 0 1024 1024" width="1em" height="1em" fill="currentColor" aria-hidden="false"
+                                 focusable="false" data-spm-anchor-id="a2g0o.cart.header.i1.2f53378dWTbody">
+                                 <path
+                                    d="M512 126.357333a189.866667 189.866667 0 1 0 189.866667 189.866667 189.866667 189.866667 0 0 0-189.866667-189.866667z m-125.866667 189.866667a125.866667 125.866667 0 1 1 251.733334 0 125.866667 125.866667 0 0 1-251.733334 0zM512 650.666667c138.026667 0 236.074667 72.448 273.152 192H238.848c37.077333-119.552 135.146667-192 273.152-192z m0-64c-171.541333 0-298.325333 96.981333-339.349333 254.805333-9.002667 34.666667 18.346667 65.194667 51.093333 65.194667h576.512c32.768 0 60.096-30.506667 51.093333-65.194667C810.325333 683.648 683.52 586.666667 512 586.666667z"
+                                    data-spm-anchor-id="a2g0o.cart.header.i0.2f53378dWTbody"></path>
                               </svg>
                            </span>
-                           English
-                        </a>
-
-                        <ul class="dropdown-menu " style="position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate3d(-32%, 44%, 0px);" data-popper-placement="bottom-start">
-                           <li>
-                              <a class="dropdown-item" href="javascript:void(0)">
-                                 <span class="me-2">
-                                    <svg width="16" height="13" viewBox="0 0 16 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                       <g clip-path="url(#selectedlang)">
-                                          <path d="M0 0.5H16V12.5H0V0.5Z" fill="#012169"></path>
-                                          <path d="M1.875 0.5L7.975 5.025L14.05 0.5H16V2.05L10 6.525L16 10.975V12.5H14L8 8.025L2.025 12.5H0V11L5.975 6.55L0 2.1V0.5H1.875Z" fill="white"></path>
-                                          <path d="M10.6 7.525L16 11.5V12.5L9.225 7.525H10.6ZM6 8.025L6.15 8.9L1.35 12.5H0L6 8.025ZM16 0.5V0.575L9.775 5.275L9.825 4.175L14.75 0.5H16ZM0 0.5L5.975 4.9H4.475L0 1.55V0.5Z" fill="#C8102E"></path>
-                                          <path d="M6.025 0.5V12.5H10.025V0.5H6.025ZM0 4.5V8.5H16V4.5H0Z" fill="white"></path>
-                                          <path d="M0 5.325V7.725H16V5.325H0ZM6.825 0.5V12.5H9.225V0.5H6.825Z" fill="#C8102E"></path>
-                                       </g>
-                                       <defs>
-                                          <clipPath id="selectedlang">
-                                             <rect width="16" height="12" fill="white" transform="translate(0 0.5)"></rect>
-                                          </clipPath>
-                                       </defs>
-                                    </svg>
-                                 </span>
-                                 English
-                              </a>
-                           </li>
-                           <li>
-                              <a class="dropdown-item" href="javascript:void(0)">
-                                 <span class="me-2">
-                                    <svg width="16" height="13" viewBox="0 0 16 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                       <g clip-path="url(#clip0_5543_19751)">
-                                          <path d="M0 8.5H16V12.5H0V8.5Z" fill="red"></path>
-                                          <path d="M0 0.5H16V4.5H0V0.5Z" fill="blue"></path>
-                                          <path d="M0 4.5H16V8.5H0V4.5Z" fill="#FFF"></path>
-                                       </g>
-                                       <defs>
-                                          <clipPath id="clip0_5543_19751">
-                                             <rect width="16" height="12" fill="white" transform="translate(0 0.5)"></rect>
-                                          </clipPath>
-                                       </defs>
-                                    </svg>
-                                 </span>
-                                 French
-                              </a>
-                           </li>
-                        </ul> 
+                           <div class="my-account--text--2Yt_prE"><span class="my-account--small--3ni1QHm"> {{
+                                 $t('inscription.item1')}}</span><b><span
+                                    data-spm-anchor-id="a2g0o.cart.header.i2.2f53378dWTbody">{{ $t('inscription.item2')}} /
+                                    {{ $t('inscription.item3')}}</span><span
+                                    class="comet-icon comet-icon-chevrondown32 my-account--centerIcon--2yqLRkj base--chevronIcon--25sHdop"><svg
+                                       viewBox="0 0 1024 1024" width="1em" height="1em" fill="currentColor"
+                                       aria-hidden="false" focusable="false"
+                                       data-spm-anchor-id="a2g0o.cart.header.i3.2f53378dWTbody">
+                                       <path
+                                          d="M296.256 354.944l224 224 224-224a74.656 74.656 0 0 1 0 105.6l-197.6 197.6a37.344 37.344 0 0 1-52.8 0l-197.6-197.6a74.656 74.656 0 0 1 0-105.6z">
+                                       </path>
+                                    </svg></span></b></div><span
+                              class="comet-icon comet-icon-chevrondown32 base--responseIcon--3et2x1Z"><svg
+                                 viewBox="0 0 1024 1024" width="1em" height="1em" fill="currentColor" aria-hidden="false"
+                                 focusable="false">
+                                 <path
+                                    d="M296.256 354.944l224 224 224-224a74.656 74.656 0 0 1 0 105.6l-197.6 197.6a37.344 37.344 0 0 1-52.8 0l-197.6-197.6a74.656 74.656 0 0 1 0-105.6z">
+                                 </path>
+                              </svg></span>
+                        </div>
+                     </div>
+                     <div class="col-xl-2">
+                        <div>
+                           <div v-if="isOpen" class="comet-v2-popover-wrap" style="position: relative;">
+                              <div class="comet-v2-popover comet-v2-popover-show-arrow comet-v2-zoom-big-enter-done"
+                                 data-popper-placement="bottom" style="position: absolute; top: 32px; left:-223px"
+                                 data-spm-anchor-id="a2g0o.cart.0.i10.2f53378dWTbody">
+                                 <div class="comet-v2-popover-arrow" data-popper-arrow="true"
+                                    style="position: absolute; left: 148.5px;"></div>
+                                 <div class="comet-v2-popover-body my-account--popupCls--1C1NFJ2" style="">
+                                    <div class="comet-v2-popover-content">
+                                       <div class="my-account--accountWrap--2FBvnYE">
+                                          <div class="my-account--userInfo--8cACzqQ"><button data-bs-toggle="modal"
+                                                data-bs-target="#userModal" class="my-account--signin--RiPQVPB">{{
+                                                $t('inscription.item2')}}</button>
+                                             <p data-bs-toggle="modal" data-bs-target="#userModalSign">{{
+                                                $t('inscription.item3')}} </p>
+                                             <span class="my-account--line--QONK0VF"></span>
+                                          </div>
+                                          <div class="my-account--menuBox--3f9Nx8S">
+                                             <ul class="my-account--menuInfo--3YpLtBU mb-0">
+                                                <li><a href="#"><span
+                                                         class="comet-icon comet-icon-orders my-account--icon--16yzkFW"><svg
+                                                            viewBox="0 0 1024 1024" width="1em" height="1em"
+                                                            fill="currentColor" aria-hidden="false" focusable="false">
+                                                            <path
+                                                               d="M189.866667 266.666667a76.8 76.8 0 0 1 76.8-76.8h70.250666a34.133333 34.133333 0 1 1 0 68.266666H266.666667a8.533333 8.533333 0 0 0-8.533334 8.533334v618.666666c0 4.693333 3.818667 8.533333 8.533334 8.533334h490.666666a8.533333 8.533333 0 0 0 8.533334-8.533334v-618.666666a8.533333 8.533333 0 0 0-8.533334-8.533334h-70.250666a34.133333 34.133333 0 1 1 0-68.266666H757.333333a76.8 76.8 0 0 1 76.8 76.8v618.666666a76.8 76.8 0 0 1-76.8 76.8h-490.666666a76.8 76.8 0 0 1-76.8-76.8v-618.666666z">
+                                                            </path>
+                                                            <path
+                                                               d="M328.533333 202.666667A76.8 76.8 0 0 1 405.333333 125.866667h213.333334a76.8 76.8 0 0 1 76.8 76.8v42.666666a76.8 76.8 0 0 1-76.8 76.8H405.333333a76.8 76.8 0 0 1-76.8-76.8v-42.666666z m76.8-8.533334a8.533333 8.533333 0 0 0-8.533333 8.533334v42.666666c0 4.693333 3.818667 8.533333 8.533333 8.533334h213.333334a8.533333 8.533333 0 0 0 8.533333-8.533334v-42.666666a8.533333 8.533333 0 0 0-8.533333-8.533334H405.333333z">
+                                                            </path>
+                                                            <path
+                                                               d="M362.666667 629.333333a32 32 0 0 1 32-32H554.666667v18.282667C554.666667 640.874667 534.186667 661.333333 508.949333 661.333333H394.666667a32 32 0 0 1-32-32z">
+                                                            </path>
+                                                            <path
+                                                               d="M352 469.333333m32 0l256 0q32 0 32 32l0 0q0 32-32 32l-256 0q-32 0-32-32l0 0q0-32 32-32Z">
+                                                            </path>
+                                                         </svg></span><span class="my-account--menuText--1km-qni">Mes
+                                                         Commandes</span></a></li>
+   
+   
+                                                <li><a href="#"><span
+                                                         class="comet-icon comet-icon-creditcard my-account--icon--16yzkFW"><svg
+                                                            viewBox="0 0 1024 1024" width="1em" height="1em"
+                                                            fill="currentColor" aria-hidden="false" focusable="false">
+                                                            <path
+                                                               d="M405.333333 640H192v64h138.666667c38.4 0 74.666667-25.6 74.666666-64z">
+                                                            </path>
+                                                            <path
+                                                               d="M917.333333 832H106.666667c-23.466667 0-42.666667-19.2-42.666667-42.666667V234.666667c0-23.466667 19.2-42.666667 42.666667-42.666667h810.666666c23.466667 0 42.666667 19.2 42.666667 42.666667v554.666666c0 23.466667-19.2 42.666667-42.666667 42.666667zM128 768h768V256H128v512z m789.333333-512z">
+                                                            </path>
+                                                            <path
+                                                               d="M896 416H128c-17.066667 0-32-14.933333-32-32s14.933333-32 32-32h768c17.066667 0 32 14.933333 32 32s-14.933333 32-32 32z">
+                                                            </path>
+                                                         </svg></span><span
+                                                         class="my-account--menuText--1km-qni">Paiement</span></a></li>
+                                                <li><a href="#"><span
+                                                         class="comet-icon comet-icon-wishlist my-account--icon--16yzkFW"><svg
+                                                            viewBox="0 0 1024 1024" width="1em" height="1em"
+                                                            fill="currentColor" aria-hidden="false" focusable="false">
+                                                            <path
+                                                               d="M165.589333 578.005333c-83.584-83.584-83.584-219.093333 0-302.677333 83.584-83.584 219.093333-83.584 302.677334 0l43.797333 43.797333 43.797333-43.797333c83.562667-83.584 219.093333-83.584 302.656 0 83.584 83.562667 83.584 219.093333 0 302.656l-323.84 323.84a32 32 0 0 1-45.226666 0l-323.84-323.84z m45.269334-257.429333a150.016 150.016 0 0 0 0 212.181333l301.205333 301.205334 301.205333-301.226667a150.016 150.016 0 1 0-212.16-212.16l-66.432 66.432a32 32 0 0 1-45.248 0l-66.410666-66.432a150.016 150.016 0 0 0-212.16 0z">
+                                                            </path>
+                                                         </svg></span><span class="my-account--menuText--1km-qni">Mes
+                                                         favoris</span></a></li>
+   
+                                             </ul>
+   
+   
+                                          </div>
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+   
+                           <div class="text-center me-8">
+                              <div class="dropdown">
+                                 <router-link to="/panier" class="text-reset">
+                                    <div class="lh-1">
+                                       <div class="position-relative d-inline-block">
+                                          <i class="bi bi-cart2 fs-4"></i>
+                                          <span
+                                             class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                             {{ cartItemCount }}
+                                          </span>
+                                       </div>
+                                       <p class="mb-0 d-none d-xl-block small"></p>
+                                    </div>
+                                 </router-link>
+   
+   
+                              </div>
+                           </div>
+                        </div>
+   
+                     </div>
+                     <div class="col-xl-5">
+                        <div class="navbar-container">
+                           <div class="dropdown selectBox " ref="dropdownWrapper1">
+                           <a ref="dropdownWrapper1" class="dropdown-toggle selectValue text-reset show d-flex align-items-center"
+                              href="javascript:void(0)" @click="toggleDropdownLangage">
+                              <i class="bi bi-globe2 fs-4"></i> &nbsp;
+                              <!-- <img :src="currentFlag" alt="Flag" style="width: 24px; margin-left: 8px;"> -->
+                              <span>{{ currentLanguage }}</span>  &nbsp;
+                              <span>({{ selectedDevise }})</span>
+                           </a>
+   
+                           <div class="es--wrap--RYjm1RT" v-if="isOpenLangage">
+   
+                              <div class="es--contentWrap--ypzOXHr es--visible--12ePDdG">
+   
+                                 <div class="form-item--title--1ZN23sl">Envoyez à</div>
+                                 <MazSelect label="" v-model="detected" :options="countriesOptions" v-slot="{ option  }"
+                                    size="sm" rounded-size="md" color="secondary" autocomplete="off" search>
+                                    <div class="d-flex align-items-center" @click.prevent="changeCountry(option)" style="
+                                      padding-top: 0.5rem;
+                                      padding-bottom: 0.5rem;
+                                      width: 100% !important;
+                                      gap: 1rem;
+                                 
+                                      ">
+                                       <MazAvatar size="0.4rem" :src="option.flag" />
+                                       <strong>
+                                          {{ option.code }}
+                                       </strong>
+                                    </div>
+                                 </MazSelect>
+   
+   
+                                 <div class="form-item--title--1ZN23sl">Langue</div>
+                                 <MazSelect label="" v-model="langage" :options="LangageOptions" v-slot="{ option  }"
+                                    size="sm" rounded-size="md" color="secondary" autocomplete="off">
+                                    <div class="d-flex align-items-center" @click="changeLanguage(option)" style="
+                                      padding-top: 0.5rem;
+                                      padding-bottom: 0.5rem;
+                                      width: 100% !important;
+                                      gap: 1rem;
+                                 
+                                      ">
+                                       <MazAvatar size="0.4rem" :src="option.picture" />
+                                       <strong>
+                                          {{ option.label }}
+                                       </strong>
+                                    </div>
+                                 </MazSelect>
+   
+   
+                                 <div class="form-item--title--1ZN23sl">Devise</div>
+                                 <MazSelect v-model="devise" color="secondary" secondary :options="DeviesArray"
+                                    v-slot="{ option }" size="sm" rounded-size="md" autocomplete="off">
+                                    <div class="flex items-center"
+                                       style="padding-top: 0.5rem; padding-bottom: 0.5rem; width: 100%; gap: 1rem"
+                                       @click="changeDevise(option)">
+   
+                                       {{ option.label }}
+   
+                                    </div>
+   
+                                 </MazSelect>
+   
+                                 <!-- <div class="es--saveBtn--w8EuBuy">Enregistrer</div> -->
+                              </div>
+                           </div>
+                        </div>
+                        </div>
+                       
+                     </div>
+                  </div>
                </div>
-				</div>
-			</div>
-		</div>
-
-       
-	</div>
-</header>
-
-
-    </div>
+            </div>
+         </div>
+      </header>
+   
+   
+   </div>
 </template>
 <script>
+import uk from '@/assets/img/unit.svg'
+import fr from '@/assets/img/france-flag-icon.svg'
+import { mapActions, mapGetters } from 'vuex';
+import axios from 'axios'
+import axiosInstance from '@/lib/axiosConfig';
+
 export default {
-    
+  computed: {
+    ...mapGetters('cart', ['cartItemCount']), // Utiliser le getter pour le nombre d'éléments
+  },
+  data() {
+    return {
+      isOpen: false,
+      isOpenLangage: false,
+      currentLanguage: this.$i18n.locale === 'en' ? 'English' : 'French',
+      currentFlag: this.$i18n.locale === 'en' ? uk : fr,
+      selectedDevise: '',
+      LangageOptions: [
+        { picture: fr, label: 'French', value: 'fr' },
+        { picture: uk, label: 'English', value: 'en' },
+      ],
+      countriesOptions: [],
+      DeviesArray:[],
+      langage: "",
+      devise: "",
+      showDropdown: false,
+      isDragging: false,
+      previewImage: null,
+      fileInput: null,
+      detected: null,
+
+
+    }
+  },
+  async mounted() {
+    await this.detectUserCountry()
+    await this.getDeviseAll()
+    if (this.DeviesArray.length > 0) {
+    this.selectedDevise = this.DeviesArray[0].label;
+    this.devise = this.DeviesArray[0].value;
+  }
+    document.addEventListener("click", this.handleClickOutside);
+    const savedLanguage = localStorage.getItem('language');
+    if (savedLanguage) {
+      this.langage = savedLanguage;
+      this.setLanguage(savedLanguage);
+    }
+  },
+  methods: {
+    toggleDropdown() {
+      this.isOpen = !this.isOpen;
+    },
+    toggleDropdownLangage() {
+      this.isOpenLangage = !this.isOpenLangage;
+    },
+    handleClickOutside(event) {
+    if (this.isOpen && this.$refs.dropdownWrapper && !this.$refs.dropdownWrapper.contains(event.target)) {
+      this.isOpen = false;
+    }
+
+    if (this.isOpenLangage && this.$refs.dropdownWrapper1 && !this.$refs.dropdownWrapper1.contains(event.target)) {
+      this.isOpenLangage = false;
+    }
+  },
+ 
+    changeLanguage(locale) {
+      console.log('lo',locale)
+      this.langage = locale.value;
+
+      this.$i18n.locale = locale.value;
+      localStorage.setItem('language', locale.value);
+      this.setLanguage(locale.value);
+    },
+    setLanguage(locale) {
+      this.$i18n.locale = locale;
+      if (locale === 'en') {
+        this.currentLanguage = 'English';
+        this.currentFlag = uk
+      } else if (locale === 'fr') {
+        this.currentLanguage = 'French';
+        this.currentFlag = fr
+      }
+    },
+    changeDevise(option) {
+    this.selectedDevise = option.label;
+    this.devise = option.value;
+  },
+
+    async detectUserCountry() {
+      try {
+        const response = await axios.get('https://ipapi.co/json/');
+        const countryCode = response.data.country_code_iso3;
+        this.getCountries(countryCode)
+      } catch (error) {
+        console.error('Erreur lors de la détection du pays:', error);
+
+
+      }
+    },
+
+    async getCountries(detectedLanguage) {
+
+      try {
+
+        const response = await axios.get('https://restcountries.com/v3.1/all?lang=fr');
+        const countries = response.data;
+
+        const sortedCountries = countries.sort((a, b) => a.translations.fra.common.localeCompare(b.translations.fra.common));
+        const options = sortedCountries.map((country) => ({
+          label: country.translations.fra.common,
+          flag: country.flags.png,
+          value: country.translations.fra.common,
+          code: country.cca3
+        }));
+        const detected = options.find(i => i.code === detectedLanguage)
+        this.detected = detected.value
+        this.countriesOptions = options
+
+      } catch (error) {
+        console.error('Erreur lors de la récupération des données des pays:', error);
+      }
+    },
+    async getDeviseAll (){
+        try {
+            const response = await axiosInstance.get('liste/devises')
+            if(response.data.status === "success"){
+                 response.data.data?.data
+                 ?.filter(x => x.IsActive === 0)
+                 .map(d =>  this.DeviesArray?.push({
+                  label:d.Title,
+                  value:d.id
+                 }))
+
+                 console.log('responsesss',this.DeviesArray)
+            
+
+
+            }
+            
+        } catch (error) {
+            console.log('error',error)
+        }
+    },
+    changeCountry(country) {
+      console.log(country);
+
+
+    },
+    handleDrop(event) {
+      this.isDragging = false
+      const file = event.dataTransfer.files[0]
+      if (file && file.type.startsWith('image/')) {
+        createPreview(file)
+      }
+    },
+
+
+    handleFileSelect(event) {
+      const file = event.target.files[0]
+      if (file) {
+        this.createPreview(file)
+      }
+    },
+
+    handlePaste(event) {
+      const items = (event.clipboardData || event.originalEvent.clipboardData).items
+      for (const item of items) {
+        if (item.type.startsWith('image/')) {
+          const file = item.getAsFile()
+          this.createPreview(file)
+          break
+        }
+      }
+    },
+
+    // Création de la prévisualisation
+    createPreview(file) {
+      const reader = new FileReader()
+      reader.onload = (e) => {
+        this.previewImage = e.target.result
+      }
+      reader.readAsDataURL(file)
+    },
+
+    // Suppression de l'image
+    clearImage() {
+      this.previewImage = null
+      if (this.fileInput) {
+        this.fileInput.value = ''
+      }
+    }
+
+  },
+  beforeDestroy() {
+  document.removeEventListener("click", this.handleClickOutside);
+}
+
 }
 </script>
 <style lang="css" scoped>
-    
+.my-account--menuItem--1GDZChA {
+   display: -webkit-box;
+   display: -webkit-flex;
+   display: -ms-flexbox;
+   display: flex;
+   height: 44px;
+   -webkit-box-align: center;
+   -webkit-align-items: center;
+   -ms-flex-align: center;
+   align-items: flex-start;
+   padding: 0 8px;
+   cursor: pointer;
+}
+
+.my-account--accountIcon--ECZEGeo {
+   font-size: 32px;
+}
+
+
+.comet-icon {
+   display: inline-block;
+   color: inherit;
+   font-style: normal;
+   line-height: 0;
+   text-align: center;
+   text-transform: none;
+   vertical-align: -0.125em;
+   text-rendering: optimizeLegibility;
+   -webkit-font-smoothing: antialiased;
+   -moz-osx-font-smoothing: grayscale;
+}
+
+.my-account--text--2Yt_prE {
+   margin-left: 4px;
+}
+
+.my-account--text--2Yt_prE .my-account--small--3ni1QHm {
+   display: block;
+   font-size: 12px;
+   color: #000;
+   line-height: 12px;
+}
+
+.my-account--text--2Yt_prE>b {
+   font-weight: 700;
+   font-size: 12px;
+   color: #000;
+   line-height: 16px;
+}
+
+span.base--chevronIcon--25sHdop {
+   font-size: 18px;
+   vertical-align: middle;
+   color: #000;
+}
+
+.my-account--centerIcon--2yqLRkj {
+   margin-top: -3px;
+}
+
+span.base--responseIcon--3et2x1Z {
+   display: none;
+   font-size: 18px;
+   color: #000;
+}
+
+.comet-v2-popover[data-popper-placement^=bottom].comet-v2-popover-show-arrow {
+   padding-top: 10px;
+}
+
+.comet-v2-popover[data-popper-placement^=bottom].comet-v2-popover-show-arrow {
+   padding-top: 10px;
+}
+
+.comet-v2-popover[data-popper-placement^=bottom] {
+   padding-top: 3px;
+}
+
+.comet-v2-popover[data-popper-placement^=bottom] {
+   padding-top: 3px;
+}
+
+.comet-v2-popover {
+   -webkit-box-sizing: border-box;
+   box-sizing: border-box;
+   margin: 0;
+   padding: 0;
+   color: #222;
+   font-size: 14px;
+   font-variant: tabular-nums;
+   line-height: 1.5;
+   list-style: none;
+   -webkit-font-feature-settings: "tnum", "tnum";
+   font-feature-settings: "tnum", "tnum";
+   z-index: 1030;
+}
+
+.comet-v2-popover[data-popper-placement^=bottom]>.comet-v2-popover-arrow {
+   -webkit-box-shadow: -2px -2px 5px rgba(0, 0, 0, .06);
+   box-shadow: -2px -2px 5px rgba(0, 0, 0, .06);
+   border-top-color: #fff;
+   border-left-color: #fff;
+   top: 6px;
+}
+
+.comet-v2-popover[data-popper-placement^=bottom]>.comet-v2-popover-arrow {
+   -webkit-box-shadow: -2px -2px 5px rgba(0, 0, 0, .06);
+   box-shadow: -2px -2px 5px rgba(0, 0, 0, .06);
+   border-top-color: #fff;
+   border-left-color: #fff;
+   top: 6px;
+}
+
+.comet-v2-popover .comet-v2-popover-arrow {
+   width: 8.48528137px;
+   height: 8.48528137px;
+   border: 4.24264069px solid transparent;
+   -webkit-transform: rotate(45deg);
+   -ms-transform: rotate(45deg);
+   transform: rotate(45deg);
+}
+
+.comet-v2-popover-body {
+   border-radius: 6px;
+}
+
+.comet-v2-popover-body {
+   background-color: #fff;
+   line-height: 1.5;
+   font-size: 14px;
+   color: #222;
+   text-decoration: none;
+   word-wrap: break-word;
+   -webkit-box-shadow: 0 3px 6px -4px rgba(0, 0, 0, .12), 0 6px 16px 0 rgba(0, 0, 0, .08), 0 9px 28px 8px rgba(0, 0, 0, .05);
+   box-shadow: 0 3px 6px -4px rgba(0, 0, 0, .12), 0 6px 16px 0 rgba(0, 0, 0, .08), 0 9px 28px 8px rgba(0, 0, 0, .05);
+   border-radius: 4px;
+}
+
+.comet-v2-popover-body {
+   border-radius: 6px;
+}
+
+.my-account--popupCls--1C1NFJ2>div {
+   padding: 0;
+}
+
+.comet-v2-popover-content {
+   padding: 12px 16px;
+   word-break: break-word;
+}
+
+.comet-v2-popover-content {
+   padding: 12px 16px;
+   word-break: break-word;
+}
+
+.my-account--accountWrap--2FBvnYE {
+   width: 240px;
+}
+
+.my-account--userInfo--8cACzqQ {
+   padding: 20px 24px 0;
+   text-align: center;
+}
+
+.my-account--signin--RiPQVPB {
+   height: 40px;
+   width: 130px;
+   font-size: 16px;
+   background-color: var(--fc-primary);
+   /* border-radius: 24px; */
+   color: #fff;
+   font-weight: 700;
+}
+
+button,
+input[type=button],
+input[type=reset],
+input[type=submit] {
+   -webkit-appearance: button;
+   cursor: pointer;
+}
+
+.my-account--userInfo--8cACzqQ>p {
+   height: 18px;
+   font-size: 14px;
+   color: #000;
+   text-align: center;
+   line-height: 18px;
+   margin: 8px 0 16px;
+   cursor: pointer;
+}
+
+.my-account--line--QONK0VF {
+   display: block;
+   height: 1px;
+   width: 257px;
+   background-color: #ebebeb;
+}
+
+.my-account--menuBox--3f9Nx8S {
+
+   padding: 0 8px 16px;
+}
+
+.my-account--menuInfo--3YpLtBU {
+   padding: 10px 16px;
+   width: 288px;
+}
+
+.my-account--menuInfo--3YpLtBU li {
+   min-height: 40px;
+   list-style: none;
+   margin: 0;
+}
+
+.my-account--menuInfo--3YpLtBU li>a {
+   display: block;
+   font-size: 14px;
+   padding: 8px 0;
+   color: #222;
+}
+
+.my-account--menuInfo--3YpLtBU .my-account--icon--16yzkFW {
+   margin-right: 6px;
+   font-size: 16px;
+}
+
+.my-account--menuInfo--3YpLtBU li .my-account--menuText--1km-qni {
+   font-size: 16px;
+}
+
+
+/* debut devise  */
+
+.es--wrap--RYjm1RT {
+   display: inline-block;
+   position: relative;
+}
+
+.ship-to--menuItem--WdBDsYl {
+   display: -webkit-box;
+   display: -webkit-flex;
+   display: -ms-flexbox;
+   display: flex;
+   height: 44px;
+   -webkit-box-align: center;
+   -webkit-align-items: center;
+   -ms-flex-align: center;
+   align-items: center;
+   padding: 0 8px;
+   cursor: pointer;
+}
+
+.CI,
+.XOF {
+   background-position: -173px -131px;
+}
+
+.country-flag-y2023 {
+   background: url(//ae01.alicdn.com/kf/S8d12126…r.png) -775px -5px no-repeat;
+   display: inline-block;
+   zoom: .5;
+   -moz-transform: scale(.5);
+   width: 47px;
+   height: 33px;
+}
+
+.CI,
+.XOF {
+   background-position: -173px -131px;
+}
+
+.country-flag-y2023 {
+   background: url(//ae01.alicdn.com/kf/S8d12126…r.png) -775px -5px no-repeat;
+   display: inline-block;
+   zoom: .5;
+   -moz-transform: scale(.5);
+   width: 47px;
+   height: 33px;
+}
+
+.CI,
+.XOF {
+   background-position: -173px -131px;
+}
+
+.country-flag-y2023 {
+   zoom: .5;
+   background: url(//ae01.alicdn.com/kf/S8d12126…r.png) -775px -5px no-repeat;
+   display: inline-block;
+   height: 33px;
+   -moz-transform: scale(.5);
+   width: 47px;
+}
+
+@media screen and (max-width: 1280px) {
+   .ship-to--text--3H_PaoC {
+      display: none;
+   }
+}
+
+.ship-to--text--3H_PaoC {
+   margin-left: 4px;
+}
+
+.ship-to--text--3H_PaoC .ship-to--small--1wG1oGl {
+   display: block;
+   font-size: 12px;
+   color: #fff;
+   line-height: 12px;
+}
+
+.ship-to--text--3H_PaoC>b {
+   font-weight: 700;
+   font-size: 12px;
+   color: #fff;
+   line-height: 16px;
+}
+
+span.base--chevronIcon--25sHdop {
+   font-size: 18px;
+   vertical-align: middle;
+   color: #fff;
+}
+
+.ship-to--centerIcon--1viVSdj {
+   margin-top: -3px;
+}
+
+@media screen and (max-width: 1280px) {
+   span.base--responseIcon--3et2x1Z {
+      display: inline-block;
+   }
+}
+
+span.base--responseIcon--3et2x1Z {
+   display: none;
+   font-size: 18px;
+   color: #fff;
+}
+
+.es--contentWrap--ypzOXHr.es--visible--12ePDdG {
+   display: block;
+}
+
+.es--contentWrap--ypzOXHr:before {
+   content: "";
+   position: absolute;
+   top: -10px;
+   right: 48px;
+   display: block;
+   width: 0;
+   height: 0;
+   border-right: 12px solid transparent;
+   border-bottom: 10px solid #fff;
+   border-left: 12px solid transparent;
+}
+
+.es--contentWrap--ypzOXHr {
+   direction: ltr;
+   display: none;
+   position: absolute;
+   right: -52px;
+   width: 250px;
+   -webkit-box-sizing: border-box;
+   box-sizing: border-box;
+   margin-top: 24px;
+   padding: 8px 20px 20px;
+   color: #191919;
+   background: #fff;
+   border-radius: 0px;
+   -webkit-box-shadow: 0 2px 8px 0 rgba(0, 0, 0, .2);
+   box-shadow: 0 2px 8px 0 rgba(0, 0, 0, .2);
+   z-index: 1030;
+}
+
+.form-item--title--1ZN23sl {
+   margin-top: 10px;
+   line-height: 24px;
+   font-size: 16px;
+   font-weight: 700;
+}
+
+.form-item--content--33yK8CE {
+   margin-top: 8px;
+}
+
+.select--wrap--3N7DHe_ {
+   position: relative;
+   color: #191919;
+   background: #fff;
+   border-radius: 8px;
+}
+
+.select--text--1b85oDo {
+   position: relative;
+   height: 40px;
+   line-height: 40px;
+   padding: 0 12px;
+   border: 1px solid rgba(0, 0, 0, .2);
+   border-radius: 8px;
+   cursor: pointer;
+   overflow: hidden;
+   text-overflow: ellipsis;
+   white-space: nowrap;
+}
+
+.select--arrow--1cha40Y {
+   position: absolute;
+   top: 20px;
+   right: 12px;
+   width: 8px;
+   height: 1px;
+   background: #191919;
+   -webkit-transform: rotate(135deg);
+   -ms-transform: rotate(135deg);
+   transform: rotate(135deg);
+}
+
+.select--popup--W2YwXWt {
+   display: none;
+   position: absolute;
+   top: 42px;
+   left: 0;
+   width: 100%;
+   max-height: 300px;
+   background: #fff;
+   border: 1px solid rgba(0, 0, 0, .2);
+   border-radius: 8px;
+   overflow-y: auto;
+   z-index: 10;
+}
+
+.select--search--20Pss08 {
+   position: -webkit-sticky;
+   position: sticky;
+   top: 0;
+   left: 0;
+   padding: 12px;
+   background: #fff;
+}
+
+.select--search--20Pss08>input {
+   width: 100%;
+   height: 40px;
+   padding: 0 12px 0 36px;
+   background: #f5f5f5;
+   border: none;
+   border-radius: 8px;
+}
+
+.select--search--20Pss08 .select--searchIcon--y8pOuGW {
+   position: absolute;
+   top: 24px;
+   left: 24px;
+   width: 16px;
+   height: 16px;
+   border: 2px solid #757575;
+   border-radius: 50%;
+}
+
+.select--groupTitle--3La6ms2 {
+   margin: 0 12px;
+   line-height: 32px;
+   font-size: 12px;
+   font-weight: 700;
+   border-bottom: 1px solid #f5f5f5;
+}
+
+.select--item--32FADYB {
+   padding: 0 12px;
+   line-height: 32px;
+   font-size: 14px;
+   white-space: nowrap;
+   text-overflow: ellipsis;
+   overflow: hidden;
+   cursor: pointer;
+}
+
+.m-select .m-select-list.--left {
+   width: 100% !important;
+}
+
+.dropdown-container {
+   width: 300px;
+   z-index: 1000;
+}
+
+.dropdown-arrow {
+   position: absolute;
+   top: -8px;
+   right: 25px;
+   /* Ajustez cette valeur pour aligner avec l'icône */
+   width: 0;
+   height: 0;
+   border-left: 8px solid transparent;
+   border-right: 8px solid transparent;
+   border-bottom: 8px solid white;
+   filter: drop-shadow(0 -1px 1px rgba(0, 0, 0, 0.1));
+}
+
+.dropdown-content {
+   position: relative;
+   margin-top: 8px;
+}
+
+.drop-zone {
+   transition: all 0.3s ease;
+   min-height: 100px;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+}
+
+.drop-zone:hover {
+   background-color: rgba(0, 0, 0, 0.02);
+}
+
+.cursor-pointer {
+   cursor: pointer;
+}
+
+.preview-container {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+}
+
+/* Animations */
+.animate__animated {
+   animation-duration: 0.2s;
+}
+
+@keyframes fadeIn {
+   from {
+      opacity: 0;
+      transform: translateY(-10px);
+   }
+
+   to {
+      opacity: 1;
+      transform: translateY(0);
+   }
+}
+
+@keyframes fadeOut {
+   from {
+      opacity: 1;
+      transform: translateY(0);
+   }
+
+   to {
+      opacity: 0;
+      transform: translateY(-10px);
+   }
+}
+
+.animate__fadeIn {
+   animation-name: fadeIn;
+}
+
+.animate__fadeOut {
+   animation-name: fadeOut;
+}
+
+.navbar-container {
+  width: 100%;
+  overflow: visible;
+}
+
+.dropdown-menu-custom {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  z-index: 1000;
+  max-width: 300px; /* Ajustez selon vos besoins */
+  width: max-content;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.dropdown-content {
+  padding: 1rem;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.form-section {
+  margin-bottom: 1rem;
+}
+
+.form-item--title {
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+  color: #666;
+}
+
+
+
+
+/* Pour éviter le scroll horizontal */
+.MazSelect {
+  max-width: 100%;
+}
+
+/* Style pour les options longues */
+.select-option strong {
+  white-space: normal;
+  word-wrap: break-word;
+  max-width: calc(100% - 2rem); /* Tenir compte de l'avatar */
+}
 </style>
