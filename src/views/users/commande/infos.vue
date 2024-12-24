@@ -1,12 +1,23 @@
 <template >
     <div>
-        <div class="card">
+        <SkeletonClient v-if="loading " style="z-index: 99999"></SkeletonClient>
+
+        <div class="card" v-else>
             <div class="card-body">
                 <div class="row">
-                    <div class="col-12">
-                        <img src="../../../assets/images/avatar/avatar-1.jpg" class="mg-thumbnail rounded "
-                            style="border-radius: 50%; height: 60px; width: 60px;" alt="">
-                        <strong class="ms-3 fs-4 text-dark">NOm et prenom</strong>
+                    <div class="col-xl-12 row">
+                        <div class="col-xl-1">
+                            <img src="@/assets/images/avatar/avatar-1.jpg" class="mg-thumbnail rounded "
+                            style="border-radius: 50%; height: 100px; width: 100px;" alt="">
+                        </div>
+                      
+                            <div class="col-xl-8 ms-8">
+                                <strong class=" fs-5 text-dark">{{ profil?.Prenoms }} {{ profil?.Nom }}</strong> <br>
+                                <span class="text-muted">{{ profil?.pays }} </span> <br>
+                                <span class="text-muted">{{ profil?.email }}</span> <br>
+                                <span class="text-muted">{{ profil?.Whatsapp }}</span>
+                            </div>
+                      
                     </div>
                     <div class="col-12">
                         <div class="account-info-stats">
@@ -21,17 +32,7 @@
                                         </svg></span></div>
                                 <div class="account-info-stats-text">Mes favoris</div>
                             </div>
-                            <div class="account-info-stats-item">
-                                <div class="account-info-stats-num"><span
-                                        class="comet-icon comet-icon-followinglist account-info-stats-icon"><svg
-                                            viewBox="0 0 1024 1024" width="1em" height="1em" fill="currentColor"
-                                            aria-hidden="false" focusable="false">
-                                            <path
-                                                d="M896 832v64H640v-64h256zM128 832c0-68.544 7.786667-119.125333 24.704-152.96 21.994667-43.989333 50.816-64.576 122.304-100.266667 39.552-17.6 72.746667-31.445333 101.930667-42.773333l7.872-3.029333 8.298666-3.136 11.946667-4.437334 11.946667-4.309333 18.858666-6.72 6.869334-2.389333L448 512v65.984l-24.746667 8.896-15.594666 5.866667c-16.362667 6.250667-34.069333 13.354667-53.418667 21.461333l-9.813333 4.117333-20.48 8.789334-21.632 9.514666c-57.813333 28.906667-78.784 43.882667-92.373334 71.018667-10.944 21.930667-17.322667 60.949333-17.898666 115.968L192 832h-0.021333H576v64H128v-64z m768-160v64H640v-64h256z m-320 0v64h-64v-64h64z m0-160v64h-64v-64h64z m320 0v64H640v-64h256zM458.666667 128a160 160 0 1 1 0 320 160 160 0 0 1 0-320z m0 64a96 96 0 1 0 0 192 96 96 0 0 0 0-192z">
-                                            </path>
-                                        </svg></span></div>
-                                <div class="account-info-stats-text">Abonnements</div>
-                            </div>
+                           
                             <div class="account-info-stats-item">
                                 <div class="account-info-stats-num"><span
                                         class="comet-icon comet-icon-viewed account-info-stats-icon"><svg
@@ -43,27 +44,6 @@
                                         </svg></span></div>
                                 <div class="account-info-stats-text">Vus récemment</div>
                             </div>
-                            <!-- <div class="account-info-stats-item">
-                                <div class="account-info-stats-num"><span
-                                        class="comet-icon comet-icon-coupon account-info-stats-icon"><svg
-                                            viewBox="0 0 1024 1024" width="1em" height="1em" fill="currentColor"
-                                            aria-hidden="false" focusable="false">
-                                            <path
-                                                d="M96 256h832a32 32 0 0 1 31.850667 28.928L960 288v149.333333a32 32 0 0 1-28.928 31.850667l-6.250667 0.256a42.666667 42.666667 0 0 0 0 85.12l6.250667 0.256a32 32 0 0 1 28.8 28.778667L960 586.666667V768h-64v-154.218667a106.709333 106.709333 0 0 1-4.437333-202.069333l4.437333-1.493333V320H648.064a32 32 0 1 1-58.794667 0H128v90.218667a106.709333 106.709333 0 0 1 4.437333 202.069333L128 613.76V704h522.666667v64h-554.666667a32 32 0 0 1-31.850667-28.928L64 736v-149.333333a32 32 0 0 1 28.928-31.850667l6.250667-0.256a42.666667 42.666667 0 0 0 0-85.12l-6.250667-0.256a32 32 0 0 1-28.8-28.778667L64 437.333333v-149.333333a32 32 0 0 1 28.928-31.850667L96 256h832-832zM618.666667 608a32 32 0 1 1-0.021334 64.021333A32 32 0 0 1 618.666667 608z m0-102.442667a32 32 0 1 1-0.021334 64.021334A32 32 0 0 1 618.666667 505.557333z m0-102.442666a32 32 0 1 1-0.021334 64 32 32 0 0 1 0.021334-64z">
-                                            </path>
-                                        </svg></span></div>
-                                <div class="account-info-stats-text">Coupons </div>
-                            </div> -->
-                            <div class="account-info-stats-item">
-                                <div class="account-info-stats-num"><span class="comet-icon account-info-stats-icon"><svg
-                                            viewBox="0 0 1024 1024" width="1em" height="1em" fill="currentColor"
-                                            aria-hidden="false" focusable="false">
-                                            <path
-                                                d="M704 470.528c129.6 0 234.666667 105.066667 234.666667 234.666667s-105.066667 234.666667-234.666667 234.666666-234.666667-105.066667-234.666667-234.666666 105.066667-234.666667 234.666667-234.666667z m0 53.333333c-100.149333 0-181.333333 81.184-181.333333 181.333334 0 100.16 81.184 181.333333 181.333333 181.333333s181.333333-81.173333 181.333333-181.333333c0-100.149333-81.184-181.333333-181.333333-181.333334z m5.333333 37.333334a26.666667 26.666667 0 0 1 26.613334 24.917333l0.053333 1.749333 0.010667 20.373334a110.346667 110.346667 0 0 1 51.765333 32.042666 26.666667 26.666667 0 0 1-38.229333 37.152l-1.322667-1.376c-9.813333-10.848-23.786667-17.653333-39.317333-18.666666-17.226667-1.152-32.106667 3.04-40.170667 10.986666a9.28 9.28 0 0 0-2.048 4.938667l-0.042667 1.258667c0.010667 0.394667 0.085333 0.533333 0.202667 0.661333 1.792 2.016 4.618667 3.701333 8.714667 5.034667l2.848 0.810666 1.941333 0.469334 2.986667 0.576 2.272 0.32 4.224 0.437333 10.858666 0.896 8.746667 0.213333 10.389333 0.778667 2.485334 0.213333 4.693333 0.501334c6.24 0.725333 12.021333 1.781333 17.728 3.349333 14.293333 3.925333 26.645333 10.730667 36.288 21.578667 9.941333 11.189333 14.613333 25.642667 13.461333 41.141333-1.045333 14.709333-7.68 29.184-17.813333 39.146667-11.125333 10.944-25.12 18.410667-40.661333 22.56L736 833.205333a26.666667 26.666667 0 0 1-53.28 1.749334L682.666667 833.194667v-17.888a110.72 110.72 0 0 1-62.442667-34.517334 26.666667 26.666667 0 0 1 38.218667-37.152l1.333333 1.365334c9.813333 10.848 23.786667 17.653333 39.317333 18.677333 17.216 1.152 32.096-3.050667 40.170667-10.997333 0.853333-0.832 1.898667-3.125333 2.026667-4.992l0.042666-0.725334-0.021333-0.8a0.586667 0.586667 0 0 0-0.149333-0.32c-2.058667-2.314667-5.461333-4.192-10.56-5.589333l-1.994667-0.522667-1.92-0.426666-2.026667-0.362667-2.282666-0.32-4.224-0.437333-12.128-1.034667-7.488-0.074667-10.378667-0.789333-4.853333-0.448-2.325334-0.256a118.741333 118.741333 0 0 1-17.696-3.338667c-14.325333-3.925333-26.666667-10.741333-36.266666-21.546666-9.984-11.178667-14.634667-25.632-13.525334-41.184 1.045333-14.72 7.712-29.194667 17.813334-39.146667 13.621333-13.408 31.562667-21.589333 51.36-24.853333v-17.653334a26.666667 26.666667 0 0 1 26.666666-26.666666zM821.333333 170.666667c63.776 0 115.658667 50.88 117.290667 114.261333L938.666667 288v192a32 32 0 0 1-63.946667 1.877333L874.666667 480v-53.333333H149.333333v309.333333a53.333333 53.333333 0 0 0 51.018667 53.28L202.666667 789.333333h192a32 32 0 0 1 1.877333 63.946667L394.666667 853.333333H202.666667c-63.776 0-115.658667-50.88-117.290667-114.261333L85.333333 736V288c0-63.776 50.88-115.658667 114.261334-117.290667L202.666667 170.666667h618.666666zM384 606.805333a32 32 0 1 1 0 64H245.333333a32 32 0 0 1 0-64h138.666667zM821.333333 234.666667H202.666667a53.333333 53.333333 0 0 0-53.28 51.018666L149.333333 288v74.666667h725.333334v-74.666667a53.333333 53.333333 0 0 0-51.018667-53.28L821.333333 234.666667z">
-                                            </path>
-                                        </svg></span></div>
-                                <div class="account-info-stats-text">Cagnotte</div>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -71,54 +51,7 @@
         </div>
     
         <div class="account-order">
-            <div class="account-order-header">
-                <div class="account-order-title">Commandes</div>
-                <div class="account-order-extra">Voir tout <span class="comet-icon comet-icon-arrowright arrow-icon"><svg
-                            viewBox="0 0 1024 1024" width="1em" height="1em" fill="currentColor" aria-hidden="false"
-                            focusable="false">
-                            <path
-                                d="M280.96 938.197333a32 32 0 0 0 42.517333 5.397334l2.602667-2.005334 393.856-338.901333a107.52 107.52 0 0 0 5.333333-158.101333l-3.221333-3.050667L326.698667 82.965333a32 32 0 0 0-45.312 45.077334l2.304 2.346666L679.04 488.917333a43.52 43.52 0 0 1 1.770667 62.784l-2.624 2.432-393.856 338.922667a32 32 0 0 0-3.392 45.12z">
-                            </path>
-                        </svg></span></div>
-            </div>
-            <div class="account-order-content">
-                <div class="account-order-status"><img class="status-image"
-                        src="//ae01.alicdn.com/kf/H349adf833fca48ab82998712df5ba125c.png">
-                    <div class="account-order-status-text">Non-payées</div>
-                </div>
-                <div class="account-order-status"><img class="status-image"
-                        src="//ae01.alicdn.com/kf/H23cba674f64e4821ae38b40ed17f7b42F.png">
-                    <div class="account-order-status-text">En attente d'expédition</div>
-                </div>
-                <div class="account-order-status"><img class="status-image"
-                        src="//ae01.alicdn.com/kf/Hec4afd05f61648a3831e2e35bcf05ba3X.png">
-                    <div class="account-order-status-text">Expédiées</div>
-                </div>
-                <div class="account-order-status"><img class="status-image"
-                        src="//ae01.alicdn.com/kf/H6b216a31f4fa4b72884778014e6c407d0.png">
-                    <div class="account-order-status-text">En attente d'évaluation</div>
-                </div>
-            </div>
-            <div class="slick-slider account-order-slider slick-initialized">
-                <div class="slick-list">
-                    <div class="slick-track" style="opacity: 1; transform: translate3d(0px, 0px, 0px);"></div>
-                </div>
-            </div>
-            <div class="account-order-dispute"><span class="comet-icon comet-icon-createarticle dispute-icon"><svg
-                        viewBox="0 0 1024 1024" width="1em" height="1em" fill="currentColor" aria-hidden="false"
-                        focusable="false">
-                        <path
-                            d="M792.661333 138.666667C848.746667 138.666667 896 179.178667 896 231.829333v66.56h-64v-66.56c0-14.933333-16.597333-29.162667-39.338667-29.162666H231.338667C208.64 202.666667 192 216.917333 192 231.829333v581.674667c0 14.912 16.64 29.162667 39.338667 29.162667h561.322666c22.72 0 39.338667-14.250667 39.338667-29.162667V554.666667h64v258.837333c0 52.629333-47.274667 93.162667-103.338667 93.162667H231.338667C175.296 906.666667 128 866.133333 128 813.504V231.829333C128 179.178667 175.274667 138.666667 231.338667 138.666667z m77.248 235.690666l15.872 15.872c8.746667 8.789333 8.746667 22.976 0 31.765334L564.778667 742.997333l-68.650667 28.394667a5.632 5.632 0 0 1-7.36-7.338667l28.373333-68.693333 321.002667-321.002667a22.442667 22.442667 0 0 1 31.765333 0zM512 522.666667v64h-192v-64h192z m128-192v64H320v-64h320z">
-                        </path>
-                    </svg></span>
-                <div class="account-order-dispute-text">Réclamations</div><span
-                    class="comet-icon comet-icon-arrowright dispute-arrow"><svg viewBox="0 0 1024 1024" width="1em"
-                        height="1em" fill="currentColor" aria-hidden="false" focusable="false">
-                        <path
-                            d="M280.96 938.197333a32 32 0 0 0 42.517333 5.397334l2.602667-2.005334 393.856-338.901333a107.52 107.52 0 0 0 5.333333-158.101333l-3.221333-3.050667L326.698667 82.965333a32 32 0 0 0-45.312 45.077334l2.304 2.346666L679.04 488.917333a43.52 43.52 0 0 1 1.770667 62.784l-2.624 2.432-393.856 338.922667a32 32 0 0 0-3.392 45.12z">
-                        </path>
-                    </svg></span>
-            </div>
+           
             <div class="account-order-dispute"><span class="comet-icon comet-icon-earnbyshare dispute-icon"><svg
                         viewBox="0 0 1024 1024" width="1em" height="1em" fill="currentColor" aria-hidden="false"
                         focusable="false">
@@ -138,17 +71,56 @@
     </div>
 </template>
 <script>
+import SkeletonClient from '@/components/others/loader/SkeletonClient.vue';
+import axios from '@/lib/axiosConfig';
+
 export default {
+   components:{
+    SkeletonClient
+   },
    data() {
       return {
+        profil:"",
+        loading:true,
          
       }
    },
-   mounted() {
-   ;
+   computed: {
+  
+   loggedInUser() {
+      return this.$store.getters["auth/myAuthenticatedUser"];
+    },
+  
+   
+ },
+  async mounted() {
+   await this.fetchUserDetail()
+     
    },
    methods: {
-    
+      async fetchUserDetail() {
+      try {
+        const response = await axios.get("/auth-user", {
+          headers: {
+            Authorization: `Bearer ${this.loggedInUser.token}`,
+          },
+        });
+        if (response.data.status === "success") {
+          this.profil = response.data.data;
+            console.log(this.profil)
+          this.loading = false;
+        }
+      } catch (error) {
+        console.log(error)
+        if (
+          error.response.data.message === "Vous n'êtes pas autorisé." ||
+          error.response.status === 401
+        ) {
+          await this.$store.dispatch("auth/clearMyAuthenticatedUser");
+          this.$router.push("/"); //a revoir
+        }
+      }
+    },
    },
 
 }

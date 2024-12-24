@@ -5,6 +5,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 //  import "@/assets/libs/slick-carousel/slick/slick.min.js"
 // import "@/assets/libs/slick-carousel/slick/slick.css"
 // import "@/assets/libs/slick-carousel/slick/slick-theme.css"
@@ -22,7 +23,7 @@ import "@/assets/css/theme.min.css"
   export default {
   name:'App',
   created() {
-   
+    this.fetchDevises();
   },
   watch: {
     
@@ -41,6 +42,9 @@ import "@/assets/css/theme.min.css"
         top: 0,
         behavior: "smooth",
       });
+  },
+  methods: {
+    ...mapActions('devise', ['fetchDevises']),
   },
   
 }

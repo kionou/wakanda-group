@@ -14,38 +14,18 @@
                            <div class="row align-items-center">
                               <div class="col-6 col-md-6 col-lg-7">
                                  <div class="d-flex">
-                                    <img :src="item.Photos ? item.Photos : defaultImage" :alt="item.NomProduit"
+                                    <img :src="item.PhotoCover ? item.PhotoCover : defaultImage" :alt="item.NomProduit"
                                        :title="item.Nomproduit" class="icon-shape icon-xxl ms-2" />
                                     <div class="ms-3">
                                        <!-- title -->
-                                       <router-link :to="{ name: 'detail', params: { id: item.idProducts }}"
+                                       <router-link :to="{ name: 'detail', params: { id: item.id }}"
                                           class="text-inherit">
                                           <h6 class="mb-0">{{ item.NomProduit }}</h6>
                                        </router-link>
-                                       <span><small class="text-muted">{{ item.Prix }}</small></span>
+                                       <span><small class="text-muted">{{ formatPrice(item.Prix)}} {{ item.devise?.Symbol }}</small></span>
                                        <!-- text -->
                                        <div class="mt-2 small lh-1">
-   
-   
-                                          <!-- <button @click="removeItem(item.idProducts)"  
-                                                   :disabled="isLoadingItem(item.idProducts)"
-                                                   class="text-decoration-none text-inherit">
-                                                   <span class="me-1 align-text-bottom">
-                                                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
-                                                         viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                                         stroke-linecap="round" stroke-linejoin="round"
-                                                         class="feather feather-trash-2 text-success">
-                                                         <polyline points="3 6 5 6 21 6"></polyline>
-                                                         <path
-                                                            d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
-                                                         </path>
-                                                         <line x1="10" y1="11" x2="10" y2="17"></line>
-                                                         <line x1="14" y1="11" x2="14" y2="17"></line>
-                                                      </svg>
-                                                   </span>
-                                                   <span class="text-muted">Supprimer</span>
-                                                </button> -->
-                                          <button data-bs-toggle="modal" data-bs-target="#delete_product"  @click="removeItem(item.idProducts)"
+                                          <button data-bs-toggle="modal" data-bs-target="#delete_product"  @click="removeItem(item.id)"
                                              class="text-decoration-none text-inherit">
                                              <span class="me-1 align-text-bottom">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
@@ -72,14 +52,14 @@
                                  <div class="input-group input-spinner">
                                     <!-- Bouton de diminution -->
                                     <button class="button-minus btn btn-sm"
-                                       @click="updateQuantity(item.idProducts, 'decrease')"
-                                       :disabled="isLoadingItem(item.idProducts)">
+                                       @click="updateQuantity(item.id, 'decrease')"
+                                       :disabled="isLoadingItem(item.id)">
                                        <span>-</span>
    
                                     </button>
    
                                     <!-- Quantité -->
-                                    <template v-if="isLoadingItem(item.idProducts)">
+                                    <template v-if="isLoadingItem(item.id)">
                                        <!-- Loader à la place de l'input pendant le chargement -->
                                        <LoaderBtn class="loadingbtn"></LoaderBtn>
                                     </template>
@@ -91,8 +71,8 @@
    
                                     <!-- Bouton d'augmentation -->
                                     <button class="button-plus btn btn-sm"
-                                       @click="updateQuantity(item.idProducts, 'increase')"
-                                       :disabled="isLoadingItem(item.idProducts)">
+                                       @click="updateQuantity(item.id, 'increase')"
+                                       :disabled="isLoadingItem(item.id)">
                                        <span>+</span>
    
                                     </button>
@@ -100,7 +80,7 @@
                               </div>
                               <!-- price -->
                               <div class="col-2 text-lg-end text-start text-md-end col-md-2">
-                                 <span class="fw-bold">${{ item.Prix }}</span>
+                                 <span class="fw-bold">{{ formatPrice(item.Prix * item.quantity)}} {{ item.devise.Symbol }}</span>
                               </div>
                            </div>
                         </li>
@@ -152,37 +132,13 @@
    
                            <div class="d-grid mb-1 mt-4">
                               <!-- btn -->
-                              <button class="btn btn-primary btn-lg d-flex justify-content-between align-items-center">
-                                 Go to Checkout
-                                 <span class="fw-bold">{{ formatPrice(total) }} F CFA</span>
+                               <router-link to="valider">
+                                 <button class="btn btn-primary btn-lg d-flex justify-content-between align-items-center">
+                                 Commander 
+                                 <span class="ms-2 fw-bold">{{ formatPrice(total) }} F CFA</span>
                               </button>
-                           </div>
-   
-                           <!-- text -->
-                           <!-- <p>
-                              <small>
-                                 By placing your order, you agree to be bound by the Freshcart
-                                 <a href="#!">Terms of Service</a>
-                                 and
-                                 <a href="#!">Privacy Policy.</a>
-                              </small>
-                           </p> -->
-   
-                           <!-- heading -->
-                           <div class="mt-8">
-                              <h2 class="h5 mb-3">Add Promo or Gift Card</h2>
-                              <form>
-                                 <div class="mb-2">
-                                    <!-- input -->
-                                    <label for="giftcard" class="form-label sr-only">Promo or Gift Card</label>
-                                    <input type="text" class="form-control" id="giftcard"
-                                       placeholder="Promo or Gift Card" />
-                                 </div>
-                                 <!-- btn -->
-                                 <div class="d-grid"><button type="submit"
-                                       class="btn btn-outline-dark mb-1">Redeem</button></div>
-                                 <p class="text-muted mb-0"><small>Terms & Conditions apply</small></p>
-                              </form>
+                               </router-link>
+                           
                            </div>
                         </div>
                      </div>
@@ -195,7 +151,7 @@
                   <div class="cart-main">
                      <div class="cart-empty-group ">
                         <div class="es--comet-pro-fallback--3ctNGin es--pc--1mZE03B cart-empty-wrap">
-                           <img src="../assets/img/cart.png" class="es--comet-pro-fallback-image--35CZGig es--pc--1mZE03B">
+                           <img src="@/assets/img/cart.png" class="es--comet-pro-fallback-image--35CZGig es--pc--1mZE03B">
                            <span class="es--comet-pro-fallback-title--1dzE5qT es--pc--1mZE03B text-center"
                               style="font-size: 16px; padding: 16px 0px;">Pas encore d'articles ? Continuez votre shopping
                               pour en trouver.</span>
@@ -282,6 +238,7 @@ export default {
         return total + item.quantity * itemPrice;
       }, 0);
     },
+   
     serviceFee() {
       return 2000;
     },

@@ -1,6 +1,8 @@
 <template>
     <div>
-        <main>
+        <SkeletonCategorie v-if="loading " style="z-index: 99999"></SkeletonCategorie>
+
+        <main v-else>
             <!-- section-->
             <div class="mt-4">
     
@@ -66,128 +68,21 @@
     
             </div>
             <div class="lv3Category--lv3Category--1hf3Fqv">
-                <div class="lv3Category--lv3CategoryContentCatainer--3covqIo ">
-                    <div class="lv3Category--lv3CategoryBox--1Nts99Z" >
+                <div v-if="CategoriesChildrenArray.length === 0" class="text-center text-danger fw-bold fs-4">Pas de données</div>
+                <div class="lv3Category--lv3CategoryContentCatainer--3covqIo " v-else>
+                    <div class="lv3Category--lv3CategoryBox--1Nts99Z ms-2" v-for="(category,index) in CategoriesChildrenArray" :key="index" >
                         <a
                             href="#">
                             <div class="lv3Category--lv3CategoryContent--2eCQWkm card card-product">
                                 <div class="lv3Category--lv3CategoryContentImg--2GZvdRG">
                                     <div class="lv3Category--lv3CategoryContentMask--1VpLYwR"></div>
-                                    <img src="http://ae04.alicdn.com/kf/Seb72685ba75f427ab63e2c15cd340179n.png_.webp">
+                                    <img :src=" category.Image">
                                 </div>
-                                <div class="lv3Category--lv3CategoryContentName--2JnCa6z">Objectifs appareil photo</div>
+                                <div class="lv3Category--lv3CategoryContentName--2JnCa6z">{{ category.NomCategorie }}</div>
                             </div>
                         </a>
                     </div>
-                    <div class="lv3Category--lv3CategoryBox--1Nts99Z" >
-                        <a
-                            href="#">
-                            <div class="lv3Category--lv3CategoryContent--2eCQWkm card card-product">
-                                <div class="lv3Category--lv3CategoryContentImg--2GZvdRG">
-                                    <div class="lv3Category--lv3CategoryContentMask--1VpLYwR"></div>
-                                    <img src="http://ae04.alicdn.com/kf/Seb72685ba75f427ab63e2c15cd340179n.png_.webp">
-                                </div>
-                                <div class="lv3Category--lv3CategoryContentName--2JnCa6z">Objectifs appareil photo</div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="lv3Category--lv3CategoryBox--1Nts99Z" >
-                        <a
-                            href="#">
-                            <div class="lv3Category--lv3CategoryContent--2eCQWkm card card-product">
-                                <div class="lv3Category--lv3CategoryContentImg--2GZvdRG">
-                                    <div class="lv3Category--lv3CategoryContentMask--1VpLYwR"></div>
-                                    <img src="http://ae04.alicdn.com/kf/Seb72685ba75f427ab63e2c15cd340179n.png_.webp">
-                                </div>
-                                <div class="lv3Category--lv3CategoryContentName--2JnCa6z">Objectifs appareil photo</div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="lv3Category--lv3CategoryBox--1Nts99Z" >
-                        <a
-                            href="#">
-                            <div class="lv3Category--lv3CategoryContent--2eCQWkm card card-product">
-                                <div class="lv3Category--lv3CategoryContentImg--2GZvdRG">
-                                    <div class="lv3Category--lv3CategoryContentMask--1VpLYwR"></div>
-                                    <img src="http://ae04.alicdn.com/kf/Seb72685ba75f427ab63e2c15cd340179n.png_.webp">
-                                </div>
-                                <div class="lv3Category--lv3CategoryContentName--2JnCa6z">Objectifs appareil photo</div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="lv3Category--lv3CategoryBox--1Nts99Z" >
-                        <a
-                            href="#">
-                            <div class="lv3Category--lv3CategoryContent--2eCQWkm card card-product">
-                                <div class="lv3Category--lv3CategoryContentImg--2GZvdRG">
-                                    <div class="lv3Category--lv3CategoryContentMask--1VpLYwR"></div>
-                                    <img src="http://ae04.alicdn.com/kf/Seb72685ba75f427ab63e2c15cd340179n.png_.webp">
-                                </div>
-                                <div class="lv3Category--lv3CategoryContentName--2JnCa6z">Objectifs appareil photo</div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="lv3Category--lv3CategoryBox--1Nts99Z" >
-                        <a
-                            href="#">
-                            <div class="lv3Category--lv3CategoryContent--2eCQWkm card card-product">
-                                <div class="lv3Category--lv3CategoryContentImg--2GZvdRG">
-                                    <div class="lv3Category--lv3CategoryContentMask--1VpLYwR"></div>
-                                    <img src="http://ae04.alicdn.com/kf/Seb72685ba75f427ab63e2c15cd340179n.png_.webp">
-                                </div>
-                                <div class="lv3Category--lv3CategoryContentName--2JnCa6z">Objectifs appareil photo</div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="lv3Category--lv3CategoryBox--1Nts99Z" >
-                        <a
-                            href="#">
-                            <div class="lv3Category--lv3CategoryContent--2eCQWkm card card-product">
-                                <div class="lv3Category--lv3CategoryContentImg--2GZvdRG">
-                                    <div class="lv3Category--lv3CategoryContentMask--1VpLYwR"></div>
-                                    <img src="http://ae04.alicdn.com/kf/Seb72685ba75f427ab63e2c15cd340179n.png_.webp">
-                                </div>
-                                <div class="lv3Category--lv3CategoryContentName--2JnCa6z">Objectifs appareil photo</div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="lv3Category--lv3CategoryBox--1Nts99Z" >
-                        <a
-                            href="#">
-                            <div class="lv3Category--lv3CategoryContent--2eCQWkm card card-product">
-                                <div class="lv3Category--lv3CategoryContentImg--2GZvdRG">
-                                    <div class="lv3Category--lv3CategoryContentMask--1VpLYwR"></div>
-                                    <img src="http://ae04.alicdn.com/kf/Seb72685ba75f427ab63e2c15cd340179n.png_.webp">
-                                </div>
-                                <div class="lv3Category--lv3CategoryContentName--2JnCa6z">Objectifs appareil photo</div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="lv3Category--lv3CategoryBox--1Nts99Z" >
-                        <a
-                            href="#">
-                            <div class="lv3Category--lv3CategoryContent--2eCQWkm card card-product">
-                                <div class="lv3Category--lv3CategoryContentImg--2GZvdRG">
-                                    <div class="lv3Category--lv3CategoryContentMask--1VpLYwR"></div>
-                                    <img src="http://ae04.alicdn.com/kf/Seb72685ba75f427ab63e2c15cd340179n.png_.webp">
-                                </div>
-                                <div class="lv3Category--lv3CategoryContentName--2JnCa6z">Objectifs appareil photo</div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="lv3Category--lv3CategoryBox--1Nts99Z" >
-                        <a
-                            href="#">
-                            <div class="lv3Category--lv3CategoryContent--2eCQWkm card card-product mb-4">
-                                <div class="lv3Category--lv3CategoryContentImg--2GZvdRG">
-                                    <div class="lv3Category--lv3CategoryContentMask--1VpLYwR"></div>
-                                    <img src="http://ae04.alicdn.com/kf/Seb72685ba75f427ab63e2c15cd340179n.png_.webp">
-                                </div>
-                                <div class="lv3Category--lv3CategoryContentName--2JnCa6z">Objectifs appareil photo</div>
-                            </div>
-                        </a>
-                    </div>
-                 
+ 
                  
                 </div>
             </div>
@@ -207,334 +102,31 @@
                             </div>
                             <div class="offcanvas-body ps-lg-2 pt-lg-0">
                                 <div class="mb-8">
-                                    <!-- title -->
-                                    <h5 class="mb-3">Categories</h5>
-                                    <!-- nav -->
+                                   
+                                    <h5 class="mb-3 mb-3 bg-primary p-2 text-center text-white">Categories</h5>
+                                    
                                     <ul class="nav nav-category" id="categoryCollapseMenu">
-                                        <li class="nav-item border-bottom w-100">
-                                            <a href="#" class="nav-link collapsed" data-bs-toggle="collapse"
-                                                data-bs-target="#categoryFlushOne" aria-expanded="false"
-                                                aria-controls="categoryFlushOne">
-                                                Dairy, Bread & Eggs
-                                                <i class="feather-icon icon-chevron-right"></i>
+                                        <li 
+                                            class="nav-item border-bottom w-100 card px-2 mt-1" 
+                                            v-for="(category, index) in CategoriesArray" 
+                                            :key="index" 
+                                            :class="{ active: category.id === getActiveCategoryId }"
+                                        >
+                                            <a :href="`/list-categories/${category.id}`" class="nav-link collapsed justify-content-start">
+                                            <img 
+                                                :src="category.Image !== null ? category.Image : defaultImageCategorie"
+                                                :alt="category.NomCategorie" 
+                                                width="24" 
+                                                height="24" 
+                                                style="width:20px; margin-right: 5px;"
+                                            >
+                                            <span>{{ category.NomCategorie }}</span>
                                             </a>
-                                            <!-- accordion collapse -->
-                                            <div id="categoryFlushOne" class="accordion-collapse collapse"
-                                                data-bs-parent="#categoryCollapseMenu">
-                                                <div>
-                                                    <!-- nav -->
-    
-                                                    <ul class="nav flex-column ms-3">
-                                                        <!-- nav item -->
-                                                        <li class="nav-item"><a href="#!" class="nav-link">Milk</a></li>
-                                                        <!-- nav item -->
-                                                        <li class="nav-item"><a href="#!" class="nav-link">Milk Drinks</a>
-                                                        </li>
-                                                        <!-- nav item -->
-                                                        <li class="nav-item"><a href="#!" class="nav-link">Curd & Yogurt</a>
-                                                        </li>
-                                                        <!-- nav item -->
-                                                        <li class="nav-item"><a href="#!" class="nav-link">Eggs</a></li>
-                                                        <!-- nav item -->
-                                                        <li class="nav-item"><a href="#!" class="nav-link">Bread</a></li>
-                                                        <!-- nav item -->
-                                                        <li class="nav-item"><a href="#!" class="nav-link">Buns & Bakery</a>
-                                                        </li>
-                                                        <!-- nav item -->
-                                                        <li class="nav-item"><a href="#!" class="nav-link">Butter & More</a>
-                                                        </li>
-                                                        <!-- nav item -->
-                                                        <li class="nav-item"><a href="#!" class="nav-link">Cheese</a></li>
-                                                        <!-- nav item -->
-                                                        <li class="nav-item"><a href="#!" class="nav-link">Paneer & Tofu</a>
-                                                        </li>
-                                                        <!-- nav item -->
-                                                        <li class="nav-item"><a href="#!" class="nav-link">Cream &
-                                                                Whitener</a></li>
-                                                        <!-- nav item -->
-                                                        <li class="nav-item"><a href="#!" class="nav-link">Condensed
-                                                                Milk</a></li>
-                                                        <!-- nav item -->
-                                                        <li class="nav-item"><a href="#!" class="nav-link">Vegan Drinks</a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
                                         </li>
-                                        <!-- nav item -->
-                                        <li class="nav-item border-bottom w-100">
-                                            <a href="#" class="nav-link collapsed" data-bs-toggle="collapse"
-                                                data-bs-target="#flush-collapseTwo" aria-expanded="false"
-                                                aria-controls="flush-collapseTwo">
-                                                Snacks & Munchies
-                                                <i class="feather-icon icon-chevron-right"></i>
-                                            </a>
-    
-                                            <!-- collapse -->
-                                            <div id="flush-collapseTwo" class="accordion-collapse collapse"
-                                                data-bs-parent="#categoryCollapseMenu">
-                                                <div>
-                                                    <ul class="nav flex-column ms-3">
-                                                        <!-- nav item -->
-                                                        <li class="nav-item"><a href="#!" class="nav-link">Chips &
-                                                                Crisps</a></li>
-                                                        <!-- nav item -->
-                                                        <li class="nav-item"><a href="#!" class="nav-link">Nachos</a></li>
-                                                        <!-- nav item -->
-                                                        <li class="nav-item"><a href="#!" class="nav-link">Popcorn</a></li>
-                                                        <!-- nav item -->
-                                                        <li class="nav-item"><a href="#!" class="nav-link">Bhujia &
-                                                                Mixtures</a></li>
-                                                        <!-- nav item -->
-                                                        <li class="nav-item"><a href="#!" class="nav-link">Namkeen
-                                                                Snacks</a></li>
-                                                        <!-- nav item -->
-                                                        <li class="nav-item"><a href="#!" class="nav-link">Healthy
-                                                                Snacks</a></li>
-                                                        <!-- nav item -->
-                                                        <li class="nav-item"><a href="#!" class="nav-link">Cakes & Rolls</a>
-                                                        </li>
-                                                        <!-- nav item -->
-                                                        <li class="nav-item"><a href="#!" class="nav-link">Energy Bars</a>
-                                                        </li>
-                                                        <!-- nav item -->
-                                                        <li class="nav-item"><a href="#!" class="nav-link">Papad &
-                                                                Fryums</a></li>
-                                                        <!-- nav item -->
-                                                        <li class="nav-item"><a href="#!" class="nav-link">Rusks &
-                                                                Wafers</a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li class="nav-item border-bottom w-100">
-                                            <a href="#" class="nav-link collapsed" data-bs-toggle="collapse"
-                                                data-bs-target="#flush-collapseThree" aria-expanded="false"
-                                                aria-controls="flush-collapseThree">
-                                                Fruits & Vegetables
-                                                <i class="feather-icon icon-chevron-right"></i>
-                                            </a>
-    
-                                            <!-- collapse -->
-                                            <div id="flush-collapseThree" class="accordion-collapse collapse"
-                                                data-bs-parent="#categoryCollapseMenu">
-                                                <div>
-                                                    <ul class="nav flex-column ms-3">
-                                                        <!-- nav item -->
-                                                        <li class="nav-item">
-                                                            <a class="nav-link active" aria-current="page" href="#!">Fresh
-                                                                Vegetables</a>
-                                                        </li>
-                                                        <!-- nav item -->
-                                                        <li class="nav-item">
-                                                            <a class="nav-link" href="#!">Herbs & Seasonings</a>
-                                                        </li>
-                                                        <!-- nav item -->
-                                                        <li class="nav-item">
-                                                            <a class="nav-link" href="#!">Fresh Fruits</a>
-                                                        </li>
-                                                        <!-- nav item -->
-                                                        <li class="nav-item">
-                                                            <a class="nav-link" href="#!">Organic Fruits & Vegetables</a>
-                                                        </li>
-                                                        <!-- nav item -->
-                                                        <li class="nav-item">
-                                                            <a class="nav-link" href="#!">Cuts & Sprouts</a>
-                                                        </li>
-                                                        <!-- nav item -->
-                                                        <li class="nav-item">
-                                                            <a class="nav-link" href="#!">Exotic Fruits & Veggies</a>
-                                                        </li>
-                                                        <!-- nav item -->
-                                                        <li class="nav-item">
-                                                            <a class="nav-link" href="#!">Flower Bouquets, Bunches</a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li class="nav-item border-bottom w-100">
-                                            <a href="#" class="nav-link collapsed" data-bs-toggle="collapse"
-                                                data-bs-target="#flush-collapseFour" aria-expanded="false"
-                                                aria-controls="flush-collapseFour">
-                                                Cold Drinks & Juices
-                                                <i class="feather-icon icon-chevron-right"></i>
-                                            </a>
-    
-                                            <!-- collapse -->
-                                            <div id="flush-collapseFour" class="accordion-collapse collapse"
-                                                data-bs-parent="#categoryCollapseMenu">
-                                                <div>
-                                                    <ul class="nav flex-column ms-3">
-                                                        <!-- nav item -->
-                                                        <li class="nav-item"><a href="#!" class="nav-link">Soft Drinks</a>
-                                                        </li>
-                                                        <!-- nav item -->
-                                                        <li class="nav-item"><a href="#!" class="nav-link">Fruit Juices</a>
-                                                        </li>
-                                                        <!-- nav item -->
-                                                        <li class="nav-item"><a href="#!" class="nav-link">Coldpress</a>
-                                                        </li>
-                                                        <!-- nav item -->
-                                                        <li class="nav-item"><a href="#!" class="nav-link">Energy Drinks</a>
-                                                        </li>
-                                                        <!-- nav item -->
-                                                        <li class="nav-item"><a href="#!" class="nav-link">Water & Ice
-                                                                Cubes</a></li>
-                                                        <!-- nav item -->
-                                                        <li class="nav-item"><a href="#!" class="nav-link">Soda & Mixers</a>
-                                                        </li>
-                                                        <!-- nav item -->
-                                                        <li class="nav-item"><a href="#!" class="nav-link">Concentrates &
-                                                                Syrups</a></li>
-                                                        <!-- nav item -->
-                                                        <li class="nav-item"><a href="#!" class="nav-link">Detox & Energy
-                                                                Drinks</a></li>
-                                                        <!-- nav item -->
-                                                        <li class="nav-item"><a href="#!" class="nav-link">Juice
-                                                                Collection</a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </li>
-    
-                                        <li class="nav-item border-bottom w-100">
-                                            <a href="#" class="nav-link collapsed" data-bs-toggle="collapse"
-                                                data-bs-target="#flush-collapseFive" aria-expanded="false"
-                                                aria-controls="flush-collapseFive">
-                                                Breakfast & Instant Food
-                                                <i class="feather-icon icon-chevron-right"></i>
-                                            </a>
-    
-                                            <!-- collapse -->
-                                            <div id="flush-collapseFive" class="accordion-collapse collapse"
-                                                data-bs-parent="#categoryCollapseMenu">
-                                                <div>
-                                                    <ul class="nav flex-column ms-3">
-                                                        <!-- nav item -->
-                                                        <li class="nav-item">
-                                                            <a class="nav-link active" aria-current="page"
-                                                                href="#!">Batter</a>
-                                                        </li>
-                                                        <!-- nav item -->
-                                                        <li class="nav-item">
-                                                            <a class="nav-link" href="#!">Breakfast Cereal</a>
-                                                        </li>
-                                                        <!-- nav item -->
-                                                        <li class="nav-item">
-                                                            <a class="nav-link" href="#!">Noodles, Pasta & Soup</a>
-                                                        </li>
-                                                        <!-- nav item -->
-                                                        <li class="nav-item">
-                                                            <a class="nav-link" href="#!">Frozen Non-Veg Snackss</a>
-                                                        </li>
-                                                        <!-- nav item -->
-                                                        <li class="nav-item">
-                                                            <a class="nav-link" href="#!">Frozen Veg</a>
-                                                        </li>
-                                                        <!-- nav item -->
-                                                        <li class="nav-item">
-                                                            <a class="nav-link" href="#!">Vermicelli</a>
-                                                        </li>
-                                                        <!-- nav item -->
-                                                        <li class="nav-item">
-                                                            <a class="nav-link" href="#!">Instant Mixes</a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li class="nav-item border-bottom w-100">
-                                            <a href="#" class="nav-link collapsed" data-bs-toggle="collapse"
-                                                data-bs-target="#flush-collapseSix" aria-expanded="false"
-                                                aria-controls="flush-collapseSix">
-                                                Bakery & Biscuits
-                                                <i class="feather-icon icon-chevron-right"></i>
-                                            </a>
-    
-                                            <!-- collapse -->
-                                            <div id="flush-collapseSix" class="accordion-collapse collapse"
-                                                data-bs-parent="#categoryCollapseMenu">
-                                                <div>
-                                                    <ul class="nav flex-column ms-3">
-                                                        <!-- nav item -->
-                                                        <li class="nav-item">
-                                                            <a class="nav-link active" aria-current="page"
-                                                                href="#!">Cookies</a>
-                                                        </li>
-                                                        <!-- nav item -->
-                                                        <li class="nav-item">
-                                                            <a class="nav-link" href="#!">Glucose & Marie</a>
-                                                        </li>
-                                                        <!-- nav item -->
-                                                        <li class="nav-item">
-                                                            <a class="nav-link" href="#!">Sweet & Salty</a>
-                                                        </li>
-                                                        <!-- nav item -->
-                                                        <li class="nav-item">
-                                                            <a class="nav-link" href="#!">Healthy & Digestive</a>
-                                                        </li>
-                                                        <!-- nav item -->
-                                                        <li class="nav-item">
-                                                            <a class="nav-link" href="#!">Cream Biscuits</a>
-                                                        </li>
-                                                        <!-- nav item -->
-                                                        <li class="nav-item">
-                                                            <a class="nav-link" href="#!">Rusks & Wafers</a>
-                                                        </li>
-                                                        <!-- nav item -->
-                                                        <li class="nav-item">
-                                                            <a class="nav-link" href="#!">Cakes & Rolls</a>
-                                                        </li>
-                                                        <!-- nav item -->
-                                                        <li class="nav-item">
-                                                            <a class="nav-link" href="#!">Buns & Bakery</a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li class="nav-item border-bottom w-100">
-                                            <a href="#" class="nav-link collapsed" data-bs-toggle="collapse"
-                                                data-bs-target="#flush-collapseSeven" aria-expanded="false"
-                                                aria-controls="flush-collapseSeven">
-                                                Chicken, Meat & Fish
-                                                <i class="feather-icon icon-chevron-right"></i>
-                                            </a>
-    
-                                            <!-- collapse -->
-                                            <div id="flush-collapseSeven" class="accordion-collapse collapse"
-                                                data-bs-parent="#categoryCollapseMenu">
-                                                <div>
-                                                    <ul class="nav flex-column ms-3">
-                                                        <!-- nav item -->
-                                                        <li class="nav-item">
-                                                            <a class="nav-link active" aria-current="page"
-                                                                href="#!">Chicken</a>
-                                                        </li>
-                                                        <!-- nav item -->
-                                                        <li class="nav-item">
-                                                            <a class="nav-link" href="#!">Sausage, Salami & Ham</a>
-                                                        </li>
-                                                        <!-- nav item -->
-                                                        <li class="nav-item">
-                                                            <a class="nav-link" href="#!">Exotic Meat</a>
-                                                        </li>
-                                                        <!-- nav item -->
-                                                        <li class="nav-item">
-                                                            <a class="nav-link" href="#!">Eggs</a>
-                                                        </li>
-                                                        <!-- nav item -->
-                                                        <li class="nav-item">
-                                                            <a class="nav-link" href="#!">Frozen Non-Veg Snacks</a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </li>
-                                    </ul>
+                                        </ul>
+
                                 </div>
-    
+                               
     
                                 <div class="mb-8 position-relative">
                                     <!-- Banner Design -->
@@ -561,40 +153,36 @@
                         <!-- card -->
     
                         <!-- list icon -->
-                        <div class="d-lg-flex justify-content-between align-items-center">
+                         <div class="d-lg-flex justify-content-between align-items-center bg-primary p-1">
                             <div class="mb-3 mb-lg-0">
-                                <p class="mb-0">
-                                  
-                                   Meilleures ventes
-                                </p>
+                                <div class="row align-items-center">
+                                 <h5 class="col-xl-5  text-white d-flex justify-content-between mb-0">Filter par intervalle de prix:  </h5>
+                                 <div class=" col-xl-7 d-flex align-items-center">
+                                    <MazInput v-model="filters.min" color="warning"
+                                                name="filters.min" size="xs" rounded-size="xs"
+                                                type="number" />
+                                               
+                                                    <div class="text-white mx-2"> - </div>
+                                                <MazInput v-model="filters.max" color="warning"
+                                                name="filters.max" size="xs" rounded-size="xs"
+                                                type="number" />
+                                                <button class="text-dark btn btn-xs bg-gray-300 ms-3" style="cursor: pointer; cursor: pointer; padding: 5px 15px;  border-radius: 0;" @click="FilterProduct" >Filter</button>
+                                 </div>
+                             
+                                </div>
                             </div>
     
-                            <!-- icon -->
+                         
                             <div class="d-md-flex justify-content-between align-items-center">
                                 <div class="d-flex align-items-center justify-content-between">
                                     <nav>
                                         <ul class="nav nav-pills nav-scroll border-bottom-0 gap-1" id="nav-tab"
                                             role="tablist">
-                                            <!-- nav item -->
-                                            <!-- <li class="nav-item">
-                                   
-                                        <a
-                                           href="#"
-                                           class="nav-link active"
-                                           id="liste-tab"
-                                           data-bs-toggle="tab"
-                                           data-bs-target="#liste"
-                                           role="tab"
-                                           aria-controls="liste"
-                                           aria-selected="true">
-                                           <i class="bi bi-list-ul"></i>
-                                        </a>
-                                     </li> -->
-                                            <!-- nav item -->
+                                           
     
     
                                             <li class="nav-item">
-                                                <!-- nav link -->
+                                           
                                                 <a href="#" class="nav-link active" id="grid-tab" data-bs-toggle="tab"
                                                     data-bs-target="#grid" role="tab" aria-controls="grid"
                                                     aria-selected="false">
@@ -602,68 +190,37 @@
                                                 </a>
                                             </li>
                                             <li class="nav-item">
-                                                <!-- nav link -->
+                                             
                                                 <a href="#" class="nav-link" id="gridplus-tab" data-bs-toggle="tab"
                                                     data-bs-target="#gridplus" role="tab" aria-controls="gridplus"
                                                     aria-selected="false">
                                                     <i class="bi bi-grid-3x3-gap"></i>
                                                 </a>
                                             </li>
-                                            <!-- nav item -->
+                                        
     
                                         </ul>
                                     </nav>
     
-                                    <div class="ms-2 d-lg-none">
-                                        <a class="btn btn-outline-gray-400 text-muted" data-bs-toggle="offcanvas"
-                                            href="#offcanvasCategory" role="button" aria-controls="offcanvasCategory">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
-                                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                                stroke-linecap="round" stroke-linejoin="round"
-                                                class="feather feather-filter me-2">
-                                                <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
-                                            </svg>
-                                            Filters
-                                        </a>
-                                    </div>
+                                 
                                 </div>
     
-                                <div class="d-flex mt-2 mt-lg-0">
-                                    <div class="me-2 flex-grow-1">
-                                        <!-- select option -->
-                                        <select class="form-select">
-                                            <option selected>Show: 50</option>
-                                            <option value="10">10</option>
-                                            <option value="20">20</option>
-                                            <option value="30">30</option>
-                                        </select>
-                                    </div>
-                                    <div>
-                                        <!-- select option -->
-                                        <select class="form-select">
-                                            <option selected>Sort by: Featured</option>
-                                            <option value="Low to High">Price: Low to High</option>
-                                            <option value="High to Low">Price: High to Low</option>
-                                            <option value="Release Date">Release Date</option>
-                                            <option value="Avg. Rating">Avg. Rating</option>
-                                        </select>
-                                    </div>
-                                </div>
+                                
                             </div>
-                        </div>
+                        </div> 
                         <!-- row -->
                         <div class="row">
-                            <div class="col-12">
+                            <div class="col-xl-12">
                                 <!-- tab -->
                                 <div class="tab-content" id="nav-tabContent">
                                     <div class="tab-pane fade show active" id="grid" role="tabpanel"
                                         aria-labelledby="nav-fruitsandveg-tab" tabindex="0">
-                                        <grid></grid>
+                                        <grid :id="id" :dataProduct="dataProduct"></grid>
     
                                     </div>
                                     <div class="tab-pane fade " id="gridplus" role="tabpanel"
                                         aria-labelledby="nav-snackMunchies-tab" tabindex="0">
-                                        <GridPlus></GridPlus>
+                                        <GridPlus :id="id" :dataProduct="dataProduct"></GridPlus>
     
                                     </div>
     
@@ -688,26 +245,66 @@ import 'slick-carousel/slick/slick-theme.css';
 import $ from 'jquery';
 import 'slick-carousel';
 import defaultImage from '@/assets/images/products/product-img-2.jpg'
+import axios from '@/lib/axiosConfig';
+import SkeletonCategorie from '@/components/others/loader/SkeletonCategorie.vue';
+
 
 
 export default {
   props: ['id'],
   components: {
-    Listes, grid, GridPlus
+    Listes, grid, GridPlus , SkeletonCategorie
   },
   data() {
     return {
+        CategoriesChildrenArray:[],
+        CategoriesArray:[],
       defaultImage: defaultImage,
+      loading:true,
       images: [
         '@/assets/images/slider/hero-img-slider-1.jpg',
         '@/assets/images/slider/hero-img-slider-2.jpg',
         '@/assets/images/slider/hero-img-slider-3.jpg'
-      ]
+      ],
+      filters:{
+        min:'',
+        max:'',
+      },
+      dataProduct:"",
     }
   },
-  mounted() {
-    console.log('id', this.id);
+  computed: {
+  getActiveCategoryId() {
+    // Extrait l'ID de la catégorie à partir de l'URL actuelle
+    const path = window.location.pathname;
+    const match = path.match(/\/list-categories\/(\d+)/); // Extrait l'ID après '/list-categories/'
+    return match ? parseInt(match[1], 10) : null;
+  }
+},
+  watch: {
+    loading(newVal) {
+      if (newVal === false) {
+        this.initSliders();
+      }
+    },
+    alertMessage(newVal) {
+      console.log('newVal', newVal)
+      if (newVal) {
+        this.loadingItems = {};
+        this.toast.success(newVal, {
+          position: "top-right",
+          timeout: 2000,
+          closeOnClick: true,
+        });
+
+       
+      }
+    },
+  },
+ async mounted() {
+    
     this.initSliders();
+    await this.getCategoriesAll()
 
   },
   methods: {
@@ -727,8 +324,37 @@ export default {
 
       })
     },
-  },
+    async getCategoriesAll() {
+      try {
+        const response = await axios.get('liste/categories')
+        if (response.data.status === "success") {
+       
 
+          this.CategoriesChildrenArray = response.data.data?.data
+          ?.filter(c =>c.Parent === parseInt(this.id) )
+        this.CategoriesArray = response.data.data?.data
+          ?.filter(c =>  c.Parent === null)
+        
+          this.loading = false
+          
+        }
+
+      } catch (error) {
+        console.log('error', error)
+      }
+    },
+   async FilterProduct(){
+       this.dataProduct ={
+        min: parseInt(this.filters.min),
+        max:parseInt(this.filters.max) ,
+        categorie: parseInt(this.id) 
+
+       }
+       
+  },
+  
+
+}
 }
 </script>
 <style lang="css" scoped>
@@ -775,12 +401,12 @@ export default {
     display: -ms-flexbox; */
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: flex-start;
     overflow-x: hidden;
 }
 
     .lv3Category--lv3CategoryBox--1Nts99Z {
-        width: 19%;
+        width: 175px;
     }
 
 
@@ -789,16 +415,16 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 10px 17px ;
-    height:270px;
-    justify-content: space-between;
+    padding: 3px 0 10px 0;
+    /* height:270px; */
+    /* justify-content: space-between; */
     margin-bottom: 10px;
     /* border:1px solid red */
 }
 
 .lv3Category--lv3Category--1hf3Fqv .lv3Category--lv3CategoryContentCatainer--3covqIo .lv3Category--lv3CategoryBox--1Nts99Z .lv3Category--lv3CategoryContent--2eCQWkm .lv3Category--lv3CategoryContentImg--2GZvdRG {
     overflow: hidden;
-    width: 185px;
+    width: 170px;
     /* height: 130px; */
     position: relative;
     aspect-ratio: 1 / 1;

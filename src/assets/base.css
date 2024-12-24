@@ -58,6 +58,12 @@
   font-weight: normal;
   padding: 0;
 }
+small {
+  color: #f8001b;
+  display: flex;
+  /* align-items: center; */
+  /* justify-content: center; */
+}
 
 .icon-card {
 
@@ -175,6 +181,9 @@ width: 100%;
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+}
+.p-inputtext{
+  width:100%;
 }
 
 

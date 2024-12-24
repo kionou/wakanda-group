@@ -7,7 +7,7 @@ export default {
   },
   mutations: {
     addToCart(state, payload) {
-      const existingItem = state.items.find(item => item.idProducts === payload.idProducts);
+      const existingItem = state.items.find(item => item.id === payload.id);
 
       if (existingItem) {
         existingItem.quantity += 1;
@@ -26,7 +26,7 @@ export default {
     },
 
     increaseQuantity(state, productId) {
-      const item = state.items.find(item => item.idProducts === productId);
+      const item = state.items.find(item => item.id === productId);
       if (item) {
         item.quantity += 1;
         state.alertMessage = `Quantité de ${item.NomProduit} augmentée.`;
@@ -35,7 +35,7 @@ export default {
     },
 
     decreaseQuantity(state, productId) {
-      const item = state.items.find(item => item.idProducts === productId);
+      const item = state.items.find(item => item.id === productId);
       if (item && item.quantity > 1) {
         item.quantity -= 1;
         state.alertMessage = `Quantité de ${item.NomProduit} diminuée.`;
@@ -44,20 +44,26 @@ export default {
     },
 
     removeItemFromCart(state, productId) {
-      const index = state.items.findIndex(item => item.idProducts === productId);
+      const index = state.items.findIndex(item => item.id === productId);
       if (index !== -1) {
         const removedProduct = state.items.splice(index, 1)[0];
         state.alertMessage = `${removedProduct.NomProduit} a été retiré du panier.`;
         localStorage.setItem('cart', JSON.stringify(state.items)); 
       }
     },
+    clearCart(state){
+     
+      state.items = [];
+      localStorage.removeItem('cart')
+     
+    }
   },
   actions: {
     addToCart({ commit }, payload) {
-      commit('setLoading', { productId: payload.idProducts, value: true });
+      commit('setLoading', { productId: payload.id, value: true });
       setTimeout(() => {
         commit('addToCart', payload);
-        commit('setLoading', { productId: payload.idProducts, value: false });
+        commit('setLoading', { productId: payload.id, value: false });
       }, 1000); // Simule un délai pour l'ajout au panier
     },
 
@@ -83,6 +89,11 @@ export default {
         commit('setLoading', { productId, value: false });
       }, 1000); // Simule un délai pour la suppression
     },
+    clearCart({commit}){
+      console.log(commit)
+
+     commit('clearCart')
+    }
   },
   getters: {
     cartItems(state) {

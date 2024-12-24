@@ -23,6 +23,20 @@ import MazSwitch from 'maz-ui/components/MazSwitch'
  import MazRadioButtons from 'maz-ui/components/MazRadioButtons'
  import Toast from "vue-toastification";
 import "vue-toastification/dist/index.css";
+import PrimeVue from "primevue/config";
+import Aura from '@primevue/themes/aura';
+import AutoComplete from 'primevue/autocomplete';
+import Dialog from 'primevue/dialog';
+import InputOtp from 'primevue/inputotp';
+import ProgressSpinner from 'primevue/progressspinner';
+import ConfirmDialog from 'primevue/confirmdialog';
+import ConfirmationService from 'primevue/confirmationservice';
+// import Toast from 'primevue/toast';
+// import ToastService from 'primevue/toastservice';
+
+
+
+
 
 
 
@@ -42,13 +56,17 @@ app.component('MazCheckbox', MazCheckbox)
 app.component('MazAccordion', MazAccordion)
 app.component('MazInputCode', MazInputCode)
 app.component('MazRadioButtons', MazRadioButtons)
-const options = {
-  // You can set your default options here
-};
+
+app.component('AutoComplete', AutoComplete);
+app.component('Dialog', Dialog);
+app.component('InputOtp', InputOtp);
+app.component('ConfirmDialog', ConfirmDialog);
+app.component('ProgressSpinner', ProgressSpinner);
+// app.component('Toast', Toast);
 
 
-
-app.use(VueLazyload, {
+store.dispatch('auth/loadMyAuthenticatedUser').then(() => {
+  app.use(VueLazyload, {
     preLoad: 1,
     error: "../src/assets/gif/error.gif",
     loading: "../src/assets/gif/loader.gif",
@@ -58,6 +76,15 @@ app.use(Notifications);
 app.use(i18n)
 app.use(router)
 app.use(store)
-app.use(Toast, options);
-
-app.mount('#app')
+app.use(Toast, {});
+app.use(ConfirmationService);
+// app.use(ToastService);
+app.use(PrimeVue, {
+  theme: {
+      preset: Aura
+  }
+});
+ 
+ app.mount('#app')
+  
+    });

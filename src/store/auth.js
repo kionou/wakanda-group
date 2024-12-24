@@ -28,50 +28,42 @@ const actions = {
   // Modifier le nom de l'action si nécessaire
   setMyAuthenticatedUser({ commit }, user) {
     console.log(user);
-    console.log(user.user);
+   
     const now = Math.floor(Date.now() / 1000);
     const tokenExpiration = now + user.expires_in;
-    let role_id;
-
-    if (Array.isArray(user.roles)) {
-      role_id = user.roles.length > 0 ? user.roles[0].id : null;
-    } else {
-      role_id = user.role_id;
-    }
-
+   
     const userSessionData = {
-      id: user.user.id,
-      nom: user.user.Nom,
-      prenom: user.user.Prenoms,
-      email: user.user.email,
-      username:user.user.username,
-      whatsapp: user.user.Whatsapp,
-      profile: user.user.photo,
-      role_id: role_id,
+      id_user : user.user?.id,
+      nom: user.user?.Nom,
+      prenom: user.user?.Prenoms,
+      email: user.user?.email,
+      username:user.user?.username,
+      whatsapp: user.user?.Whatsapp,
+      pays:user?.user?.pays,
       token: user.access_token,
       tokenExpiration: tokenExpiration,
-      menus: user.menus,
-      permissions: user.permissions,
-      user_role:user.user_role,
+      // menus: user.role_relation?.menus,
+      // permissions: user.role_relation?.permissions,
+      // role_id:user.role_relation?.id,
+     
     };
-
-
+console.log("userSessionData",userSessionData)
     commit('SET_MY_AUTHENTICATED_USER', userSessionData);
-    localStorage.setItem('myAuthenticatedBssp', JSON.stringify(userSessionData));
+    localStorage.setItem('myAuthenticatedWakandaClient', JSON.stringify(userSessionData));
   },
   clearMyAuthenticatedUser({ commit }) {
     commit('CLEAR_MY_AUTHENTICATED_USER');
-    localStorage.removeItem('myAuthenticatedBssp');
+    localStorage.removeItem('myAuthenticatedWakandaClient');
   },
   loadMyAuthenticatedUser({ commit }) {
-    const storedUserData = localStorage.getItem('myAuthenticatedBssp');
+    const storedUserData = localStorage.getItem('myAuthenticatedWakandaClient');
     if (storedUserData) {
       // const data = JSON.parse(storedUserData);
       // if (!isTokenExpired(data.tokenExpiration)) {
         commit('SET_MY_AUTHENTICATED_USER', JSON.parse(storedUserData));
       // } else {
       //   commit('CLEAR_MY_AUTHENTICATED_USER');
-      //   localStorage.removeItem('myAuthenticatedBssp');
+      //   localStorage.removeItem('myAuthenticatedWakandaClient');
       // }
     }
   },

@@ -1,17 +1,8 @@
 <template >
    <div>
       <div class="row mt-4">
-         <!-- col -->
-         <div class="col-12">
-            <!-- breadcrumb -->
-            <nav class="mb-3" aria-label="breadcrumb">
-               <ol class="breadcrumb mb-0">
-                  <li class="breadcrumb-item"><a href="/">Accueil </a></li>
-                  <li class="breadcrumb-item"><router-link to="/categories">commande ></router-link></li>
-                  <li class="breadcrumb-item active" aria-current="page">Electroniques</li>
-               </ol>
-            </nav>
-         </div>
+     
+        
       </div>
       <main>
          <!-- section -->
@@ -40,12 +31,6 @@
     </div>
   </div>
 
- 
-  <div class="page-menu-item" :class="{ 'page-menu-item-active': $route.path === '/client/paiement' }">
-    <div class="item-text">
-      <router-link to="/client/paiement" >Paiement</router-link>
-    </div>
-  </div>
   <div class="page-menu-item" :class="{ 'page-menu-item-active': $route.path === '/client/user-adresse' }">
     <div class="item-text">
       <router-link to="/client/user-adresse" >Adresse de livraison</router-link>
@@ -92,8 +77,44 @@ export default {
          
       }
    },
-   mounted() {
+   computed: {
+  
+   loggedInUser() {
+      return this.$store.getters["auth/myAuthenticatedUser"];
+    },
+  
+   
+ },
+  async mounted() {
+   await this.fetchUserDetail()
      
+   },
+   methods: {
+      async fetchUserDetail() {
+      try {
+        const response = await axios.get("/auth-user", {
+          headers: {
+            Authorization: `Bearer ${this.loggedInUser.token}`,
+          },
+        });
+        if (response.data.status === "success") {
+          const profil = response.data.data;
+            console.log(profil)
+        
+       
+            
+          this.loading = false;
+        }
+      } catch (error) {
+        if (
+          error.response.data.message === "Vous n'êtes pas autorisé." ||
+          error.response.status === 401
+        ) {
+          await this.$store.dispatch("auth/clearMyAuthenticatedUser");
+          this.$router.push("/"); //a revoir
+        }
+      }
+    },
    },
 
 }

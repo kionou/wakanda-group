@@ -8,6 +8,7 @@ import  actions from './actions.js'
 import authModule from './auth';
 import Panier from './panier'
 import verification from './verification'
+import Devise from './devise'
 
 
 const store = createStore({
@@ -18,7 +19,8 @@ const store = createStore({
   modules: {
     auth: authModule,
     verification,
-    cart: Panier
+    cart: Panier,
+    devise:Devise
   },
 })
 

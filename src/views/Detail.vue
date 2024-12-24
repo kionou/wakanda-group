@@ -127,33 +127,33 @@
                                                 <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
                                                    <div class="row justify-content-center align-items-center">
                                                       <!-- Si le produit est dans le panier, afficher les boutons "+" et "-" -->
-                                                      <div class="col-6" v-if="isInCart(product.idProducts)">
+                                                      <div class="col-6" v-if="isInCart(product.id)">
                                                          <div class="input-group input-spinner">
                                                             <input type="button" value="-"
                                                                class="button-minus btn btn-sm bg-white"
-                                                               :disabled="isLoadingItem(product.idProducts)"
-                                                               @click="updateQuantity(product.idProducts, 'decrease')" />
+                                                               :disabled="isLoadingItem(product.id)"
+                                                               @click="updateQuantity(product.id, 'decrease')" />
                                                             <!-- Quantité -->
-                                                            <template v-if="isLoadingItem(product.idProducts)">
+                                                            <template v-if="isLoadingItem(product.id)">
                                                                <!-- Loader à la place de l'input pendant le chargement -->
                                                                <LoaderBtn class="loadingbtn"></LoaderBtn>
                                                             </template>
                                                             <template v-else>
                                                                <!-- Input de quantité lorsqu'il n'y a pas de chargement -->
-                                                               <input type="number" :value="getProductQuantity(product.idProducts)"
+                                                               <input type="number" :value="getProductQuantity(product.id)"
                                                                   class="quantity-field form-control-sm form-input"
                                                                   disabled />
                                                             </template>
                                                             <input type="button" value="+"
                                                                class="button-plus btn btn-sm bg-white"
-                                                               :disabled="isLoadingItem(product.idProducts)"
-                                                               @click="updateQuantity(product.idProducts, 'increase')" />
+                                                               :disabled="isLoadingItem(product.id)"
+                                                               @click="updateQuantity(product.id, 'increase')" />
                                                          </div>
                                                       </div>
    
                                                       <!-- Si le produit n'est pas dans le panier, afficher le bouton "Add to cart" -->
                                                       <div class="col-6" v-else>
-                                                         <button class="btn btn-primary w-100"    v-if="isLoadingItem(product.idProducts)"
+                                                         <button class="btn btn-primary w-100"    v-if="isLoadingItem(product.id)"
                                                             >
                                                             <LoaderBtn class="loadingbtn"></LoaderBtn>
                                                          </button>
@@ -208,19 +208,18 @@
                                                    <td>FBB00255</td>
                                                 </tr>
                                                 <tr>
-                                                   <td>Availability:</td>
+                                                   <td>Disponibilité:</td>
                                                    <td>In Stock</td>
                                                 </tr>
                                                 <tr>
-                                                   <td>Type:</td>
-                                                   <td>Fruits</td>
+                                                   <td>Catégorie:</td>
+                                                   <td>{{ product?.categorie?.NomCategorie }}</td>
                                                 </tr>
                                                 <tr>
-                                                   <td>Shipping:</td>
+                                                   <td>Marque:</td>
                                                    <td>
                                                       <small>
-                                                         01 day shipping.
-                                                         <span class="text-muted">( Free pickup today)</span>
+                                                         {{ product?.marque?.Nom }}
                                                       </small>
                                                    </td>
                                                 </tr>
@@ -245,44 +244,18 @@
                                           <table class="table table-striped">
                                              <!-- table -->
                                              <tbody>
-                                                <tr>
-                                                   <th>Weight</th>
-                                                   <td>1000 Grams</td>
+                                                <tr v-for="carac in product?.caracteristiques" :key="carac.id">
+                                                   <th>{{ carac.caracteristique?.Name }}</th>
+                                                   <td>{{ carac.Valeur }}</td>
                                                 </tr>
-                                                <tr>
-                                                   <th>Ingredient Type</th>
-                                                   <td>Vegetarian</td>
-                                                </tr>
-                                                <tr>
-                                                   <th>Brand</th>
-                                                   <td>Dmart</td>
-                                                </tr>
-                                                <tr>
-                                                   <th>Item Package Quantity</th>
-                                                   <td>1</td>
-                                                </tr>
-                                                <tr>
-                                                   <th>Form</th>
-                                                   <td>Larry the Bird</td>
-                                                </tr>
-                                                <tr>
-                                                   <th>Manufacturer</th>
-                                                   <td>Dmart</td>
-                                                </tr>
-                                                <tr>
-                                                   <th>Net Quantity</th>
-                                                   <td>340.0 Gram</td>
-                                                </tr>
-                                                <tr>
-                                                   <th>Product Dimensions</th>
-                                                   <td>9.6 x 7.49 x 18.49 cm</td>
-                                                </tr>
+                                               
+                                               
                                              </tbody>
                                           </table>
                                        </div>
-                                       <div class="col-12 col-lg-6">
+                                       <!-- <div class="col-12 col-lg-6">
                                           <table class="table table-striped">
-                                             <!-- table -->
+                                            
                                              <tbody>
                                                 <tr>
                                                    <th>ASIN</th>
@@ -306,7 +279,7 @@
                                                 </tr>
                                              </tbody>
                                           </table>
-                                       </div>
+                                       </div> -->
                                     </div>
                                  </div>
                               </div>
@@ -532,10 +505,10 @@ export default {
   data() {
     return {
       images: [
-        'https://freshcart.codescandy.com/assets/images/products/product-single-img-1.jpg',
-        'https://freshcart.codescandy.com/assets/images/products/product-single-img-2.jpg',
-        'https://freshcart.codescandy.com/assets/images/products/product-single-img-3.jpg',
-        'https://freshcart.codescandy.com/assets/images/products/product-single-img-4.jpg',
+      //   'https://freshcart.codescandy.com/assets/images/products/product-single-img-1.jpg',
+      //   'https://freshcart.codescandy.com/assets/images/products/product-single-img-2.jpg',
+      //   'https://freshcart.codescandy.com/assets/images/products/product-single-img-3.jpg',
+      //   'https://freshcart.codescandy.com/assets/images/products/product-single-img-4.jpg',
 
       ],
       product: "",
@@ -550,14 +523,14 @@ export default {
     // Vérifier si le produit est déjà dans le panier
     isInCart() {
       return (productId) => {
-        return this.cartItems.some(item => item.idProducts === productId);
+        return this.cartItems.some(item => item.id === productId);
       };
     },
 
     // Récupérer la quantité du produit dans le panier
     getProductQuantity() {
       return (productId) => {
-        const item = this.cartItems.find(item => item.idProducts === productId);
+        const item = this.cartItems.find(item => item.id === productId);
         return item ? item.quantity : 1;
       };
     }
@@ -589,7 +562,8 @@ export default {
 
         })
         if (response.data.status === "success") {
-          this.product = response.data.data
+          this.product = response.data?.data
+          this.images = this.product?.Photos?.split('|')
           console.log('response ', this.product);
 
 
