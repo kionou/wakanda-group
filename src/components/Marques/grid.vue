@@ -16,7 +16,7 @@
                            -{{ calculateDiscount(product.Prix, product.PrixPromo) }}%
                            </span>
                      </div>
-                     <router-link :to="{ name: 'detail', params: { id: product.id }}">
+                     <router-link :to="{ name: 'detail', params: { id: encodeId( product.id) }}">
                         <img :src="product.PhotoCover ? product.PhotoCover : defaultImage"
                            :alt="product.NomProduit" :title="product.NomProduit"
                            style="width: 100%; height: auto; max-height: 30% !important;"
@@ -26,7 +26,7 @@
                   </div>
                   <!-- heading -->
                   <h2 class="fs-6"><router-link
-                                     :to="{ name: 'detail', params: { id: product.id }}"
+                                     :to="{ name: 'detail', params: { id: encodeId(product.id) }}"
                                      class="text-inherit text-decoration-none">{{
                                      truncateText(product.NomProduit , 15) }}
                                  </router-link></h2>
@@ -118,8 +118,12 @@ export default {
    LoadingSkeleton, LoaderBtn , SkeletonFilter
   },
   computed: {
+   decodedId() {
+      return atob(this.id); // Décode l'ID reçu en Base64
+    },
     ...mapGetters('cart', ['alertMessage', 'loading']),
     ...mapGetters("devise", ["selectedDevise", "getSelectedRate"]),
+   
   },
   data() {
     return {
@@ -140,18 +144,26 @@ export default {
       },
     },
  async mounted() {
+   
     
     await this.getCategoriesAll()
 
   },
   methods: {
-   
+   encodeId(id) {
+    return btoa(id); // Encode en Base64
+  },
     async getCategoriesAll() {
+      console.log(this.decodedId)
       this.loading = true
       try {
-        const response = await axios.get(`/categories/${this.id}`)
+        const response = await axios.get(`/marques/${ this.decodedId}`)
+    
+
         if (response.data.status === "success") {
           this.CategoriesArray = response.data?.data?.produits 
+         // console.log('data',this.CategoriesArray,this.CategoriesArray?.length )
+
           this.loading = false
         }
 

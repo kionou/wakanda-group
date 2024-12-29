@@ -34,10 +34,10 @@
   <style scoped>
   .bottom-right {
     position: fixed;
-    bottom: 20px;
+    bottom: 40px;
     right: 20px;
     cursor: pointer;
-    z-index: 10000;
+    z-index: 999999999999;
     background-color: var(--fc-secondary);
     color: #FFF;
     font-size: 25px;

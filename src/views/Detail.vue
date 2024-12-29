@@ -1,5 +1,6 @@
 <template >
    <div>
+      <SkeletonDetail v-if="loading " style="z-index: 99999"></SkeletonDetail>
       <main>
          <div class="mt-4">
             <div class="container">
@@ -110,7 +111,7 @@
                                                 </div>
                                                 <div class="fs-5">
                                                    <!-- price -->
-                                                    <span class="fw-bold text-dark">{{ formatPrice(product.Prix)}} {{ product.devise?.Symbol }} </span>
+                                                    <span class="fw-bold text-dark">{{ formatPrices(product.Prix)}} {{ product.devise?.Symbol }} </span>
                                                    <!-- <span class="text-decoration-line-through text-muted">6 500 F CFA</span> -->
                                                    <!-- <span><small class="fs-6 ms-2 text-danger">26% Off</small></span> -->
                                                 </div>
@@ -302,186 +303,79 @@
                <div class="row">
                   <div class="col-12">
                      <!-- heading -->
-                     <h3>Related Items</h3>
+                     <h3>Produits vus récemment</h3>
                   </div>
                </div>
                <!-- row -->
                <div class="row g-4 row-cols-lg-5 row-cols-2 row-cols-md-2 mt-2">
-                  <!-- col -->
+                  <p v-if="recentProducts.length === 0">Pas de produit vue pour l'instant</p>
+            
    
-                  <div class="col">
-                     <!-- card -->
-                     <div class="card card-product h-100">
-                        <div class="card-body position-relative">
-                           <div class="text-center position-relative">
-                              <!-- img -->
-                              <router-link to="/detail"><img src="@/assets/images/products/product-img-3.jpg"
-                                    alt="Grocery Ecommerce Template" class="mb-3 img-fluid" /></router-link>
-                              <!-- action btn -->
-   
-                           </div>
-                           <!-- title -->
-                           <h2 class="fs-6"><router-link to="/detail" class="text-inherit text-decoration-none">Cadbury
-                                 5 star </router-link></h2>
-                           <div>
-                              <div class="d-flex justify-content-between align-items-center mt-3">
-                                 <div>
-                                    <span class="text-danger">2000 FCFA</span>
-   
-                                 </div>
-                                 <div><span class="text-uppercase small ">
-                                       <div class="icon-card">
-                                          <div>
-                                             <i class="bi bi-cart2 fs-4"></i>
-                                          </div>
-   
-                                       </div>
-                                    </span></div>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-   
-                  <div class="col">
-                     <!-- card -->
-                     <div class="card card-product h-100">
-                        <div class="card-body position-relative">
-                           <div class="text-center position-relative">
-                              <!-- img -->
-                              <router-link to="/detail"><img src="@/assets/images/products/product-img-3.jpg"
-                                    alt="Grocery Ecommerce Template" class="mb-3 img-fluid" /></router-link>
-                              <!-- action btn -->
-   
-                           </div>
-                           <!-- title -->
-                           <h2 class="fs-6"><router-link to="/detail" class="text-inherit text-decoration-none">Cadbury
-                                 5 star </router-link></h2>
-                           <div>
-                              <div class="d-flex justify-content-between align-items-center mt-3">
-                                 <div>
-                                    <span class="text-danger">2000 FCFA</span>
-   
-                                 </div>
-                                 <div><span class="text-uppercase small ">
-                                       <div class="icon-card">
-                                          <div>
-                                             <i class="bi bi-cart2 fs-4"></i>
-                                          </div>
-   
-                                       </div>
-                                    </span></div>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-   
-   
-                  <div class="col">
-                     <!-- card -->
-                     <div class="card card-product h-100">
-                        <div class="card-body position-relative">
-                           <div class="text-center position-relative">
-   
-                              <!-- img -->
-                              <router-link to="/detail" href="#!"><img src="@/assets/images/products/product-img-1.jpg"
-                                    alt="Grocery Ecommerce Template" class="mb-3 img-fluid" /></router-link>
-                              <!-- action btn -->
-   
-                           </div>
-                           <!-- title -->
-                           <h2 class="fs-6"><router-link to="/detail" class="text-inherit text-decoration-none">Haldiram's
-                                 Sev
-                                 Bhujia</router-link></h2>
-                           <div class="d-flex justify-content-between align-items-center mt-3">
-                              <div>
-                                 <span class="text-danger">2000 FCFA</span>
-   
-                              </div>
-                              <div><span class="text-uppercase small ">
-                                    <div class="icon-card">
-                                       <div>
-                                          <i class="bi bi-cart2 fs-4"></i>
-                                       </div>
-   
-                                    </div>
-                                 </span></div>
-                           </div>
-   
-   
-                        </div>
-                     </div>
-                  </div>
-                  <div class="col">
-                     <!-- card -->
-                     <div class="card card-product h-100">
-                        <div class="card-body position-relative">
-                           <div class="text-center position-relative">
-                              <!-- img -->
-                              <router-link to="/detail"><img src="@/assets/images/products/product-img-2.jpg"
-                                    alt="Grocery Ecommerce Template" class="mb-3 img-fluid" /></router-link>
-                              <!-- action btn -->
-   
-                           </div>
-                           <!-- title -->
-                           <h2 class="fs-6"><router-link to="/detail" class="text-inherit text-decoration-none">Britannia
-                                 NutriChoice
-                              </router-link></h2>
-                           <div class="d-flex justify-content-between align-items-center mt-3">
-                              <div>
-                                 <span class="text-danger">2000 FCFA</span>
-   
-                              </div>
-                              <div><span class="text-uppercase small ">
-                                    <div class="icon-card">
-                                       <div>
-                                          <i class="bi bi-cart2 fs-4"></i>
-                                       </div>
-   
-                                    </div>
-                                 </span></div>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-   
-                  <div class="col">
-                     <!-- card -->
-                     <div class="card card-product h-100">
-                        <div class="card-body position-relative">
-                           <div class="text-center position-relative">
-   
-                              <!-- img -->
-                              <router-link to="/detail" href="#!"><img src="@/assets/images/products/product-img-1.jpg"
-                                    alt="Grocery Ecommerce Template" class="mb-3 img-fluid" /></router-link>
-                              <!-- action btn -->
-   
-                           </div>
-                           <!-- title -->
-                           <h2 class="fs-6"><router-link to="/detail" class="text-inherit text-decoration-none">Haldiram's
-                                 Sev
-                                 Bhujia</router-link></h2>
-                           <div class="d-flex justify-content-between align-items-center mt-3">
-                              <div>
-                                 <span class="text-danger">2000 FCFA</span>
-   
-                              </div>
-                              <div><span class="text-uppercase small ">
-                                    <div class="icon-card">
-                                       <div>
-                                          <i class="bi bi-cart2 fs-4"></i>
-                                       </div>
-   
-                                    </div>
-                                 </span></div>
-                           </div>
-   
-   
-                        </div>
-                     </div>
-                  </div>
-   
+                  <div class="col" v-else v-for="(product,index) in recentProducts" :key="index">
+                                                    <!-- card -->
+                                                    <div class="card card-product-v2 h-100">
+                                                        <div class="card-body position-relative">
+                                                            <!-- badge -->
+                                                            <div class="text-center position-relative">
+                                                                <div class="position-absolute top-0 start-0">
+                                                                    <span v-if="product?.PrixPromo" class="badge bg-success text-white">
+                                                                    -{{ calculateDiscount(product?.Prix, product?.PrixPromo) }}%
+                                                                    </span>
+                                                                </div>
+                                                                <!-- img -->
+                                                                <a :href="`/detail/${ encodeId(product?.id)}`" @click="addToRecent(product)">
+                                                                    <img :src="product?.PhotoCover ? product?.PhotoCover : defaultImage"
+                                                                        :alt="product?.NomProduit" :title="product?.NomProduit"
+                                                                        style="width: 100%; height: auto; max-height: 30% !important;"
+                                                                        class="mb-3 img-fluid" />
+                                                                </a>
+                                                                <!-- action btn -->
+    
+                                                            </div>
+                                                            <!-- title -->
+                                                            <h2 class="fs-6"><a
+                                                                :href="`/detail/${ encodeId(product?.id)}`"
+                                                                class="text-inherit text-decoration-none" @click="addToRecent(product)">{{
+                                                                truncateText(product?.NomProduit , 15) }}
+                                                            </a></h2>
+    
+                                                            <!-- price -->
+                                                            <div class="d-flex justify-content-between align-items-center mt-3">
+                                                                <div>
+                                                <span v-if="product?.PrixPromo" class="text-danger">
+                                                    {{ formatPrice(convertPrice(product?.PrixPromo), selectedDevise?.symbol, selectedDevise?.isSymbolBefore) }}
+                                                </span>
+                                                <br>
+                                                <span v-if="product?.PrixPromo" class="text-muted text-decoration-line-through">
+                                                    {{ formatPrice(convertPrice(product?.Prix), selectedDevise?.symbol, selectedDevise?.isSymbolBefore) }}
+                                                </span>
+                                                <span v-else class="text-danger">
+                                                    {{ formatPrice(convertPrice(product?.Prix), selectedDevise?.symbol, selectedDevise?.isSymbolBefore) }}
+                                                </span>
+                                                </div>
+                                                                <div>
+                                                                    
+                                                    <span class="text-uppercase small " @click="addProductToCart(product)"
+                                                        :disabled="loadingItems[product?.id]">
+                                                        <div class="icon-card">
+                                                            <div v-if="loadingItems[product?.id]">
+                                                                <LoaderBtn class="loadingbtn"></LoaderBtn>
+                                                            </div>
+                                                            <div v-else>
+                                                                <i class="bi bi-cart2 fs-4"></i>
+                                                            </div>
+    
+                                                        </div>
+                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                  
+    
+                                                        </div>
+                                                        <!-- hidden class for hover -->
+                                                        <div class="product-content-fade border-info"></div>
+                                                    </div>
+                                                </div>
    
                </div>
             </div>
@@ -495,6 +389,8 @@ import { mapGetters, mapActions } from 'vuex';
 import { useToast } from "vue-toastification";
 import LoaderBtn from '@/components/others/loader/loaderbtn.vue';
 import axios from '@/lib/axiosConfig';
+import SkeletonDetail from '@/components/others/loader/SkeletonDetail.vue'
+
 
 export default {
   setup() {
@@ -504,21 +400,21 @@ export default {
   props: ['id'],
   data() {
     return {
-      images: [
-      //   'https://freshcart.codescandy.com/assets/images/products/product-single-img-1.jpg',
-      //   'https://freshcart.codescandy.com/assets/images/products/product-single-img-2.jpg',
-      //   'https://freshcart.codescandy.com/assets/images/products/product-single-img-3.jpg',
-      //   'https://freshcart.codescandy.com/assets/images/products/product-single-img-4.jpg',
-
-      ],
+      images: [ ],
       product: "",
+      loading:true,
+      loadingItems: {},
     }
   },
   components: {
-    LoaderBtn
+    LoaderBtn , SkeletonDetail
   },
   computed: {
     ...mapGetters("cart", ["cartItems", "alertMessage", "isLoadingItem"]),
+    ...mapGetters("devise", ["selectedDevise", "getSelectedRate"]),
+    recentProducts() {
+    return this.$store.getters['recentProducts/recentProducts'];
+  },
 
     // Vérifier si le produit est déjà dans le panier
     isInCart() {
@@ -533,7 +429,10 @@ export default {
         const item = this.cartItems.find(item => item.id === productId);
         return item ? item.quantity : 1;
       };
-    }
+    },
+    decodedId() {
+      return atob(this.id); // Décode l'ID reçu en Base64
+    },
   },
   watch: {
     alertMessage(newMessage) {
@@ -543,6 +442,11 @@ export default {
     }
   },
   methods: {
+   encodeId(id) {
+    return btoa(id); // Encode en Base64
+  },
+   ...mapActions('cart', ['addToCart', 'increaseQuantity', 'decreaseQuantity']),
+
     zoom(event) {
       const t = event.currentTarget;
       const offsetX = event.offsetX || event.touches[0].pageX;
@@ -555,7 +459,7 @@ export default {
 
       const token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2RhdGEud2FrYW5kYS5iZXN0L2FwaS9zeXN0ZW0vbG9naW4iLCJpYXQiOjE3MzAyNzYzODEsIm5iZiI6MTczMDI3NjM4MSwianRpIjoiVU5sN3J3RXBhTFZGdG1OaCIsInN1YiI6IjEiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.H40wgUqkMXolIzMq_zTz8Mg7Bp-QsyjbarTijztMzi4'
       try {
-        const response = await axios.get(`/produits/${this.id}`,{
+        const response = await axios.get(`/produits/${ this.decodedId}`,{
             headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -564,7 +468,7 @@ export default {
         if (response.data.status === "success") {
           this.product = response.data?.data
           this.images = this.product?.Photos?.split('|')
-          console.log('response ', this.product);
+         this.loading = false
 
 
         }
@@ -573,7 +477,7 @@ export default {
         console.log('error', error)
       }
     },
-    ...mapActions('cart', ['addToCart', 'increaseQuantity', 'decreaseQuantity']),
+
 
     // Ajouter au panier
     addToCartProduct(product) {
@@ -588,8 +492,28 @@ export default {
         this.decreaseQuantity(productId);
       }
     },
-    formatPrice(value) {
+   
+    calculateDiscount(price, promoPrice) {
+    if (!promoPrice || !price) return null;
+    const discount = ((price - promoPrice) / price) * 100;
+    return Math.round(discount); 
+  },
+    convertPrice(prix) {
+      return prix / this.getSelectedRate; // Convertir avec le taux sélectionné
+    },
+    // Formatage du prix
+    formatPrice(price, symbol, isSymbolBefore = true) { 
+      const formattedPrice = price.toFixed().replace(/\B(?=(\d{3})+(?!\d))/g, " ");  
+      return isSymbolBefore ? `${symbol} ${formattedPrice}` : `${formattedPrice} ${symbol}`;
+    },
+    formatPrices(value) {
       return parseFloat(value).toLocaleString(); // Formatage avec séparateurs de milliers
+    },
+    truncateText(text, maxLength) {
+      if (text.length > maxLength) {
+        return text.substring(0, maxLength) + '...'; // Ajoute "..." à la fin si le texte est trop long
+      }
+      return text;
     },
   },
   async mounted() {
@@ -625,15 +549,7 @@ export default {
         controls: !1,
         autoplayButtonOutput: !1,
       }));
-
-
-
-
-
   },
-
-
-
 }
 </script>
 <style lang="css" scoped>

@@ -48,16 +48,8 @@
                                     <div class="input-groupe">
                                         <label for="userpassword">
                                             Pays <span class="text-danger">*</span></label>
-                                            <MazSelect v-model="step1.pays" :options="sortedCountryOptions" v-slot="{ option }"  color="secondary"  size="sm" rounded-size="sm"
-                                            search  option-value-key="value" option-label-key="label" option-input-value-key="value"
-                                            >
-                                            <div class="d-flex align-items-center"
-                                                style="padding-top: 0.5rem; padding-bottom: 0.5rem; width: 100%; gap: 1rem">
-                                                <MazAvatar size="0.8rem" :src="option.flag" />
-                                                <strong>
-                                                {{ option.code }}
-                                                </strong>
-                                            </div>
+                                            <MazSelect v-model="step1.pays" :options="countriesOptions"   color="secondary"  size="sm" rounded-size="sm" search>
+                                          
                                             </MazSelect>
                                         <small v-if="v$.step1.pays.$error">{{
                                     v$.step1.pays.$errors[0].$message
@@ -287,7 +279,7 @@ export default {
       v$: useVuelidate(),
       error: "",
       resultError: {},
-      sortedCountryOptions:[],
+      countriesOptions:[],
       visible:false,
       step1:{
        
@@ -336,7 +328,7 @@ export default {
     
   },
  async mounted() {
-  await  this.getCountryOptions()
+  await  this.getCountries()
   },
   methods: {
     validatePasswordsMatch() {
@@ -627,29 +619,7 @@ async registerClientData(Data) {
        }
 
  }
-},
-    async getCountryOptions() {
-
-try {
-  await this.$store.dispatch("fetchCountries");
-  const options = JSON.parse(
-    JSON.stringify(this.$store.getters["getCountryOptions"])
-  );
-  this.sortedCountryOptions = options.map((country) => ({
-      label:country.translations?.fra?.common,
-      flag: country.flags.png,
-      value: country.translations?.fra?.common,
-      code: country.cca3
-
-    }));
-  
-} catch (error) {
-  console.error(
-    "Erreur lors de la récupération des options des pays :",
-    error.message
-  );
-}
-},
+},  
 async formatValidationErrors(errors) {
    const formattedErrors = {};
 
@@ -670,6 +640,26 @@ if (this.resultError.hasOwnProperty(key)) {
 }
 }
  },
+ async getCountries() {
+
+try {
+
+  const response = await axios.get('/countries');
+  const countries = response.data?.data;
+  const options = countries.map((country) => ({
+    label: country.NomPays,
+    flag: country.Flag,
+    value: country.CodePays,
+    code: country.NomAbr,
+   
+  }));
+  
+  this.countriesOptions = options
+
+} catch (error) {
+  console.error('Erreur lors de la récupération des données des pays:', error);
+}
+},
   },
 };
 </script>
@@ -898,6 +888,14 @@ height: 100%;
     background-color: #fff;
     border: 1px solid var(--fc-primary);
     color: #000;
+}
+
+@media (max-width: 1200px) {
+    .sign-header{
+    height: auto !important; 
+    padding:20px 10px;
+   
+}
 }
 
 

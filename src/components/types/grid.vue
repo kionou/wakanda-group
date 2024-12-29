@@ -12,13 +12,13 @@
                   <!-- badge -->
                   <div class="text-center position-relative">
                      <div class="position-absolute top-0 start-0">
-                           <span v-if="product.PrixPromo" class="badge bg-success text-white">
-                           -{{ calculateDiscount(product.Prix, product.PrixPromo) }}%
+                           <span v-if="product.produit?.PrixPromo" class="badge bg-success text-white">
+                           -{{ calculateDiscount(product.produit?.Prix, product.produit?.PrixPromo) }}%
                            </span>
                      </div>
-                     <router-link :to="{ name: 'detail', params: { id: product.id }}">
-                        <img :src="product.PhotoCover ? product.PhotoCover : defaultImage"
-                           :alt="product.NomProduit" :title="product.NomProduit"
+                     <router-link :to="{ name: 'detail', params: { id: encodeId(product.produit?.id) }}">
+                        <img :src="product.produit?.PhotoCover ? product.produit?.PhotoCover : defaultImage"
+                           :alt="product.produit?.NomProduit" :title="product.produit?.NomProduit"
                            style="width: 100%; height: auto; max-height: 30% !important;"
                            class="mb-3 img-fluid" />
                   </router-link>
@@ -26,32 +26,32 @@
                   </div>
                   <!-- heading -->
                   <h2 class="fs-6"><router-link
-                                     :to="{ name: 'detail', params: { id: product.id }}"
+                                     :to="{ name: 'detail', params: { id: encodeId(product.produit?.id) }}"
                                      class="text-inherit text-decoration-none">{{
-                                     truncateText(product.NomProduit , 15) }}
+                                     truncateText(product.produit?.NomProduit , 15) }}
                                  </router-link></h2>
 
                                  <div class="d-flex justify-content-between align-items-center mt-3">
                                
                                <div>
-                               <span v-if="product.PrixPromo" class="text-danger">
-                                   {{ formatPrice(convertPrice(product.PrixPromo), 'CFA', 'CFA') }}
+                               <span v-if="product.produit?.PrixPromo" class="text-danger">
+                                   {{ formatPrice(convertPrice(product.produit?.PrixPromo), 'CFA', 'CFA') }}
                                </span>
                                <br>
-                               <span v-if="product.PrixPromo" class="text-muted text-decoration-line-through">
-                                   {{ formatPrice(convertPrice(product.Prix), 'CFA', 'CFA') }}
+                               <span v-if="product.produit?.PrixPromo" class="text-muted text-decoration-line-through">
+                                   {{ formatPrice(convertPrice(product.produit?.Prix), 'CFA', 'CFA') }}
                                </span>
                                <span v-else class="text-danger">
-                                   {{ formatPrice(convertPrice(product.Prix), 'CFA', 'CFA') }}
+                                   {{ formatPrice(convertPrice(product.produit?.Prix), 'CFA', 'CFA') }}
                                </span>
                                </div>
 
                                <div>
 
                                    <span class="text-uppercase small " @click="addProductToCart(product)"
-                                       :disabled="loadingItems[product?.id]">
+                                       :disabled="loadingItems[product?.produit?.id]">
                                        <div class="icon-card">
-                                           <div v-if="loadingItems[product?.id]">
+                                           <div v-if="loadingItems[product?.produit?.id]">
                                                <LoaderBtn class="loadingbtn"></LoaderBtn>
                                            </div>
                                            <div v-else>
@@ -118,6 +118,9 @@ export default {
    LoadingSkeleton, LoaderBtn , SkeletonFilter
   },
   computed: {
+   decodedId() {
+      return atob(this.id); // Décode l'ID reçu en Base64
+    },
     ...mapGetters('cart', ['alertMessage', 'loading']),
     ...mapGetters("devise", ["selectedDevise", "getSelectedRate"]),
   },
@@ -141,15 +144,19 @@ export default {
     },
  async mounted() {
     
-    await this.getCategoriesAll()
+    await this.ProductsByType()
+   //  await this.getCategoriesAll()
 
   },
   methods: {
+   encodeId(id) {
+    return btoa(id); // Encode en Base64
+  },
    
     async getCategoriesAll() {
       this.loading = true
       try {
-        const response = await axios.get(`/categories/${this.id}`)
+        const response = await axios.get(`/categories/${ this.decodedId}`)
         if (response.data.status === "success") {
           this.CategoriesArray = response.data?.data?.produits 
           this.loading = false
@@ -157,6 +164,27 @@ export default {
 
       } catch (error) {
         console.log('error', error)
+      }
+    },
+    async ProductsByType() {
+      this.loading = true
+      const token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2RhdGEud2FrYW5kYS5iZXN0L2FwaS9zeXN0ZW0vbG9naW4iLCJpYXQiOjE3MzAyNzYzODEsIm5iZiI6MTczMDI3NjM4MSwianRpIjoiVU5sN3J3RXBhTFZGdG1OaCIsInN1YiI6IjEiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.H40wgUqkMXolIzMq_zTz8Mg7Bp-QsyjbarTijztMzi4'
+      try {
+        const response = await axios.get(`/type-ventes/${ this.decodedId}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+
+        });
+        
+        if (response.data?.status === "success") {
+          this.loading = true
+         this.CategoriesArray = response.data?.data?.produits 
+          this.loading = false
+        }
+      } catch (error) {
+
+   console.log('errror',error)
       }
     },
     async FilterProduct(data){

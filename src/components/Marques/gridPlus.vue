@@ -150,7 +150,7 @@ async mounted() {
    async getCategoriesAll() {
      this.loading = true
      try {
-       const response = await axios.get(`/categories/${this.id}`)
+       const response = await axios.get(`/marques/${this.id}`)
        if (response.data.status === "success") {
          this.CategoriesArray = response.data?.data?.produits 
          this.loading = false

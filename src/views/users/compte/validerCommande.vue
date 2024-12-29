@@ -215,8 +215,11 @@
       </div>
       <div class="mb-1 mt-4">
         <!-- btn -->
-        <router-link to="#" @click="ValiderCommande">
-          <button class="btn btn-primary btn-lg d-flex justify-content-between align-items-center">
+        <router-link to="#" @click="ValiderCommande('valider')">
+          <button class="btn btn-primary  d-flex align-items-center w-50"    v-if="LoadingItem['valider']" :disabled="LoadingItem['valider']" >
+                    <LoaderBtn class="loadingbtn"></LoaderBtn> chargement...
+                 </button>
+          <button v-else class="btn btn-primary btn-lg d-flex justify-content-between align-items-center">
             Commander
           </button>
         </router-link>
@@ -323,6 +326,7 @@ export default {
      adresse:"",
      ModesOptions:[],
      selectedMode:"",
+     LoadingItem:{},
      loading:true,
      loadingCoupon: false,
      discountPercentage: 0,
@@ -368,6 +372,10 @@ export default {
    }
  },
 async mounted() {
+ 
+  if(this.loggedInUser === null){
+    this.$router.push('/login-client')
+  }
   await this.getAdresse()
   await this.getModes()
  },
@@ -471,7 +479,8 @@ async mounted() {
         this.loadingCoupon = false;
       }
     },
- async   ValiderCommande(){
+ async   ValiderCommande(modalId){
+  this.LoadingItem[modalId] = true
       const produits = []
       this.cartItems?.map(p =>{  produits.push({
           produit:p.id,
@@ -502,7 +511,7 @@ const response = await axiosInstance.post("/commandes", data,
     },
   });
 if (response.data.status === "success") {
-
+  this.LoadingItem[modalId] = false
   this.toast.success('Commande appliqué avec succès !', {
           position: "top-right",
           timeout: 2000,
@@ -515,6 +524,7 @@ if (response.data.status === "success") {
 
 } catch (error) {
 console.log(error)
+this.LoadingItem[modalId] = false
 }
 
 

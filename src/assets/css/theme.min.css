@@ -215,7 +215,7 @@ div.zoom img {
   --fc-body-line-height: 1.6;
   --fc-body-color: #000;
   --fc-body-color-rgb: 92, 108, 117;
-  --fc-body-bg: #f0f3f2a8;
+  --fc-body-bg: #fff;
   --fc-body-bg-rgb: 255, 255, 255;
   --fc-emphasis-color: #000;
   --fc-emphasis-color-rgb: 0, 0, 0;
@@ -7060,6 +7060,7 @@ fieldset:disabled .btn {
   align-items: center;
   display: flex;
   min-height: calc(100% - var(--fc-modal-margin) * 2);
+  justify-content: center;
 }
 .modal-content {
   background-clip: padding-box;

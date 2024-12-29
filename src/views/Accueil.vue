@@ -5,11 +5,11 @@
             <section class="">
                 <div class="row mt-3 height-slick">
     
-                    <div class="col-xl-2 col-md-3 d-none d-lg-block pe-0">
+                    <div class="col-xl-2  d-none d-lg-block pe-0" >
                         <div class="mb-4">
     
     
-                            <div class="card height-slick justify-content-between ">
+                            <div class="card height-slick justify-content-between categorie " style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">
                               
                                 <ul class="nav-item dropdown align-items-center  p-2 mb-0" style="list-style: none;">
                                     
@@ -18,7 +18,7 @@
 
                                 </span>
                                     <li v-for="(category,index) in CategoriesArray" :key="index" class="dropdown-menu-list">
-                                        <router-link :to="{ name: 'list-categories', params: { id: category.id }}"
+                                        <router-link :to="{ name: 'list-categories', params: { id: encodeId(category.id)  }}"
                                             class="dropdown-item d-flex justify-content-between mb-1 py-1">
                                             <div>
                                                 <img :src="category.Image !== null ? category.Image : defaultImageCategorie"
@@ -32,71 +32,40 @@
     
     
                                     </li>
-    
-                                  
-    
                                 </ul>
-                                <span class="text-center mt-2">
-                                    <hr class="m-0">
-                                    <router-link to="#"> <i class="bi bi-eye"></i> Voir plus</router-link>
-                                </span>
+                              
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-8 col-md-9 col-sm-12  pe-0">
+                    <div class="col-xl-8 col-md-12 col-sm-12  pe-0">
     
     
-                        <div class="hero-slider">
-                            <div class="hero-img-1">
-                                <div class="ps-lg-12 py-lg-16 col-xxl-5 col-lg-7 col-md-8 py-14 px-8 text-xs-center">
-                                    <h1 class="text-white display-5 fw-bold mt-4">SuperMarket For Fresh Grocery</h1>
-                                    <p class="lead text-white">Introduced a new model for online grocery shopping and
-                                        convenient home delivery at any time.</p>
-                                    <a href="#!" class="btn btn-dark mt-3">
-                                        Shop Now
-                                        <i class="feather-icon icon-arrow-right ms-1"></i>
-                                    </a>
+                        <div class="hero-slider"  >
+                            <div class="hero-img-1" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">
+                                <div class=" col-xxl-5 col-lg-7 col-md-8  text-xs-center" style="width: 100%; height:100%">
+                                    <img src="@/assets/img/bn1.jpg" alt="" style="width: 100%; height:100%">
+                                   
                                 </div>
                             </div>
-                            <div class="hero-img-2">
-                                <div class="ps-lg-12 py-lg-16 col-xxl-5 col-lg-7 col-md-8 py-14 px-8 text-xs-center">
-                                    <h1 class="text-dark display-5 fw-bold mt-4">
-                                        Opening Sale
-                                        <br />
-                                        Discount up to
-                                        <span class="text-primary display-6">50%</span>
-                                    </h1>
-                                    <p class="lead">Snack on late-night munchies of delicious nuts & you’re guaranteed
-                                        happiness before you doze!</p>
-                                    <a href="#!" class="btn btn-dark mt-3">
-                                        Shop Now
-                                        <i class="feather-icon icon-arrow-right ms-1"></i>
-                                    </a>
+                            <div class="hero-img-1" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">
+                                <div class=" col-xxl-5 col-lg-7 col-md-8  text-xs-center" style="width: 100%; height:100%">
+                                    <img src="@/assets/img/bn2.jpg" alt="" style="width: 100%; height:100%">
+                                   
                                 </div>
                             </div>
-                            <div class="hero-img-3">
-                                <div class="ps-lg-12 py-lg-16 col-xxl-5 col-lg-7 col-md-8 py-14 px-8 text-xs-center">
-                                    <h1 class="text-dark display-5 fw-bold mt-4">Midnight Munch Combo</h1>
-                                    <p class="lead">Snack on late-night munchies of delicious nuts & you’re guaranteed
-                                        happiness before you doze!</p>
-                                    <a href="#!" class="btn btn-dark mt-3">
-                                        Shop Now
-                                        <i class="feather-icon icon-arrow-right ms-1"></i>
-                                    </a>
+                            <div class="hero-img-1" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">
+                                <div class=" col-xxl-5 col-lg-7 col-md-8  text-xs-center" style="width: 100%; height:100%">
+                                    <img src="@/assets/img/bn3.jpg" alt="" style="width: 100%; height:100%">
+                                   
                                 </div>
                             </div>
+                          
                         </div>
                     </div>
                     <div class="col-xl-2 d-none d-xl-block  pe-0">
     
-                        <div class="card ms-2 height-slick">
-    
-    
-                            <img src="../assets/images/banner/banner-deal.jpg" alt="" class="h-100">
-    
-    
-    
-    
+                        <div class="card ms-2 height-slick card-right" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">
+                            <img src="@/assets/img/right.jpg" alt="" class="h-100">    
                         </div>
     
     
@@ -105,66 +74,65 @@
                 </div>
             </section>
             <!-- section slick and marque , moment  -->
-            <section class="row mt-10">
-                <div class="col-xl-4 mt-4">
+            <section class="row mt-1">
+                <div class="col-xl-4 col-md-4 mt-4">
                    
-                        
-                        <div class="card border border-danger p-6 me-3 " style="height: 98%;">
-                           <div class="row">
+                        <div class="card border   me-1" style="height: 90%;">
+                            <div class="card-body p-3">
+                                <div class="row" style="height: 100%;">
                               <div class="col-lg-12 text-center">
-                                <p style="border-bottom: 1px solid red " class="fs-4"> <b>Les promos</b>   de la semaine </p>
+                                <div class="bg-primary text-white">
+                                    <p style="border-bottom: 1px solid red " class="fs-4 fw-bold"> FLASH PROMOS </p>
+
+                                </div>
                                 <div class="slide-one">
-                                    <div class="item">
+                                    <div class="item" style="display: grid !important; justify-content: center !important;"  v-for="(product,index) in ProductFlash?.produits" :key="index">
                                         <div class="col-lg-12 text-center text-lg-start">
                                  
-                                 <h2 class="fs-4">
-                                    <a href="pages/shop-single.html" class="text-inherit text-decoration-none">Parle Platina Nutricrunch Digestive Cookies</a></h2>
+                                 <h4 class="fs-10">
+                                    <span> {{truncateText(product.produit?.NomProduit , 15) }}</span>
+                                   
+                                </h4>
 
                                  <div class="d-flex justify-content-center align-items-center mt-3">
                                     <div>
-                                       <span class="text-dark fs-3 fw-bold">$100</span>
-                                       <span class="text-decoration-line-through text-muted fs-3">$150</span>
-                                    </div>
+                                                <span v-if="product.produit?.PrixPromo" class="text-danger fs-5 fw-bold">
+                                                    {{ formatPrice(convertPrice(product.produit.PrixPromo), selectedDevise.symbol, selectedDevise.isSymbolBefore) }}
+                                                </span>
+                                                <br>
+                                                <span v-if="product.produit?.PrixPromo" class="text-muted text-decoration-line-through fs-5 fw-bold">
+                                                    {{ formatPrice(convertPrice(product.produit.Prix), selectedDevise.symbol, selectedDevise.isSymbolBefore) }}
+                                                </span>
+                                                <span v-else class="text-danger fs-5 fw-bold">
+                                                    {{ formatPrice(convertPrice(product.produit?.Prix), selectedDevise.symbol, selectedDevise.isSymbolBefore) }}
+                                                </span>
+                                                </div>
                                  </div>
                                  
                                 
                               </div>
-                                    <a href="pages/shop-single.html">
-                                    <img src="@/assets/images/products/deal-img.jpg" alt="Grocery Ecommerce Template" class="img-fluid" style="" />
-                                </a>
-                                
+                                              <router-link :to="{ name: 'detail', params: { id: encodeId(product.produit?.id) }}" class="d-flex justify-content-center" @click="addToRecent(product.produit)">
+                                                  
+                                                  <img :src="product.produit?.PhotoCover ? product.produit?.PhotoCover : defaultImage"
+                                                      :alt="product.produit?.NomProduit" :title="product.produit?.NomProduit"
+                                                      style="width: 300px; height: auto; "
+                                                      class="img-fluid" />
+                                              </router-link> 
+                                              <div>{{ product.produit?.Description }}</div>
                               </div>
-                              <div class="item">
-                                <div class="col-lg-12 text-center text-lg-start">
-                                 
-                                 <h2 class="fs-4">
-                                    <a href="pages/shop-single.html" class="text-inherit text-decoration-none">Parle Platina Nutricrunch Digestive Cookies</a></h2>
-
-                                 <div class="d-flex justify-content-center align-items-center  mt-3">
-                                    <div>
-                                       <span class="text-dark fs-3 fw-bold">$100</span>
-                                       <span class="text-decoration-line-through text-muted fs-3">$150</span>
-                                    </div>
-                                 </div>
-                                 
-                              
-                                
-                              </div>
-                                    <a href="pages/shop-single.html">
-                                    <img src="@/assets/images/products/deal-img.jpg" alt="Grocery Ecommerce Template" class="img-fluid" />
-                                </a>
-                                
-                              </div>
+                            
                                 </div>
                                
                              
                                 </div>
                                 
                            </div>
+                            </div>
+                          
                         </div>
                    
                 </div>
-                <div class="col-xl-8">
+                <div class="col-xl-8 col-md-8">
                      <!-- section marque start -->
             <section class="mt-4">
                 <div class="px-0">
@@ -198,14 +166,15 @@
                                     <!-- item -->
                                     <div class="item" v-for="(marque, index) in marquesArray" :key="index">
                                         <!-- item -->
-                                        <router-link  :to="{ name: 'list-marques', params: { id: marque.id }}" class="text-decoration-none text-inherit">
+                                        <router-link  :to="{ name: 'list-marques', params: {  id: encodeId(marque.id) }}" class="text-decoration-none text-inherit">
                                             <!-- card -->
                                             <div class="card mb-3 card-lift">
-                                                <div class="card-body text-center p-2 text-center">
-                                                    <div class="my-2">
-                                                       
+                                                <div class="card-body  p-2  d-flex flex-column justify-content-center align-items-center">
+                                                     <!-- <router-link :to="{ name: 'marque-detail', params: { id: marque?.id }}"></router-link> -->
+                                                    <div class="my-2" style="height: 120px; width:120px">
+                                                      
                                                         <img :src="marque.Logo !== null ||  !marque.Logo.startsWith('https') ? marque.Logo : defaultImageCategorie"
-                                                        :alt="marque.Nom"  height="24" style="width:100% ; height:90px">
+                                                        :alt="marque.Nom"  height="24" style="width:100% ; height:100%">
                                                     </div>
                                                     <!-- text -->
                                                     <div>{{ marque.Nom }}</div>
@@ -230,11 +199,12 @@
                             <div class="mb-4 "
                                 style="border-bottom: 1px solid var(--fc-primary); width:100% !important">
                                 <h3 class=" mb-0 pb-2 pt-1 ps-2 text-white bg-primary row align-items-center" style="width:100% !important;">
-                                    <router-link to="#" class="text-white col-xl-10" title="Voir plus"
+                                    <router-link :to="{ name: 'type-detail', params: { id: encodeId(ProductMoment?.id) }}" class="text-white col-xl-10 col-md-8 col-sm-6" title="Voir plus"
                                         style="border-radius: 0px !important;font-size: 20px;">
                                         {{ProductMoment?.Nom}}</router-link>
-                                        <div class="col-xl-2 text-end">
-                                    <div style="font-size:14px" class="me-3">VOIR PLUS <i class="bi bi-arrow-right"></i></div>
+                                        <div class="col-xl-2 col-md-4  d-none d-sm-block text-end " style="cursor: pointer;" @click="$router.push({path:`/type-detail/${ encodeId(ProductMoment?.id)}`})">
+                                       <div style="font-size:14px" class="me-3">VOIR PLUS <i class="bi bi-arrow-right"></i></div>
+                                           
                                 </div>
                                 </h3>
                                
@@ -245,26 +215,30 @@
                                     <!-- card -->
                                     <div class="card card-product h-100">
                                         <div class="card-body position-relative">
-                                            <div class="text-center position-relative">
+                                            <div class="text-center position-relative d-flex justify-content-center">
                                                 <div class="position-absolute top-0 start-0">
                                                     <span v-if="product.produit?.PrixPromo" class="badge bg-success text-white">
                                                     -{{ calculateDiscount(product.produit?.Prix, product.produit?.PrixPromo) }}%
                                                     </span>
                                                 </div>
                                                 <!-- img -->
-                                                <router-link :to="{ name: 'detail', params: { id: product.produit?.id }}">
-                                                    <img :src="product.produit?.PhotoCover ? product.produit?.PhotoCover : defaultImage"
-                                                        :alt="product.produit?.NomProduit" :title="product.produit?.NomProduit"
-                                                        style="width: 100%; height: 150px; max-height: 30% !important;"
-                                                        class="mb-3 img-fluid" />
-                                                </router-link>
+                                                <div>
+                                                    <router-link :to="{ name: 'detail', params: { id: encodeId(product.produit?.id) }}" @click="addToRecent(product.produit)">
+                                                  
+                                                  <img :src="product.produit?.PhotoCover ? product.produit?.PhotoCover : defaultImage"
+                                                      :alt="product.produit?.NomProduit" :title="product.produit?.NomProduit"
+                                                      style="width: 200px; height: auto; "
+                                                      class="mb-3 img-fluid" />
+                                                    </router-link> 
+                                                    </div>
+                                               
                                                 <!-- action btn -->
     
                                             </div>
                                             <!-- title -->
                                             <h2 class="fs-6"><router-link
-                                                    :to="{ name: 'detail', params: { id: product.produit?.id }}"
-                                                    class="text-inherit text-decoration-none">{{
+                                                    :to="{ name: 'detail', params: { id: encodeId (product.produit?.id) }}"
+                                                    class="text-inherit text-decoration-none" @click="addToRecent(product.produit)">{{
                                                     truncateText(product.produit?.NomProduit , 15) }}
                                                 </router-link></h2>
                                             <div class="d-flex justify-content-between align-items-center mt-3">
@@ -309,8 +283,6 @@
             <!-- section moment end  -->
                 </div>
             </section>
-    
-    
 
             <div class=" mb-3">
     
@@ -324,16 +296,16 @@
     
                             <!-- row -->
                             <div class="row align-items-center bg-primary text-white mb-2" style="border: 1px solid red">
-                                <div class="col-xl-2">
-                                     <div class="mb-5 mb-xl-0">
-                                         <h3 class="mb-0 d-flex justify-content-center align-items-center"> 
+                                <div class="col-xl-2 col-md-3">
+                                     <div class="mb-xl-0">
+                                         <h3 class="mb-0 d-flex justify-content-center align-items-center" style="cursor: pointer;" @click="$router.push({path:`/type-detail/${ProductFlash?.id}`})"> 
                                            <img src="@/assets/img/flash.png" alt="" style="width:13%">
                                            <span class="text-white"> {{ProductFlash?.Nom}}</span>
                                            
                                         </h3>
                                         </div>
                                     </div>
-                                <div class="col-xl-9">
+                                <div class="col-xl-9 col-md-7">
                                     <div>
                                             <!-- nav -->
                                             <nav>
@@ -357,17 +329,12 @@
                                                             </span>
                                                         </a>
                                                     </li>
-                                               
-    
-                                                   
-                                                  
-    
-    
                                                 </ul>
                                             </nav>
                                         </div>
                                 </div>
-                                <div class="col-xl-1">
+                               
+                                <div class="col-xl-1 col-md-2 d-none d-sm-block"  style="cursor: pointer;" @click="$router.push({path:`/type-detail/${ProductFlash?.id}`})">
                                     <div>VOIR PLUS <i class="bi bi-arrow-right"></i></div>
                                 </div>
                                
@@ -388,15 +355,15 @@
                                                             <!-- badge -->
                                                             <div class="text-center position-relative">
                                                                 <div class="position-absolute top-0 start-0">
-                                                                    <span
-                                                                        class="badge bg-gray-300 text-decoration-line-through text-danger">1
-                                                                        200 000 F cfa</span>
+                                                                    <span v-if="product.produit?.PrixPromo" class="badge bg-success text-white">
+                                                                    -{{ calculateDiscount(product.produit?.Prix, product.produit?.PrixPromo) }}%
+                                                                    </span>
                                                                 </div>
                                                                 <!-- img -->
-                                                                <router-link :to="{ name: 'detail', params: { id: product.produit?.id }}">
+                                                                <router-link :to="{ name: 'detail', params: { id: product.produit?.id }}" @click="addToRecent(product.produit)">
                                                                     <img :src="product.produit?.PhotoCover ? product.produit?.PhotoCover : defaultImage"
                                                                         :alt="product.produit?.NomProduit" :title="product.produit?.NomProduit"
-                                                                        style="width: 100%; height: 150px; max-height: 30% !important;"
+                                                                        style="width: 100%; height: auto; max-height: 30% !important;"
                                                                         class="mb-3 img-fluid" />
                                                                 </router-link>
                                                                 <!-- action btn -->
@@ -405,18 +372,24 @@
                                                             <!-- title -->
                                                             <h2 class="fs-6"><router-link
                                                                 :to="{ name: 'detail', params: { id: product.produit?.id }}"
-                                                                class="text-inherit text-decoration-none">{{
+                                                                class="text-inherit text-decoration-none" @click="addToRecent(product.produit)">{{
                                                                 truncateText(product.produit?.NomProduit , 15) }}
                                                             </router-link></h2>
     
                                                             <!-- price -->
-                                                            <div
-                                                                class="d-flex justify-content-between align-items-center mt-3">
+                                                            <div class="d-flex justify-content-between align-items-center mt-3">
                                                                 <div>
-                                                                    <span class="text-danger"> {{ formatPrice(convertPrice(product.produit?.Prix), selectedDevise.symbol, selectedDevise.isSymbolBefore) }}</span>
-
-                                                                    <!-- -->
-                                                                </div>
+                                                <span v-if="product.produit?.PrixPromo" class="text-danger">
+                                                    {{ formatPrice(convertPrice(product.produit.PrixPromo), selectedDevise.symbol, selectedDevise.isSymbolBefore) }}
+                                                </span>
+                                                <br>
+                                                <span v-if="product.produit?.PrixPromo" class="text-muted text-decoration-line-through">
+                                                    {{ formatPrice(convertPrice(product.produit.Prix), selectedDevise.symbol, selectedDevise.isSymbolBefore) }}
+                                                </span>
+                                                <span v-else class="text-danger">
+                                                    {{ formatPrice(convertPrice(product.produit?.Prix), selectedDevise.symbol, selectedDevise.isSymbolBefore) }}
+                                                </span>
+                                                </div>
                                                                 <div>
                                                                     
                                                     <span class="text-uppercase small " @click="addProductToCart(product)"
@@ -436,7 +409,7 @@
                                                             <div class="mt-4">
                                                                 <div class="my-3">
                                                                     <small>
-                                                                        the available products :
+                                                                        Disponible :
                                                                         <span class="text-dark fw-bold">8</span>
                                                                     </small>
                                                                 </div>
@@ -453,9 +426,6 @@
                                                         <div class="product-content-fade border-info"></div>
                                                     </div>
                                                 </div>
-
-                                              
-    
                                             </div>
                                         </div>
                                         
@@ -486,10 +456,7 @@
                                     </div>
                                 </div>
                             </div>
-    
                         </section>
-    
-    
                         <div class="row" v-if="ProductPlusVendu?.produits?.length !== 0">
                             <!-- col -->
     
@@ -498,12 +465,14 @@
                                     <div class="mb-4 "
                                 style="border-bottom: 1px solid var(--fc-primary); width:100% !important">
                                 <h3 class=" mb-0 pb-2 pt-1 ps-2 text-white bg-primary row align-items-center" style="width:100% !important;">
-                                    <router-link to="#" class="text-white col-xl-11" title="Voir plus"
+                                    <router-link :to="{ name: 'type-detail', params: { id: encodeId(ProductPlusVendu?.id) }}" class="text-white col-xl-11 col-md-8" title="Voir plus"
                                         style="border-radius: 0px !important;font-size: 20px;">
                                         {{ProductPlusVendu?.Nom}}</router-link>
-                                        <div class="col-xl-1">
-                                    <div style="font-size:14px">VOIR PLUS <i class="bi bi-arrow-right"></i></div>
-                                </div>
+                                        <div class="col-xl-1 col-md-4 d-none d-sm-block  text-end " style="cursor: pointer;" @click="$router.push({path:`/type-detail/${encodeId(ProductPlusVendu?.id)}`})">
+                                         
+                                         <div style="font-size:14px" class="me-3">VOIR PLUS <i class="bi bi-arrow-right"></i></div>
+                                                
+                                     </div>
                                 </h3>
                                
                             </div>
@@ -514,29 +483,47 @@
                                     <!-- card -->
                                     <div class="card card-product h-100">
                                         <div class="card-body position-relative">
-                                            <div class="text-center position-relative">
+                                            <div class="text-center position-relative d-flex justify-content-center">
+                                                <div class="position-absolute top-0 start-0">
+                                                    <span v-if="product.produit?.PrixPromo" class="badge bg-success text-white">
+                                                    -{{ calculateDiscount(product.produit?.Prix, product.produit?.PrixPromo) }}%
+                                                    </span>
+                                                </div>
                                                 <!-- img -->
-                                                <router-link :to="{ name: 'detail', params: { id: product.produit?.id }}">
-                                                    <img :src="product.produit?.PhotoCover ? product.produit?.PhotoCover : defaultImage"
-                                                        :alt="product.produit?.NomProduit" :title="product.produit?.NomProduit"
-                                                        style="width: 100%; height: 150px; max-height: 30% !important;"
-                                                        class="mb-3 img-fluid" />
-                                                </router-link>
+                                                <div>
+                                                    <router-link :to="{ name: 'detail', params: { id: encodeId(product.produit?.id) }}" @click="addToRecent(product.produit)">
+                                                  
+                                                  <img :src="product.produit?.PhotoCover ? product.produit?.PhotoCover : defaultImage"
+                                                      :alt="product.produit?.NomProduit" :title="product.produit?.NomProduit"
+                                                      style="width: 150px; height:auto; "
+                                                      class="mb-3 img-fluid" />
+                                              </router-link> 
+                                                    </div>
+                                               
                                                 <!-- action btn -->
     
                                             </div>
                                             <!-- title -->
                                             <h2 class="fs-6"><router-link
-                                                    :to="{ name: 'detail', params: { id: product.produit?.id }}"
-                                                    class="text-inherit text-decoration-none">{{
+                                                    :to="{ name: 'detail', params: { id: encodeId(product.produit?.id) }}"
+                                                    class="text-inherit text-decoration-none" @click="addToRecent(product.produit)">{{
                                                     truncateText(product.produit?.NomProduit , 15) }}
                                                 </router-link></h2>
                                             <div class="d-flex justify-content-between align-items-center mt-3">
+                                              
                                                 <div>
-                                                    <span class="text-danger"> {{ formatPrice(convertPrice(product.produit?.Prix), selectedDevise.symbol, selectedDevise.isSymbolBefore) }}</span>
-                                                    
-    
+                                                <span v-if="product.produit?.PrixPromo" class="text-danger">
+                                                    {{ formatPrice(convertPrice(product.produit.PrixPromo), selectedDevise.symbol, selectedDevise.isSymbolBefore) }}
+                                                </span>
+                                                <br>
+                                                <span v-if="product.produit?.PrixPromo" class="text-muted text-decoration-line-through">
+                                                    {{ formatPrice(convertPrice(product.produit.Prix), selectedDevise.symbol, selectedDevise.isSymbolBefore) }}
+                                                </span>
+                                                <span v-else class="text-danger">
+                                                    {{ formatPrice(convertPrice(product.produit?.Prix), selectedDevise.symbol, selectedDevise.isSymbolBefore) }}
+                                                </span>
                                                 </div>
+
                                                 <div>
     
                                                     <span class="text-uppercase small " @click="addProductToCart(product)"
@@ -555,7 +542,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                      </div>
                                        
                                        
                                     </div>
@@ -573,40 +560,54 @@
                                     <div class="mb-4 bg-primary"
                                 style="border-bottom: 1px solid var(--fc-primary); width:100% !important">
                                 <h3 class=" mb-0 pb-2 pt-1 ps-2 text-white bg-primary row align-items-center" style="width:100% !important;">
-                                    <router-link to="#" class="text-white col-xl-11" title="Voir plus"
+                                    <router-link :to="{ name: 'type-detail', params: { id:encodeId(ProductSurCommande?.id) }}" class="text-white col-xl-11 col-md-8" title="Voir plus"
                                         style="border-radius: 0px !important;font-size: 20px;">
                                         {{ProductSurCommande?.Nom}}</router-link>
-                                        <div class="col-xl-1">
-                                    <div style="font-size:14px">VOIR PLUS <i class="bi bi-arrow-right"></i></div>
-                                </div>
+                                        <div class="col-xl-1 col-md-4 d-none d-sm-block text-end " style="cursor: pointer;" @click="$router.push({path:`/type-detail/${encodeId(ProductSurCommande?.id)}`})">
+                                         
+                                         <div style="font-size:14px" class="me-3">VOIR PLUS <i class="bi bi-arrow-right"></i></div>
+                                                
+                                     </div>
                                 </h3>
                                
                             </div>
                                   
                                     <div class="sur_commande">
+                                       
                                         <div class="item" v-for="(product,index) in ProductSurCommande?.produits" :key="index">
                                     <!-- card -->
                                     <div class="card card-product h-100">
                                         <div class="card-body position-relative">
-                                            <div class="text-center position-relative">
+                                            <div class="text-center position-relative d-flex justify-content-center">
+                                                <div class="position-absolute top-0 start-0">
+                                                    <span v-if="product.produit?.PrixPromo" class="badge bg-success text-white">
+                                                    -{{ calculateDiscount(product.produit?.Prix, product.produit?.PrixPromo) }}%
+                                                    </span>
+                                                </div>
                                                 <!-- img -->
-                                                <router-link :to="{ name: 'detail', params: { id: product.produit?.id }}">
-                                                    <img :src="product.produit?.PhotoCover ? product.produit?.PhotoCover : defaultImage"
-                                                        :alt="product.produit?.NomProduit" :title="product.produit?.NomProduit"
-                                                        style="width: 100%; height: 150px; max-height: 30% !important;"
-                                                        class="mb-3 img-fluid" />
-                                                </router-link>
+                                                <div>
+                                                    <router-link :to="{ name: 'detail', params: { id: encodeId(product.produit?.id) }}" @click="addToRecent(product.produit)">
+                                                  
+                                                  <img :src="product.produit?.PhotoCover ? product.produit?.PhotoCover : defaultImage"
+                                                      :alt="product.produit?.NomProduit" :title="product.produit?.NomProduit"
+                                                      style="width: 150px; height: auto; "
+                                                      class="mb-3 img-fluid" />
+                                              </router-link> 
+                                                    </div>
+                                               
                                                 <!-- action btn -->
     
                                             </div>
                                             <!-- title -->
                                             <h2 class="fs-6"><router-link
-                                                    :to="{ name: 'detail', params: { id: product.produit?.id }}"
-                                                    class="text-inherit text-decoration-none">{{
+                                                    :to="{ name: 'detail', params: { id: encodeId(product.produit?.id) }}"
+                                                    class="text-inherit text-decoration-none" @click="addToRecent(product.produit)">{{
                                                     truncateText(product.produit?.NomProduit , 15) }}
                                                 </router-link></h2>
                                             <div class="d-flex justify-content-between align-items-center mt-3">
-                               
+                                              
+                                             <p>sur commande</p>
+
                                                 <div>
     
                                                     <span class="text-uppercase small " @click="addProductToCart(product)"
@@ -625,16 +626,10 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-
-                                        
-    
-                                        
+                                      </div>
                                     </div>
                                 </div>
-    
                                 <section>
-    
                                     <div class="row">
                                         <div class="col-12">
                                             <div
@@ -655,11 +650,7 @@
                                             </div>
                                         </div>
                                     </div>
-    
                                 </section>
-    
-    
-    
                             </div>
                         </div>
     
@@ -678,241 +669,80 @@
                                                         vus recécemment</router-link>
                                                 </h3>
                                             </div>
-    
-    
                                         </div>
     
                                     </div>
                                     <div class="vus_recemment  ">
-                                        <!-- item -->
-                                        <div class="item">
-                                            <!-- card -->
-                                            <div class="card card-product h-100">
-                                                <div class="card-body position-relative">
-                                                    <div class="text-center position-relative">
-    
-                                                        <!-- img -->
-                                                        <router-link to="/detail" href="#!"><img
-                                                                src="@/assets/images/products/product-img-1.jpg"
-                                                                alt="Grocery Ecommerce Template"
-                                                                class="mb-3 img-fluid" /></router-link>
-                                                        <!-- action btn -->
-    
-                                                    </div>
-                                                    <!-- title -->
-                                                    <h2 class="fs-6"><router-link to="/detail"
-                                                            class="text-inherit text-decoration-none">Haldiram's Sev
-                                                            Bhujia</router-link></h2>
-                                                    <div class="d-flex justify-content-between align-items-center mt-3">
-                                                        <div>
-                                                            <span class="text-danger">2000 FCFA</span>
-                                                            <span class="text-decoration-line-through text-muted">$65</span>
-                                                        </div>
-                                                        <div><span class="text-uppercase small ">
-                                                                <div class="icon-card">
-                                                                    <div>
-                                                                        <i class="bi bi-cart2 fs-4"></i>
-                                                                    </div>
-    
-                                                                </div>
-                                                            </span></div>
-                                                    </div>
-    
-    
+                                        <p v-if="recentProducts.length === 0">Pas de produit vue pour l'instant</p>
+                                        <div v-else class="item" v-for="(product,index) in recentProducts" :key="index">
+                                    <!-- card -->
+                                    <div class="card card-product h-100">
+                                        <div class="card-body position-relative">
+                                            <div class="text-center position-relative d-flex justify-content-center">
+                                                <div class="position-absolute top-0 start-0">
+                                                    <span v-if="product?.PrixPromo" class="badge bg-success text-white">
+                                                    -{{ calculateDiscount(product?.Prix, product?.PrixPromo) }}%
+                                                    </span>
                                                 </div>
+                                                <!-- img -->
+                                                <div>
+                                                    <router-link :to="{ name: 'detail', params: { id: encodeId(product?.id) }}" @click="addToRecent(product)">
+                                                  
+                                                  <img :src="product?.PhotoCover ? product?.PhotoCover : defaultImage"
+                                                      :alt="product?.NomProduit" :title="product?.NomProduit"
+                                                      style="width: 200px; height: auto; "
+                                                      class="mb-3 img-fluid" />
+                                                    </router-link> 
+                                                    </div>
+                                               
+                                                <!-- action btn -->
+    
                                             </div>
-                                        </div>
+                                            <!-- title -->
+                                            <h2 class="fs-6"><router-link
+                                                    :to="{ name: 'detail', params: { id: encodeId(product?.id) }}"
+                                                    class="text-inherit text-decoration-none" @click="addToRecent(product)">{{
+                                                    truncateText(product?.NomProduit , 15) }}
+                                                </router-link></h2>
+                                            <div class="d-flex justify-content-between align-items-center mt-3">
+                                              
+                                                <div>
+                                                <span v-if="product?.PrixPromo" class="text-danger">
+                                                    {{ formatPrice(convertPrice(product.PrixPromo), selectedDevise.symbol, selectedDevise.isSymbolBefore) }}
+                                                </span>
+                                                <br>
+                                                <span v-if="product?.PrixPromo" class="text-muted text-decoration-line-through">
+                                                    {{ formatPrice(convertPrice(product.Prix), selectedDevise.symbol, selectedDevise.isSymbolBefore) }}
+                                                </span>
+                                                <span v-else class="text-danger">
+                                                    {{ formatPrice(convertPrice(product?.Prix), selectedDevise.symbol, selectedDevise.isSymbolBefore) }}
+                                                </span>
+                                                </div>
 
-                                        <div class="item">
-                                            <!-- card -->
-                                            <div class="card card-product h-100">
-                                                <div class="card-body position-relative">
-                                                    <div class="text-center position-relative">
-                                                        <!-- img -->
-                                                        <router-link to="/detail"><img
-                                                                src="@/assets/images/products/product-img-2.jpg"
-                                                                alt="Grocery Ecommerce Template"
-                                                                class="mb-3 img-fluid" /></router-link>
-                                                        <!-- action btn -->
+                                                <div>
     
-                                                    </div>
-                                                    <!-- title -->
-                                                    <h2 class="fs-6"><router-link to="/detail"
-                                                            class="text-inherit text-decoration-none">Britannia NutriChoice
-                                                        </router-link></h2>
-                                                    <div class="d-flex justify-content-between align-items-center mt-3">
-                                                        <div>
-                                                            <span class="text-danger">2000 FCFA</span>
-                                                            <span class="text-decoration-line-through text-muted">$65</span>
-                                                        </div>
-                                                        <div><span class="text-uppercase small ">
-                                                                <div class="icon-card">
-                                                                    <div>
-                                                                        <i class="bi bi-cart2 fs-4"></i>
-                                                                    </div>
-    
-                                                                </div>
-                                                            </span></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="item">
-                                            <!-- card -->
-                                            <div class="card card-product h-100">
-                                                <div class="card-body position-relative">
-                                                    <div class="text-center position-relative">
-                                                        <!-- img -->
-                                                        <router-link to="/detail"><img
-                                                                src="@/assets/images/products/product-img-3.jpg"
-                                                                alt="Grocery Ecommerce Template"
-                                                                class="mb-3 img-fluid" /></router-link>
-                                                        <!-- action btn -->
-    
-                                                    </div>
-                                                    <!-- title -->
-                                                    <h2 class="fs-6"><router-link to="/detail"
-                                                            class="text-inherit text-decoration-none">Cadbury
-                                                            5 star </router-link></h2>
-                                                    <div>
-                                                        <div class="d-flex justify-content-between align-items-center mt-3">
-                                                            <div>
-                                                                <span class="text-danger">2000 FCFA</span>
-                                                                <span
-                                                                    class="text-decoration-line-through text-muted">$65</span>
+                                                    <span class="text-uppercase small " @click="addProductToCart(product)"
+                                                        :disabled="loadingItems[product?.id]">
+                                                        <div class="icon-card">
+                                                            <div v-if="loadingItems[product?.id]">
+                                                                <LoaderBtn class="loadingbtn"></LoaderBtn>
                                                             </div>
-                                                            <div><span class="text-uppercase small ">
-                                                                    <div class="icon-card">
-                                                                        <div>
-                                                                            <i class="bi bi-cart2 fs-4"></i>
-                                                                        </div>
-    
-                                                                    </div>
-                                                                </span></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-    
-                                        <div class="item">
-                                            <!-- card -->
-                                            <div class="card card-product h-100">
-                                                <div class="card-body position-relative">
-                                                    <div class="text-center position-relative">
-    
-                                                        <!-- img -->
-                                                        <router-link to="/detail" href="#!"><img
-                                                                src="@/assets/images/products/product-img-1.jpg"
-                                                                alt="Grocery Ecommerce Template"
-                                                                class="mb-3 img-fluid" /></router-link>
-                                                        <!-- action btn -->
-    
-                                                    </div>
-                                                    <!-- title -->
-                                                    <h2 class="fs-6"><router-link to="/detail"
-                                                            class="text-inherit text-decoration-none">Haldiram's Sev
-                                                            Bhujia</router-link></h2>
-                                                    <div class="d-flex justify-content-between align-items-center mt-3">
-                                                        <div>
-                                                            <span class="text-danger">2000 FCFA</span>
-                                                            <span class="text-decoration-line-through text-muted">$65</span>
-                                                        </div>
-                                                        <div><span class="text-uppercase small ">
-                                                                <div class="icon-card">
-                                                                    <div>
-                                                                        <i class="bi bi-cart2 fs-4"></i>
-                                                                    </div>
-    
-                                                                </div>
-                                                            </span></div>
-                                                    </div>
-    
-    
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="item">
-                                            <!-- card -->
-                                            <div class="card card-product h-100">
-                                                <div class="card-body position-relative">
-                                                    <div class="text-center position-relative">
-                                                        <!-- img -->
-                                                        <router-link to="/detail"><img
-                                                                src="@/assets/images/products/product-img-2.jpg"
-                                                                alt="Grocery Ecommerce Template"
-                                                                class="mb-3 img-fluid" /></router-link>
-                                                        <!-- action btn -->
-    
-                                                    </div>
-                                                    <!-- title -->
-                                                    <h2 class="fs-6"><router-link to="/detail"
-                                                            class="text-inherit text-decoration-none">Britannia NutriChoice
-                                                        </router-link></h2>
-                                                    <div class="d-flex justify-content-between align-items-center mt-3">
-                                                        <div>
-                                                            <span class="text-danger">2000 FCFA</span>
-                                                            <span class="text-decoration-line-through text-muted">$65</span>
-                                                        </div>
-                                                        <div><span class="text-uppercase small ">
-                                                                <div class="icon-card">
-                                                                    <div>
-                                                                        <i class="bi bi-cart2 fs-4"></i>
-                                                                    </div>
-    
-                                                                </div>
-                                                            </span></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="item">
-                                            <!-- card -->
-                                            <div class="card card-product h-100">
-                                                <div class="card-body position-relative">
-                                                    <div class="text-center position-relative">
-                                                        <!-- img -->
-                                                        <router-link to="/detail"><img
-                                                                src="@/assets/images/products/product-img-3.jpg"
-                                                                alt="Grocery Ecommerce Template"
-                                                                class="mb-3 img-fluid" /></router-link>
-                                                        <!-- action btn -->
-    
-                                                    </div>
-                                                    <!-- title -->
-                                                    <h2 class="fs-6"><router-link to="/detail"
-                                                            class="text-inherit text-decoration-none">Cadbury
-                                                            5 star </router-link></h2>
-                                                    <div>
-                                                        <div class="d-flex justify-content-between align-items-center mt-3">
-                                                            <div>
-                                                                <span class="text-danger">2000 FCFA</span>
-                                                                <span
-                                                                    class="text-decoration-line-through text-muted">$65</span>
+                                                            <div v-else>
+                                                                <i class="bi bi-cart2 fs-4"></i>
                                                             </div>
-                                                            <div><span class="text-uppercase small ">
-                                                                    <div class="icon-card">
-                                                                        <div>
-                                                                            <i class="bi bi-cart2 fs-4"></i>
-                                                                        </div>
     
-                                                                    </div>
-                                                                </span></div>
                                                         </div>
-                                                    </div>
+                                                    </span>
                                                 </div>
                                             </div>
                                         </div>
-    
+                                    </div>
+                                </div>
                                       
                                     </div>
                                 </div>
                             </div>
                         </div>
-    
-                       
-    
-    
                     </div>
                 </div>
     
@@ -963,37 +793,25 @@
     
         <div class="modal fade" id="modal-subscribe" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog modal-lg modal-dialog-centered">
-                <div class="modal-content">
+                <div class="modal-content" style="height: 500px; width:500px">
                     <div class="modal-body p-0">
-                        <div class="d-flex align-items-center">
-                            <div class="d-none d-lg-block">
-                                <img src="@/assets/images/banner/modal_img.jpg" alt="" class="img-fluid rounded-start" />
+                        <div class="">
+                            <div class="" style="height: 100%; width:100%">
+                                <img src="@/assets/img/bnm.jpg" alt="" class="img-fluid rounded-start" />
                             </div>
-                            <div class="px-8 py-8 py-lg-0">
-                                <div class="position-absolute end-0 top-0 m-6">
+                           
+                        </div>
+                        <div class="px-8 py-8 py-lg-0">
+                                <div class="position-absolute " style="top: -32px; right: -27px; background-color: red; padding: 4px; border-radius: 50%;">
                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                         aria-label="Close"></button>
                                 </div>
-                                <span class="bg-light-danger text-danger badge rounded-pill mb-4 px-4 py-2">7 Day Super
-                                    Sale</span>
-                                <h2 class="display-6 fw-bold">
-                                    Discount up to
-                                    <br />
-                                    <span class="text-primary">50%</span>
-                                </h2>
-                                <p class="lead mb-5">Seven day of grate deals - what could be better?</p>
-    
-                                <div class="d-grid">
-                                    <a href="#" class="btn btn-primary" data-bs-dismiss="modal">Start Show Now</a>
-                                </div>
+                    
                             </div>
-                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    
-        <!-- modal -->
+        </div>  
         <!-- Modal -->
         <div class="modal fade" id="quickViewModal" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog modal-xl modal-dialog-centered">
@@ -1160,73 +978,6 @@
             </div>
         </div>
     
-        <div class="modal fade" id="userModal" tabindex="-1" aria-labelledby="userModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content p-4">
-                    <div class="modal-header border-0">
-                        <h5 class="modal-title fs-3 fw-bold" id="userModalLabel">Sign dUp</h5>
-    
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <form>
-                            <div class="mb-3">
-                                <label for="fullName" class="form-label">Name</label>
-                                <input type="text" class="form-control" id="fullName" placeholder="Enter Your Name"
-                                    required="" />
-                            </div>
-                            <div class="mb-3">
-                                <label for="email" class="form-label">Email address</label>
-                                <input type="email" class="form-control" id="email" placeholder="Enter Email address"
-                                    required="" />
-                            </div>
-    
-                            <div class="mb-5">
-                                <label for="password" class="form-label">Password</label>
-                                <input type="password" class="form-control" id="password" placeholder="Enter Password"
-                                    required="" />
-                                <small class="form-text">
-                                    By Signup, you agree to our
-                                    <a href="javascript:void(0)">Terms of Service</a>
-                                    &
-                                    <a href="javascript:void(0)">Privacy Policy</a>
-                                </small>
-                            </div>
-    
-                            <button type="submit" class="btn btn-primary">Sign Up</button>
-                        </form>
-                    </div>
-                    <div class="modal-footer border-0 justify-content-center">
-                        Already have an account?
-                        <a href="#">Sign in</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    
-        <!-- Modal product paye-->
-        <div class="modal fade" id="productPaye" tabindex="-1" aria-labelledby="productPayeLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" style="max-width: auto !important; width: 100%;">
-                <div class="modal-content p-4">
-                    <div class="modal-header border-0 justify-content-between">
-    
-                        <h5 class="modal-title fs-4 fw-bold" id="productPayeLabel">S'inscrire</h5>
-    
-                        <button type="button" class="btn-close  m-0" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body p-0">
-                        text
-                    </div>
-                    <div class="modal-footer text-center pt-0">
-    
-                    </div>
-    
-                </div>
-            </div>
-        </div>
-    
-    
-    
     </div>
 </template>
 <script>
@@ -1252,6 +1003,10 @@ export default {
   computed: {
     ...mapGetters('cart', ['alertMessage', 'loading']),
     ...mapGetters("devise", ["selectedDevise", "getSelectedRate"]),
+    recentProducts() {
+    
+      return this.$store.getters['recentProducts/recentProducts'];
+    },
   },
   setup() {
     const toast = useToast(); // Initialiser useToast
@@ -1328,10 +1083,19 @@ export default {
   },
   methods: {
     // ...mapActions('cart', ['addToCart']),
+    encodeId(id) {
+    return btoa(id); // Encode en Base64
+  },
 
     addProductToCart(product) {
       this.loadingItems[product.produit?.id] = true;
       this.$store.dispatch('cart/addToCart', product?.produit);
+    },
+    addToRecent(product) {
+      if (product) {
+        // Ajouter le produit aux produits récents
+        this.$store.dispatch('recentProducts/addProductToRecent', product);
+      }
     },
 
     recupererProduits() {
@@ -1404,67 +1168,52 @@ export default {
           slidesToScroll: 1,
           autoplay: !0,
           dots: !1,
-          arrows: !0,
+          arrows: !1,
           prevArrow:
             '<span class="slick-prev "><i class="feather-icon icon-chevron-left"></i></span>',
           nextArrow:
             '<span class="slick-next "><i class="feather-icon icon-chevron-right "></i></span>',
           responsive: [
-            {
-              breakpoint: 1400,
-              settings: { slidesToShow: 4, slidesToScroll: 7 },
-            },
-            {
-              breakpoint: 1200,
-              settings: { slidesToShow: 4, slidesToScroll: 1 },
-            },
+            { breakpoint: 1400,settings: { slidesToShow: 4, slidesToScroll: 3 } },
+            { breakpoint: 1200,settings: { slidesToShow: 3, slidesToScroll: 2 } },
             { breakpoint: 480, settings: { slidesToShow: 2, slidesToScroll: 1 } },
+            { breakpoint: 425, settings: { slidesToShow: 2, slidesToScroll: 1 } },
           ],
         });
         $('.product-slider-four-column').slick({
           infinite: !0,
-          slidesToShow: 7,
+          slidesToShow: 6,
           slidesToScroll: 1,
           autoplay: !0,
           dots: !1,
-          arrows: !0,
+          arrows: !1,
           prevArrow:
             '<span class="slick-prev "><i class="feather-icon icon-chevron-left"></i></span>',
           nextArrow:
             '<span class="slick-next "><i class="feather-icon icon-chevron-right "></i></span>',
           responsive: [
-            {
-              breakpoint: 1400,
-              settings: { slidesToShow: 7, slidesToScroll: 7 },
-            },
-            {
-              breakpoint: 1200,
-              settings: { slidesToShow: 6, slidesToScroll: 1 },
-            },
+            { breakpoint: 1400,settings: { slidesToShow: 6, slidesToScroll: 5 } },
+            { breakpoint: 1200,settings: { slidesToShow: 5, slidesToScroll: 4 } },
             { breakpoint: 480, settings: { slidesToShow: 2, slidesToScroll: 1 } },
+            { breakpoint: 425, settings: { slidesToShow: 2, slidesToScroll: 1 } },
           ],
         });
         $('.sur_commande').slick({
           infinite: !0,
-          slidesToShow: 7,
+          slidesToShow: 6,
           slidesToScroll: 1,
           autoplay: !0,
           dots: !1,
-          arrows: !0,
+          arrows: !1,
           prevArrow:
             '<span class="slick-prev "><i class="feather-icon icon-chevron-left"></i></span>',
           nextArrow:
             '<span class="slick-next "><i class="feather-icon icon-chevron-right "></i></span>',
           responsive: [
-            {
-              breakpoint: 1400,
-              settings: { slidesToShow: 7, slidesToScroll: 7 },
-            },
-            {
-              breakpoint: 1200,
-              settings: { slidesToShow: 6, slidesToScroll: 1 },
-            },
+            { breakpoint: 1400,settings: { slidesToShow: 6, slidesToScroll: 4 } },
+            { breakpoint: 1200,settings: { slidesToShow: 5, slidesToScroll: 2 } },
             { breakpoint: 480, settings: { slidesToShow: 2, slidesToScroll: 1 } },
+            { breakpoint: 425, settings: { slidesToShow: 2, slidesToScroll: 1 } },
           ],
         });
         $('.vus_recemment').slick({
@@ -1473,21 +1222,16 @@ export default {
           slidesToScroll: 1,
           autoplay: !0,
           dots: !1,
-          arrows: !0,
+          arrows: !1,
           prevArrow:
             '<span class="slick-prev "><i class="feather-icon icon-chevron-left"></i></span>',
           nextArrow:
             '<span class="slick-next "><i class="feather-icon icon-chevron-right "></i></span>',
           responsive: [
-            {
-              breakpoint: 1400,
-              settings: { slidesToShow: 7, slidesToScroll: 7 },
-            },
-            {
-              breakpoint: 1200,
-              settings: { slidesToShow: 6, slidesToScroll: 1 },
-            },
+            { breakpoint: 1400,settings: { slidesToShow: 7, slidesToScroll: 6 } },
+            { breakpoint: 1200,settings: { slidesToShow: 5, slidesToScroll: 4 } },
             { breakpoint: 480, settings: { slidesToShow: 2, slidesToScroll: 1 } },
+            { breakpoint: 425, settings: { slidesToShow: 2, slidesToScroll: 1 } },
           ],
         });
         
@@ -1499,7 +1243,7 @@ export default {
         adaptiveHeight: true,
         autoplay: true,
         autoplaySpeed: 2000,
-        arrows: !0,
+        arrows: !1,
           prevArrow:
             '<span class="slick-preve btn btn-primary" style="border:1px solid red;padding:6px;position:absolute;left:71px;bottom:-20px;z-index:1">Précédent<i class="feather-icon icon-chevron-left"></i></span>',
           nextArrow:
@@ -1631,46 +1375,49 @@ export default {
 }
 </script>
 <style lang="css" scoped>
+.slick-list .draggable{
+    height: 100% !important;
+}
+.hero-slider{
+    height: 40vh !important;
+    width: 100%;
+}
 .hero-img-1 {
-    background-image: url('@/assets/images/slider/hero-img-slider-1.jpg');
-    background-size: cover;
-    border-radius: 0.5rem;
-    background-position: center;
-    background-repeat: no-repeat;
-    height: 55vh !important;
-    overflow: hidden;
+  
+    height: 40vh !important;
+    width: 100%;   
 }
 
-.hero-img-2 {
-    background-image: url('@/assets/images/slider/hero-img-slider-2.jpg');
-    background-size: cover;
-    border-radius: 0.5rem;
-    background-position: center;
-    background-repeat: no-repeat;
-    height: 55vh !important;
-    overflow: hidden;
+.categorie {
+    height: 40vh !important;
+    overflow-y: scroll;
 }
 
-.hero-img-3 {
-    background-image: url('@/assets/images/slider/hero-img-slider-3.jpg');
-    background-size: cover;
-    border-radius: 0.5rem;
-    background-position: center;
-    background-repeat: no-repeat;
-    height: 55vh !important;
-    overflow: hidden;
-}
-
-.height-slick {
-    height: 55vh !important;
-}
-
-.slick-list .draggable {
-    height: 55vh !important;
+.card-right {
+    height: 40vh !important;
 
 }
+@media (max-width: 800px) {
+    .hero-slider{
+    height: 30vh !important;
+    width: 100%;
+}
+    .hero-img-1 {
+  
+  height: 30vh !important;
+  width: 100%;   
+}
 
+.categorie {
+  height: 30vh !important;
+  overflow-y: scroll;
+}
 
+.card-right {
+  height: 30vh !important;
+
+}
+}
 
 .slick-prev d .slick-arrow,
 .slick-next .slick-arrow {

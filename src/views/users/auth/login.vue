@@ -85,6 +85,8 @@
             
         <Dialog v-model:visible="VerifieUser" modal header="Verification du code" :style="{ width: '30rem' }">
         <div class="d-flex justify-content-center align-items-center flex-column">
+            <!-- <small v-if="erroOtps === true" class="text-primary">{{ errorOtp }}</small> -->
+             <span class="text-primary mb-2 text-center" >{{ errorOtp }}</span>
           <span class="  mb-2 text-center">Entrez le code de vérification envoyé à</span> 
           <InputOtp v-model="step2.code" integerOnly  @input="onOtpInputPassworod"  :disabled="loadingVerification === true" />
           <p v-if="loadingVerification">
@@ -120,6 +122,7 @@ export default {
       error: "",
       resultError: {},
       errorOtp:'',
+      errorOtps:false,
       loadingVerification:false,
       telephone:"",
       step1:{
@@ -191,8 +194,6 @@ if (response.data.status === "success") {
 
 }
 
-
-
 } catch (error) {
 console.log('response.login', error); 
 
@@ -238,9 +239,13 @@ async SendOtpByWhahtsApp(data , modalId){
         
   
   },
+//   async renew(){
+//     await this.HamdleOtpPassword()
+
+//     },
   onOtpInputPassworod() {
       this.errorOtp  = ''
-   console.log('code',this.step2.code)
+   
 
       if (this.step2.code.length === 4) {
         this.startCountdown();
@@ -248,9 +253,11 @@ async SendOtpByWhahtsApp(data , modalId){
          this.HamdleOtpPassword();
       }
     },
+ 
     async  HamdleOtpPassword(){
-        console.log('fin',this.telephone)
+      
         this.error = ''  
+        this.errorOtp = ''  
         let DataUser = {
         email: false,
         value: this.telephone?.data?.user?.Whatsapp,
@@ -258,22 +265,28 @@ async SendOtpByWhahtsApp(data , modalId){
         } 
       try {
       const response = await axios.post('/verification-otp' , DataUser);
+      console.log('err',response)
 
       if(response.data.status === 'success'){
         this.setMyAuthenticatedUser(this.telephone?.data);
         this.$router.push('/client'); 
+        // this.$router.go(-1);
            
-      }else{
-      
+      } else{
+        this.loadingVerification = false
+        console.log('errssss',response)
+
        this.errorOtp = "Echec de vérification du code."
-       this. step4.code = ''
-       this.loading = false
+       this.errorOtps = true
+       this. step2.code = ''
+       
       }
     
         
               
      
     } catch (error) {
+        console.log('err',error)
    
 
       this.loading = false
@@ -548,8 +561,6 @@ height: 100%;
     color: #fff;
     background-color: var(--fc-primary);
     border: none;
-
-
     cursor: pointer;
     outline: none;
 }
@@ -580,6 +591,14 @@ color: royalblue;
 .signin span:hover {
 text-decoration: underline royalblue;
 cursor: pointer;
+}
+
+@media (max-width: 1200px) {
+    .sign-header{
+    height: auto !important; 
+    padding:20px 10px;
+   
+}
 }
    
 </style>

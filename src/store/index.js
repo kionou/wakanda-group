@@ -9,6 +9,7 @@ import authModule from './auth';
 import Panier from './panier'
 import verification from './verification'
 import Devise from './devise'
+import recentProducts from './recentProducts';
 
 
 const store = createStore({
@@ -20,7 +21,8 @@ const store = createStore({
     auth: authModule,
     verification,
     cart: Panier,
-    devise:Devise
+    devise:Devise,
+    recentProducts,
   },
 })
 

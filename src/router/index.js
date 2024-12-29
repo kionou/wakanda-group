@@ -7,6 +7,8 @@ import ListeCategories from '../views/categories/listeCategory.vue'
 import ListeMarques from '../views/categories/listeMarques.vue'
 import Detail from '../views/Detail.vue'
 import Panier from '../views/panier.vue'
+import DetailType from '../views/VoirPlus.vue'
+import Detailarque from '../views/DetailMarques.vue'
 
 import SignUp from '../views/users/auth/sign.vue'
 import LoginClient from '../views/users/auth/login.vue'
@@ -48,10 +50,12 @@ const router = createRouter({
             { path: '/', name: 'accueil', component: Accueil},
             { path: '/categories/:id', props:true, name: 'categories', component: Categories},
             { path: '/list-categories/:id', props:true, name: 'list-categories', component: ListeCategories},
-            { path: '/list-marques/:id', props:true, name: 'list-marques', component: ListeCategories},
+            { path: '/list-marques/:id', props:true, name: 'list-marques', component: ListeMarques},
+            { path: '/type-detail/:id', props:true, name: 'type-detail', component: DetailType},
+            { path: '/marque-detail/:id', props:true, name: 'marque-detail', component: Detailarque},
             { path: '/detail/:id', props:true, name: 'detail', component: Detail},
             { path: '/panier', name: 'panier', component: Panier},
-            { path: 'valider', name: 'valider', component: ValiderCommande},
+            { path: 'valider', name: 'valider',  component: ValiderCommande},
 
             { path: '/sign-up', name: 'sign-up', component: SignUp},
             { path: '/login-client', name: 'login-client', component: LoginClient},
@@ -63,12 +67,12 @@ const router = createRouter({
                name: 'client', 
                component: General,
                children:[
-                  { path: '', name: 'infos', component: Infos},
-                  { path: 'commandes', name: 'commandes', component: Commande},
-                  { path: 'commandes-detail', name: 'commandes-detail', component: CommandeDetail},
-                  { path: 'commandes-historique', name: 'commandes-historique', component: CommandeHistorique},
-                  { path: 'user-adresse', name: 'user-adresse', component: AdresseUser},
-                  { path: 'paiement', name: 'paiement', component: Paiement},
+                  { path: '', name: 'infos',  meta: { requiresAuth: true }, component: Infos},
+                  { path: 'commandes', name: 'commandes', meta: { requiresAuth: true }, component: Commande},
+                  { path: 'commandes-detail', name: 'commandes-detail',  meta: { requiresAuth: true }, component: CommandeDetail},
+                  { path: 'commandes-historique', name: 'commandes-historique',  meta: { requiresAuth: true }, component: CommandeHistorique},
+                  { path: 'user-adresse', name: 'user-adresse',  meta: { requiresAuth: true }, component: AdresseUser},
+                  { path: 'paiement', name: 'paiement',  meta: { requiresAuth: true }, component: Paiement},
 
                ]
               },

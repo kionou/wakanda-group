@@ -6,7 +6,8 @@
                
     
                 <div class="dropdown w-25 ms-2 py-4 icon-hover">
-                    <a href="#" class="text-inherit" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a  data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" href="#offcanvasExample" role="button"
+                    aria-controls="offcanvasRight" class="text-inherit">
                         <div class="text-center">
                             <div class="position-relative d-inline-block">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor"
@@ -19,21 +20,11 @@
                         </div>
                     </a>
     
-                    <div class="dropdown-menu dropdown-menu-lg p-0">
-                        <div>
-                            <h6 class="px-4 border-bottom py-3 mb-0">Notification</h6>
-                            <p class="mb-0 px-4 py-3">
-                                <a href="signin.html">Sign in</a>
-                                or
-                                <a href="signup.html">Register</a>
-                                in or so you don t have to enter your details every time
-                            </p>
-                        </div>
-                    </div>
+                  
                 </div>
     
                 <div class="w-25 ms-2 py-4 icon-hover">
-                    <a href="javascript:void(0)" class="text-inherit" data-bs-toggle="modal" data-bs-target="#userModal">
+                    <router-link to="/login-client" class="text-inherit" >
                         <div class="text-center">
                             <div>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor"
@@ -44,10 +35,10 @@
                                 </svg>
                             </div>
                         </div>
-                    </a>
+                    </router-link>
                 </div>
                 <div class="w-25 ms-2 py-4 icon-hover">
-                    <router-link to="/commandes" class="text-inherit">
+                    <router-link to="/sign-up" class="text-inherit">
                         <div class="text-center">
                             <div>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor"
@@ -60,18 +51,21 @@
                     </router-link>
                 </div>
                 <div class="w-25 ms-2 py-4 icon-hover">
-                    <a data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" href="#offcanvasExample" role="button"
-                        aria-controls="offcanvasRight" class="text-inherit">
-                        <div class="text-center">
+                    <router-link to="/panier" class="text-inherit" >
+                        <div class="text-center position-relative">
                             <div>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor"
                                     class="bi bi-cart2" viewBox="0 0 16 16">
                                     <path
                                         d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5zM3.14 5l1.25 5h8.22l1.25-5H3.14zM5 13a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0z" />
                                 </svg>
+                                <span
+                                          class="position-absolute top-0 start-60 translate-middle badge rounded-pill bg-danger">
+                                          {{ cartItemCount }}
+                                       </span>
                             </div>
                         </div>
-                    </a>
+                    </router-link>
                 </div>
     
             </div>
@@ -395,191 +389,34 @@
         <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
             <div class="offcanvas-header border-bottom">
                 <div class="text-start">
-                    <h5 id="offcanvasRightLabel" class="mb-0 fs-4">Shop Cart</h5>
-                    <small>Location in 382480</small>
+                    <h6 id="offcanvasRightLabel" class="mb-0 fs-4">Catégories</h6>
+                    
                 </div>
                 <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
             <div class="offcanvas-body">
                 <div>
+                    <ul class="nav nav-category" id="categoryCollapseMenu">
+                                        <li 
+                                            class="nav-item border-bottom w-100 card px-2 mt-1" 
+                                            v-for="(category, index) in CategoriesArray" 
+                                            :key="index" 
+                                            :class="{ active: category.id === getActiveCategoryId }"
+                                        >
+                                            <a :href="`/list-categories/${category.id}`" class="nav-link collapsed justify-content-start">
+                                            <img 
+                                                :src="category.Image !== null ? category.Image : defaultImageCategorie"
+                                                :alt="category.NomCategorie" 
+                                                width="24" 
+                                                height="24" 
+                                                style="width:20px; margin-right: 5px;"
+                                            >
+                                            <span>{{ category.NomCategorie }}</span>
+                                            </a>
+                                        </li>
+                         </ul>
                   
-                  
-                    <ul class="list-group list-group-flush">
-                        <!-- list group -->
-                        <li class="list-group-item py-3 ps-0 border-top">
-                            <!-- row -->
-                            <div class="row align-items-center">
-                                <div class="col-6 col-md-6 col-lg-7">
-                                    <div class="d-flex">
-                                        <img src="@/assets/images/products/product-img-1.jpg" alt="Ecommerce"
-                                            class="icon-shape icon-xxl" />
-                                        <div class="ms-3">
-                                            <!-- title -->
-                                            <a href="shop-single.html" class="text-inherit">
-                                                <h6 class="mb-0">Haldiram's Sev Bhujia</h6>
-                                            </a>
-                                            <span><small class="text-muted">.98 / lb</small></span>
-                                            <!-- text -->
-                                            <div class="mt-2 small lh-1">
-                                                <a href="#!" class="text-decoration-none text-inherit">
-                                                    <span class="me-1 align-text-bottom">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
-                                                            viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                                            class="feather feather-trash-2 text-success">
-                                                            <polyline points="3 6 5 6 21 6"></polyline>
-                                                            <path
-                                                                d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
-                                                            </path>
-                                                            <line x1="10" y1="11" x2="10" y2="17"></line>
-                                                            <line x1="14" y1="11" x2="14" y2="17"></line>
-                                                        </svg>
-                                                    </span>
-                                                    <span class="text-muted">Remove</span>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- input group -->
-                                <div class="col-4 col-md-3 col-lg-3">
-                                    <!-- input -->
-                                    <!-- input -->
-                                    <div class="input-group input-spinner">
-                                        <input type="button" value="-" class="button-minus btn btn-sm"
-                                            data-field="quantity" />
-                                        <input type="number" step="1" max="10" value="1" name="quantity"
-                                            class="quantity-field form-control-sm form-input" />
-                                        <input type="button" value="+" class="button-plus btn btn-sm"
-                                            data-field="quantity" />
-                                    </div>
-                                </div>
-                                <!-- price -->
-                                <div class="col-2 text-lg-end text-start text-md-end col-md-2">
-                                    <span class="fw-bold">$5.00</span>
-                                </div>
-                            </div>
-                        </li>
-                        <!-- list group -->
-                        <li class="list-group-item py-3 ps-0">
-                            <!-- row -->
-                            <div class="row align-items-center">
-                                <div class="col-6 col-md-6 col-lg-7">
-                                    <div class="d-flex">
-                                        <img src="@/assets/images/products/product-img-2.jpg" alt="Ecommerce"
-                                            class="icon-shape icon-xxl" />
-                                        <div class="ms-3">
-                                            <a href="shop-single.html" class="text-inherit">
-                                                <h6 class="mb-0">NutriChoice Digestive</h6>
-                                            </a>
-                                            <span><small class="text-muted">250g</small></span>
-                                            <!-- text -->
-                                            <div class="mt-2 small lh-1">
-                                                <a href="#!" class="text-decoration-none text-inherit">
-                                                    <span class="me-1 align-text-bottom">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
-                                                            viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                                            class="feather feather-trash-2 text-success">
-                                                            <polyline points="3 6 5 6 21 6"></polyline>
-                                                            <path
-                                                                d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
-                                                            </path>
-                                                            <line x1="10" y1="11" x2="10" y2="17"></line>
-                                                            <line x1="14" y1="11" x2="14" y2="17"></line>
-                                                        </svg>
-                                                    </span>
-                                                    <span class="text-muted">Remove</span>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-    
-                                <!-- input group -->
-                                <div class="col-4 col-md-3 col-lg-3">
-                                    <!-- input -->
-                                    <!-- input -->
-                                    <div class="input-group input-spinner">
-                                        <input type="button" value="-" class="button-minus btn btn-sm"
-                                            data-field="quantity" />
-                                        <input type="number" step="1" max="10" value="1" name="quantity"
-                                            class="quantity-field form-control-sm form-input" />
-                                        <input type="button" value="+" class="button-plus btn btn-sm"
-                                            data-field="quantity" />
-                                    </div>
-                                </div>
-                                <!-- price -->
-                                <div class="col-2 text-lg-end text-start text-md-end col-md-2">
-                                    <span class="fw-bold text-danger">$20.00</span>
-                                    <div class="text-decoration-line-through text-muted small">$26.00</div>
-                                </div>
-                            </div>
-                        </li>
-                        <!-- list group -->
-                        <li class="list-group-item py-3 ps-0">
-                            <!-- row -->
-                            <div class="row align-items-center">
-                                <div class="col-6 col-md-6 col-lg-7">
-                                    <div class="d-flex">
-                                        <img src="@/assets/images/products/product-img-3.jpg" alt="Ecommerce"
-                                            class="icon-shape icon-xxl" />
-                                        <div class="ms-3">
-                                            <!-- title -->
-                                            <a href="shop-single.html" class="text-inherit">
-                                                <h6 class="mb-0">Cadbury 5 Star Chocolate</h6>
-                                            </a>
-                                            <span><small class="text-muted">1 kg</small></span>
-                                            <!-- text -->
-                                            <div class="mt-2 small lh-1">
-                                                <a href="#!" class="text-decoration-none text-inherit">
-                                                    <span class="me-1 align-text-bottom">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
-                                                            viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                                            class="feather feather-trash-2 text-success">
-                                                            <polyline points="3 6 5 6 21 6"></polyline>
-                                                            <path
-                                                                d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
-                                                            </path>
-                                                            <line x1="10" y1="11" x2="10" y2="17"></line>
-                                                            <line x1="14" y1="11" x2="14" y2="17"></line>
-                                                        </svg>
-                                                    </span>
-                                                    <span class="text-muted">Remove</span>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-    
-                                <!-- input group -->
-                                <div class="col-4 col-md-3 col-lg-3">
-                                    <!-- input -->
-                                    <!-- input -->
-                                    <div class="input-group input-spinner">
-                                        <input type="button" value="-" class="button-minus btn btn-sm"
-                                            data-field="quantity" />
-                                        <input type="number" step="1" max="10" value="1" name="quantity"
-                                            class="quantity-field form-control-sm form-input" />
-                                        <input type="button" value="+" class="button-plus btn btn-sm"
-                                            data-field="quantity" />
-                                    </div>
-                                </div>
-                                <!-- price -->
-                                <div class="col-2 text-lg-end text-start text-md-end col-md-2">
-                                    <span class="fw-bold">$15.00</span>
-                                    <div class="text-decoration-line-through text-muted small">$20.00</div>
-                                </div>
-                            </div>
-                        </li>
-                      
-                    </ul>
-                    <!-- btn -->
-                    <div class="float-end mt-4">
-                        <a href="#!" class="btn btn-primary">Continue Shopping</a>
-                       
-                    </div>
+                   
                 </div>
             </div>
         </div>
@@ -592,11 +429,19 @@ import useVuelidate from "@vuelidate/core";
 import { require, lgmin, lgmax, ValidEmail } from "@/functions/rules";
 import MazPhoneNumberInput from "maz-ui/components/MazPhoneNumberInput";
 import LoaderBtn from '@/components/others/loader/loaderbtn.vue';
+import { mapActions, mapGetters } from 'vuex';
 
 export default {
     components: {
 	   MazPhoneNumberInput , LoaderBtn
 	},
+    computed: {
+    ...mapGetters('cart', ['cartItemCount']), // Utiliser le getter pour le nombre d'éléments
+    
+    
+   
+   
+  },
   data() {
     return {
       indicateur: "",
@@ -606,6 +451,7 @@ export default {
       error: "",
       resultError: {},
       sortedCountryOptions:[],
+      CategoriesArray:[],
       step1:{
         email:"",
         Nom:"",
@@ -637,6 +483,7 @@ export default {
     
   },
  async mounted() {
+    await this.getCategoriesAll()
   await  this.getCountryOptions()
   },
   methods: {
@@ -655,6 +502,25 @@ export default {
 
     goToStep(step) {
       this.currentStep = step;
+    },
+    async getCategoriesAll() {
+      try {
+        const response = await axios.get('liste/categories')
+        if (response.data.status === "success") {
+       
+
+          this.CategoriesChildrenArray = response.data.data?.data
+          ?.filter(c =>c.Parent === parseInt(this.id) )
+        this.CategoriesArray = response.data.data?.data
+          ?.filter(c =>  c.Parent === null)
+        
+          this.loading = false
+          
+        }
+
+      } catch (error) {
+        console.log('error', error)
+      }
     },
     async nextStep(modalId) {
       try {

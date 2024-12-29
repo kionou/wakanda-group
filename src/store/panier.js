@@ -2,6 +2,7 @@ export default {
   namespaced: true,
   state: {
     items: JSON.parse(localStorage.getItem('cart')) || [],
+    recentProducts: JSON.parse(localStorage.getItem('recentProducts')) || [], // Liste des produits récents
     alertMessage: '',
     loadingItems: {}, // Chargement spécifique par article
   },
@@ -20,7 +21,37 @@ export default {
 
       localStorage.setItem('cart', JSON.stringify(state.items));
     },
-    
+
+    addRecentProduct(state, product) {
+      // Vérifie si le produit est déjà dans les produits récents
+      const exists = state.recentProducts.find(item => item.id === product.id);
+
+      if (!exists) {
+        // Ajoute un nouveau produit avec timestamp
+        state.recentProducts.unshift({
+          ...product,
+          timestamp: Date.now()
+        });
+
+        // Limite à 10 produits
+        if (state.recentProducts.length > 10) {
+          state.recentProducts.pop();
+        }
+
+        // Sauvegarde dans le localStorage
+        localStorage.setItem('recentProducts', JSON.stringify(state.recentProducts));
+      }
+    },
+
+    removeExpiredProducts(state, expirationTime) {
+      const currentTime = Date.now();
+      state.recentProducts = state.recentProducts.filter(
+        item => currentTime - item.timestamp <= expirationTime
+      );
+
+      localStorage.setItem('recentProducts', JSON.stringify(state.recentProducts));
+    },
+
     setLoading(state, { productId, value }) {
       state.loadingItems[productId] = value;
     },
@@ -51,11 +82,10 @@ export default {
         localStorage.setItem('cart', JSON.stringify(state.items)); 
       }
     },
-    clearCart(state){
-     
+
+    clearCart(state) {
       state.items = [];
-      localStorage.removeItem('cart')
-     
+      localStorage.removeItem('cart');
     }
   },
   actions: {
@@ -63,6 +93,7 @@ export default {
       commit('setLoading', { productId: payload.id, value: true });
       setTimeout(() => {
         commit('addToCart', payload);
+        commit('addRecentProduct', payload); // Ajoute le produit dans les récents
         commit('setLoading', { productId: payload.id, value: false });
       }, 1000); // Simule un délai pour l'ajout au panier
     },
@@ -72,7 +103,7 @@ export default {
       setTimeout(() => {
         commit('increaseQuantity', productId);
         commit('setLoading', { productId, value: false });
-      }, 1000); // Simule un délai pour l'augmentation de la quantité
+      }, 1000);
     },
 
     decreaseQuantity({ commit }, productId) {
@@ -80,19 +111,24 @@ export default {
       setTimeout(() => {
         commit('decreaseQuantity', productId);
         commit('setLoading', { productId, value: false });
-      }, 1000); // Simule un délai pour la diminution de la quantité
+      }, 1000);
     },
+
     removeItemFromCart({ commit }, productId) {
       commit('setLoading', { productId, value: true });
       setTimeout(() => {
         commit('removeItemFromCart', productId);
         commit('setLoading', { productId, value: false });
-      }, 1000); // Simule un délai pour la suppression
+      }, 1000);
     },
-    clearCart({commit}){
-      console.log(commit)
 
-     commit('clearCart')
+    clearCart({ commit }) {
+      commit('clearCart');
+    },
+
+    removeExpiredRecentProducts({ commit }) {
+      const expirationTime = 24 * 60 * 60 * 1000; // Expire après 24 heures
+      commit('removeExpiredProducts', expirationTime);
     }
   },
   getters: {
@@ -106,7 +142,10 @@ export default {
       return state.items.reduce((total, item) => total + item.quantity, 0);
     },
     isLoadingItem: (state) => (productId) => {
-      return !!state.loadingItems[productId]; // Vérifie si le produit est en cours de chargement
+      return !!state.loadingItems[productId];
     },
-  },
+    recentProducts(state) {
+      return state.recentProducts;
+    }
+  }
 };

@@ -13,8 +13,8 @@
                         <nav class="mb-3" aria-label="breadcrumb">
                             <ol class="breadcrumb mb-0">
                                 <li class="breadcrumb-item"><a href="/">Accueil ></a></li>
-                                <li class="breadcrumb-item"><router-link to="/categories">Marques ></router-link></li>
-                                <li class="breadcrumb-item active" aria-current="page">{{ MarquesChildrenArray }}</li>
+                                <li class="breadcrumb-item"><router-link to="/categories">Catégories ></router-link></li>
+                                <li class="breadcrumb-item active" aria-current="page">Electroniques</li>
                             </ol>
                         </nav>
                     </div>
@@ -71,19 +71,19 @@
                                     <ul class="nav nav-category" id="categoryCollapseMenu">
                                         <li 
                                             class="nav-item border-bottom w-100 card px-2 mt-1" 
-                                            v-for="(category, index) in marquesArray" 
+                                            v-for="(category, index) in CategoriesArray" 
                                             :key="index" 
-                                            :class="{ active: encodeId(category.id) === getActiveCategoryId }"
+                                            :class="{ active: category.id === getActiveCategoryId }"
                                         >
-                                            <a :href="`/list-marques/${ encodeId(category.id)}`" class="nav-link collapsed justify-content-start">
+                                            <a :href="`/list-categories/${category.id}`" class="nav-link collapsed justify-content-start">
                                             <img 
-                                                :src="category.Logo !== null ? category.Logo : defaultImageCategorie"
-                                                :alt="category.Nom" 
+                                                :src="category.Image !== null ? category.Image : defaultImageCategorie"
+                                                :alt="category.NomCategorie" 
                                                 width="24" 
                                                 height="24" 
                                                 style="width:20px; margin-right: 5px;"
                                             >
-                                            <span>{{ category.Nom }}</span>
+                                            <span>{{ category.NomCategorie }}</span>
                                             </a>
                                         </li>
                                         </ul>
@@ -127,7 +127,7 @@
                             <div class="d-md-flex justify-content-between align-items-center">
                                 <div class="d-flex align-items-center justify-content-between">
                                     <nav>
-                                        <ul class="nav nav-pills nav-scroll border-bottom-0 gap-1 d-none" id="nav-tab"
+                                        <ul class="nav nav-pills nav-scroll border-bottom-0 gap-1" id="nav-tab"
                                             role="tablist">
                                            
     
@@ -164,12 +164,12 @@
                             <div class="col-xl-12">
                                 <!-- tab -->
                                 <div class="tab-content" id="nav-tabContent">
-                                    <div class="tab-pane fade show active" id="grid" role="tabpanel"
+                                    <div class="tab-pane fade " id="grid" role="tabpanel"
                                         aria-labelledby="nav-fruitsandveg-tab" tabindex="0">
                                         <grid :id="id" :dataProduct="dataProduct"></grid>
     
                                     </div>
-                                    <div class="tab-pane fade " id="gridplus" role="tabpanel"
+                                    <div class="tab-pane fade show active" id="gridplus" role="tabpanel"
                                         aria-labelledby="nav-snackMunchies-tab" tabindex="0">
                                         <GridPlus :id="id" :dataProduct="dataProduct"></GridPlus>
     
@@ -208,10 +208,10 @@ export default {
   },
   data() {
     return {
-        MarquesChildrenArray:[],
-        marquesArray:[],
+        CategoriesChildrenArray:[],
+        CategoriesArray:[],
       defaultImage: defaultImage,
-      loading:false,
+      loading:true,
       images: [
         '@/assets/images/slider/hero-img-slider-1.jpg',
         '@/assets/images/slider/hero-img-slider-2.jpg',
@@ -230,10 +230,7 @@ export default {
     const path = window.location.pathname;
     const match = path.match(/\/list-categories\/(\d+)/); // Extrait l'ID après '/list-categories/'
     return match ? parseInt(match[1], 10) : null;
-  },
-  decodedId() {
-      return atob(this.id); // Décode l'ID reçu en Base64
-    },
+  }
 },
   watch: {
     loading(newVal) {
@@ -258,8 +255,7 @@ export default {
  async mounted() {
     
     this.initSliders();
-    await this.getMarquesAll()
-     await this.getMarquesDetail()
+    await this.getCategoriesAll()
 
   },
   methods: {
@@ -279,31 +275,19 @@ export default {
 
       })
     },
-    encodeId(id) {
-    return btoa(id); // Encode en Base64
-  },
-    async getMarquesAll() {
+    async getCategoriesAll() {
       try {
-        const response = await axios.get('/marques')
+        const response = await axios.get('liste/categories')
         if (response.data.status === "success") {
-          this.marquesArray = response.data?.data?.data
-          .filter(m  =>m.IsActive === 1)
-          ?.slice(0,7)
+       
 
-        }
-
-      } catch (error) {
-        console.log('error', error)
-      }
-    },
-    async getMarquesDetail() {
-      try {
-        const response = await axios.get(`/marques/${this.decodedId}`)
-        if (response.data.status === "success") {
-          this.MarquesChildrenArray = response.data?.data?.Nom
-         
+          this.CategoriesChildrenArray = response.data.data?.data
+          ?.filter(c =>c.Parent === parseInt(this.id) )
+        this.CategoriesArray = response.data.data?.data
+          ?.filter(c =>  c.Parent === null)
+        
+          this.loading = false
           
-
         }
 
       } catch (error) {
@@ -314,7 +298,7 @@ export default {
        this.dataProduct ={
         min: parseInt(this.filters.min),
         max:parseInt(this.filters.max) ,
-        categorie: parseInt(this.decodedId) 
+        categorie: parseInt(this.id) 
 
        }
        

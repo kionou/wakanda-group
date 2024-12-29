@@ -14,7 +14,7 @@
                             <ol class="breadcrumb mb-0">
                                 <li class="breadcrumb-item"><a href="/">Accueil ></a></li>
                                 <li class="breadcrumb-item"><router-link to="/categories">Catégories ></router-link></li>
-                                <li class="breadcrumb-item active" aria-current="page">Electroniques</li>
+                                <li class="breadcrumb-item active" aria-current="page">{{ MarquesChildrenArray }}</li>
                             </ol>
                         </nav>
                     </div>
@@ -22,57 +22,42 @@
                 <div class="row">
                     <div class="col-xl-12 col-md-12 col-sm-12  pe-0">
     
-    
-                        <div class="hero-slider">
-                            <div class="hero-img-1">
-                                <div class="ps-lg-12 py-lg-16 col-xxl-5 col-lg-7 col-md-8 py-14 px-8 text-xs-center">
-                                    <h1 class="text-white display-5 fw-bold mt-4">SuperMarket For Fresh Grocery</h1>
-                                    <p class="lead text-white">Introduced a new model for online grocery shopping and
-                                        convenient home delivery at any time.</p>
-                                    <a href="#!" class="btn btn-dark mt-3">
-                                        Shop Now
-                                        <i class="feather-icon icon-arrow-right ms-1"></i>
-                                    </a>
+                        <div class="hero-slider" style="height: 40vh !important;" >
+                            <div class="hero-img-1" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">
+                                <div class=" col-xxl-5 col-lg-7 col-md-8  text-xs-center" style="width: 100%; height:100%">
+                                    <img src="@/assets/img/bn1.jpg" alt="" style="width: 100%; height:100%">
+                                   
                                 </div>
                             </div>
-                            <div class="hero-img-2">
-                                <div class="ps-lg-12 py-lg-16 col-xxl-5 col-lg-7 col-md-8 py-14 px-8 text-xs-center">
-                                    <h1 class="text-dark display-5 fw-bold mt-4">
-                                        Opening Sale
-                                        <br />
-                                        Discount up to
-                                        <span class="text-primary display-6">50%</span>
-                                    </h1>
-                                    <p class="lead">Snack on late-night munchies of delicious nuts & you’re guaranteed
-                                        happiness before you doze!</p>
-                                    <a href="#!" class="btn btn-dark mt-3">
-                                        Shop Now
-                                        <i class="feather-icon icon-arrow-right ms-1"></i>
-                                    </a>
+                            <div class="hero-img-1" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">
+                                <div class=" col-xxl-5 col-lg-7 col-md-8  text-xs-center" style="width: 100%; height:100%">
+                                    <img src="@/assets/img/bn2.jpg" alt="" style="width: 100%; height:100%">
+                                   
                                 </div>
                             </div>
-                            <div class="hero-img-3">
-                                <div class="ps-lg-12 py-lg-16 col-xxl-5 col-lg-7 col-md-8 py-14 px-8 text-xs-center">
-                                    <h1 class="text-dark display-5 fw-bold mt-4">Midnight Munch Combo</h1>
-                                    <p class="lead">Snack on late-night munchies of delicious nuts & you’re guaranteed
-                                        happiness before you doze!</p>
-                                    <a href="#!" class="btn btn-dark mt-3">
-                                        Shop Now
-                                        <i class="feather-icon icon-arrow-right ms-1"></i>
-                                    </a>
+                            <div class="hero-img-1" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">
+                                <div class=" col-xxl-5 col-lg-7 col-md-8  text-xs-center" style="width: 100%; height:100%">
+                                    <img src="@/assets/img/bn3.jpg" alt="" style="width: 100%; height:100%">
+                                   
                                 </div>
                             </div>
+                          
                         </div>
+    
+                     
                     </div>
                 </div>
     
             </div>
             <div class="lv3Category--lv3Category--1hf3Fqv">
-                <div v-if="CategoriesChildrenArray.length === 0" class="text-center text-danger fw-bold fs-4">Pas de données</div>
-                <div class="lv3Category--lv3CategoryContentCatainer--3covqIo " v-else>
-                    <div class="lv3Category--lv3CategoryBox--1Nts99Z ms-2" v-for="(category,index) in CategoriesChildrenArray" :key="index" >
-                        <a
-                            href="#">
+                <div v-if="CategoriesChildrenArray.length === 0" class="text-center text-danger fw-bold fs-4">
+                    <img src="@/assets/img/searchs.png" alt="" style="height: 100px; width: 100px;">
+                    Pas de données!
+                </div>
+                <div class="lv3Category--lv3CategoryContentCatainer--3covqIo row " v-else>
+                    <div class="lv3Category--lv3CategoryBox--1Nts99Z ms-2 col-xl-4 col-md-3" v-for="(category,index) in CategoriesChildrenArray" :key="index" >
+                        <a :href="`/list-categories/${category.id}`"
+                            >
                             <div class="lv3Category--lv3CategoryContent--2eCQWkm card card-product">
                                 <div class="lv3Category--lv3CategoryContentImg--2GZvdRG">
                                     <div class="lv3Category--lv3CategoryContentMask--1VpLYwR"></div>
@@ -112,7 +97,7 @@
                                             :key="index" 
                                             :class="{ active: category.id === getActiveCategoryId }"
                                         >
-                                            <a :href="`/list-categories/${category.id}`" class="nav-link collapsed justify-content-start">
+                                            <a :href="`/list-categories/${ encodeId(category.id)}`" class="nav-link collapsed justify-content-start">
                                             <img 
                                                 :src="category.Image !== null ? category.Image : defaultImageCategorie"
                                                 :alt="category.NomCategorie" 
@@ -128,21 +113,9 @@
                                 </div>
                                
     
-                                <div class="mb-8 position-relative">
-                                    <!-- Banner Design -->
-                                    <!-- Banner Content -->
-                                    <div class="position-absolute p-5 py-8">
-                                        <h3 class="mb-0">Fresh Fruits</h3>
-                                        <p>Get Upto 25% Off</p>
-                                        <a href="#" class="btn btn-dark">
-                                            Shop Now
-                                            <i class="feather-icon icon-arrow-right ms-1"></i>
-                                        </a>
-                                    </div>
-                                    <!-- Banner Content -->
-                                    <!-- Banner Image -->
-                                    <!-- img -->
-                                    <img src="@/assets/images/banner/assortment-citrus-fruits.png" alt=""
+                                <div class="mb-8 position-relative" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">
+                                   
+                                    <img src="@/assets/img/bnm.jpg" alt=""
                                         class="img-fluid rounded" />
                                     <!-- Banner Image -->
                                 </div>
@@ -176,7 +149,7 @@
                             <div class="d-md-flex justify-content-between align-items-center">
                                 <div class="d-flex align-items-center justify-content-between">
                                     <nav>
-                                        <ul class="nav nav-pills nav-scroll border-bottom-0 gap-1" id="nav-tab"
+                                        <ul class="nav nav-pills nav-scroll border-bottom-0 gap-1 d-none" id="nav-tab"
                                             role="tablist">
                                            
     
@@ -213,14 +186,14 @@
                             <div class="col-xl-12">
                                 <!-- tab -->
                                 <div class="tab-content" id="nav-tabContent">
-                                    <div class="tab-pane fade show active" id="grid" role="tabpanel"
+                                    <div class="tab-pane fade " id="grid" role="tabpanel"
                                         aria-labelledby="nav-fruitsandveg-tab" tabindex="0">
-                                        <grid :id="id" :dataProduct="dataProduct"></grid>
+                                        <grid :id=" decodedId" :dataProduct="dataProduct"></grid>
     
                                     </div>
-                                    <div class="tab-pane fade " id="gridplus" role="tabpanel"
+                                    <div class="tab-pane fade show active " id="gridplus" role="tabpanel"
                                         aria-labelledby="nav-snackMunchies-tab" tabindex="0">
-                                        <GridPlus :id="id" :dataProduct="dataProduct"></GridPlus>
+                                        <GridPlus :id=" decodedId" :dataProduct="dataProduct"></GridPlus>
     
                                     </div>
     
@@ -258,6 +231,7 @@ export default {
   data() {
     return {
         CategoriesChildrenArray:[],
+        MarquesChildrenArray:'',
         CategoriesArray:[],
       defaultImage: defaultImage,
       loading:true,
@@ -279,7 +253,10 @@ export default {
     const path = window.location.pathname;
     const match = path.match(/\/list-categories\/(\d+)/); // Extrait l'ID après '/list-categories/'
     return match ? parseInt(match[1], 10) : null;
-  }
+  },
+  decodedId() {
+      return atob(this.id); // Décode l'ID reçu en Base64
+    },
 },
   watch: {
     loading(newVal) {
@@ -305,9 +282,14 @@ export default {
     
     this.initSliders();
     await this.getCategoriesAll()
+    await this.getCategorieDetail()
 
   },
   methods: {
+    encodeId(id) {
+    return btoa(id); // Encode en Base64
+  },
+
     initSliders() {
 
       this.$nextTick(() => {
@@ -331,7 +313,7 @@ export default {
        
 
           this.CategoriesChildrenArray = response.data.data?.data
-          ?.filter(c =>c.Parent === parseInt(this.id) )
+          ?.filter(c =>c.Parent === parseInt( this.decodedId) )
         this.CategoriesArray = response.data.data?.data
           ?.filter(c =>  c.Parent === null)
         
@@ -343,11 +325,26 @@ export default {
         console.log('error', error)
       }
     },
+    async getCategorieDetail() {
+      try {
+        const response = await axios.get(`/categories/${ this.decodedId}`)
+        if (response.data.status === "success") {
+          this.MarquesChildrenArray = response.data?.data?.NomCategorie
+          
+         
+          
+
+        }
+
+      } catch (error) {
+        console.log('error', error)
+      }
+    },
    async FilterProduct(){
        this.dataProduct ={
         min: parseInt(this.filters.min),
         max:parseInt(this.filters.max) ,
-        categorie: parseInt(this.id) 
+        categorie: parseInt( this.decodedId) 
 
        }
        
@@ -359,62 +356,35 @@ export default {
 </script>
 <style lang="css" scoped>
 .hero-img-1 {
-    background-image: url('@/assets/images/slider/hero-img-slider-1.jpg');
-    background-size: cover;
-    border-radius: 0.5rem;
-    background-position: center;
-    background-repeat: no-repeat;
-    height: 55vh !important;
-    overflow: hidden;
-}
-
-.hero-img-2 {
-    background-image: url('@/assets/images/slider/hero-img-slider-2.jpg');
-    background-size: cover;
-    border-radius: 0.5rem;
-    background-position: center;
-    background-repeat: no-repeat;
-    height: 55vh !important;
-    overflow: hidden;
-}
-
-.hero-img-3 {
-    background-image: url('@/assets/images/slider/hero-img-slider-3.jpg');
-    background-size: cover;
-    border-radius: 0.5rem;
-    background-position: center;
-    background-repeat: no-repeat;
-    height: 55vh !important;
-    overflow: hidden;
+  
+  height: 40vh !important;
+  width: 100%;
+  
 }
 
 .lv3Category--lv3Category--1hf3Fqv {
     width: 100%;
 }
 .lv3Category--lv3Category--1hf3Fqv .lv3Category--lv3CategoryContentCatainer--3covqIo {
-    /* max-width: 1712px;
-    min-width: 1073px; */
+   
     margin: auto;
-    /* padding: 0 48px; */
-    /* display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox; */
-    display: flex;
+   
+    /* display: flex;
     flex-wrap: wrap;
-    justify-content: flex-start;
+    justify-content: flex-start; */
     overflow-x: hidden;
 }
 
     .lv3Category--lv3CategoryBox--1Nts99Z {
-        width: 175px;
+        width: 160px;
     }
 
 
 .lv3Category--lv3Category--1hf3Fqv .lv3Category--lv3CategoryContentCatainer--3covqIo .lv3Category--lv3CategoryBox--1Nts99Z .lv3Category--lv3CategoryContent--2eCQWkm {
    
-    display: flex;
+    /* display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: center; */
     padding: 3px 0 10px 0;
     /* height:270px; */
     /* justify-content: space-between; */
@@ -424,7 +394,7 @@ export default {
 
 .lv3Category--lv3Category--1hf3Fqv .lv3Category--lv3CategoryContentCatainer--3covqIo .lv3Category--lv3CategoryBox--1Nts99Z .lv3Category--lv3CategoryContent--2eCQWkm .lv3Category--lv3CategoryContentImg--2GZvdRG {
     overflow: hidden;
-    width: 170px;
+    width: 160px;
     /* height: 130px; */
     position: relative;
     aspect-ratio: 1 / 1;

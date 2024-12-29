@@ -1,8 +1,8 @@
 <template >
     <div>
-        <Navbar />
+        <Navbar  />
         <navbarMobile />
-        <RouterView />
+        <RouterView style="margin-top: 70px;"/>
             <Footer />
             <Bottom />
 

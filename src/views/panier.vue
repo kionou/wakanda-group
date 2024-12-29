@@ -18,7 +18,7 @@
                                        :title="item.Nomproduit" class="icon-shape icon-xxl ms-2" />
                                     <div class="ms-3">
                                        <!-- title -->
-                                       <router-link :to="{ name: 'detail', params: { id: item.id }}"
+                                       <router-link :to="{ name: 'detail', params: { id: encodeId(item.id) }}"
                                           class="text-inherit">
                                           <h6 class="mb-0">{{ item.NomProduit }}</h6>
                                        </router-link>
@@ -88,7 +88,7 @@
    
                      </ul>
                      <!-- btn -->
-                     <div class="d-flex justify-content-end mt-4">
+                     <div class="d-flex justify-content-end my-4">
                         <a href="/" class="btn btn-primary">Continue Shopping</a>
                       
                      </div>
@@ -132,7 +132,7 @@
    
                            <div class="d-grid mb-1 mt-4">
                               <!-- btn -->
-                               <router-link to="valider">
+                               <router-link to="/valider">
                                  <button class="btn btn-primary btn-lg d-flex justify-content-between align-items-center">
                                  Commander 
                                  <span class="ms-2 fw-bold">{{ formatPrice(total) }} F CFA</span>
@@ -261,6 +261,9 @@ export default {
   },
   methods: {
     ...mapActions('cart', ['increaseQuantity', 'decreaseQuantity', 'removeItemFromCart']),
+    encodeId(id) {
+    return btoa(id); // Encode en Base64
+  },
 
     removeItem(productId) {
       this.ToId = productId
@@ -323,7 +326,7 @@ export default {
    display: -webkit-flex;
    display: -ms-flexbox;
    display: flex;
-   width: 1180px;
+   max-width: 1180px;
 }
 
 .cart-main {
@@ -554,5 +557,12 @@ export default {
 
 .comet-v2-btn>span {
    display: inline-block;
+}
+@media (max-width: 1200px) {
+    main{
+   
+ margin-top:130Px !important;
+   
+}
 }
 </style>

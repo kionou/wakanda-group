@@ -1,8 +1,8 @@
 <template >
-   <div>
-      <header>
-         <div class="">
-   
+   <div class="">
+      <header class="d-flex justify-content-center position-relative " style="width: 100%;">
+         <div class="" style="background-color: white; position: fixed; width: 100%;border:1px;z-index: 10;top: 0;box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">
+            
             <!-- <div class="row mb-2  d-flex align-items-center bg-white  py-3"> -->
                <!-- <div class="col-xl-3 col-md-3 col-sm-12 ">
                   <div class="d-lg-flex align-items-center">
@@ -31,519 +31,523 @@
             <!-- </div> -->
    
    
+            <div class="container px-0">
+               <div class="row align-items-center justify-content-center p-2 mt-4 mt-lg-0 bg-white">
    
-   
-            <div class="row align-items-center justify-content-center p-2 mt-4 mt-lg-0 bg-white">
-   
-               <div class="col-xxl-2 col-xl-2 col-lg-2 d-none d-lg-block fw-bold ">
-   
-                  <a href="/">
-                        <img src="@/assets/img/logo_wakanda.png" alt="" class="img-fluid" style="height: 50px !important;">
-                     </a>
-   
-   
-               </div>
-               <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-9">
-                  <div class="row align-items-center">
-                     <div class="col-10">
-                        <form action="#" class="me-2">
-                           <div class="input-group">
-                              <AutoComplete 
-                  v-model="selectedProduct" 
-                  optionLabel="NomProduit" 
-                  :suggestions="filteredProducts" 
-                  @complete="search" 
-                  style="width:100%" 
-                  
-                  placeholder="Rechercher un produit..."
-               >
-      <template #option="slotProps">
-        <div class="d-flex align-items-center"  @click="goToProductDetail(slotProps)">
+             <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-3 d-lg-block fw-bold d-none d-md-block ">
+
+      <a href="/">
+            <img src="@/assets/img/logo_wakanda.png" alt="" class="img-fluid" style="height: 50px !important;">
+         </a>
+
+
+            </div>
+            <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-9 ">
+               <div class="row align-items-center">
+                  <div class="col-2 d-sm-none">
+                     <img src="@/assets/img/logo_mobile.png" alt="" style="width: 40px;">
+                  </div>
+                  <div class="col-7 col-xs-8 col-sm-8 col-md-10 col-lg-10">
+                     <form action="#" class="me-2">
+                        <div class="input-group">
+                           <AutoComplete 
+                        v-model="selectedProduct" 
+                        optionLabel="NomProduit" 
+                        :suggestions="filteredProducts" 
+                        @complete="search" 
+                        style="width:100%" 
+                        
+                        placeholder="Rechercher un produit..."
+                     >
+         <template #option="slotProps">
+         <div class="d-flex align-items-center"  @click="goToProductDetail(slotProps)">
          <div class=" d-flex align-items-center ms-2">
-            <img :alt="slotProps.option.NomProduit" :src="slotProps.option.PhotoCover" 
-               style="width: 30px; height: 30px; object-fit: cover;" class="me-2" />
-          <div>{{ slotProps.option.NomProduit }}</div>
+         <img :alt="slotProps.option.NomProduit" :src="slotProps.option.PhotoCover" 
+            style="width: 30px; height: 30px; object-fit: cover;" class="me-2" />
+         <div>{{ slotProps.option.NomProduit }}</div>
          </div>
          <div class="fw-bold ms-2">
-          <!-- <div class="fw-bold">({{ slotProps.option?.Prix }})</div> -->
-          <div class="fw-bold">(  {{ formatPrice(convertPrice(slotProps.option?.Prix), selectedDevise.symbol, selectedDevise.isSymbolBefore) }})</div>
+         <!-- <div class="fw-bold">({{ slotProps.option?.Prix }})</div> -->
+         <div class="fw-bold">(  {{ formatPrice(convertPrice(slotProps.option?.Prix), selectedDevise.symbol, selectedDevise.isSymbolBefore) }})</div>
 
-          
+
 
          </div>
-         
-        </div>
-      </template>
 
-      <template #header>
-        <div class="font-medium px-3 py-2">Produits Disponibles</div>
-      </template>
-    </AutoComplete> 
+         </div>
+         </template>
 
-                           </div>
-                        </form>
-                     </div>
-                     <div class="col-1 position-relative" @mouseenter="showDropdown = true"
-                        @mouseleave="showDropdown = false">
-                        <img src="@/assets/img/search.png" alt="search by picture" class="w-50 cursor-pointer">
-   
-                        <!-- Dropdown de recherche par image avec transition -->
-                        <Transition enter-active-class="animate__animated animate__fadeIn"
-                           leave-active-class="animate__animated animate__fadeOut">
-                           <div v-if="showDropdown" class="dropdown-container position-absolute end-0 mt-1">
-                              <!-- Triangle pointant vers l'icône -->
-                              <div class="dropdown-arrow"></div>
-   
-                              <!-- Contenu du dropdown -->
-                              <div class="dropdown-content p-3 bg-white rounded shadow border">
-                                 <h5 class="mb-1">Recherche par image</h5>
-                                 <p class="text-muted small mb-1">
-                                    Trouvez ce que vous aimez à prix réduit sur Wakanda grâce à la recherche par image.
-                                 </p>
-   
-                                 <!-- Zone de drop -->
-                                 <div class="drop-zone p-3 border border-2 border-dashed rounded text-center"
-                                    :class="{ 'border-primary bg-light': isDragging }"
-                                    @dragenter.prevent="isDragging = true" @dragleave.prevent="isDragging = false"
-                                    @dragover.prevent @drop.prevent="handleDrop" @paste.prevent="handlePaste">
-                                    <div v-if="!previewImage">
-                                       <div class="mb-1">Faites glisser une image ici</div>
-                                       <div class="text-muted">ou</div>
-                                       <input ref="fileInput" type="file" class="d-none" accept="image/*"
-                                          @change="handleFileSelect">
-                                       <button class="btn btn-primary " @click="$refs.fileInput.click()">
-                                          Importez une photo
-                                       </button>
-                                    </div>
-   
-                                    <!-- Prévisualisation de l'image -->
-                                    <div v-else class="preview-container">
-                                       <img :src="previewImage" alt="Preview" class="img-fluid" style="max-height: 330px">
-                                       <button class="btn btn-sm btn-outline-danger" @click="clearImage">
-                                          Supprimer
-                                       </button>
-                                    </div>
+         <template #header>
+         <div class="font-medium px-3 py-2">Produits Disponibles</div>
+         </template>
+         </AutoComplete> 
+
+                        </div>
+                     </form>
+                  </div>
+                  <div class="col-2 col-xs-2 col-sm-2 col-md-1 col-lg-1 position-relative" @mouseenter="showDropdown = true"
+                     @mouseleave="showDropdown = false">
+                     <img src="@/assets/img/search.png" alt="search by picture" class=" cursor-pointer me-3" style="height:40px; width:40px;">
+
+                     <!-- Dropdown de recherche par image avec transition -->
+                     <Transition enter-active-class="animate__animated animate__fadeIn"
+                        leave-active-class="animate__animated animate__fadeOut">
+                        <div v-if="showDropdown" class="dropdown-container position-absolute end-0 mt-1">
+                           <!-- Triangle pointant vers l'icône -->
+                           <div class="dropdown-arrow"></div>
+
+                           <!-- Contenu du dropdown -->
+                           <div class="dropdown-content p-3 bg-white rounded shadow border">
+                              <h5 class="mb-1">Recherche par image</h5>
+                              <p class="text-muted small mb-1">
+                                 Trouvez ce que vous aimez à prix réduit sur Wakanda grâce à la recherche par image.
+                              </p>
+
+                              <!-- Zone de drop -->
+                              <div class="drop-zone p-3 border border-2 border-dashed rounded text-center"
+                                 :class="{ 'border-primary bg-light': isDragging }"
+                                 @dragenter.prevent="isDragging = true" @dragleave.prevent="isDragging = false"
+                                 @dragover.prevent @drop.prevent="handleDrop" @paste.prevent="handlePaste">
+                                 <div v-if="!previewImage">
+                                    <div class="mb-1">Faites glisser une image ici</div>
+                                    <div class="text-muted">ou</div>
+                                    <input ref="fileInput" type="file" class="d-none" accept="image/*"
+                                       @change="handleFileSelect">
+                                    <button class="btn btn-primary " @click="$refs.fileInput.click()">
+                                       Importez une photo
+                                    </button>
                                  </div>
-   
-                                 <div class="mt-1 text-muted small">
-                                    *Pour une recherche rapide, appuyez sur CTRL + V pour coller une image
+
+                                 <!-- Prévisualisation de l'image -->
+                                 <div v-else class="preview-container">
+                                    <img :src="previewImage" alt="Preview" class="img-fluid" style="max-height: 330px">
+                                    <button class="btn btn-sm btn-outline-danger" @click="clearImage">
+                                       Supprimer
+                                    </button>
                                  </div>
                               </div>
+
+                              <div class="mt-1 text-muted small">
+                                 *Pour une recherche rapide, appuyez sur CTRL + V pour coller une image
+                              </div>
                            </div>
-                        </Transition>
-                     </div>
-                     <div class="col-1">
-                        <a href="#"> <i class="bi bi-mic fs-3"></i></a>
-                     </div>
+                        </div>
+                     </Transition>
                   </div>
-   
+                  <div class="col-1 col-xs-2 col-sm-2 col-md-1 col-lg-1 ">
+                     <a href="#"> <i class="bi bi-mic fs-2"></i></a>
+                  </div>
                </div>
-               <div class="col-xxl-4 col-xl-4 col-lg-4 d-none d-lg-block">
-                  <div class="row align-items-center" v-if="shouldShowNavbar">
-                     <div class="col-xl-6">
-                        <div ref="dropdownWrapper" class="my-account--menuItem--1GDZChA" @click="toggleDropdown" style="align-items: center;">
-                           <span class="comet-icon comet-icon-myaccount my-account--accountIcon--ECZEGeo"><svg
-                                 viewBox="0 0 1024 1024" width="1em" height="1em" fill="currentColor" aria-hidden="false"
-                                 focusable="false" data-spm-anchor-id="a2g0o.cart.header.i1.2f53378dWTbody">
-                                 <path
-                                    d="M512 126.357333a189.866667 189.866667 0 1 0 189.866667 189.866667 189.866667 189.866667 0 0 0-189.866667-189.866667z m-125.866667 189.866667a125.866667 125.866667 0 1 1 251.733334 0 125.866667 125.866667 0 0 1-251.733334 0zM512 650.666667c138.026667 0 236.074667 72.448 273.152 192H238.848c37.077333-119.552 135.146667-192 273.152-192z m0-64c-171.541333 0-298.325333 96.981333-339.349333 254.805333-9.002667 34.666667 18.346667 65.194667 51.093333 65.194667h576.512c32.768 0 60.096-30.506667 51.093333-65.194667C810.325333 683.648 683.52 586.666667 512 586.666667z"
-                                    data-spm-anchor-id="a2g0o.cart.header.i0.2f53378dWTbody"></path>
-                              </svg>
-                           </span>
-                           <div class="my-account--text--2Yt_prE">
-                              <span class="my-account--small--3ni1QHm"> {{ $t('inscription.item1') }} , {{ loggedInUser.nom}} </span>
-                             
-                                 </div><span
-                              class="comet-icon comet-icon-chevrondown32 base--responseIcon--3et2x1Z"><svg
-                                 viewBox="0 0 1024 1024" width="1em" height="1em" fill="currentColor" aria-hidden="false"
-                                 focusable="false">
-                                 <path
-                                    d="M296.256 354.944l224 224 224-224a74.656 74.656 0 0 1 0 105.6l-197.6 197.6a37.344 37.344 0 0 1-52.8 0l-197.6-197.6a74.656 74.656 0 0 1 0-105.6z">
-                                 </path>
-                              </svg></span>
-                        </div>
-                     </div>
-                     <div class="col-xl-1">
-                        <div>
-                           <div v-if="isOpen" class="comet-v2-popover-wrap" style="position: relative;">
-                              <div class="comet-v2-popover comet-v2-popover-show-arrow comet-v2-zoom-big-enter-done"
-                                 data-popper-placement="bottom" style="position: absolute; top: 37px;left: -246px"
-                                 data-spm-anchor-id="a2g0o.cart.0.i10.2f53378dWTbody">
-                                 <div class="comet-v2-popover-arrow" data-popper-arrow="true"
-                                    style="position: absolute; left: 148.5px;"></div>
-                                 <div class="comet-v2-popover-body my-account--popupCls--1C1NFJ2" style="">
-                                    <div class="comet-v2-popover-content">
-                                       <div class="my-account--accountWrap--2FBvnYE">
-                                          
-                                          <div class="my-account--menuBox--3f9Nx8S">
-                                             <ul class="my-account--menuInfo--3YpLtBU mb-0">
-                                                <li>
-                                                   <router-link to="/client">
-                                                      <span class="comet-icon comet-icon-orders my-account--icon--16yzkFW">
-                                                         <svg
-                                                            viewBox="0 0 1024 1024" width="1em" height="1em"
-                                                            fill="currentColor" aria-hidden="false" focusable="false">
-                                                            <path
-                                                               d="M189.866667 266.666667a76.8 76.8 0 0 1 76.8-76.8h70.250666a34.133333 34.133333 0 1 1 0 68.266666H266.666667a8.533333 8.533333 0 0 0-8.533334 8.533334v618.666666c0 4.693333 3.818667 8.533333 8.533334 8.533334h490.666666a8.533333 8.533333 0 0 0 8.533334-8.533334v-618.666666a8.533333 8.533333 0 0 0-8.533334-8.533334h-70.250666a34.133333 34.133333 0 1 1 0-68.266666H757.333333a76.8 76.8 0 0 1 76.8 76.8v618.666666a76.8 76.8 0 0 1-76.8 76.8h-490.666666a76.8 76.8 0 0 1-76.8-76.8v-618.666666z">
-                                                            </path>
-                                                            <path
-                                                               d="M328.533333 202.666667A76.8 76.8 0 0 1 405.333333 125.866667h213.333334a76.8 76.8 0 0 1 76.8 76.8v42.666666a76.8 76.8 0 0 1-76.8 76.8H405.333333a76.8 76.8 0 0 1-76.8-76.8v-42.666666z m76.8-8.533334a8.533333 8.533333 0 0 0-8.533333 8.533334v42.666666c0 4.693333 3.818667 8.533333 8.533333 8.533334h213.333334a8.533333 8.533333 0 0 0 8.533333-8.533334v-42.666666a8.533333 8.533333 0 0 0-8.533333-8.533334H405.333333z">
-                                                            </path>
-                                                            <path
-                                                               d="M362.666667 629.333333a32 32 0 0 1 32-32H554.666667v18.282667C554.666667 640.874667 534.186667 661.333333 508.949333 661.333333H394.666667a32 32 0 0 1-32-32z">
-                                                            </path>
-                                                            <path
-                                                               d="M352 469.333333m32 0l256 0q32 0 32 32l0 0q0 32-32 32l-256 0q-32 0-32-32l0 0q0-32 32-32Z">
-                                                            </path> </svg>
-                                                           </span>
-                                                           <span class="my-account--menuText--1km-qni">Profil</span>
-                                                      </router-link>
-                                                   </li>
-                                                   <li>
-                                                   <a href="#">
-                                                      <span class="comet-icon comet-icon-orders my-account--icon--16yzkFW">
-                                                         <svg
-                                                            viewBox="0 0 1024 1024" width="1em" height="1em"
-                                                            fill="currentColor" aria-hidden="false" focusable="false">
-                                                            <path
-                                                               d="M189.866667 266.666667a76.8 76.8 0 0 1 76.8-76.8h70.250666a34.133333 34.133333 0 1 1 0 68.266666H266.666667a8.533333 8.533333 0 0 0-8.533334 8.533334v618.666666c0 4.693333 3.818667 8.533333 8.533334 8.533334h490.666666a8.533333 8.533333 0 0 0 8.533334-8.533334v-618.666666a8.533333 8.533333 0 0 0-8.533334-8.533334h-70.250666a34.133333 34.133333 0 1 1 0-68.266666H757.333333a76.8 76.8 0 0 1 76.8 76.8v618.666666a76.8 76.8 0 0 1-76.8 76.8h-490.666666a76.8 76.8 0 0 1-76.8-76.8v-618.666666z">
-                                                            </path>
-                                                            <path
-                                                               d="M328.533333 202.666667A76.8 76.8 0 0 1 405.333333 125.866667h213.333334a76.8 76.8 0 0 1 76.8 76.8v42.666666a76.8 76.8 0 0 1-76.8 76.8H405.333333a76.8 76.8 0 0 1-76.8-76.8v-42.666666z m76.8-8.533334a8.533333 8.533333 0 0 0-8.533333 8.533334v42.666666c0 4.693333 3.818667 8.533333 8.533333 8.533334h213.333334a8.533333 8.533333 0 0 0 8.533333-8.533334v-42.666666a8.533333 8.533333 0 0 0-8.533333-8.533334H405.333333z">
-                                                            </path>
-                                                            <path
-                                                               d="M362.666667 629.333333a32 32 0 0 1 32-32H554.666667v18.282667C554.666667 640.874667 534.186667 661.333333 508.949333 661.333333H394.666667a32 32 0 0 1-32-32z">
-                                                            </path>
-                                                            <path
-                                                               d="M352 469.333333m32 0l256 0q32 0 32 32l0 0q0 32-32 32l-256 0q-32 0-32-32l0 0q0-32 32-32Z">
-                                                            </path> </svg>
-                                                           </span>
-                                                           <span class="my-account--menuText--1km-qni">Mes Commandes</span>
-                                                      </a>
-                                                   </li>
-                                                <li><a href="#"><span
-                                                         class="comet-icon comet-icon-wishlist my-account--icon--16yzkFW"><svg
-                                                            viewBox="0 0 1024 1024" width="1em" height="1em"
-                                                            fill="currentColor" aria-hidden="false" focusable="false">
-                                                            <path
-                                                               d="M165.589333 578.005333c-83.584-83.584-83.584-219.093333 0-302.677333 83.584-83.584 219.093333-83.584 302.677334 0l43.797333 43.797333 43.797333-43.797333c83.562667-83.584 219.093333-83.584 302.656 0 83.584 83.562667 83.584 219.093333 0 302.656l-323.84 323.84a32 32 0 0 1-45.226666 0l-323.84-323.84z m45.269334-257.429333a150.016 150.016 0 0 0 0 212.181333l301.205333 301.205334 301.205333-301.226667a150.016 150.016 0 1 0-212.16-212.16l-66.432 66.432a32 32 0 0 1-45.248 0l-66.410666-66.432a150.016 150.016 0 0 0-212.16 0z">
-                                                            </path>
-                                                         </svg></span><span class="my-account--menuText--1km-qni">Mes
-                                                         favoris</span></a></li>
-   
-                                             </ul>
-                                             <hr class="m-0">
-                                             <div class="text-center mt-2">
-                                                <button  style="font-size: 13px;" @click="logout"  class="my-account--signin--RiPQVPB">Déconnexion</button>
-                                             </div>
-   
-   
-                                          </div>
-                                       </div>
-                                    </div>
-                                 </div>
-                              </div>
-                           </div>
-   
-                           <div class="text-center me-8">
-                              <div class="dropdown">
-                                 <router-link to="/panier" class="text-reset">
-                                    <div class="lh-1">
-                                       <div class="position-relative d-inline-block">
-                                          <i class="bi bi-cart2 fs-4"></i>
-                                          <span
-                                             class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                                             {{ cartItemCount }}
-                                          </span>
-                                       </div>
-                                       <p class="mb-0 d-none d-xl-block small"></p>
-                                    </div>
-                                 </router-link>
-   
-   
-                              </div>
-                           </div>
-                        </div>
-   
-                     </div>
-                     <div class="col-xl-5">
-                        <div class="navbar-container ms-3">
-                           <div class="dropdown selectBox " ref="dropdownWrapper1">
-                           <a ref="dropdownWrapper1" class="dropdown-toggle selectValue text-reset show d-flex align-items-center"
-                              href="javascript:void(0)" @click="toggleDropdownLangage">
-                              <i class="bi bi-globe2 fs-4"></i> &nbsp;
-                              <!-- <img :src="currentFlag" alt="Flag" style="width: 24px; margin-left: 8px;"> -->
-                              <span>{{ currentLanguage }}</span>  &nbsp;
-                              <span>({{ selectedDevise?.label }})</span>
-                           </a>
-   
-                           <div class="es--wrap--RYjm1RT" v-if="isOpenLangage">
-   
-                              <div class="es--contentWrap--ypzOXHr es--visible--12ePDdG">
-   
-                                 <div class="form-item--title--1ZN23sl">Envoyez à</div>
-                                 <MazSelect label="" v-model="detected" :options="countriesOptions" v-slot="{ option  }"
-                                    size="sm" rounded-size="md" color="secondary" autocomplete="off" search>
-                                    <div class="d-flex align-items-center" @click.prevent="changeCountry(option)" style="
-                                      padding-top: 0.5rem;
-                                      padding-bottom: 0.5rem;
-                                      width: 100% !important;
-                                      gap: 1rem;
-                                 
-                                      ">
-                                       <MazAvatar size="0.4rem" :src="option.flag" />
-                                       <strong>
-                                          {{ option.code }}
-                                       </strong>
-                                    </div>
-                                 </MazSelect>
-   
-   
-                                 <div class="form-item--title--1ZN23sl">Langue</div>
-                                 <MazSelect label="" v-model="langage" :options="LangageOptions" v-slot="{ option  }"
-                                    size="sm" rounded-size="md" color="secondary" autocomplete="off">
-                                    <div class="d-flex align-items-center" @click="changeLanguage(option)" style="
-                                      padding-top: 0.5rem;
-                                      padding-bottom: 0.5rem;
-                                      width: 100% !important;
-                                      gap: 1rem;
-                                 
-                                      ">
-                                       <MazAvatar size="0.4rem" :src="option.picture" />
-                                       <strong>
-                                          {{ option.label }}
-                                       </strong>
-                                    </div>
-                                 </MazSelect>
-   
-   
-                                 <div class="form-item--title--1ZN23sl">Devise</div>
-                                 <MazSelect v-model="devise" color="secondary" secondary :options="DeviesArray"
-                                    v-slot="{ option }" size="sm" rounded-size="md" autocomplete="off">
-                                    <div class="flex items-center"
-                                       style="padding-top: 0.5rem; padding-bottom: 0.5rem; width: 100%; gap: 1rem"
-                                       @click="updateDevise(option)">
-   
-                                       {{ option.label }}
-   
-                                    </div>
-   
-                                 </MazSelect>
-   
-                                 <!-- <div class="es--saveBtn--w8EuBuy">Enregistrer</div> -->
-                              </div>
-                           </div>
-                        </div>
-                        </div>
-                       
+
+            </div>
+            <div class="col-xxl-4 col-xl-4 col-lg-4 d-none d-lg-block">
+               <div class="row align-items-center" v-if="shouldShowNavbar">
+                  <div class="col-xl-6">
+                     <div ref="dropdownWrapper" class="my-account--menuItem--1GDZChA" @click="toggleDropdown" style="align-items: center;">
+                        <span class="comet-icon comet-icon-myaccount my-account--accountIcon--ECZEGeo"><svg
+                              viewBox="0 0 1024 1024" width="1em" height="1em" fill="currentColor" aria-hidden="false"
+                              focusable="false" data-spm-anchor-id="a2g0o.cart.header.i1.2f53378dWTbody">
+                              <path
+                                 d="M512 126.357333a189.866667 189.866667 0 1 0 189.866667 189.866667 189.866667 189.866667 0 0 0-189.866667-189.866667z m-125.866667 189.866667a125.866667 125.866667 0 1 1 251.733334 0 125.866667 125.866667 0 0 1-251.733334 0zM512 650.666667c138.026667 0 236.074667 72.448 273.152 192H238.848c37.077333-119.552 135.146667-192 273.152-192z m0-64c-171.541333 0-298.325333 96.981333-339.349333 254.805333-9.002667 34.666667 18.346667 65.194667 51.093333 65.194667h576.512c32.768 0 60.096-30.506667 51.093333-65.194667C810.325333 683.648 683.52 586.666667 512 586.666667z"
+                                 data-spm-anchor-id="a2g0o.cart.header.i0.2f53378dWTbody"></path>
+                           </svg>
+                        </span>
+                        <div class="my-account--text--2Yt_prE">
+                           <span class="my-account--small--3ni1QHm"> {{ $t('inscription.item1') }} , {{ loggedInUser.nom}} </span>
+                        
+                              </div><span
+                           class="comet-icon comet-icon-chevrondown32 base--responseIcon--3et2x1Z"><svg
+                              viewBox="0 0 1024 1024" width="1em" height="1em" fill="currentColor" aria-hidden="false"
+                              focusable="false">
+                              <path
+                                 d="M296.256 354.944l224 224 224-224a74.656 74.656 0 0 1 0 105.6l-197.6 197.6a37.344 37.344 0 0 1-52.8 0l-197.6-197.6a74.656 74.656 0 0 1 0-105.6z">
+                              </path>
+                           </svg></span>
                      </div>
                   </div>
+                  <div class="col-xl-1">
+                     <div>
+                        <div v-if="isOpen" class="comet-v2-popover-wrap" style="position: relative;">
+                           <div class="comet-v2-popover comet-v2-popover-show-arrow comet-v2-zoom-big-enter-done"
+                              data-popper-placement="bottom" style="position: absolute; top: 37px;left: -246px"
+                              data-spm-anchor-id="a2g0o.cart.0.i10.2f53378dWTbody">
+                              <div class="comet-v2-popover-arrow" data-popper-arrow="true"
+                                 style="position: absolute; left: 148.5px;"></div>
+                              <div class="comet-v2-popover-body my-account--popupCls--1C1NFJ2" style="">
+                                 <div class="comet-v2-popover-content">
+                                    <div class="my-account--accountWrap--2FBvnYE">
+                                       
+                                       <div class="my-account--menuBox--3f9Nx8S">
+                                          <ul class="my-account--menuInfo--3YpLtBU mb-0">
+                                             <li>
+                                                <router-link to="/client">
+                                                   <span class="comet-icon comet-icon-orders my-account--icon--16yzkFW">
+                                                      <svg
+                                                         viewBox="0 0 1024 1024" width="1em" height="1em"
+                                                         fill="currentColor" aria-hidden="false" focusable="false">
+                                                         <path
+                                                            d="M189.866667 266.666667a76.8 76.8 0 0 1 76.8-76.8h70.250666a34.133333 34.133333 0 1 1 0 68.266666H266.666667a8.533333 8.533333 0 0 0-8.533334 8.533334v618.666666c0 4.693333 3.818667 8.533333 8.533334 8.533334h490.666666a8.533333 8.533333 0 0 0 8.533334-8.533334v-618.666666a8.533333 8.533333 0 0 0-8.533334-8.533334h-70.250666a34.133333 34.133333 0 1 1 0-68.266666H757.333333a76.8 76.8 0 0 1 76.8 76.8v618.666666a76.8 76.8 0 0 1-76.8 76.8h-490.666666a76.8 76.8 0 0 1-76.8-76.8v-618.666666z">
+                                                         </path>
+                                                         <path
+                                                            d="M328.533333 202.666667A76.8 76.8 0 0 1 405.333333 125.866667h213.333334a76.8 76.8 0 0 1 76.8 76.8v42.666666a76.8 76.8 0 0 1-76.8 76.8H405.333333a76.8 76.8 0 0 1-76.8-76.8v-42.666666z m76.8-8.533334a8.533333 8.533333 0 0 0-8.533333 8.533334v42.666666c0 4.693333 3.818667 8.533333 8.533333 8.533334h213.333334a8.533333 8.533333 0 0 0 8.533333-8.533334v-42.666666a8.533333 8.533333 0 0 0-8.533333-8.533334H405.333333z">
+                                                         </path>
+                                                         <path
+                                                            d="M362.666667 629.333333a32 32 0 0 1 32-32H554.666667v18.282667C554.666667 640.874667 534.186667 661.333333 508.949333 661.333333H394.666667a32 32 0 0 1-32-32z">
+                                                         </path>
+                                                         <path
+                                                            d="M352 469.333333m32 0l256 0q32 0 32 32l0 0q0 32-32 32l-256 0q-32 0-32-32l0 0q0-32 32-32Z">
+                                                         </path> </svg>
+                                                      </span>
+                                                      <span class="my-account--menuText--1km-qni">Profil</span>
+                                                   </router-link>
+                                                </li>
+                                                <li>
+                                                <a href="#">
+                                                   <span class="comet-icon comet-icon-orders my-account--icon--16yzkFW">
+                                                      <svg
+                                                         viewBox="0 0 1024 1024" width="1em" height="1em"
+                                                         fill="currentColor" aria-hidden="false" focusable="false">
+                                                         <path
+                                                            d="M189.866667 266.666667a76.8 76.8 0 0 1 76.8-76.8h70.250666a34.133333 34.133333 0 1 1 0 68.266666H266.666667a8.533333 8.533333 0 0 0-8.533334 8.533334v618.666666c0 4.693333 3.818667 8.533333 8.533334 8.533334h490.666666a8.533333 8.533333 0 0 0 8.533334-8.533334v-618.666666a8.533333 8.533333 0 0 0-8.533334-8.533334h-70.250666a34.133333 34.133333 0 1 1 0-68.266666H757.333333a76.8 76.8 0 0 1 76.8 76.8v618.666666a76.8 76.8 0 0 1-76.8 76.8h-490.666666a76.8 76.8 0 0 1-76.8-76.8v-618.666666z">
+                                                         </path>
+                                                         <path
+                                                            d="M328.533333 202.666667A76.8 76.8 0 0 1 405.333333 125.866667h213.333334a76.8 76.8 0 0 1 76.8 76.8v42.666666a76.8 76.8 0 0 1-76.8 76.8H405.333333a76.8 76.8 0 0 1-76.8-76.8v-42.666666z m76.8-8.533334a8.533333 8.533333 0 0 0-8.533333 8.533334v42.666666c0 4.693333 3.818667 8.533333 8.533333 8.533334h213.333334a8.533333 8.533333 0 0 0 8.533333-8.533334v-42.666666a8.533333 8.533333 0 0 0-8.533333-8.533334H405.333333z">
+                                                         </path>
+                                                         <path
+                                                            d="M362.666667 629.333333a32 32 0 0 1 32-32H554.666667v18.282667C554.666667 640.874667 534.186667 661.333333 508.949333 661.333333H394.666667a32 32 0 0 1-32-32z">
+                                                         </path>
+                                                         <path
+                                                            d="M352 469.333333m32 0l256 0q32 0 32 32l0 0q0 32-32 32l-256 0q-32 0-32-32l0 0q0-32 32-32Z">
+                                                         </path> </svg>
+                                                      </span>
+                                                      <span class="my-account--menuText--1km-qni">Mes Commandes</span>
+                                                   </a>
+                                                </li>
+                                             <li><a href="#"><span
+                                                      class="comet-icon comet-icon-wishlist my-account--icon--16yzkFW"><svg
+                                                         viewBox="0 0 1024 1024" width="1em" height="1em"
+                                                         fill="currentColor" aria-hidden="false" focusable="false">
+                                                         <path
+                                                            d="M165.589333 578.005333c-83.584-83.584-83.584-219.093333 0-302.677333 83.584-83.584 219.093333-83.584 302.677334 0l43.797333 43.797333 43.797333-43.797333c83.562667-83.584 219.093333-83.584 302.656 0 83.584 83.562667 83.584 219.093333 0 302.656l-323.84 323.84a32 32 0 0 1-45.226666 0l-323.84-323.84z m45.269334-257.429333a150.016 150.016 0 0 0 0 212.181333l301.205333 301.205334 301.205333-301.226667a150.016 150.016 0 1 0-212.16-212.16l-66.432 66.432a32 32 0 0 1-45.248 0l-66.410666-66.432a150.016 150.016 0 0 0-212.16 0z">
+                                                         </path>
+                                                      </svg></span><span class="my-account--menuText--1km-qni">Mes
+                                                      favoris</span></a></li>
 
-                  <div class="row align-items-center" v-else>
-                     <div class="col-xl-5">
-                        <div ref="dropdownWrapper" class="my-account--menuItem--1GDZChA" @click="toggleDropdown">
-                           <span class="comet-icon comet-icon-myaccount my-account--accountIcon--ECZEGeo"><svg
-                                 viewBox="0 0 1024 1024" width="1em" height="1em" fill="currentColor" aria-hidden="false"
-                                 focusable="false" data-spm-anchor-id="a2g0o.cart.header.i1.2f53378dWTbody">
-                                 <path
-                                    d="M512 126.357333a189.866667 189.866667 0 1 0 189.866667 189.866667 189.866667 189.866667 0 0 0-189.866667-189.866667z m-125.866667 189.866667a125.866667 125.866667 0 1 1 251.733334 0 125.866667 125.866667 0 0 1-251.733334 0zM512 650.666667c138.026667 0 236.074667 72.448 273.152 192H238.848c37.077333-119.552 135.146667-192 273.152-192z m0-64c-171.541333 0-298.325333 96.981333-339.349333 254.805333-9.002667 34.666667 18.346667 65.194667 51.093333 65.194667h576.512c32.768 0 60.096-30.506667 51.093333-65.194667C810.325333 683.648 683.52 586.666667 512 586.666667z"
-                                    data-spm-anchor-id="a2g0o.cart.header.i0.2f53378dWTbody"></path>
-                              </svg>
-                           </span>
-                           <div class="my-account--text--2Yt_prE"><span class="my-account--small--3ni1QHm"> {{
-                                 $t('inscription.item1')}}</span><b><span
-                                    data-spm-anchor-id="a2g0o.cart.header.i2.2f53378dWTbody">{{ $t('inscription.item2')}} /
-                                    {{ $t('inscription.item3')}}</span><span
-                                    class="comet-icon comet-icon-chevrondown32 my-account--centerIcon--2yqLRkj base--chevronIcon--25sHdop"><svg
-                                       viewBox="0 0 1024 1024" width="1em" height="1em" fill="currentColor"
-                                       aria-hidden="false" focusable="false"
-                                       data-spm-anchor-id="a2g0o.cart.header.i3.2f53378dWTbody">
-                                       <path
-                                          d="M296.256 354.944l224 224 224-224a74.656 74.656 0 0 1 0 105.6l-197.6 197.6a37.344 37.344 0 0 1-52.8 0l-197.6-197.6a74.656 74.656 0 0 1 0-105.6z">
-                                       </path>
-                                    </svg></span></b></div><span
-                              class="comet-icon comet-icon-chevrondown32 base--responseIcon--3et2x1Z"><svg
-                                 viewBox="0 0 1024 1024" width="1em" height="1em" fill="currentColor" aria-hidden="false"
-                                 focusable="false">
-                                 <path
-                                    d="M296.256 354.944l224 224 224-224a74.656 74.656 0 0 1 0 105.6l-197.6 197.6a37.344 37.344 0 0 1-52.8 0l-197.6-197.6a74.656 74.656 0 0 1 0-105.6z">
-                                 </path>
-                              </svg></span>
-                        </div>
-                     </div>
-                     <div class="col-xl-2">
-                        <div>
-                           <div v-if="isOpen" class="comet-v2-popover-wrap" style="position: relative;">
-                              <div class="comet-v2-popover comet-v2-popover-show-arrow comet-v2-zoom-big-enter-done"
-                                 data-popper-placement="bottom" style="position: absolute; top: 37px;left:-246px"
-                                 data-spm-anchor-id="a2g0o.cart.0.i10.2f53378dWTbody">
-                                 <div class="comet-v2-popover-arrow" data-popper-arrow="true"
-                                    style="position: absolute; left: 148.5px;"></div>
-                                 <div class="comet-v2-popover-body my-account--popupCls--1C1NFJ2" style="">
-                                    <div class="comet-v2-popover-content">
-                                       <div class="my-account--accountWrap--2FBvnYE">
-                                          <div class="my-account--userInfo--8cACzqQ">
-                                                <router-link to="/login-client">
-                                             <button  class="my-account--signin--RiPQVPB">{{  $t('inscription.item2')}}</button>
-                                                </router-link>
-                                                
-                                                <router-link to="/sign-up">
-                                                   <p >{{ $t('inscription.item3')}} </p>
-                                                </router-link>
-                                             <span class="my-account--line--QONK0VF"></span>
+                                          </ul>
+                                          <hr class="m-0">
+                                          <div class="text-center mt-2">
+                                             <button  style="font-size: 13px;" @click="logout"  class="my-account--signin--RiPQVPB">Déconnexion</button>
                                           </div>
-                                          <div class="my-account--menuBox--3f9Nx8S">
-                                             <ul class="my-account--menuInfo--3YpLtBU mb-0">
-                                                <li><a href="#"><span
-                                                         class="comet-icon comet-icon-orders my-account--icon--16yzkFW"><svg
-                                                            viewBox="0 0 1024 1024" width="1em" height="1em"
-                                                            fill="currentColor" aria-hidden="false" focusable="false">
-                                                            <path
-                                                               d="M189.866667 266.666667a76.8 76.8 0 0 1 76.8-76.8h70.250666a34.133333 34.133333 0 1 1 0 68.266666H266.666667a8.533333 8.533333 0 0 0-8.533334 8.533334v618.666666c0 4.693333 3.818667 8.533333 8.533334 8.533334h490.666666a8.533333 8.533333 0 0 0 8.533334-8.533334v-618.666666a8.533333 8.533333 0 0 0-8.533334-8.533334h-70.250666a34.133333 34.133333 0 1 1 0-68.266666H757.333333a76.8 76.8 0 0 1 76.8 76.8v618.666666a76.8 76.8 0 0 1-76.8 76.8h-490.666666a76.8 76.8 0 0 1-76.8-76.8v-618.666666z">
-                                                            </path>
-                                                            <path
-                                                               d="M328.533333 202.666667A76.8 76.8 0 0 1 405.333333 125.866667h213.333334a76.8 76.8 0 0 1 76.8 76.8v42.666666a76.8 76.8 0 0 1-76.8 76.8H405.333333a76.8 76.8 0 0 1-76.8-76.8v-42.666666z m76.8-8.533334a8.533333 8.533333 0 0 0-8.533333 8.533334v42.666666c0 4.693333 3.818667 8.533333 8.533333 8.533334h213.333334a8.533333 8.533333 0 0 0 8.533333-8.533334v-42.666666a8.533333 8.533333 0 0 0-8.533333-8.533334H405.333333z">
-                                                            </path>
-                                                            <path
-                                                               d="M362.666667 629.333333a32 32 0 0 1 32-32H554.666667v18.282667C554.666667 640.874667 534.186667 661.333333 508.949333 661.333333H394.666667a32 32 0 0 1-32-32z">
-                                                            </path>
-                                                            <path
-                                                               d="M352 469.333333m32 0l256 0q32 0 32 32l0 0q0 32-32 32l-256 0q-32 0-32-32l0 0q0-32 32-32Z">
-                                                            </path>
-                                                         </svg></span><span class="my-account--menuText--1km-qni">Mes
-                                                         Commandes</span></a></li>
-   
-   
-                                                <li><a href="#"><span
-                                                         class="comet-icon comet-icon-creditcard my-account--icon--16yzkFW"><svg
-                                                            viewBox="0 0 1024 1024" width="1em" height="1em"
-                                                            fill="currentColor" aria-hidden="false" focusable="false">
-                                                            <path
-                                                               d="M405.333333 640H192v64h138.666667c38.4 0 74.666667-25.6 74.666666-64z">
-                                                            </path>
-                                                            <path
-                                                               d="M917.333333 832H106.666667c-23.466667 0-42.666667-19.2-42.666667-42.666667V234.666667c0-23.466667 19.2-42.666667 42.666667-42.666667h810.666666c23.466667 0 42.666667 19.2 42.666667 42.666667v554.666666c0 23.466667-19.2 42.666667-42.666667 42.666667zM128 768h768V256H128v512z m789.333333-512z">
-                                                            </path>
-                                                            <path
-                                                               d="M896 416H128c-17.066667 0-32-14.933333-32-32s14.933333-32 32-32h768c17.066667 0 32 14.933333 32 32s-14.933333 32-32 32z">
-                                                            </path>
-                                                         </svg></span><span
-                                                         class="my-account--menuText--1km-qni">Paiement</span></a></li>
-                                                <li><a href="#"><span
-                                                         class="comet-icon comet-icon-wishlist my-account--icon--16yzkFW"><svg
-                                                            viewBox="0 0 1024 1024" width="1em" height="1em"
-                                                            fill="currentColor" aria-hidden="false" focusable="false">
-                                                            <path
-                                                               d="M165.589333 578.005333c-83.584-83.584-83.584-219.093333 0-302.677333 83.584-83.584 219.093333-83.584 302.677334 0l43.797333 43.797333 43.797333-43.797333c83.562667-83.584 219.093333-83.584 302.656 0 83.584 83.562667 83.584 219.093333 0 302.656l-323.84 323.84a32 32 0 0 1-45.226666 0l-323.84-323.84z m45.269334-257.429333a150.016 150.016 0 0 0 0 212.181333l301.205333 301.205334 301.205333-301.226667a150.016 150.016 0 1 0-212.16-212.16l-66.432 66.432a32 32 0 0 1-45.248 0l-66.410666-66.432a150.016 150.016 0 0 0-212.16 0z">
-                                                            </path>
-                                                         </svg></span><span class="my-account--menuText--1km-qni">Mes
-                                                         favoris</span></a></li>
-   
-                                             </ul>
-   
-   
-                                          </div>
+
+
                                        </div>
                                     </div>
                                  </div>
                               </div>
                            </div>
-   
-                           <div class="text-center me-8">
-                              <div class="dropdown">
-                                 <router-link to="/panier" class="text-reset">
-                                    <div class="lh-1">
-                                       <div class="position-relative d-inline-block">
-                                          <i class="bi bi-cart2 fs-4"></i>
-                                          <span
-                                             class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                                             {{ cartItemCount }}
-                                          </span>
-                                       </div>
-                                       <p class="mb-0 d-none d-xl-block small"></p>
+                        </div>
+
+                        <div class="text-center me-8">
+                           <div class="dropdown">
+                              <router-link to="/panier" class="text-reset">
+                                 <div class="lh-1">
+                                    <div class="position-relative d-inline-block">
+                                       <i class="bi bi-cart2 fs-4"></i>
+                                       <span
+                                          class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                          {{ cartItemCount }}
+                                       </span>
                                     </div>
-                                 </router-link>
-   
-   
-                              </div>
+                                    <p class="mb-0 d-none d-xl-block small"></p>
+                                 </div>
+                              </router-link>
+
+
                            </div>
                         </div>
-   
                      </div>
-                     <div class="col-xl-5">
-                        <div class="navbar-container">
-                           <div class="dropdown selectBox " ref="dropdownWrapper1">
-                           <a ref="dropdownWrapper1" class="dropdown-toggle selectValue text-reset show d-flex align-items-center"
-                              href="javascript:void(0)" @click="toggleDropdownLangage">
-                              <i class="bi bi-globe2 fs-4"></i> &nbsp;
-                              <!-- <img :src="currentFlag" alt="Flag" style="width: 24px; margin-left: 8px;"> -->
-                              <span>{{ currentLanguage }}</span>  &nbsp;
-                              <span>({{ selectedDevise?.label }})</span>
-                           </a>
-   
-                           <div class="es--wrap--RYjm1RT" v-if="isOpenLangage">
-   
-                              <div class="es--contentWrap--ypzOXHr es--visible--12ePDdG">
-   
-                                 <div class="form-item--title--1ZN23sl">Envoyez à</div>
-                                 <MazSelect label="" v-model="detected" :options="countriesOptions" v-slot="{ option  }"
-                                    size="sm" rounded-size="md" color="secondary" autocomplete="off" search>
-                                    <div class="d-flex align-items-center" @click.prevent="changeCountry(option)" style="
-                                      padding-top: 0.5rem;
-                                      padding-bottom: 0.5rem;
-                                      width: 100% !important;
-                                      gap: 1rem;
-                                 
-                                      ">
-                                       <MazAvatar size="0.4rem" :src="option.flag" />
-                                       <strong>
-                                          {{ option.code }}
-                                       </strong>
-                                    </div>
-                                 </MazSelect>
-   
-   
-                                 <div class="form-item--title--1ZN23sl">Langue</div>
-                                 <MazSelect label="" v-model="langage" :options="LangageOptions" v-slot="{ option  }"
-                                    size="sm" rounded-size="md" color="secondary" autocomplete="off">
-                                    <div class="d-flex align-items-center" @click="changeLanguage(option)" style="
-                                      padding-top: 0.5rem;
-                                      padding-bottom: 0.5rem;
-                                      width: 100% !important;
-                                      gap: 1rem;
-                                 
-                                      ">
-                                       <MazAvatar size="0.4rem" :src="option.picture" />
-                                       <strong>
-                                          {{ option.label }}
-                                       </strong>
-                                    </div>
-                                 </MazSelect>
-   
-   
-                                 <div class="form-item--title--1ZN23sl">Devise</div>
-                                 <MazSelect v-model="devise" color="secondary" secondary :options="DeviesArray"
-                                    v-slot="{ option }" size="sm" rounded-size="md" autocomplete="off">
-                                    <div class="flex items-center"
-                                       style="padding-top: 0.5rem; padding-bottom: 0.5rem; width: 100%; gap: 1rem"
-                                       @click="updateDevise(option)">
-   
+
+                  </div>
+                  <div class="col-xl-5">
+                     <div class="navbar-container ms-3">
+                        <div class="dropdown selectBox " ref="dropdownWrapper1">
+                        <a ref="dropdownWrapper1" class="dropdown-toggle selectValue text-reset show d-flex align-items-center"
+                           href="javascript:void(0)" @click="toggleDropdownLangage">
+                           <i class="bi bi-globe2 fs-4"></i> &nbsp;
+                           <!-- <img :src="currentFlag" alt="Flag" style="width: 24px; margin-left: 8px;"> -->
+                           <span>{{ currentLanguage }}</span>  &nbsp;
+                           <span>({{ selectedDevise?.label }})</span>
+                        </a>
+
+                        <div class="es--wrap--RYjm1RT" v-if="isOpenLangage">
+
+                           <div class="es--contentWrap--ypzOXHr es--visible--12ePDdG">
+
+                              <!-- <div class="form-item--title--1ZN23sl">Envoyez à</div>
+                              <MazSelect label="" v-model="detected" :options="countriesOptions" v-slot="{ option  }"
+                                 size="sm" rounded-size="md" color="secondary" autocomplete="off" search>
+                                 <div class="d-flex align-items-center" @click.prevent="changeCountry(option)" style="
+                                 padding-top: 0.5rem;
+                                 padding-bottom: 0.5rem;
+                                 width: 100% !important;
+                                 gap: 1rem;
+                              
+                                 ">
+                                    <MazAvatar size="0.4rem" :src="option.flag" />
+                                    <strong>
+                                       {{ option.code }}
+                                    </strong>
+                                 </div>
+                              </MazSelect> -->
+
+
+                              <div class="form-item--title--1ZN23sl">Langue</div>
+                              <MazSelect label="" v-model="langage" :options="LangageOptions" v-slot="{ option  }"
+                                 size="sm" rounded-size="md" color="secondary" autocomplete="off">
+                                 <div class="d-flex align-items-center" @click="changeLanguage(option)" style="
+                                 padding-top: 0.5rem;
+                                 padding-bottom: 0.5rem;
+                                 width: 100% !important;
+                                 gap: 1rem;
+                              
+                                 ">
+                                    <MazAvatar size="0.4rem" :src="option.picture" />
+                                    <strong>
                                        {{ option.label }}
-   
+                                    </strong>
+                                 </div>
+                              </MazSelect>
+
+
+                              <div class="form-item--title--1ZN23sl">Devise</div>
+                              <MazSelect v-model="devise" color="secondary" secondary :options="DeviesArray"
+                                 v-slot="{ option }" size="sm" rounded-size="md" autocomplete="off">
+                                 <div class="flex items-center"
+                                    style="padding-top: 0.5rem; padding-bottom: 0.5rem; width: 100%; gap: 1rem"
+                                    @click="updateDevise(option)">
+
+                                    {{ option.label }}
+
+                                 </div>
+
+                              </MazSelect>
+
+                              <!-- <div class="es--saveBtn--w8EuBuy">Enregistrer</div> -->
+                           </div>
+                        </div>
+                     </div>
+                     </div>
+                  
+                  </div>
+               </div>
+
+               <div class="row align-items-center" v-else>
+                  <div class="col-xl-5">
+                     <div ref="dropdownWrapper" class="my-account--menuItem--1GDZChA" @click="toggleDropdown">
+                        <span class="comet-icon comet-icon-myaccount my-account--accountIcon--ECZEGeo"><svg
+                              viewBox="0 0 1024 1024" width="1em" height="1em" fill="currentColor" aria-hidden="false"
+                              focusable="false" data-spm-anchor-id="a2g0o.cart.header.i1.2f53378dWTbody">
+                              <path
+                                 d="M512 126.357333a189.866667 189.866667 0 1 0 189.866667 189.866667 189.866667 189.866667 0 0 0-189.866667-189.866667z m-125.866667 189.866667a125.866667 125.866667 0 1 1 251.733334 0 125.866667 125.866667 0 0 1-251.733334 0zM512 650.666667c138.026667 0 236.074667 72.448 273.152 192H238.848c37.077333-119.552 135.146667-192 273.152-192z m0-64c-171.541333 0-298.325333 96.981333-339.349333 254.805333-9.002667 34.666667 18.346667 65.194667 51.093333 65.194667h576.512c32.768 0 60.096-30.506667 51.093333-65.194667C810.325333 683.648 683.52 586.666667 512 586.666667z"
+                                 data-spm-anchor-id="a2g0o.cart.header.i0.2f53378dWTbody"></path>
+                           </svg>
+                        </span>
+                        <div class="my-account--text--2Yt_prE"><b><span
+                                 data-spm-anchor-id="a2g0o.cart.header.i2.2f53378dWTbody">{{ $t('inscription.item2')}} /
+                                 {{ $t('inscription.item3')}}</span><span
+                                 class="comet-icon comet-icon-chevrondown32 my-account--centerIcon--2yqLRkj base--chevronIcon--25sHdop"><svg
+                                    viewBox="0 0 1024 1024" width="1em" height="1em" fill="currentColor"
+                                    aria-hidden="false" focusable="false"
+                                    data-spm-anchor-id="a2g0o.cart.header.i3.2f53378dWTbody">
+                                    <path
+                                       d="M296.256 354.944l224 224 224-224a74.656 74.656 0 0 1 0 105.6l-197.6 197.6a37.344 37.344 0 0 1-52.8 0l-197.6-197.6a74.656 74.656 0 0 1 0-105.6z">
+                                    </path>
+                                 </svg></span></b></div><span
+                           class="comet-icon comet-icon-chevrondown32 base--responseIcon--3et2x1Z"><svg
+                              viewBox="0 0 1024 1024" width="1em" height="1em" fill="currentColor" aria-hidden="false"
+                              focusable="false">
+                              <path
+                                 d="M296.256 354.944l224 224 224-224a74.656 74.656 0 0 1 0 105.6l-197.6 197.6a37.344 37.344 0 0 1-52.8 0l-197.6-197.6a74.656 74.656 0 0 1 0-105.6z">
+                              </path>
+                           </svg></span>
+                     </div>
+                  </div>
+                  <div class="col-xl-2">
+                     <div>
+                        <div v-if="isOpen" class="comet-v2-popover-wrap" style="position: relative;">
+                           <div class="comet-v2-popover comet-v2-popover-show-arrow comet-v2-zoom-big-enter-done"
+                              data-popper-placement="bottom" style="position: absolute; top: 37px;left:-246px"
+                              data-spm-anchor-id="a2g0o.cart.0.i10.2f53378dWTbody">
+                              <div class="comet-v2-popover-arrow" data-popper-arrow="true"
+                                 style="position: absolute; left: 148.5px;"></div>
+                              <div class="comet-v2-popover-body my-account--popupCls--1C1NFJ2" style="">
+                                 <div class="comet-v2-popover-content">
+                                    <div class="my-account--accountWrap--2FBvnYE">
+                                       <div class="my-account--userInfo--8cACzqQ">
+                                             <router-link to="/login-client">
+                                          <button  class="my-account--signin--RiPQVPB">{{  $t('inscription.item2')}}</button>
+                                             </router-link>
+                                             
+                                             <router-link to="/sign-up">
+                                                <p >{{ $t('inscription.item3')}} </p>
+                                             </router-link>
+                                          <span class="my-account--line--QONK0VF"></span>
+                                       </div>
+                                       <div class="my-account--menuBox--3f9Nx8S">
+                                          <ul class="my-account--menuInfo--3YpLtBU mb-0">
+                                             <li><a href="#"><span
+                                                      class="comet-icon comet-icon-orders my-account--icon--16yzkFW"><svg
+                                                         viewBox="0 0 1024 1024" width="1em" height="1em"
+                                                         fill="currentColor" aria-hidden="false" focusable="false">
+                                                         <path
+                                                            d="M189.866667 266.666667a76.8 76.8 0 0 1 76.8-76.8h70.250666a34.133333 34.133333 0 1 1 0 68.266666H266.666667a8.533333 8.533333 0 0 0-8.533334 8.533334v618.666666c0 4.693333 3.818667 8.533333 8.533334 8.533334h490.666666a8.533333 8.533333 0 0 0 8.533334-8.533334v-618.666666a8.533333 8.533333 0 0 0-8.533334-8.533334h-70.250666a34.133333 34.133333 0 1 1 0-68.266666H757.333333a76.8 76.8 0 0 1 76.8 76.8v618.666666a76.8 76.8 0 0 1-76.8 76.8h-490.666666a76.8 76.8 0 0 1-76.8-76.8v-618.666666z">
+                                                         </path>
+                                                         <path
+                                                            d="M328.533333 202.666667A76.8 76.8 0 0 1 405.333333 125.866667h213.333334a76.8 76.8 0 0 1 76.8 76.8v42.666666a76.8 76.8 0 0 1-76.8 76.8H405.333333a76.8 76.8 0 0 1-76.8-76.8v-42.666666z m76.8-8.533334a8.533333 8.533333 0 0 0-8.533333 8.533334v42.666666c0 4.693333 3.818667 8.533333 8.533333 8.533334h213.333334a8.533333 8.533333 0 0 0 8.533333-8.533334v-42.666666a8.533333 8.533333 0 0 0-8.533333-8.533334H405.333333z">
+                                                         </path>
+                                                         <path
+                                                            d="M362.666667 629.333333a32 32 0 0 1 32-32H554.666667v18.282667C554.666667 640.874667 534.186667 661.333333 508.949333 661.333333H394.666667a32 32 0 0 1-32-32z">
+                                                         </path>
+                                                         <path
+                                                            d="M352 469.333333m32 0l256 0q32 0 32 32l0 0q0 32-32 32l-256 0q-32 0-32-32l0 0q0-32 32-32Z">
+                                                         </path>
+                                                      </svg></span><span class="my-account--menuText--1km-qni">Mes
+                                                      Commandes</span></a></li>
+
+
+                                             <li><a href="#"><span
+                                                      class="comet-icon comet-icon-creditcard my-account--icon--16yzkFW"><svg
+                                                         viewBox="0 0 1024 1024" width="1em" height="1em"
+                                                         fill="currentColor" aria-hidden="false" focusable="false">
+                                                         <path
+                                                            d="M405.333333 640H192v64h138.666667c38.4 0 74.666667-25.6 74.666666-64z">
+                                                         </path>
+                                                         <path
+                                                            d="M917.333333 832H106.666667c-23.466667 0-42.666667-19.2-42.666667-42.666667V234.666667c0-23.466667 19.2-42.666667 42.666667-42.666667h810.666666c23.466667 0 42.666667 19.2 42.666667 42.666667v554.666666c0 23.466667-19.2 42.666667-42.666667 42.666667zM128 768h768V256H128v512z m789.333333-512z">
+                                                         </path>
+                                                         <path
+                                                            d="M896 416H128c-17.066667 0-32-14.933333-32-32s14.933333-32 32-32h768c17.066667 0 32 14.933333 32 32s-14.933333 32-32 32z">
+                                                         </path>
+                                                      </svg></span><span
+                                                      class="my-account--menuText--1km-qni">Paiement</span></a></li>
+                                             <li><a href="#"><span
+                                                      class="comet-icon comet-icon-wishlist my-account--icon--16yzkFW"><svg
+                                                         viewBox="0 0 1024 1024" width="1em" height="1em"
+                                                         fill="currentColor" aria-hidden="false" focusable="false">
+                                                         <path
+                                                            d="M165.589333 578.005333c-83.584-83.584-83.584-219.093333 0-302.677333 83.584-83.584 219.093333-83.584 302.677334 0l43.797333 43.797333 43.797333-43.797333c83.562667-83.584 219.093333-83.584 302.656 0 83.584 83.562667 83.584 219.093333 0 302.656l-323.84 323.84a32 32 0 0 1-45.226666 0l-323.84-323.84z m45.269334-257.429333a150.016 150.016 0 0 0 0 212.181333l301.205333 301.205334 301.205333-301.226667a150.016 150.016 0 1 0-212.16-212.16l-66.432 66.432a32 32 0 0 1-45.248 0l-66.410666-66.432a150.016 150.016 0 0 0-212.16 0z">
+                                                         </path>
+                                                      </svg></span><span class="my-account--menuText--1km-qni">Mes
+                                                      favoris</span></a></li>
+
+                                          </ul>
+
+
+                                       </div>
                                     </div>
-   
-                                 </MazSelect>
-   
-                                 <!-- <div class="es--saveBtn--w8EuBuy">Enregistrer</div> -->
+                                 </div>
                               </div>
                            </div>
                         </div>
+
+                        <div class="text-center me-8">
+                           <div class="dropdown">
+                              <router-link to="/panier" class="text-reset">
+                                 <div class="lh-1">
+                                    <div class="position-relative d-inline-block">
+                                       <i class="bi bi-cart2 fs-4"></i>
+                                       <span
+                                          class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                          {{ cartItemCount }}
+                                       </span>
+                                    </div>
+                                    <p class="mb-0 d-none d-xl-block small"></p>
+                                 </div>
+                              </router-link>
+
+
+                           </div>
                         </div>
-                       
                      </div>
+
+                  </div>
+                  <div class="col-xl-5">
+                     <div class="navbar-container">
+                        <div class="dropdown selectBox " ref="dropdownWrapper1">
+                        <a ref="dropdownWrapper1" class="dropdown-toggle selectValue text-reset show d-flex align-items-center"
+                           href="javascript:void(0)" @click="toggleDropdownLangage">
+                           <i class="bi bi-globe2 fs-4"></i> &nbsp;
+                           <!-- <img :src="currentFlag" alt="Flag" style="width: 24px; margin-left: 8px;"> -->
+                           <span>{{ currentLanguage }}</span>  &nbsp;
+                           <span>({{ selectedDevise?.label }})</span>
+                        </a>
+
+                        <div class="es--wrap--RYjm1RT" v-if="isOpenLangage">
+
+                           <div class="es--contentWrap--ypzOXHr es--visible--12ePDdG">
+
+                              <div class="form-item--title--1ZN23sl">Envoyez à</div>
+                              <MazSelect label="" v-model="detected" :options="countriesOptions" v-slot="{ option  }"
+                                 size="sm" rounded-size="md" color="secondary" autocomplete="off" search>
+                                 <div class="d-flex align-items-center" @click.prevent="changeCountry(option)" style="
+                                 padding-top: 0.5rem;
+                                 padding-bottom: 0.5rem;
+                                 width: 100% !important;
+                                 gap: 1rem;
+                              
+                                 ">
+                                    <MazAvatar size="0.4rem" :src="option.flag" />
+                                    <strong>
+                                       {{ option.code }}
+                                    </strong>
+                                 </div>
+                              </MazSelect>
+
+
+                              <div class="form-item--title--1ZN23sl">Langue</div>
+                              <MazSelect label="" v-model="langage" :options="LangageOptions" v-slot="{ option  }"
+                                 size="sm" rounded-size="md" color="secondary" autocomplete="off">
+                                 <div class="d-flex align-items-center" @click="changeLanguage(option)" style="
+                                 padding-top: 0.5rem;
+                                 padding-bottom: 0.5rem;
+                                 width: 100% !important;
+                                 gap: 1rem;
+                              
+                                 ">
+                                    <MazAvatar size="0.4rem" :src="option.picture" />
+                                    <strong>
+                                       {{ option.label }}
+                                    </strong>
+                                 </div>
+                              </MazSelect>
+
+
+                              <div class="form-item--title--1ZN23sl">Devise</div>
+                              <MazSelect v-model="devise" color="secondary" secondary :options="DeviesArray"
+                                 v-slot="{ option }" size="sm" rounded-size="md" autocomplete="off">
+                                 <div class="flex items-center"
+                                    style="padding-top: 0.5rem; padding-bottom: 0.5rem; width: 100%; gap: 1rem"
+                                    @click="updateDevise(option)">
+
+                                    {{ option.label }}
+
+                                 </div>
+
+                              </MazSelect>
+
+                              <!-- <div class="es--saveBtn--w8EuBuy">Enregistrer</div> -->
+                           </div>
+                        </div>
+                     </div>
+                     </div>
+                  
                   </div>
                </div>
             </div>
+            </div>
+            </div>
+   
+           
          </div>
       </header>
    

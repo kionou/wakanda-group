@@ -1,9 +1,9 @@
 <template >
     <div>
-        <footer class="footer bg-dark pb-6 pt-1 pt-md-4">
+        <footer class="footer bg-white pb-6 pt-1 pt-md-4" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;" >
 	<div class="container">
 		<div class="row align-items-center">
-			<div class="col-8 col-md-12 col-lg-4">
+			<div class="col-xl-xl-8 col-md-8 col-lg-4">
 				<a href="#"><img src="@/assets/img/logo_wakanda.png" alt="" style="height: 50px !important;" /></a>
 			</div>
 			<div class="col-4 col-md-4 col-lg-8 text-end">
@@ -38,87 +38,68 @@
 				</ul>
 			</div>
 		</div>
-		<hr class="my-lg-8 opacity-25" />
+		<hr class="my-lg-3 opacity-1" />
 		<div class="row g-4">
 			
-			<div class="col-12 col-md-12 col-lg-8">
+			<div class="col-xl-8 col-md-8 col-lg-8">
 				<div class="row g-4">
-					<div class="col-6 col-sm-6 col-md-3">
-						<h6 class="mb-4 text-white">Get to know us</h6>
+					<div class="col-xl-4 col-sm-4 col-md-4">
+						<h6 class="mb-4 ">Catégories</h6>
 						<!-- list -->
 						<ul class="nav flex-column">
-							<li class="nav-item mb-2"><a href="#!" class="nav-link">Company</a></li>
-							<li class="nav-item mb-2"><a href="#!" class="nav-link">About</a></li>
-							<li class="nav-item mb-2"><a href="#!" class="nav-link">Blog</a></li>
-							<li class="nav-item mb-2"><a href="#!" class="nav-link">Help Center</a></li>
-							<li class="nav-item mb-2"><a href="#!" class="nav-link">Our Value</a></li>
+							<li class="nav-item mb-2" v-for="(category,index) in CategoriesArray" :key="index">
+								<a  :href="`/list-categories/${category.id}`" class="nav-link">
+									{{ category.NomCategorie }}
+                                 </a>
+							</li>
+						
 						</ul>
 					</div>
-					<div class="col-6 col-sm-6 col-md-3">
-						<h6 class="mb-4 text-white">For Consumers</h6>
+					<div class="col-xl-4 col-sm-4 col-md-4">
+						<h6 class="mb-4 ">Marques</h6>
 						<ul class="nav flex-column">
-							<!-- list -->
-							<li class="nav-item mb-2"><a href="#!" class="nav-link">Payments</a></li>
-							<li class="nav-item mb-2"><a href="#!" class="nav-link">Shipping</a></li>
-							<li class="nav-item mb-2"><a href="#!" class="nav-link">Product Returns</a></li>
-							<li class="nav-item mb-2"><a href="#!" class="nav-link">FAQ</a></li>
-							<li class="nav-item mb-2"><a href="#!" class="nav-link">Shop Checkout</a></li>
+							
+							<li v-for="(marque, index) in marquesArray" :key="index" class="nav-item mb-2">
+								<a  :href="`/list-categories/${marque.id}`" class="nav-link">
+									{{ marque.Nom }}
+                                 </a>
+							</li>
+					
 						</ul>
 					</div>
-					<div class="col-6 col-sm-6 col-md-3">
-						<h6 class="mb-4 text-white">Become a Shopper</h6>
+					<div class="col-xl-4 col-sm-4 col-md-4">
+						<h6 class="mb-4 ">A propos</h6>
 						<ul class="nav flex-column">
 							<!-- list -->
-							<li class="nav-item mb-2"><a href="#!" class="nav-link">Shopper Opportunities</a></li>
-							<li class="nav-item mb-2"><a href="#!" class="nav-link">Become a Shopper</a></li>
-							<li class="nav-item mb-2"><a href="#!" class="nav-link">Earnings</a></li>
-							<li class="nav-item mb-2"><a href="#!" class="nav-link">Ideas & Guides</a></li>
-							<li class="nav-item mb-2"><a href="#!" class="nav-link">New Retailers</a></li>
-						</ul>
-					</div>
-					<div class="col-6 col-sm-6 col-md-3">
-						<h6 class="mb-4 text-white">Wakanda programs</h6>
-						<ul class="nav flex-column">
-							<!-- list -->
-							<li class="nav-item mb-2"><a href="#!" class="nav-link">Wakanda programs</a></li>
-							<li class="nav-item mb-2"><a href="#!" class="nav-link">Gift Cards</a></li>
-							<li class="nav-item mb-2"><a href="#!" class="nav-link">Promos & Coupons</a></li>
-							<li class="nav-item mb-2"><a href="#!" class="nav-link">Wakanda Ads</a></li>
-							<li class="nav-item mb-2"><a href="#!" class="nav-link">Careers</a></li>
+							<li class="nav-item mb-2"><a href="#!" class="nav-link">a propos</a></li>
+							<li class="nav-item mb-2"><a href="#!" class="nav-link">Contact</a></li>
+							<li class="nav-item mb-2"><a href="#!" class="nav-link">Condition d'utilisation</a></li>
+
 						</ul>
 					</div>
 				</div>
 			</div>
-			<div class="col-12 col-md-12 col-lg-4">
-				<h6 class="mb-4 text-white">WAKANDA INTERNATIONAL</h6>
+			<div class="col-xl-4 col-md-4 col-lg-4">
+				<h6 class="mb-4 ">Besoins d'aide ?</h6>
 				<div class="row">
-					<div class="col-6">
+					<div class="col-xl-12">
 						<!-- list -->
 						<ul class="nav flex-column">
-							<li class="nav-item mb-2"><a href="#!" class="nav-link">Vegetables & Fruits</a></li>
-							<li class="nav-item mb-2"><a href="#!" class="nav-link">Breakfast & instant food</a></li>
-							<li class="nav-item mb-2"><a href="#!" class="nav-link">Bakery & Biscuits</a></li>
-							
-						</ul>
-					</div>
-					<div class="col-6">
-						<!-- list -->
-						<ul class="nav flex-column">
-							<li class="nav-item mb-2"><a href="#!" class="nav-link">Dairy, bread & eggs</a></li>
-							<li class="nav-item mb-2"><a href="#!" class="nav-link">Cold drinks & juices</a></li>
-							<li class="nav-item mb-2"><a href="#!" class="nav-link">Tea, coffee & drinks</a></li>
+							<li class="nav-item mb-2"><a href="#!" class="nav-link">Appelez nous 24/7</a></li>
+							<li class="nav-item mb-2"><a href="#!" class="nav-link">(+228) 00 00 00 00</a></li>
+							<li class="nav-item mb-2"><a href="#!" class="nav-link">Email: support@wakanda.best</a></li>
 							
 						</ul>
 					</div>
 				</div>
 			</div>
 		</div>
-		<hr class="mt-8 opacity-25" />
+		<hr class="mt-3 opacity-1" />
 		<div>
 			<div class="row gy-4 align-items-center">
 				<div class="col-md-6">
 					<span class="small text-muted">
-						© 2024
+						© {{ year }}
 						<span id="copyright">
 							-
 							
@@ -156,12 +137,51 @@
 </template>
 <script>
 
+import axios from '@/lib/axiosConfig';
 export default {
 
 	data() {
 		return {
-			
+			CategoriesArray: [],
+			marquesArray:[],
+			year:''
 		}
+	},
+async mounted() {
+	this.year = new Date().getFullYear()
+	await this.getCategoriesAll()
+	await this.getMarquesAll()
+		
+	},
+	methods: {
+		async getCategoriesAll() {
+      try {
+        const response = await axios.get('liste/categories')
+        if (response.data.status === "success") {
+          this.CategoriesArray = response.data.data?.data
+          ?.filter(c =>c.Parent === null)
+          ?.slice(0, 5)
+          
+        }
+
+      } catch (error) {
+        console.log('error', error)
+      }
+    },
+	async getMarquesAll() {
+      try {
+        const response = await axios.get('/marques')
+        if (response.data.status === "success") {
+          this.marquesArray = response.data?.data?.data
+          ?.filter(m  =>m.IsActive === 1)
+		  ?.slice(0, 5)
+
+        }
+
+      } catch (error) {
+        console.log('error', error)
+      }
+    },
 	},
     
 }

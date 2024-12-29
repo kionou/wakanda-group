@@ -13,8 +13,8 @@
                         <nav class="mb-3" aria-label="breadcrumb">
                             <ol class="breadcrumb mb-0">
                                 <li class="breadcrumb-item"><a href="/">Accueil ></a></li>
-                                <li class="breadcrumb-item"><router-link to="/categories">Marques ></router-link></li>
-                                <li class="breadcrumb-item active" aria-current="page">{{ MarquesChildrenArray }}</li>
+                                <li class="breadcrumb-item"><router-link to="/categories">types-vente ></router-link></li>
+                                <li class="breadcrumb-item active" aria-current="page">{{ vente }}</li>
                             </ol>
                         </nav>
                     </div>
@@ -66,24 +66,24 @@
                             <div class="offcanvas-body ps-lg-2 pt-lg-0">
                                 <div class="mb-8">
                                    
-                                    <h5 class="mb-3 mb-3 bg-primary p-2 text-center text-white">Marques</h5>
+                                    <h5 class="mb-3 mb-3 bg-primary p-2 text-center text-white">Categories</h5>
                                     
                                     <ul class="nav nav-category" id="categoryCollapseMenu">
                                         <li 
                                             class="nav-item border-bottom w-100 card px-2 mt-1" 
-                                            v-for="(category, index) in marquesArray" 
+                                            v-for="(category, index) in CategoriesArray" 
                                             :key="index" 
-                                            :class="{ active: encodeId(category.id) === getActiveCategoryId }"
+                                            :class="{ active: category.id === getActiveCategoryId }"
                                         >
-                                            <a :href="`/list-marques/${ encodeId(category.id)}`" class="nav-link collapsed justify-content-start">
+                                            <a :href="`/list-categories/${ encodeId(category.id)}`" class="nav-link collapsed justify-content-start">
                                             <img 
-                                                :src="category.Logo !== null ? category.Logo : defaultImageCategorie"
-                                                :alt="category.Nom" 
+                                                :src="category.Image !== null ? category.Image : defaultImageCategorie"
+                                                :alt="category.NomCategorie" 
                                                 width="24" 
                                                 height="24" 
                                                 style="width:20px; margin-right: 5px;"
                                             >
-                                            <span>{{ category.Nom }}</span>
+                                            <span>{{ category.NomCategorie }}</span>
                                             </a>
                                         </li>
                                         </ul>
@@ -189,8 +189,8 @@
 </template>
 <script>
 import Listes from '@/components/Categories/Listes.vue';
-import grid from '@/components/Marques/grid.vue';
-import GridPlus from '@/components/Marques/gridPlus.vue';
+import grid from '@/components/types/grid.vue';
+import GridPlus from '@/components/types/gridPlus.vue';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import $ from 'jquery';
@@ -208,10 +208,11 @@ export default {
   },
   data() {
     return {
-        MarquesChildrenArray:[],
-        marquesArray:[],
+        CategoriesChildrenArray:[],
+        CategoriesArray:[],
+        vente:'',
       defaultImage: defaultImage,
-      loading:false,
+      loading:true,
       images: [
         '@/assets/images/slider/hero-img-slider-1.jpg',
         '@/assets/images/slider/hero-img-slider-2.jpg',
@@ -258,11 +259,15 @@ export default {
  async mounted() {
     
     this.initSliders();
-    await this.getMarquesAll()
-     await this.getMarquesDetail()
+    await this.getCategoriesAll()
+    await this.getventeDetail()
 
   },
   methods: {
+    encodeId(id) {
+    return btoa(id); // Encode en Base64
+  },
+
     initSliders() {
 
       this.$nextTick(() => {
@@ -279,28 +284,37 @@ export default {
 
       })
     },
-    encodeId(id) {
-    return btoa(id); // Encode en Base64
-  },
-    async getMarquesAll() {
+    async getCategoriesAll() {
       try {
-        const response = await axios.get('/marques')
+        const response = await axios.get('liste/categories')
         if (response.data.status === "success") {
-          this.marquesArray = response.data?.data?.data
-          .filter(m  =>m.IsActive === 1)
-          ?.slice(0,7)
+       
 
+          this.CategoriesChildrenArray = response.data.data?.data
+          ?.filter(c =>c.Parent === parseInt(this.id) )
+        this.CategoriesArray = response.data.data?.data
+          ?.filter(c =>  c.Parent === null)
+        
+          this.loading = false
+          
         }
 
       } catch (error) {
         console.log('error', error)
       }
     },
-    async getMarquesDetail() {
+    async getventeDetail() {
+        const token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2RhdGEud2FrYW5kYS5iZXN0L2FwaS9zeXN0ZW0vbG9naW4iLCJpYXQiOjE3MzAyNzYzODEsIm5iZiI6MTczMDI3NjM4MSwianRpIjoiVU5sN3J3RXBhTFZGdG1OaCIsInN1YiI6IjEiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.H40wgUqkMXolIzMq_zTz8Mg7Bp-QsyjbarTijztMzi4'
       try {
-        const response = await axios.get(`/marques/${this.decodedId}`)
+        const response = await axios.get(`/type-ventes/${this.encodeId}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+
+        });
         if (response.data.status === "success") {
-          this.MarquesChildrenArray = response.data?.data?.Nom
+          this.vente = response.data?.data?.Nom
+
          
           
 
@@ -314,7 +328,7 @@ export default {
        this.dataProduct ={
         min: parseInt(this.filters.min),
         max:parseInt(this.filters.max) ,
-        categorie: parseInt(this.decodedId) 
+        categorie: parseInt(this.encodeId) 
 
        }
        
