@@ -2,7 +2,7 @@
     <div>
       <SkeletonFilter v-if="loading " style="z-index: 99999"></SkeletonFilter>
       <div v-else>
-         <div  class="row g-3 row-cols-xl-4 row-cols-lg-4 row-cols-2 row-cols-md-2 mt-2"  v-if="CategoriesArray?.length > 0">
+         <div  class="row g-4 row-cols-xl-5 row-cols-lg-5 row-cols-2 row-cols-md-2 mt-2"  v-if="CategoriesArray?.length > 0">
          
                         
          <div class="col-xl-3" v-for="(product,index) in CategoriesArray" :key="index">
@@ -16,7 +16,7 @@
                            -{{ calculateDiscount(product.Prix, product.PrixPromo) }}%
                            </span>
                      </div>
-                     <router-link :to="{ name: 'detail', params: { id: encodeId( product.id) }}">
+                     <router-link :to="{ name: 'detail', params: { id: encodeId( product.id) }}"  @click="addToRecent(product)">
                         <img :src="product.PhotoCover ? product.PhotoCover : defaultImage"
                            :alt="product.NomProduit" :title="product.NomProduit"
                            style="width: 100%; height: auto; max-height: 30% !important;"
@@ -26,7 +26,7 @@
                   </div>
                   <!-- heading -->
                   <h2 class="fs-6"><router-link
-                                     :to="{ name: 'detail', params: { id: encodeId(product.id) }}"
+                                     :to="{ name: 'detail', params: { id: encodeId(product.id) }}"  @click="addToRecent(product)"
                                      class="text-inherit text-decoration-none">{{
                                      truncateText(product.NomProduit , 15) }}
                                  </router-link></h2>
@@ -123,7 +123,12 @@ export default {
     },
     ...mapGetters('cart', ['alertMessage', 'loading']),
     ...mapGetters("devise", ["selectedDevise", "getSelectedRate"]),
+  
    
+  },
+  setup() {
+    const toast = useToast(); // Initialiser useToast
+    return { toast };
   },
   data() {
     return {
@@ -142,6 +147,20 @@ export default {
           this.FilterProduct(newData); 
         },
       },
+      alertMessage(newVal) {
+      console.log('newVal', newVal)
+      if (newVal) {
+        this.loadingItems = {};
+        this.toast.success(newVal, {
+          position: "top-right",
+          timeout: 2000,
+          closeOnClick: true,
+        });
+
+        
+
+      }
+    },
     },
  async mounted() {
    
@@ -153,6 +172,16 @@ export default {
    encodeId(id) {
     return btoa(id); // Encode en Base64
   },
+  addToRecent(product) {
+      if (product) {
+        // Ajouter le produit aux produits récents
+        this.$store.dispatch('recentProducts/addProductToRecent', product);
+      }
+    },
+    addProductToCart(product) {
+      this.loadingItems[product?.id] = true;
+      this.$store.dispatch('cart/addToCart', product);
+    },
     async getCategoriesAll() {
       console.log(this.decodedId)
       this.loading = true

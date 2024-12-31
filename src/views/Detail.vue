@@ -1,7 +1,7 @@
 <template >
    <div>
       <SkeletonDetail v-if="loading " style="z-index: 99999"></SkeletonDetail>
-      <main>
+      <main v-else>
          <div class="mt-4">
             <div class="container">
                <!-- row -->
@@ -28,7 +28,7 @@
                         <div class="">
                            <!-- img slide -->
                            <div class="product" id="product">
-                              <div v-for="(image, index) in images" :key="index" class="zoom" @mousemove="zoom"
+                              <div  v-for="(image, index) in images" :key="index" class="zoom " @mousemove="zoom"
                                  :style="{ backgroundImage: `url(${image})` }">
                                  <img :src="image" alt="" />
                               </div>
@@ -307,7 +307,7 @@
                   </div>
                </div>
                <!-- row -->
-               <div class="row g-4 row-cols-lg-5 row-cols-2 row-cols-md-2 mt-2">
+               <div class="row g-5 row-cols-lg-6 row-cols-2 row-cols-md-2 mt-2">
                   <p v-if="recentProducts.length === 0">Pas de produit vue pour l'instant</p>
             
    

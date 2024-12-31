@@ -2,351 +2,106 @@
     <div>
       <div class="py-6 p-md-6 p-lg-10 bg-white ms-2">
                         <!-- heading -->
-                        <h2 class="mb-6">Your Orders</h2>
+                        <h2 class="mb-6">Mes commandes</h2>
+                        <div class="row">
+						<div class="col-md-12 text-center">
+							<ul class="nav nav-tabs" id="myTab" role="tablist">
+							<li class="nav-item" role="presentation">
+								<button class="nav-link active" id="pending-tab" data-bs-toggle="tab" data-bs-target="#pending" type="button" role="tab" aria-controls="pending" aria-selected="true">Attente</button>
+							</li>
+							<li class="nav-item" role="presentation">
+								<button class="nav-link" id="progress-tab" data-bs-toggle="tab" data-bs-target="#progress" type="button" role="tab" aria-controls="progress" aria-selected="false">En cours</button>
+							</li>
+							<li class="nav-item" role="presentation">
+								<button class="nav-link" id="delivered-tab" data-bs-toggle="tab" data-bs-target="#delivered" type="button" role="tab" aria-controls="delivered" aria-selected="false">Livrée</button>
+							</li>
+							<li class="nav-item" role="presentation">
+								<button class="nav-link" id="ready-tab" data-bs-toggle="tab" data-bs-target="#ready" type="button" role="tab" aria-controls="ready" aria-selected="false">Annulée</button>
+							</li>
+							
+							</ul>
+							<div class="tab-content" id="myTabContent">
+							<div class="tab-pane fade show active" id="pending" role="tabpanel" aria-labelledby="pending-tab"><Pending></Pending></div>
+							<div class="tab-pane fade" id="progress" role="tabpanel" aria-labelledby="progress-tab"> <Progress></Progress> </div>
+							<div class="tab-pane fade" id="ready" role="tabpanel" aria-labelledby="ready-tab"> <Readly></Readly> </div>
+							<div class="tab-pane fade" id="delivered" role="tabpanel" aria-labelledby="delivered-tab"> <Delivred></Delivred> </div>
+							</div>
+						</div>
+				         	</div>
+							
+                     
 
-                        <div class="row g-4 row-cols-1 mt-2">
-                        <div class="col">
-                           <!-- card -->
-                           <div class="card card-product">
-                              <!-- card body -->
-                              <div class="card-body">
-                                 <div class="row align-items-center">
-                                    <!-- col -->
-                                    <div class="col-md-10 col-12 mt-0 d-flex align-items-center">
-                                       <div class="text-center position-relative">
-                                          
-                                          <router-link to="/detail">
-                                             <!-- img -->
-                                             <img src="@/assets/images/products/product-img-1.jpg" alt="Grocery Ecommerce Template" class="mb-0 img-fluid" style="height: 150px !important;"/>
-                                          </router-link>
-                                       </div>
-                                       <div class="">
-                                       <!-- heading -->
-                                       <h2 class="fs-6"><router-link to="/detail" class="text-inherit text-decoration-none">Haldiram's Sev Bhujia</router-link></h2>
-
-                                       <div class="text-small mb-1">
-                                          <router-link to="#" class="text-decoration-none text-muted"><small>Commande 33434243</small></router-link>
-                                       </div>
-                                       <span class="badge bg-success">Colis livré</span>
-                                     
-                                       <div class="mt-1">
-                                          <!-- price -->
-                                          <div>
-                                             <span class="text-dark fw-semibold">12-23-2024</span>
-                                             
-                                          </div>
-                                         
-                                         
-                                       </div>
-                                    </div>
-                                    </div>
-                                  
-
-                                    <div class="col-md-2 ">
-                                        <router-link to="/client/commandes-detail" class="btn btn-sm btn-primary">DETAILS</router-link>
-                                       
-                                    </div>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                        <div class="col">
-                           <!-- card -->
-                           <div class="card card-product">
-                              <!-- card body -->
-                              <div class="card-body">
-                                 <div class="row align-items-center">
-                                    <!-- col -->
-                                    <div class="col-md-4 col-12 mt-0">
-                                       <div class="text-center position-relative">
-                                          
-                                          <router-link to="/detail">
-                                             <!-- img -->
-                                             <img src="@/assets/images/products/product-img-1.jpg" alt="Grocery Ecommerce Template" class="mb-0 img-fluid" style="height: 150px !important;"/>
-                                          </router-link>
-                                       </div>
-                                    </div>
-                                    <div class="col-md-8 col-12 flex-grow-1 mt-0">
-                                       <!-- heading -->
-                                       <div class="text-small mb-1">
-                                          <router-link to="/detail" class="text-decoration-none text-muted"><small>Snack & Munchies</small></router-link>
-                                       </div>
-                                       <h2 class="fs-6"><router-link to="/detail" class="text-inherit text-decoration-none">Haldiram's Sev Bhujia</router-link></h2>
-                                     
-                                       <div class="mt-6">
-                                          <!-- price -->
-                                          <div>
-                                             <span class="text-dark">$18</span>
-                                             <span class="text-decoration-line-through text-muted">$24</span>
-                                          </div>
-                                          <!-- btn -->
-                                         
-                                          <!-- btn -->
-                                          <div class="mt-2">
-                                             <router-link to="/detail" class="btn btn-primary">
-                                                <svg
-                                                   xmlns="http://www.w3.org/2000/svg"
-                                                   width="16"
-                                                   height="16"
-                                                   viewBox="0 0 24 24"
-                                                   fill="none"
-                                                   stroke="currentColor"
-                                                   stroke-width="2"
-                                                   stroke-linecap="round"
-                                                   stroke-linejoin="round"
-                                                   class="feather feather-shopping-bag me-2">
-                                                   <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
-                                                   <line x1="3" y1="6" x2="21" y2="6"></line>
-                                                   <path d="M16 10a4 4 0 0 1-8 0"></path>
-                                                </svg>
-                                                Add to Cart
-                                             </router-link>
-                                          </div>
-                                       </div>
-                                    </div>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                        <div class="col">
-                           <!-- card -->
-                           <div class="card card-product">
-                              <!-- card body -->
-                              <div class="card-body">
-                                 <div class="row align-items-center">
-                                    <!-- col -->
-                                    <div class="col-md-4 col-12 mt-0">
-                                       <div class="text-center position-relative">
-                                          
-                                          <router-link to="/detail">
-                                             <!-- img -->
-                                             <img src="@/assets/images/products/product-img-1.jpg" alt="Grocery Ecommerce Template" class="mb-0 img-fluid" style="height: 150px !important;"/>
-                                          </router-link>
-                                       </div>
-                                    </div>
-                                    <div class="col-md-8 col-12 flex-grow-1 mt-0">
-                                       <!-- heading -->
-                                       <div class="text-small mb-1">
-                                          <router-link to="/detail" class="text-decoration-none text-muted"><small>Snack & Munchies</small></router-link>
-                                       </div>
-                                       <h2 class="fs-6"><router-link to="/detail" class="text-inherit text-decoration-none">Haldiram's Sev Bhujia</router-link></h2>
-                                     
-                                       <div class="mt-6">
-                                          <!-- price -->
-                                          <div>
-                                             <span class="text-dark">$18</span>
-                                             <span class="text-decoration-line-through text-muted">$24</span>
-                                          </div>
-                                          <!-- btn -->
-                                         
-                                          <!-- btn -->
-                                          <div class="mt-2">
-                                             <router-link to="/detail" class="btn btn-primary">
-                                                <svg
-                                                   xmlns="http://www.w3.org/2000/svg"
-                                                   width="16"
-                                                   height="16"
-                                                   viewBox="0 0 24 24"
-                                                   fill="none"
-                                                   stroke="currentColor"
-                                                   stroke-width="2"
-                                                   stroke-linecap="round"
-                                                   stroke-linejoin="round"
-                                                   class="feather feather-shopping-bag me-2">
-                                                   <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
-                                                   <line x1="3" y1="6" x2="21" y2="6"></line>
-                                                   <path d="M16 10a4 4 0 0 1-8 0"></path>
-                                                </svg>
-                                                Add to Cart
-                                             </router-link>
-                                          </div>
-                                       </div>
-                                    </div>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                        <div class="col">
-                           <!-- card -->
-                           <div class="card card-product">
-                              <!-- card body -->
-                              <div class="card-body">
-                                 <div class="row align-items-center">
-                                    <!-- col -->
-                                    <div class="col-md-4 col-12 mt-0">
-                                       <div class="text-center position-relative">
-                                          
-                                          <router-link to="/detail">
-                                             <!-- img -->
-                                             <img src="@/assets/images/products/product-img-1.jpg" alt="Grocery Ecommerce Template" class="mb-0 img-fluid" style="height: 150px !important;"/>
-                                          </router-link>
-                                       </div>
-                                    </div>
-                                    <div class="col-md-8 col-12 flex-grow-1 mt-0">
-                                       <!-- heading -->
-                                       <div class="text-small mb-1">
-                                          <router-link to="/detail" class="text-decoration-none text-muted"><small>Snack & Munchies</small></router-link>
-                                       </div>
-                                       <h2 class="fs-6"><router-link to="/detail" class="text-inherit text-decoration-none">Haldiram's Sev Bhujia</router-link></h2>
-                                     
-                                       <div class="mt-6">
-                                          <!-- price -->
-                                          <div>
-                                             <span class="text-dark">$18</span>
-                                             <span class="text-decoration-line-through text-muted">$24</span>
-                                          </div>
-                                          <!-- btn -->
-                                         
-                                          <!-- btn -->
-                                          <div class="mt-2">
-                                             <router-link to="/detail" class="btn btn-primary">
-                                                <svg
-                                                   xmlns="http://www.w3.org/2000/svg"
-                                                   width="16"
-                                                   height="16"
-                                                   viewBox="0 0 24 24"
-                                                   fill="none"
-                                                   stroke="currentColor"
-                                                   stroke-width="2"
-                                                   stroke-linecap="round"
-                                                   stroke-linejoin="round"
-                                                   class="feather feather-shopping-bag me-2">
-                                                   <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
-                                                   <line x1="3" y1="6" x2="21" y2="6"></line>
-                                                   <path d="M16 10a4 4 0 0 1-8 0"></path>
-                                                </svg>
-                                                Add to Cart
-                                             </router-link>
-                                          </div>
-                                       </div>
-                                    </div>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                        <div class="col">
-                           <!-- card -->
-                           <div class="card card-product">
-                              <!-- card body -->
-                              <div class="card-body">
-                                 <div class="row align-items-center">
-                                    <!-- col -->
-                                    <div class="col-md-4 col-12 mt-0">
-                                       <div class="text-center position-relative">
-                                          
-                                          <router-link to="/detail">
-                                             <!-- img -->
-                                             <img src="@/assets/images/products/product-img-1.jpg" alt="Grocery Ecommerce Template" class="mb-0 img-fluid" style="height: 150px !important;"/>
-                                          </router-link>
-                                       </div>
-                                    </div>
-                                    <div class="col-md-8 col-12 flex-grow-1 mt-0">
-                                       <!-- heading -->
-                                       <div class="text-small mb-1">
-                                          <router-link to="/detail" class="text-decoration-none text-muted"><small>Snack & Munchies</small></router-link>
-                                       </div>
-                                       <h2 class="fs-6"><router-link to="/detail" class="text-inherit text-decoration-none">Haldiram's Sev Bhujia</router-link></h2>
-                                     
-                                       <div class="mt-6">
-                                          <!-- price -->
-                                          <div>
-                                             <span class="text-dark">$18</span>
-                                             <span class="text-decoration-line-through text-muted">$24</span>
-                                          </div>
-                                          <!-- btn -->
-                                         
-                                          <!-- btn -->
-                                          <div class="mt-2">
-                                             <router-link to="/detail" class="btn btn-primary">
-                                                <svg
-                                                   xmlns="http://www.w3.org/2000/svg"
-                                                   width="16"
-                                                   height="16"
-                                                   viewBox="0 0 24 24"
-                                                   fill="none"
-                                                   stroke="currentColor"
-                                                   stroke-width="2"
-                                                   stroke-linecap="round"
-                                                   stroke-linejoin="round"
-                                                   class="feather feather-shopping-bag me-2">
-                                                   <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
-                                                   <line x1="3" y1="6" x2="21" y2="6"></line>
-                                                   <path d="M16 10a4 4 0 0 1-8 0"></path>
-                                                </svg>
-                                                Add to Cart
-                                             </router-link>
-                                          </div>
-                                       </div>
-                                    </div>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                        <div class="col">
-                           <!-- card -->
-                           <div class="card card-product">
-                              <!-- card body -->
-                              <div class="card-body">
-                                 <div class="row align-items-center">
-                                    <!-- col -->
-                                    <div class="col-md-4 col-12 mt-0">
-                                       <div class="text-center position-relative">
-                                          
-                                          <router-link to="/detail">
-                                             <!-- img -->
-                                             <img src="@/assets/images/products/product-img-1.jpg" alt="Grocery Ecommerce Template" class="mb-0 img-fluid" style="height: 150px !important;"/>
-                                          </router-link>
-                                       </div>
-                                    </div>
-                                    <div class="col-md-8 col-12 flex-grow-1 mt-0">
-                                       <!-- heading -->
-                                       <div class="text-small mb-1">
-                                          <router-link to="/detail" class="text-decoration-none text-muted"><small>Snack & Munchies</small></router-link>
-                                       </div>
-                                       <h2 class="fs-6"><router-link to="/detail" class="text-inherit text-decoration-none">Haldiram's Sev Bhujia</router-link></h2>
-                                     
-                                       <div class="mt-6">
-                                          <!-- price -->
-                                          <div>
-                                             <span class="text-dark">$18</span>
-                                             <span class="text-decoration-line-through text-muted">$24</span>
-                                          </div>
-                                          <!-- btn -->
-                                         
-                                          <!-- btn -->
-                                          <div class="mt-2">
-                                             <router-link to="/detail" class="btn btn-primary">
-                                                <svg
-                                                   xmlns="http://www.w3.org/2000/svg"
-                                                   width="16"
-                                                   height="16"
-                                                   viewBox="0 0 24 24"
-                                                   fill="none"
-                                                   stroke="currentColor"
-                                                   stroke-width="2"
-                                                   stroke-linecap="round"
-                                                   stroke-linejoin="round"
-                                                   class="feather feather-shopping-bag me-2">
-                                                   <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
-                                                   <line x1="3" y1="6" x2="21" y2="6"></line>
-                                                   <path d="M16 10a4 4 0 0 1-8 0"></path>
-                                                </svg>
-                                                Add to Cart
-                                             </router-link>
-                                          </div>
-                                       </div>
-                                    </div>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                      
-                        </div>
+                        
                      </div>
     </div>
 </template>
 <script>
+import axios from '@/lib/axiosConfig.js'
+import Pending from '@/components/commandes/pending.vue';
+import Readly from '@/components/commandes/readly.vue';
+import Delivred from '@/components/commandes/delivred.vue';
+import Progress from '@/components/commandes/progress.vue';
+
 export default {
+   components:{
+      Pending , Progress , Delivred , Readly
+   },
+   computed:{
+      loggedInUser() {
+      return this.$store.getters["auth/myAuthenticatedUser"];
+    },
+    totalPages() {
+      return Math.ceil(this.CommandesOptions.length / this.itemsPerPage);
+    },
+    paginatedItems() {
+      const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+      const endIndex = startIndex + this.itemsPerPage;
+      return this.CommandesOptions.slice(startIndex, endIndex);
+    },
+
+
+   },
+   data() {
+      return {
+         CommandesOptions:[],
+         
+      }
+   },
+async  mounted() {
+  
+      
+   },
+   methods: {
+      encodeId(id) {
+    return btoa(id); // Encode en Base64
+  },
+      async getCommandes() {
+      try {
+
+        const response = await axios.get("/commandes", {
+          headers: {
+            Authorization: `Bearer ${this.loggedInUser.token}`,
+            "Content-Type": "application/json",
+          },
+          params:{
+            connected_user:this.loggedInUser?.id_user,
+           
+          }
+        });
+
+        this.data = response.data?.data?.data;
+        this.CommandesOptions = this.data
+        console.log(this.CommandesOptions)
+        this.isLoading = false;
+
+      } catch (error) {
+        console.error(
+          "Erreur lors de la récupération des utilisateurs:",
+          error
+        );
+      }
+    },
+   },
     
 }
 </script>

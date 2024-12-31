@@ -486,9 +486,7 @@ a {
   color: var(--fc-info);
   text-decoration: underline;
 }
-a:hover {
-  color: var(--fc-primary);
-}
+
 a:not([href]):not([class]),
 a:not([href]):not([class]):hover {
   color: inherit;
@@ -5097,8 +5095,7 @@ fieldset:disabled .btn {
 }
 .nav-tabs .nav-link {
   border: var(--fc-nav-tabs-border-width) solid transparent;
-  border-top-left-radius: var(--fc-nav-tabs-border-radius);
-  border-top-right-radius: var(--fc-nav-tabs-border-radius);
+
   margin-bottom: calc(var(--fc-nav-tabs-border-width) * -1);
 }
 .nav-tabs .nav-link:focus,
@@ -5108,9 +5105,9 @@ fieldset:disabled .btn {
 }
 .nav-tabs .nav-item.show .nav-link,
 .nav-tabs .nav-link.active {
-  background-color: var(--fc-nav-tabs-link-active-bg);
+  background-color: var(--fc-primary);
   border-color: var(--fc-nav-tabs-link-active-border-color);
-  color: var(--fc-nav-tabs-link-active-color);
+  color: #fff;
 }
 .nav-tabs .dropdown-menu {
   border-top-left-radius: 0;
@@ -5123,7 +5120,7 @@ fieldset:disabled .btn {
   --fc-nav-pills-link-active-bg: var(--fc-primary);
 }
 .nav-pills .nav-link {
-  border-radius: var(--fc-nav-pills-border-radius);
+  border-radius: 0px;
 }
 .nav-pills .nav-link.active,
 .nav-pills .show > .nav-link {
@@ -5254,7 +5251,7 @@ fieldset:disabled .btn {
 .navbar-text a,
 .navbar-text a:focus,
 .navbar-text a:hover {
-  color: var(--fc-navbar-active-color);
+  color: #fff;
 }
 .navbar-collapse {
   align-items: center;
@@ -22056,7 +22053,7 @@ a:hover {
   text-decoration: none;
 }
 a:hover {
-  color: var(--fc-primary);
+  color: #fff;
 }
 .h1,
 .h2,
@@ -22904,7 +22901,7 @@ input::-webkit-outer-spin-button {
   transition: 0.5s ease;
 }
 .sidebar-nav-fixed ul li a:hover {
-  color: var(--fc-primary);
+  color: #fff;
 }
 .sidebar-nav-fixed ul li a.active {
   background: transparent !important;

@@ -403,7 +403,7 @@
                                             :key="index" 
                                             :class="{ active: category.id === getActiveCategoryId }"
                                         >
-                                            <a :href="`/list-categories/${category.id}`" class="nav-link collapsed justify-content-start">
+                                            <a :href="`/list-categories/${encodeId(category.id)}`" class="nav-link collapsed justify-content-start">
                                             <img 
                                                 :src="category.Image !== null ? category.Image : defaultImageCategorie"
                                                 :alt="category.NomCategorie" 
@@ -490,6 +490,9 @@ export default {
     validatePasswordsMatch() {
       return this.step2.password === this.step2.password_confirmation;
     },
+    encodeId(id) {
+    return btoa(id); // Encode en Base64
+  },
 
     stepperProgress() {
       return (100 / 2) * (this.currentStep - 1) + "%";

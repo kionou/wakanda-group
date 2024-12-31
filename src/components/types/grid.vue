@@ -2,7 +2,7 @@
     <div>
       <SkeletonFilter v-if="loading " style="z-index: 99999"></SkeletonFilter>
       <div v-else>
-         <div  class="row g-3 row-cols-xl-4 row-cols-lg-4 row-cols-2 row-cols-md-2 mt-2"  v-if="CategoriesArray?.length > 0">
+         <div  class="row g-4 row-cols-xl-5 row-cols-lg-5 row-cols-2 row-cols-md-2 mt-2"  v-if="CategoriesArray?.length > 0">
          
                         
          <div class="col-xl-3" v-for="(product,index) in CategoriesArray" :key="index">
@@ -48,7 +48,7 @@
 
                                <div>
 
-                                   <span class="text-uppercase small " @click="addProductToCart(product)"
+                                   <span class="text-uppercase small " @click="addProductToCart(product?.produit)"
                                        :disabled="loadingItems[product?.produit?.id]">
                                        <div class="icon-card">
                                            <div v-if="loadingItems[product?.produit?.id]">
@@ -117,6 +117,10 @@ export default {
   components: {
    LoadingSkeleton, LoaderBtn , SkeletonFilter
   },
+  setup() {
+    const toast = useToast(); // Initialiser useToast
+    return { toast };
+  },
   computed: {
    decodedId() {
       return atob(this.id); // Décode l'ID reçu en Base64
@@ -141,6 +145,20 @@ export default {
           this.FilterProduct(newData); 
         },
       },
+      alertMessage(newVal) {
+      console.log('newVal', newVal)
+      if (newVal) {
+        this.loadingItems = {};
+        this.toast.success(newVal, {
+          position: "top-right",
+          timeout: 2000,
+          closeOnClick: true,
+        });
+
+        
+
+      }
+    },
     },
  async mounted() {
     
@@ -152,7 +170,10 @@ export default {
    encodeId(id) {
     return btoa(id); // Encode en Base64
   },
-   
+  addProductToCart(product) {
+      this.loadingItems[product?.id] = true;
+      this.$store.dispatch('cart/addToCart', product);
+    },
     async getCategoriesAll() {
       this.loading = true
       try {

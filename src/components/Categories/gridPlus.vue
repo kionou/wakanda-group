@@ -14,7 +14,7 @@
                                          -{{ calculateDiscount(product.Prix, product.PrixPromo) }}%
                                          </span>
                                    </div>
-                                   <router-link :to="{ name: 'detail', params: { id: product.id }}">
+                                   <router-link :to="{ name: 'detail', params: { id:encodeId(product.id) }}" @click="addToRecent(product)">
                                       <img :src="product.PhotoCover ? product.PhotoCover : defaultImage"
                                          :alt="product.NomProduit" :title="product.NomProduit"
                                          style="width: 100%; height: auto; max-height: 30% !important;"
@@ -24,7 +24,7 @@
                                 </div>
                                 <!-- heading -->
                                 <h2 class="fs-6"><router-link
-                                                   :to="{ name: 'detail', params: { id: product.id }}"
+                                                   :to="{ name: 'detail', params: { id: encodeId(product.id) }}" @click="addToRecent(product)"
                                                    class="text-inherit text-decoration-none">{{
                                                    truncateText(product.NomProduit , 15) }}
                                                </router-link></h2>
@@ -119,6 +119,10 @@ export default {
    ...mapGetters('cart', ['alertMessage', 'loading']),
    ...mapGetters("devise", ["selectedDevise", "getSelectedRate"]),
  },
+ setup() {
+    const toast = useToast(); // Initialiser useToast
+    return { toast };
+  },
  data() {
    return {
     CategoriesArray:[],
@@ -139,6 +143,25 @@ export default {
           this.FilterProduct(newData); 
         },
       },
+    //   loading(newVal) {
+    //   if (newVal === false) {
+    //     this.initSliders();
+    //   }
+    // },
+    alertMessage(newVal) {
+      console.log('newVal', newVal)
+      if (newVal) {
+        this.loadingItems = {};
+        this.toast.success(newVal, {
+          position: "top-right",
+          timeout: 2000,
+          closeOnClick: true,
+        });
+
+        
+
+      }
+    },
     },
 async mounted() {
    
@@ -146,6 +169,13 @@ async mounted() {
 
  },
  methods: {
+  encodeId(id) {
+    return btoa(id); // Encode en Base64
+  },
+  addProductToCart(product) {
+      this.loadingItems[product?.id] = true;
+      this.$store.dispatch('cart/addToCart', product);
+    },
   
    async getCategoriesAll() {
      this.loading = true
@@ -160,6 +190,12 @@ async mounted() {
        console.log('error', error)
      }
    },
+   addToRecent(product) {
+      if (product) {
+        // Ajouter le produit aux produits récents
+        this.$store.dispatch('recentProducts/addProductToRecent', product);
+      }
+    },
    async FilterProduct(data){
     
       this.loading = true

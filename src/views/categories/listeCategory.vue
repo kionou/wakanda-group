@@ -361,6 +361,27 @@ export default {
   width: 100%;
   
 }
+@media (max-width: 800px) {
+    .hero-slider{
+    height: 30vh !important;
+    width: 100%;
+}
+    .hero-img-1 {
+  
+  height: 30vh !important;
+  width: 100%;   
+}
+
+.categorie {
+  height: 30vh !important;
+  overflow-y: scroll;
+}
+
+.card-right {
+  height: 30vh !important;
+
+}
+}
 
 .lv3Category--lv3Category--1hf3Fqv {
     width: 100%;

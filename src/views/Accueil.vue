@@ -258,7 +258,7 @@
 
                                                 <div>
     
-                                                    <span class="text-uppercase small " @click="addProductToCart(product)"
+                                                    <span class="text-uppercase small " @click="addProductToCart(product?.produit)"
                                                         :disabled="loadingItems[product?.produit?.id]">
                                                         <div class="icon-card">
                                                             <div v-if="loadingItems[product?.produit?.id]">
@@ -392,7 +392,7 @@
                                                 </div>
                                                                 <div>
                                                                     
-                                                    <span class="text-uppercase small " @click="addProductToCart(product)"
+                                                    <span class="text-uppercase small " @click="addProductToCart(product?.produit)"
                                                         :disabled="loadingItems[product?.produit?.id]">
                                                         <div class="icon-card">
                                                             <div v-if="loadingItems[product?.produit?.id]">
@@ -526,7 +526,7 @@
 
                                                 <div>
     
-                                                    <span class="text-uppercase small " @click="addProductToCart(product)"
+                                                    <span class="text-uppercase small " @click="addProductToCart(product?.produit)"
                                                         :disabled="loadingItems[product?.produit?.id]">
                                                         <div class="icon-card">
                                                             <div v-if="loadingItems[product?.produit?.id]">
@@ -610,7 +610,7 @@
 
                                                 <div>
     
-                                                    <span class="text-uppercase small " @click="addProductToCart(product)"
+                                                    <span class="text-uppercase small " @click="addProductToCart(product?.produit)"
                                                         :disabled="loadingItems[product?.produit?.id]">
                                                         <div class="icon-card">
                                                             <div v-if="loadingItems[product?.produit?.id]">
@@ -1088,8 +1088,8 @@ export default {
   },
 
     addProductToCart(product) {
-      this.loadingItems[product.produit?.id] = true;
-      this.$store.dispatch('cart/addToCart', product?.produit);
+      this.loadingItems[product?.id] = true;
+      this.$store.dispatch('cart/addToCart', product);
     },
     addToRecent(product) {
       if (product) {

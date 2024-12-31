@@ -45,7 +45,10 @@
             <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-9 ">
                <div class="row align-items-center">
                   <div class="col-2 d-sm-none">
+                     <a href="/">
                      <img src="@/assets/img/logo_mobile.png" alt="" style="width: 40px;">
+
+                     </a>
                   </div>
                   <div class="col-7 col-xs-8 col-sm-8 col-md-10 col-lg-10">
                      <form action="#" class="me-2">

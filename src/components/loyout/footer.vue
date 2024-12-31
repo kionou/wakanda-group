@@ -48,7 +48,7 @@
 						<!-- list -->
 						<ul class="nav flex-column">
 							<li class="nav-item mb-2" v-for="(category,index) in CategoriesArray" :key="index">
-								<a  :href="`/list-categories/${category.id}`" class="nav-link">
+								<a  :href="`/list-categories/${encodeId(category.id)}`" class="nav-link">
 									{{ category.NomCategorie }}
                                  </a>
 							</li>
@@ -60,7 +60,7 @@
 						<ul class="nav flex-column">
 							
 							<li v-for="(marque, index) in marquesArray" :key="index" class="nav-item mb-2">
-								<a  :href="`/list-categories/${marque.id}`" class="nav-link">
+								<a  :href="`/list-categories/${encodeId(marque.id)}`" class="nav-link">
 									{{ marque.Nom }}
                                  </a>
 							</li>
@@ -154,6 +154,9 @@ async mounted() {
 		
 	},
 	methods: {
+		encodeId(id) {
+    return btoa(id); // Encode en Base64
+  },
 		async getCategoriesAll() {
       try {
         const response = await axios.get('liste/categories')
