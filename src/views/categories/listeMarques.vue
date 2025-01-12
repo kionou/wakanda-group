@@ -20,30 +20,25 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-xl-12 col-md-12 col-sm-12  pe-0">
+                  
+                    <div class="col-xl-12 col-md-12 col-sm-12  pe-0 mb-2">
                         
                         <div class="hero-slider" style="height: 40vh !important;" >
-                            <div class="hero-img-1" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">
+                          <div class="hero-img-1 " style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;"  v-if="SlidersArray.length === 0">
                                 <div class=" col-xxl-5 col-lg-7 col-md-8  text-xs-center" style="width: 100%; height:100%">
-                                    <img src="@/assets/img/bn1.jpg" alt="" style="width: 100%; height:100%">
+                                    <img :src="defaultBanner " alt="" style="width: 100%; height:100%">
                                    
                                 </div>
                             </div>
-                            <div class="hero-img-1" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">
+                           
+                            <div v-else class="hero-img-1" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;"   v-for="(banner , index) in SlidersArray"  :key="index">
                                 <div class=" col-xxl-5 col-lg-7 col-md-8  text-xs-center" style="width: 100%; height:100%">
-                                    <img src="@/assets/img/bn2.jpg" alt="" style="width: 100%; height:100%">
-                                   
-                                </div>
-                            </div>
-                            <div class="hero-img-1" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">
-                                <div class=" col-xxl-5 col-lg-7 col-md-8  text-xs-center" style="width: 100%; height:100%">
-                                    <img src="@/assets/img/bn3.jpg" alt="" style="width: 100%; height:100%">
+                                    <img :src=" banner" alt="" style="width: 100%; height:100%">
                                    
                                 </div>
                             </div>
                           
                         </div>
-                      
                     </div>
                 </div>
     
@@ -55,7 +50,7 @@
                 <!-- row -->
                 <div class="row ">
                     <!-- col -->
-                    <aside class="col-lg-3 col-md-4 mb-6 mb-md-0">
+                    <aside class="col-xl-3 col-lg-2 col-md-3 mb-6 mb-md-0">
                         <div class="offcanvas offcanvas-start offcanvas-collapse w-md-50" tabindex="-1"
                             id="offcanvasCategory" aria-labelledby="offcanvasCategoryLabel">
                             <div class="offcanvas-header d-lg-none">
@@ -100,7 +95,8 @@
                             </div>
                         </div>
                     </aside>
-                    <section class="col-lg-9 col-md-12">
+                  
+                    <section class="col-xl-9 col-lg-10 col-md-9">
                         <!-- card -->
     
                         <!-- list icon -->
@@ -181,6 +177,7 @@
                         </div>
     
                     </section>
+                   
                 </div>
     
             </div>
@@ -196,32 +193,35 @@ import 'slick-carousel/slick/slick-theme.css';
 import $ from 'jquery';
 import 'slick-carousel';
 import defaultImage from '@/assets/images/products/product-img-2.jpg'
+import defaultBanner from '@/assets/img/banner_default.jpg'
 import axios from '@/lib/axiosConfig';
 import SkeletonCategorie from '@/components/others/loader/SkeletonCategorie.vue';
+
+
 
 
 
 export default {
   props: ['id'],
   components: {
-    Listes, grid, GridPlus , SkeletonCategorie
+    Listes, grid, GridPlus , SkeletonCategorie , 
+   
   },
   data() {
     return {
         MarquesChildrenArray:[],
         marquesArray:[],
       defaultImage: defaultImage,
+      defaultBanner:defaultBanner,
       loading:false,
-      images: [
-        '@/assets/images/slider/hero-img-slider-1.jpg',
-        '@/assets/images/slider/hero-img-slider-2.jpg',
-        '@/assets/images/slider/hero-img-slider-3.jpg'
-      ],
+     
       filters:{
         min:'',
         max:'',
       },
       dataProduct:"",
+      SlidersArray:[],
+     
     }
   },
   computed: {
@@ -257,9 +257,9 @@ export default {
   },
  async mounted() {
     
-    this.initSliders();
     await this.getMarquesAll()
      await this.getMarquesDetail()
+    this.initSliders();
 
   },
   methods: {
@@ -300,7 +300,12 @@ export default {
       try {
         const response = await axios.get(`/marques/${this.decodedId}`)
         if (response.data.status === "success") {
+          
           this.MarquesChildrenArray = response.data?.data?.Nom
+          const slider =  response.data?.data?.Sliders !== null &&  response.data?.data?.Sliders !== ''  ? true : false
+          this.SlidersArray = slider ?  response.data?.data?.Sliders.split('|') : []
+          
+
          
           
 

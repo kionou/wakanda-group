@@ -1,8 +1,8 @@
 <template >
     <div>
         <LoadingSkeleton v-if="loading " style="z-index: 99999"></LoadingSkeleton>
-        <main v-else>
-            <section class="">
+        <main v-else >
+            <section class="" >
                 <div class="row mt-3 height-slick">
     
                     <div class="col-xl-2  d-none d-lg-block pe-0" >
@@ -41,24 +41,20 @@
     
     
                         <div class="hero-slider"  >
-                            <div class="hero-img-1" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">
+                            <div class="hero-img-1" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;" v-if="BannerPrincipale.length === 0">
                                 <div class=" col-xxl-5 col-lg-7 col-md-8  text-xs-center" style="width: 100%; height:100%">
-                                    <img src="@/assets/img/bn1.jpg" alt="" style="width: 100%; height:100%">
+                                    <img :src="defaultBanner" alt="" style="width: 100%; height:100%">
+                                   
+                                </div>
+                            </div> 
+                            <div  v-else class="hero-img-1" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;" v-for="(banner , index) in BannerPrincipale" :key="index">
+                                <div class=" col-xxl-5 col-lg-7 col-md-8  text-xs-center" style="width: 100%; height:100%">
+                                    <img :src="banner.Banner" alt="" style="width: 100%; height:100%">
                                    
                                 </div>
                             </div>
-                            <div class="hero-img-1" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">
-                                <div class=" col-xxl-5 col-lg-7 col-md-8  text-xs-center" style="width: 100%; height:100%">
-                                    <img src="@/assets/img/bn2.jpg" alt="" style="width: 100%; height:100%">
-                                   
-                                </div>
-                            </div>
-                            <div class="hero-img-1" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">
-                                <div class=" col-xxl-5 col-lg-7 col-md-8  text-xs-center" style="width: 100%; height:100%">
-                                    <img src="@/assets/img/bn3.jpg" alt="" style="width: 100%; height:100%">
-                                   
-                                </div>
-                            </div>
+                            
+                          
                           
                         </div>
                     </div>
@@ -73,67 +69,6 @@
     
                 </div>
             </section>
-            <!-- section slick and marque , moment  -->
-            <section class="row mt-1">
-                <div class="col-xl-4 col-md-4 mt-4">
-                   
-                        <div class="card border   me-1" style="height: 90%;">
-                            <div class="card-body p-3">
-                                <div class="row" style="height: 100%;">
-                              <div class="col-lg-12 text-center">
-                                <div class="bg-primary text-white">
-                                    <p style="border-bottom: 1px solid red " class="fs-4 fw-bold"> FLASH PROMOS </p>
-
-                                </div>
-                                <div class="slide-one">
-                                    <div class="item" style="display: grid !important; justify-content: center !important;"  v-for="(product,index) in ProductFlash?.produits" :key="index">
-                                        <div class="col-lg-12 text-center text-lg-start">
-                                 
-                                 <h4 class="fs-10">
-                                    <span> {{truncateText(product.produit?.NomProduit , 15) }}</span>
-                                   
-                                </h4>
-
-                                 <div class="d-flex justify-content-center align-items-center mt-3">
-                                    <div>
-                                                <span v-if="product.produit?.PrixPromo" class="text-danger fs-5 fw-bold">
-                                                    {{ formatPrice(convertPrice(product.produit.PrixPromo), selectedDevise.symbol, selectedDevise.isSymbolBefore) }}
-                                                </span>
-                                                <br>
-                                                <span v-if="product.produit?.PrixPromo" class="text-muted text-decoration-line-through fs-5 fw-bold">
-                                                    {{ formatPrice(convertPrice(product.produit.Prix), selectedDevise.symbol, selectedDevise.isSymbolBefore) }}
-                                                </span>
-                                                <span v-else class="text-danger fs-5 fw-bold">
-                                                    {{ formatPrice(convertPrice(product.produit?.Prix), selectedDevise.symbol, selectedDevise.isSymbolBefore) }}
-                                                </span>
-                                                </div>
-                                 </div>
-                                 
-                                
-                              </div>
-                                              <router-link :to="{ name: 'detail', params: { id: encodeId(product.produit?.id) }}" class="d-flex justify-content-center" @click="addToRecent(product.produit)">
-                                                  
-                                                  <img :src="product.produit?.PhotoCover ? product.produit?.PhotoCover : defaultImage"
-                                                      :alt="product.produit?.NomProduit" :title="product.produit?.NomProduit"
-                                                      style="width: 300px; height: auto; "
-                                                      class="img-fluid" />
-                                              </router-link> 
-                                              <div>{{ product.produit?.Description }}</div>
-                              </div>
-                            
-                                </div>
-                               
-                             
-                                </div>
-                                
-                           </div>
-                            </div>
-                          
-                        </div>
-                   
-                </div>
-                <div class="col-xl-8 col-md-8">
-                     <!-- section marque start -->
             <section class="mt-4">
                 <div class="px-0">
                     <div class="row align-items-center mb-3">
@@ -171,7 +106,7 @@
                                             <div class="card mb-3 card-lift">
                                                 <div class="card-body  p-2  d-flex flex-column justify-content-center align-items-center">
                                                      <!-- <router-link :to="{ name: 'marque-detail', params: { id: marque?.id }}"></router-link> -->
-                                                    <div class="my-2" style="height: 120px; width:120px">
+                                                    <div class="my-2" style="height: 100px; width:auto">
                                                       
                                                         <img :src="marque.Logo !== null ||  !marque.Logo.startsWith('https') ? marque.Logo : defaultImageCategorie"
                                                         :alt="marque.Nom"  height="24" style="width:100% ; height:100%">
@@ -191,10 +126,193 @@
                     </div>
                 </div>
             </section>
-            <!-- section marque end -->
+           
+            <!-- section slick and marque 1111111111, moment  -->
+            <section class="row mt-1">
+                <div class="col-xl-3 col-lg-4 col-md-4 ">
+                    <div class="row" style="height:100%">
+                       
+
+                        <div class="col-xl-12">
+                            <div class="card    me-1" style="height: 100%;">
+                                <div class="text-white card-header text-center p-0" style="background-color: var(--fc-secondary);">
+                                    <p style="border-bottom:0 " class="fs-3 fw-bold mb-0"> FLASH PROMOS </p>
+
+                                </div>
+                            <div class="card-body p-3">
+                                <div class="row" style="height: 100%;">
+                              <div class="col-lg-12 text-center">
+                              
+                                <div class="slide-one">
+                                    <div class="item" style="display: grid !important; justify-content: center !important;"  v-for="(product,index) in ProductFlash?.produits" :key="index">
+                                        <div class="col-lg-12 text-center text-lg-start">
+                                 
+                                 <h4 class="fs-10">
+                                    <span> {{truncateText(product.produit?.NomProduit , 15) }}</span>
+                                   
+                                </h4>
+
+                                 <div class="d-flex justify-content-center align-items-center mt-3">
+                                    <div>
+                                                <span v-if="product.produit?.PrixPromo" class="text-danger fs-5 fw-bold me-2">
+                                                    {{ formatPrice(convertPrice(product.produit.PrixPromo), selectedDevise.symbol) }}
+                                                </span>
+                                                
+                                                <span v-if="product.produit?.PrixPromo" class="text-muted text-decoration-line-through fs-5 fw-bold">
+                                                    {{ formatPrice(convertPrice(product.produit.Prix), selectedDevise.symbol) }}
+                                                </span>
+                                                <span v-else class="text-danger fs-5 fw-bold">
+                                                    {{ formatPrice(convertPrice(product.produit?.Prix), selectedDevise.symbol) }}
+                                                </span>
+                                                </div>
+                                 </div>
+                                 
+                                
+                              </div>
+                              <div class="d-flex justify-content-center align-items-center" style="width:100%">
+                                <div style="width:150px; height:150px">
+                                <router-link :to="{ name: 'detail', params: { id: encodeId(product.produit?.id) }}" class="d-flex justify-content-center" @click="addToRecent(product.produit)">
+                                                  
+                                                  <img :src="product.produit?.PhotoCover ? product.produit?.PhotoCover : defaultImage"
+                                                      :alt="product.produit?.NomProduit" :title="product.produit?.NomProduit"
+                                                      style="width: 100%; height: 100%; "
+                                                      class="img-fluid" />
+                                              </router-link> 
+                              </div>
+                              </div>
+                             
+                                           
+                                              <!-- <div>{{ product.produit?.Description }}</div> -->
+                              </div>
+                            
+                                </div>
+                               
+                             
+                                </div>
+                                
+                           </div>
+                            </div>
+                          
+                        </div>
+                        </div>
+
+                    </div>
+                   
+                       
+                   
+                </div>
+                <div class="col-xl-9 col-lg-8 col-md-8">
+                     <!-- section new product start -->
+         
+
+            <div class="row" v-if="NewProductArray?.length !== 0">
+                            <!-- col -->
+    
+                            <div class="col-xl-12 col-lg-12 col-md-12 mb-1 mb-md-0">
+                                <div class="mb-3 product-content">
+                                    <div class="mb-4 "
+                                style="border-bottom: 1px solid var(--fc-primary); width:100% !important">
+                                <h3 class=" mb-0 pb-2 pt-1 ps-2 text-white bg-primary row align-items-center" style="width:100% !important;">
+                                    <router-link :to="{ name: 'type-detail', params: { id: encodeId('new') }}" class="text-white col-xl-10 col-md-8" title="Voir plus"
+                                        style="border-radius: 0px !important;font-size: 20px;">
+                                        {{ProduitNew?.Nom}}</router-link>
+                                        <div class="col-xl-2 col-md-4 d-none d-sm-block  text-end " style="cursor: pointer;" @click="$router.push({path:`/type-detail/${encodeId('new')}`})">
+                                         
+                                         <div style="font-size:14px" class="me-3">VOIR PLUS <i class="bi bi-arrow-right"></i></div>
+                                                
+                                     </div>
+                                </h3>
+                               
+                            </div>
+                                   
+                                    <div class="product-slider-four-columns">
+                                     
+                                        <div class="item" v-for="(product,index) in NewProductArray" :key="index">
+                                    <!-- card -->
+                                    <div class="card card-product h-100">
+                                        <div class="card-body position-relative">
+                                            <div class="text-center position-relative d-flex justify-content-center">
+                                                <div class="position-absolute top-0 start-0">
+                                                    <span v-if="product?.PrixPromo" class="badge bg-success text-white">
+                                                    -{{ calculateDiscount(product?.Prix, product?.PrixPromo) }}%
+                                                    </span>
+                                                </div>
+                                                <!-- img -->
+                                                <div>
+                                                    <router-link :to="{ name: 'detail', params: { id: encodeId(product?.id) }}" @click="addToRecent(product)">
+                                                  
+                                                  <img :src="product?.PhotoCover ? product?.PhotoCover : defaultImage"
+                                                      :alt="product?.NomProduit" :title="product?.NomProduit"
+                                                      style="width: 150px; height:auto; "
+                                                      class="mb-3 img-fluid" />
+                                              </router-link> 
+                                                    </div>
+                                               
+                                                <!-- action btn -->
+    
+                                            </div>
+                                            <!-- title -->
+                                            <h2 class="fs-6"><router-link
+                                                    :to="{ name: 'detail', params: { id: encodeId(product?.id) }}"
+                                                    class="text-inherit text-decoration-none" @click="addToRecent(product)">{{
+                                                    truncateText(product?.NomProduit , 15) }}
+                                                </router-link></h2>
+                                            <div class="d-flex justify-content-between align-items-center mt-3">
+                                              
+                                                <div>
+                                                <span v-if="product?.PrixPromo" class="text-danger">
+                                                    {{ formatPrice(convertPrice(product.PrixPromo), selectedDevise.symbol) }}
+                                                </span>
+                                                <br>
+                                                <span v-if="product?.PrixPromo" class="text-muted text-decoration-line-through">
+                                                    {{ formatPrice(convertPrice(product.Prix), selectedDevise.symbol) }}
+                                                </span>
+                                                <span v-else class="text-danger">
+                                                    {{ formatPrice(convertPrice(product?.Prix), selectedDevise.symbol) }}
+                                                </span>
+                                                </div>
+
+                                               
+                                            </div>
+                                            <div class="prix">
+                                                    <span class="text-uppercase small " @click="addProductToCart(product)"
+                                                        :disabled="loadingItems[product?.id]">
+                                                        <div class="icon-card">
+                                                            <div v-if="loadingItems[product?.id]">
+                                                                <LoaderBtn class="loadingbtn"></LoaderBtn>
+                                                            </div>
+                                                            <div v-else>
+                                                                <i class="bi bi-cart2 fs-4"></i>
+                                                            </div>
+    
+                                                        </div>
+                                                    </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                      </div>
+                                       
+                                       
+                                    </div>
+                                </div>
+    
+    
+                            </div>
+            </div>
+            <!-- section new product end -->
+
+              
+                </div>
+            </section>
+ <!-- section slick and marque 222222, moment  -->
+            <section class="row mt-2">
+               
+                <div class="col-xl-9 col-lg-8 col-md-8">
+                     <!-- section new product start -->            
+            <!-- section new product end -->
 
                 <!-- section moment start -->
-            <section  class="mt-4">
+            <section  class="">
                 <div class="mb-5 product-content">
                             <div class="mb-4 "
                                 style="border-bottom: 1px solid var(--fc-primary); width:100% !important">
@@ -243,35 +361,36 @@
                                                 </router-link></h2>
                                             <div class="d-flex justify-content-between align-items-center mt-3">
                                               
-                                                <div>
+                                                <div class="">
                                                 <span v-if="product.produit?.PrixPromo" class="text-danger">
-                                                    {{ formatPrice(convertPrice(product.produit.PrixPromo), selectedDevise.symbol, selectedDevise.isSymbolBefore) }}
+                                                    {{ formatPrice(convertPrice(product.produit.PrixPromo), selectedDevise.symbol) }}
                                                 </span>
                                                 <br>
                                                 <span v-if="product.produit?.PrixPromo" class="text-muted text-decoration-line-through">
-                                                    {{ formatPrice(convertPrice(product.produit.Prix), selectedDevise.symbol, selectedDevise.isSymbolBefore) }}
+                                                    {{ formatPrice(convertPrice(product.produit.Prix), selectedDevise.symbol) }}
                                                 </span>
                                                 <span v-else class="text-danger">
-                                                    {{ formatPrice(convertPrice(product.produit?.Prix), selectedDevise.symbol, selectedDevise.isSymbolBefore) }}
+                                                    {{ formatPrice(convertPrice(product.produit?.Prix), selectedDevise.symbol) }}
                                                 </span>
                                                 </div>
 
-                                                <div>
-    
-                                                    <span class="text-uppercase small " @click="addProductToCart(product?.produit)"
-                                                        :disabled="loadingItems[product?.produit?.id]">
-                                                        <div class="icon-card">
-                                                            <div v-if="loadingItems[product?.produit?.id]">
-                                                                <LoaderBtn class="loadingbtn"></LoaderBtn>
-                                                            </div>
-                                                            <div v-else>
-                                                                <i class="bi bi-cart2 fs-4"></i>
-                                                            </div>
-    
-                                                        </div>
-                                                    </span>
-                                                </div>
+                                               
                                             </div>
+                                            <div class="prix">
+    
+                                            <span class="text-uppercase small " @click="addProductToCart(product?.produit)"
+                                                :disabled="loadingItems[product?.produit?.id]">
+                                                <div class="icon-card">
+                                                    <div v-if="loadingItems[product?.produit?.id]">
+                                                        <LoaderBtn class="loadingbtn"></LoaderBtn>
+                                                    </div>
+                                                    <div v-else>
+                                                        <i class="bi bi-cart2 fs-4"></i>
+                                                    </div>
+
+                                                </div>
+                                            </span>
+                                        </div>
                                         </div>
                                     </div>
                                 </div>
@@ -282,7 +401,20 @@
             </section>
             <!-- section moment end  -->
                 </div>
+                <div class="col-xl-3 col-lg-4 col-md-4  ">
+                    <div class="row ms-2" style="height:95%">
+                        <div class="col-xl-12">
+                            <div class="card  mb-2  me-1" style="height: 100%;">
+                             <img src="../assets/img/bnm.jpg" alt="">
+                          
+                        </div>
+                        </div>
+
+                    </div>
+
+                </div>
             </section>
+          
 
             <div class=" mb-3">
     
@@ -298,7 +430,7 @@
                             <div class="row align-items-center bg-primary text-white mb-2" style="border: 1px solid red">
                                 <div class="col-xl-2 col-md-3">
                                      <div class="mb-xl-0">
-                                         <h3 class="mb-0 d-flex justify-content-center align-items-center" style="cursor: pointer;" @click="$router.push({path:`/type-detail/${ProductFlash?.id}`})"> 
+                                         <h3 class="mb-0 d-flex justify-content-center align-items-center" style="cursor: pointer;" @click="$router.push({path:`/type-detail/${encodeId(ProductFlash?.id)}`})"> 
                                            <img src="@/assets/img/flash.png" alt="" style="width:13%">
                                            <span class="text-white"> {{ProductFlash?.Nom}}</span>
                                            
@@ -334,7 +466,7 @@
                                         </div>
                                 </div>
                                
-                                <div class="col-xl-1 col-md-2 d-none d-sm-block"  style="cursor: pointer;" @click="$router.push({path:`/type-detail/${ProductFlash?.id}`})">
+                                <div class="col-xl-1 col-md-2 d-none d-sm-block"  style="cursor: pointer;" @click="$router.push({path:`/flash-promo/${encodeId(ProductFlash?.id) }`})">
                                     <div>VOIR PLUS <i class="bi bi-arrow-right"></i></div>
                                 </div>
                                
@@ -347,7 +479,7 @@
                                         <div class="tab-pane fade show active" id="nav-fruitsandveg" role="tabpanel"
                                             aria-labelledby="nav-fruitsandveg-tab" tabindex="0">
                                             <!-- row -->
-                                            <div class="row row-cols-2 row-cols-xl-6 row-cols-md-3 g-4">
+                                            <div class="row g-4 row-cols-xl-6 row-cols-lg-6 row-cols-lg-6 row-cols-2 row-cols-md-3 mt-2 ">
                                                 <div class="col" v-for="(product,index) in ProductFlash?.produits" :key="index">
                                                     <!-- card -->
                                                     <div class="card card-product-v2 h-100">
@@ -360,7 +492,7 @@
                                                                     </span>
                                                                 </div>
                                                                 <!-- img -->
-                                                                <router-link :to="{ name: 'detail', params: { id: product.produit?.id }}" @click="addToRecent(product.produit)">
+                                                                <router-link :to="{ name: 'detail', params: { id:encodeId(product.produit?.id)  }}" @click="addToRecent(product.produit)">
                                                                     <img :src="product.produit?.PhotoCover ? product.produit?.PhotoCover : defaultImage"
                                                                         :alt="product.produit?.NomProduit" :title="product.produit?.NomProduit"
                                                                         style="width: 100%; height: auto; max-height: 30% !important;"
@@ -371,7 +503,7 @@
                                                             </div>
                                                             <!-- title -->
                                                             <h2 class="fs-6"><router-link
-                                                                :to="{ name: 'detail', params: { id: product.produit?.id }}"
+                                                                :to="{ name: 'detail', params: { id:encodeId(product.produit?.id)  }}"
                                                                 class="text-inherit text-decoration-none" @click="addToRecent(product.produit)">{{
                                                                 truncateText(product.produit?.NomProduit , 15) }}
                                                             </router-link></h2>
@@ -380,32 +512,33 @@
                                                             <div class="d-flex justify-content-between align-items-center mt-3">
                                                                 <div>
                                                 <span v-if="product.produit?.PrixPromo" class="text-danger">
-                                                    {{ formatPrice(convertPrice(product.produit.PrixPromo), selectedDevise.symbol, selectedDevise.isSymbolBefore) }}
+                                                    {{ formatPrice(convertPrice(product.produit.PrixPromo), selectedDevise.symbol) }}
                                                 </span>
                                                 <br>
                                                 <span v-if="product.produit?.PrixPromo" class="text-muted text-decoration-line-through">
-                                                    {{ formatPrice(convertPrice(product.produit.Prix), selectedDevise.symbol, selectedDevise.isSymbolBefore) }}
+                                                    {{ formatPrice(convertPrice(product.produit.Prix), selectedDevise.symbol) }}
                                                 </span>
                                                 <span v-else class="text-danger">
-                                                    {{ formatPrice(convertPrice(product.produit?.Prix), selectedDevise.symbol, selectedDevise.isSymbolBefore) }}
+                                                    {{ formatPrice(convertPrice(product.produit?.Prix), selectedDevise.symbol) }}
                                                 </span>
-                                                </div>
-                                                                <div>
+                                                               </div>
+                                                               
+                                                            </div>
+                                                            <div class="prix">
                                                                     
-                                                    <span class="text-uppercase small " @click="addProductToCart(product?.produit)"
-                                                        :disabled="loadingItems[product?.produit?.id]">
-                                                        <div class="icon-card">
-                                                            <div v-if="loadingItems[product?.produit?.id]">
-                                                                <LoaderBtn class="loadingbtn"></LoaderBtn>
-                                                            </div>
-                                                            <div v-else>
-                                                                <i class="bi bi-cart2 fs-4"></i>
-                                                            </div>
-    
-                                                        </div>
-                                                    </span>
-                                                                </div>
-                                                            </div>
+                                                                    <span class="text-uppercase small " @click="addProductToCart(product?.produit)"
+                                                                        :disabled="loadingItems[product?.produit?.id]">
+                                                                        <div class="icon-card">
+                                                                            <div v-if="loadingItems[product?.produit?.id]">
+                                                                                <LoaderBtn class="loadingbtn"></LoaderBtn>
+                                                                            </div>
+                                                                            <div v-else>
+                                                                                <i class="bi bi-cart2 fs-4"></i>
+                                                                            </div>
+                    
+                                                                        </div>
+                                                                    </span>
+                                                                                </div>
                                                             <div class="mt-4">
                                                                 <div class="my-3">
                                                                     <small>
@@ -513,33 +646,34 @@
                                               
                                                 <div>
                                                 <span v-if="product.produit?.PrixPromo" class="text-danger">
-                                                    {{ formatPrice(convertPrice(product.produit.PrixPromo), selectedDevise.symbol, selectedDevise.isSymbolBefore) }}
+                                                    {{ formatPrice(convertPrice(product.produit.PrixPromo), selectedDevise.symbol) }}
                                                 </span>
                                                 <br>
                                                 <span v-if="product.produit?.PrixPromo" class="text-muted text-decoration-line-through">
-                                                    {{ formatPrice(convertPrice(product.produit.Prix), selectedDevise.symbol, selectedDevise.isSymbolBefore) }}
+                                                    {{ formatPrice(convertPrice(product.produit.Prix), selectedDevise.symbol) }}
                                                 </span>
                                                 <span v-else class="text-danger">
-                                                    {{ formatPrice(convertPrice(product.produit?.Prix), selectedDevise.symbol, selectedDevise.isSymbolBefore) }}
+                                                    {{ formatPrice(convertPrice(product.produit?.Prix), selectedDevise.symbol) }}
                                                 </span>
                                                 </div>
 
-                                                <div>
-    
-                                                    <span class="text-uppercase small " @click="addProductToCart(product?.produit)"
-                                                        :disabled="loadingItems[product?.produit?.id]">
-                                                        <div class="icon-card">
-                                                            <div v-if="loadingItems[product?.produit?.id]">
-                                                                <LoaderBtn class="loadingbtn"></LoaderBtn>
-                                                            </div>
-                                                            <div v-else>
-                                                                <i class="bi bi-cart2 fs-4"></i>
-                                                            </div>
-    
-                                                        </div>
-                                                    </span>
-                                                </div>
+                                               
                                             </div>
+                                            <div  class="prix">
+    
+    <span class="text-uppercase small " @click="addProductToCart(product?.produit)"
+        :disabled="loadingItems[product?.produit?.id]">
+        <div class="icon-card">
+            <div v-if="loadingItems[product?.produit?.id]">
+                <LoaderBtn class="loadingbtn"></LoaderBtn>
+            </div>
+            <div v-else>
+                <i class="bi bi-cart2 fs-4"></i>
+            </div>
+
+        </div>
+    </span>
+</div>
                                         </div>
                                     </div>
                                       </div>
@@ -592,7 +726,7 @@
                                                       :alt="product.produit?.NomProduit" :title="product.produit?.NomProduit"
                                                       style="width: 150px; height: auto; "
                                                       class="mb-3 img-fluid" />
-                                              </router-link> 
+                                                </router-link> 
                                                     </div>
                                                
                                                 <!-- action btn -->
@@ -606,7 +740,7 @@
                                                 </router-link></h2>
                                             <div class="d-flex justify-content-between align-items-center mt-3">
                                               
-                                             <p>sur commande</p>
+                                             <p class="badge bg-success text-white mb-0">sur commande</p>
 
                                                 <div>
     
@@ -708,33 +842,34 @@
                                               
                                                 <div>
                                                 <span v-if="product?.PrixPromo" class="text-danger">
-                                                    {{ formatPrice(convertPrice(product.PrixPromo), selectedDevise.symbol, selectedDevise.isSymbolBefore) }}
+                                                    {{ formatPrice(convertPrice(product.PrixPromo), selectedDevise.symbol) }}
                                                 </span>
                                                 <br>
                                                 <span v-if="product?.PrixPromo" class="text-muted text-decoration-line-through">
-                                                    {{ formatPrice(convertPrice(product.Prix), selectedDevise.symbol, selectedDevise.isSymbolBefore) }}
+                                                    {{ formatPrice(convertPrice(product.Prix), selectedDevise.symbol) }}
                                                 </span>
                                                 <span v-else class="text-danger">
-                                                    {{ formatPrice(convertPrice(product?.Prix), selectedDevise.symbol, selectedDevise.isSymbolBefore) }}
+                                                    {{ formatPrice(convertPrice(product?.Prix), selectedDevise.symbol) }}
                                                 </span>
                                                 </div>
 
-                                                <div>
-    
-                                                    <span class="text-uppercase small " @click="addProductToCart(product)"
-                                                        :disabled="loadingItems[product?.id]">
-                                                        <div class="icon-card">
-                                                            <div v-if="loadingItems[product?.id]">
-                                                                <LoaderBtn class="loadingbtn"></LoaderBtn>
-                                                            </div>
-                                                            <div v-else>
-                                                                <i class="bi bi-cart2 fs-4"></i>
-                                                            </div>
-    
-                                                        </div>
-                                                    </span>
-                                                </div>
+                                              
                                             </div>
+                                            <div class="prix">
+    
+    <span class="text-uppercase small " @click="addProductToCart(product)"
+        :disabled="loadingItems[product?.id]">
+        <div class="icon-card">
+            <div v-if="loadingItems[product?.id]">
+                <LoaderBtn class="loadingbtn"></LoaderBtn>
+            </div>
+            <div v-else>
+                <i class="bi bi-cart2 fs-4"></i>
+            </div>
+
+        </div>
+    </span>
+</div>
                                         </div>
                                     </div>
                                 </div>
@@ -986,11 +1121,12 @@ import 'slick-carousel/slick/slick-theme.css';
 import $ from 'jquery';
 import 'slick-carousel';
 import LoadingSkeleton from '@/components/others/loader/LoadingSkeleton.vue';
-import defaultImage from '@/assets/images/products/product-img-2.jpg'
-import defaultImageCategorie from '@/assets/img/logo_mobile.png'
+import defaultImage from '@/assets/images/products/product-img-2.jpg';
+import defaultImageCategorie from '@/assets/img/logo_mobile.png';
 import { mapActions, mapGetters } from 'vuex';
 import { useToast } from "vue-toastification";
 import LoaderBtn from '@/components/others/loader/loaderbtn.vue';
+import defaultBanner from '@/assets/img/banner_default.jpg'
 import axios from '@/lib/axiosConfig';
 
 
@@ -1020,15 +1156,19 @@ export default {
       loadingItems: {},
       products: [],
       defaultImage: defaultImage,
+      defaultBanner:defaultBanner,
       defaultImageCategorie: defaultImageCategorie,
       CategoriesArray: [],
       marquesArray: [],
+      NewProductArray:[],
       productsArray:[],
       productsAll:[],
+      BannerPrincipale:[],
       ProductMoment:"",
       ProductFlash:"",
       ProductPlusVendu:"",
       ProductSurCommande:"",
+      ProduitNew:"",
       startTime: null, 
       endTime: null, 
       hours: "00",
@@ -1046,13 +1186,14 @@ export default {
 
   async mounted() {
     await this.getCategoriesAll()
+    await this.getBannerPrincipale()
     await this.getMarquesAll()
+    await this.getNewProducts()
     await this.getTypesVentesAll()
     await this.getProductsAll()
+
     // await this.recupererProduits()
-    this.startTime = new Date("2024-12-17T08:00:00"); // Exemple : début à 08:00
-    this.endTime = new Date("2024-12-20T20:00:00");   // Exemple : fin à 20:00
-    this.startCountdown();
+    
 
   },
   watch: {
@@ -1134,7 +1275,7 @@ export default {
         });
         $('.slider-8-columns').slick({
           infinite: !0,
-          slidesToShow: 5,
+          slidesToShow: 8,
           slidesToScroll: 1,
           autoplay: !0,
           dots: !1,
@@ -1145,11 +1286,15 @@ export default {
           responsive: [
             {
               breakpoint: 1025,
-              settings: { slidesToShow: 4, slidesToScroll: 1 },
+              settings: { slidesToShow: 8, slidesToScroll: 4 },
+            },
+            {
+              breakpoint: 900,
+              settings: { slidesToShow: 6, slidesToScroll: 4 },
             },
             {
               breakpoint: 768,
-              settings: { slidesToShow: 3, slidesToScroll: 1 },
+              settings: { slidesToShow: 4, slidesToScroll: 1 },
             },
             {
               breakpoint: 480,
@@ -1164,7 +1309,7 @@ export default {
         });
         $('.product-slider-four-columns').slick({
           infinite: !0,
-          slidesToShow: 4,
+          slidesToShow: 6,
           slidesToScroll: 1,
           autoplay: !0,
           dots: !1,
@@ -1174,15 +1319,18 @@ export default {
           nextArrow:
             '<span class="slick-next "><i class="feather-icon icon-chevron-right "></i></span>',
           responsive: [
-            { breakpoint: 1400,settings: { slidesToShow: 4, slidesToScroll: 3 } },
+            { breakpoint: 1500,settings: { slidesToShow: 6, slidesToScroll: 2 } },
+            { breakpoint: 1400,settings: { slidesToShow: 6, slidesToScroll: 2 } },
+            { breakpoint: 1300,settings: { slidesToShow: 5, slidesToScroll: 2 } },
             { breakpoint: 1200,settings: { slidesToShow: 3, slidesToScroll: 2 } },
+            { breakpoint: 768,settings: { slidesToShow: 3, slidesToScroll: 2 } },
             { breakpoint: 480, settings: { slidesToShow: 2, slidesToScroll: 1 } },
             { breakpoint: 425, settings: { slidesToShow: 2, slidesToScroll: 1 } },
           ],
         });
         $('.product-slider-four-column').slick({
           infinite: !0,
-          slidesToShow: 6,
+          slidesToShow: 7,
           slidesToScroll: 1,
           autoplay: !0,
           dots: !1,
@@ -1192,15 +1340,18 @@ export default {
           nextArrow:
             '<span class="slick-next "><i class="feather-icon icon-chevron-right "></i></span>',
           responsive: [
-            { breakpoint: 1400,settings: { slidesToShow: 6, slidesToScroll: 5 } },
-            { breakpoint: 1200,settings: { slidesToShow: 5, slidesToScroll: 4 } },
+            { breakpoint: 1500,settings: { slidesToShow: 7, slidesToScroll: 6 } },
+            { breakpoint: 1400,settings: { slidesToShow: 7, slidesToScroll: 6 } },
+            { breakpoint: 1300,settings: { slidesToShow: 6, slidesToScroll: 5 } },
+            { breakpoint: 1200,settings: { slidesToShow: 3, slidesToScroll: 3 } },
+            { breakpoint: 1000,settings: { slidesToShow: 3, slidesToScroll: 3 } },
             { breakpoint: 480, settings: { slidesToShow: 2, slidesToScroll: 1 } },
             { breakpoint: 425, settings: { slidesToShow: 2, slidesToScroll: 1 } },
           ],
         });
         $('.sur_commande').slick({
           infinite: !0,
-          slidesToShow: 6,
+          slidesToShow: 7,
           slidesToScroll: 1,
           autoplay: !0,
           dots: !1,
@@ -1210,8 +1361,11 @@ export default {
           nextArrow:
             '<span class="slick-next "><i class="feather-icon icon-chevron-right "></i></span>',
           responsive: [
-            { breakpoint: 1400,settings: { slidesToShow: 6, slidesToScroll: 4 } },
-            { breakpoint: 1200,settings: { slidesToShow: 5, slidesToScroll: 2 } },
+          { breakpoint: 1500,settings: { slidesToShow: 7, slidesToScroll: 6 } },
+            { breakpoint: 1400,settings: { slidesToShow: 7, slidesToScroll: 6 } },
+            { breakpoint: 1300,settings: { slidesToShow: 6, slidesToScroll: 5 } },
+            { breakpoint: 1200,settings: { slidesToShow: 3, slidesToScroll: 3 } },
+            { breakpoint: 1000,settings: { slidesToShow: 3, slidesToScroll: 3 } },
             { breakpoint: 480, settings: { slidesToShow: 2, slidesToScroll: 1 } },
             { breakpoint: 425, settings: { slidesToShow: 2, slidesToScroll: 1 } },
           ],
@@ -1228,15 +1382,18 @@ export default {
           nextArrow:
             '<span class="slick-next "><i class="feather-icon icon-chevron-right "></i></span>',
           responsive: [
+            { breakpoint: 1500,settings: { slidesToShow: 7, slidesToScroll: 6 } },
             { breakpoint: 1400,settings: { slidesToShow: 7, slidesToScroll: 6 } },
-            { breakpoint: 1200,settings: { slidesToShow: 5, slidesToScroll: 4 } },
+            { breakpoint: 1300,settings: { slidesToShow: 6, slidesToScroll: 5 } },
+            { breakpoint: 1200,settings: { slidesToShow: 3, slidesToScroll: 3 } },
+            { breakpoint: 1000,settings: { slidesToShow: 3, slidesToScroll: 3 } },
             { breakpoint: 480, settings: { slidesToShow: 2, slidesToScroll: 1 } },
             { breakpoint: 425, settings: { slidesToShow: 2, slidesToScroll: 1 } },
           ],
         });
         
         $('.slide-one').slick({
-        dots: true,
+        dots: false,
         infinite: true,
         speed: 300,
         slidesToShow: 1,
@@ -1279,6 +1436,19 @@ export default {
         console.log('error', error)
       }
     },
+    async getBannerPrincipale() {
+      try {
+        const response = await axios.get('/banniere-active/principale')
+        if (response.data.status === "success") {
+          this.BannerPrincipale = response.data?.data
+          console.log( this.BannerPrincipale )
+
+        }
+
+      } catch (error) {
+        console.log('error', error)
+      }
+    },
     async getTypesVentesAll() {
       try {
         const response = await axios.get('/type-ventes')
@@ -1290,6 +1460,25 @@ export default {
             this.ProductFlash = this.productsAll.find(m => m.id === 2);
             this.ProductPlusVendu = this.productsAll.find(m => m.id === 3);
             this.ProductSurCommande = this.productsAll.find(m => m.id === 4);
+            this.ProduitNew = this.productsAll.find(m => m.id === 5);
+
+            this.startTime = new Date(this.ProductFlash.DateDebut); // Exemple : début à 08:00
+             this.endTime = new Date(this.ProductFlash.DateFin);   // Exemple : fin à 20:00
+            this.startCountdown();
+
+        }
+
+      } catch (error) {
+        console.log('error', error)
+      }
+    },
+    async getNewProducts() {
+      try {
+        const response = await axios.get('/produits/nouveau-gamme')
+        if (response.data.status === "success") {
+          this.NewProductArray= response.data?.data?.data
+        //   .filter(m  =>m.IsActive === 1)
+          console.log(this.NewProductArray)
 
         }
 
@@ -1324,9 +1513,13 @@ export default {
       return prix / this.getSelectedRate; // Convertir avec le taux sélectionné
     },
     // Formatage du prix
-    formatPrice(price, symbol, isSymbolBefore = true) { 
+    formatPrice(price, symbol) { 
+        console.log(symbol)
       const formattedPrice = price.toFixed().replace(/\B(?=(\d{3})+(?!\d))/g, " ");  
-      return isSymbolBefore ? `${symbol} ${formattedPrice}` : `${formattedPrice} ${symbol}`;
+      if (symbol === 'CFA') {
+        return `${formattedPrice} ${symbol}`;
+    }
+    return `${symbol} ${formattedPrice}`;
     },
     startCountdown() {
       const now = new Date();
@@ -1391,6 +1584,7 @@ export default {
 .categorie {
     height: 40vh !important;
     overflow-y: scroll;
+    overflow-x:hidden ;
 }
 
 .card-right {

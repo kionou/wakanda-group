@@ -636,6 +636,9 @@ export default {
   },
   methods: {
    ...mapActions('devise', ['fetchDevises', 'changeDevise']),
+   encodeId(id) {
+    return btoa(id); // Encode en Base64
+  },
     updateDevise(option) {
       const devise = option;
       this.changeDevise(devise);
@@ -713,7 +716,7 @@ export default {
       }, 250); 
     },
     goToProductDetail(product) {
-      window.location.href = `/detail/${product.option.id}`;
+      window.location.href = `/detail/${this.encodeId(product.option.id) }`;
     },
 
     async detectUserCountry() {

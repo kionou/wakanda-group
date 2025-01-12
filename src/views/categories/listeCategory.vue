@@ -21,23 +21,18 @@
                 </div>
                 <div class="row">
                     <div class="col-xl-12 col-md-12 col-sm-12  pe-0">
-    
-                        <div class="hero-slider" style="height: 40vh !important;" >
-                            <div class="hero-img-1" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">
+     
+                      <div class="hero-slider" style="height: 40vh !important;" >
+                          <div class="hero-img-1 " style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;"  v-if="SlidersArray.length === 0">
                                 <div class=" col-xxl-5 col-lg-7 col-md-8  text-xs-center" style="width: 100%; height:100%">
-                                    <img src="@/assets/img/bn1.jpg" alt="" style="width: 100%; height:100%">
+                                    <img :src="defaultBanner " alt="" style="width: 100%; height:100%">
                                    
                                 </div>
                             </div>
-                            <div class="hero-img-1" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">
+                           
+                            <div  class="hero-img-1" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;"   v-for="(banner , index) in SlidersArray"  :key="index">
                                 <div class=" col-xxl-5 col-lg-7 col-md-8  text-xs-center" style="width: 100%; height:100%">
-                                    <img src="@/assets/img/bn2.jpg" alt="" style="width: 100%; height:100%">
-                                   
-                                </div>
-                            </div>
-                            <div class="hero-img-1" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">
-                                <div class=" col-xxl-5 col-lg-7 col-md-8  text-xs-center" style="width: 100%; height:100%">
-                                    <img src="@/assets/img/bn3.jpg" alt="" style="width: 100%; height:100%">
+                                    <img :src=" banner" alt="" style="width: 100%; height:100%">
                                    
                                 </div>
                             </div>
@@ -50,13 +45,13 @@
     
             </div>
             <div class="lv3Category--lv3Category--1hf3Fqv">
-                <div v-if="CategoriesChildrenArray.length === 0" class="text-center text-danger fw-bold fs-4">
+                <!-- <div v-if="CategoriesChildrenArray.length === 0" class="text-center text-danger fw-bold fs-4">
                     <img src="@/assets/img/searchs.png" alt="" style="height: 100px; width: 100px;">
                     Pas de données!
-                </div>
-                <div class="lv3Category--lv3CategoryContentCatainer--3covqIo row " v-else>
+                </div> -->
+                <div class="lv3Category--lv3CategoryContentCatainer--3covqIo row "  v-if="CategoriesChildrenArray.length > 0">
                     <div class="lv3Category--lv3CategoryBox--1Nts99Z ms-2 col-xl-4 col-md-3" v-for="(category,index) in CategoriesChildrenArray" :key="index" >
-                        <a :href="`/list-categories/${category.id}`"
+                        <a :href="`/list-categories/${encodeId(category.id)}`"
                             >
                             <div class="lv3Category--lv3CategoryContent--2eCQWkm card card-product">
                                 <div class="lv3Category--lv3CategoryContentImg--2GZvdRG">
@@ -77,7 +72,7 @@
                 <!-- row -->
                 <div class="row ">
                     <!-- col -->
-                    <aside class="col-lg-3 col-md-4 mb-6 mb-md-0">
+                    <aside class="col-xl-3 col-lg-2 col-md-3 mb-6 mb-md-0">
                         <div class="offcanvas offcanvas-start offcanvas-collapse w-md-50" tabindex="-1"
                             id="offcanvasCategory" aria-labelledby="offcanvasCategoryLabel">
                             <div class="offcanvas-header d-lg-none">
@@ -122,7 +117,7 @@
                             </div>
                         </div>
                     </aside>
-                    <section class="col-lg-9 col-md-12">
+                    <section class="col-xl-9 col-lg-10 col-md-9">
                         <!-- card -->
     
                         <!-- list icon -->
@@ -151,20 +146,9 @@
                                     <nav>
                                         <ul class="nav nav-pills nav-scroll border-bottom-0 gap-1 d-none" id="nav-tab"
                                             role="tablist">
-                                           
-    
-    
-                                            <li class="nav-item">
-                                           
-                                                <a href="#" class="nav-link active" id="grid-tab" data-bs-toggle="tab"
-                                                    data-bs-target="#grid" role="tab" aria-controls="grid"
-                                                    aria-selected="false">
-                                                    <i class="bi bi-grid"></i>
-                                                </a>
-                                            </li>
                                             <li class="nav-item">
                                              
-                                                <a href="#" class="nav-link" id="gridplus-tab" data-bs-toggle="tab"
+                                                <a href="#" class="nav-link active" id="gridplus-tab" data-bs-toggle="tab"
                                                     data-bs-target="#gridplus" role="tab" aria-controls="gridplus"
                                                     aria-selected="false">
                                                     <i class="bi bi-grid-3x3-gap"></i>
@@ -186,11 +170,7 @@
                             <div class="col-xl-12">
                                 <!-- tab -->
                                 <div class="tab-content" id="nav-tabContent">
-                                    <div class="tab-pane fade " id="grid" role="tabpanel"
-                                        aria-labelledby="nav-fruitsandveg-tab" tabindex="0">
-                                        <grid :id=" decodedId" :dataProduct="dataProduct"></grid>
-    
-                                    </div>
+                                   
                                     <div class="tab-pane fade show active " id="gridplus" role="tabpanel"
                                         aria-labelledby="nav-snackMunchies-tab" tabindex="0">
                                         <GridPlus :id=" decodedId" :dataProduct="dataProduct"></GridPlus>
@@ -220,6 +200,7 @@ import 'slick-carousel';
 import defaultImage from '@/assets/images/products/product-img-2.jpg'
 import axios from '@/lib/axiosConfig';
 import SkeletonCategorie from '@/components/others/loader/SkeletonCategorie.vue';
+import defaultBanner from '@/assets/img/banner_default.jpg'
 
 
 
@@ -234,17 +215,15 @@ export default {
         MarquesChildrenArray:'',
         CategoriesArray:[],
       defaultImage: defaultImage,
+      defaultBanner:defaultBanner,
       loading:true,
-      images: [
-        '@/assets/images/slider/hero-img-slider-1.jpg',
-        '@/assets/images/slider/hero-img-slider-2.jpg',
-        '@/assets/images/slider/hero-img-slider-3.jpg'
-      ],
+      
       filters:{
         min:'',
         max:'',
       },
       dataProduct:"",
+      SlidersArray:[],
     }
   },
   computed: {
@@ -259,11 +238,11 @@ export default {
     },
 },
   watch: {
-    loading(newVal) {
-      if (newVal === false) {
-        this.initSliders();
-      }
-    },
+    // loading(newVal) {
+    //   if (newVal === false) {
+    //     this.initSliders();
+    //   }
+    // },
     alertMessage(newVal) {
       console.log('newVal', newVal)
       if (newVal) {
@@ -280,32 +259,37 @@ export default {
   },
  async mounted() {
     
-    this.initSliders();
+  
     await this.getCategoriesAll()
+    // this.initSliders();
     await this.getCategorieDetail()
+ 
 
   },
   methods: {
+ 
+
+    initSliders() {
+  this.$nextTick(() => {
+    const slider = document.querySelector('.hero-slider');
+    if (slider) {
+      $(slider).slick({
+        infinite: true,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        autoplay: true,
+        dots: true,
+        arrows: false,
+      });
+    } else {
+      console.error('Element .hero-slider not found!');
+    }
+  });
+},
+
     encodeId(id) {
     return btoa(id); // Encode en Base64
   },
-
-    initSliders() {
-
-      this.$nextTick(() => {
-        $('.hero-slider').slick({
-          infinite: !0,
-          slidesToShow: 1,
-          slidesToScroll: 1,
-          autoplay: !0,
-          dots: !0,
-          arrows: !1,
-        });
-
-
-
-      })
-    },
     async getCategoriesAll() {
       try {
         const response = await axios.get('liste/categories')
@@ -330,6 +314,13 @@ export default {
         const response = await axios.get(`/categories/${ this.decodedId}`)
         if (response.data.status === "success") {
           this.MarquesChildrenArray = response.data?.data?.NomCategorie
+          const slider =  response.data?.data?.Sliders !== null &&  response.data?.data?.Sliders !== ''  ? true : false
+          this.SlidersArray = slider ?  response.data?.data?.Sliders.split('|') : []
+         
+          this.$nextTick(() => {
+        this.initSliders();
+      });
+         
           
          
           

@@ -12,13 +12,13 @@
                   <!-- badge -->
                   <div class="text-center position-relative">
                      <div class="position-absolute top-0 start-0">
-                           <span v-if="product.PrixPromo" class="badge bg-success text-white">
-                           -{{ calculateDiscount(product.Prix, product.PrixPromo) }}%
+                           <span v-if="product?.PrixPromo" class="badge bg-success text-white">
+                           -{{ calculateDiscount(product?.Prix, product?.PrixPromo) }}%
                            </span>
                      </div>
-                     <router-link :to="{ name: 'detail', params: { id: encodeId( product.id) }}"  @click="addToRecent(product)">
-                        <img :src="product.PhotoCover ? product.PhotoCover : defaultImage"
-                           :alt="product.NomProduit" :title="product.NomProduit"
+                     <router-link :to="{ name: 'detail', params: { id: encodeId(product?.id) }}">
+                        <img :src="product?.PhotoCover ? product?.PhotoCover : defaultImage"
+                           :alt="product?.NomProduit" :title="product?.NomProduit"
                            style="width: 100%; height: auto; max-height: 30% !important;"
                            class="mb-3 img-fluid" />
                   </router-link>
@@ -26,9 +26,9 @@
                   </div>
                   <!-- heading -->
                   <h2 class="fs-6"><router-link
-                                     :to="{ name: 'detail', params: { id: encodeId(product.id) }}"  @click="addToRecent(product)"
+                                     :to="{ name: 'detail', params: { id: encodeId(product?.id) }}"
                                      class="text-inherit text-decoration-none">{{
-                                     truncateText(product.NomProduit , 15) }}
+                                     truncateText(product?.NomProduit , 15) }}
                                  </router-link></h2>
 
                                  <div class="d-flex justify-content-between align-items-center mt-3">
@@ -38,16 +38,16 @@
                                                     {{ formatPrice(convertPrice(product.PrixPromo), selectedDevise.symbol) }}
                                                 </span>
                                                 <br>
-                                                <span v-if="product.produit?.PrixPromo" class="text-muted text-decoration-line-through">
+                                                <span v-if="product?.PrixPromo" class="text-muted text-decoration-line-through">
                                                     {{ formatPrice(convertPrice(product.Prix), selectedDevise.symbol) }}
                                                 </span>
                                                 <span v-else class="text-danger">
                                                     {{ formatPrice(convertPrice(product?.Prix), selectedDevise.symbol) }}
                                                 </span>
-                                                </div>
+                                  </div>
 
-                              
                            </div>
+                           
                            <div class="prix">
 
 <span class="text-uppercase small " @click="addProductToCart(product)"
@@ -118,18 +118,16 @@ export default {
   components: {
    LoadingSkeleton, LoaderBtn , SkeletonFilter
   },
+  setup() {
+    const toast = useToast(); // Initialiser useToast
+    return { toast };
+  },
   computed: {
    decodedId() {
       return atob(this.id); // Décode l'ID reçu en Base64
     },
     ...mapGetters('cart', ['alertMessage', 'loading']),
     ...mapGetters("devise", ["selectedDevise", "getSelectedRate"]),
-  
-   
-  },
-  setup() {
-    const toast = useToast(); // Initialiser useToast
-    return { toast };
   },
   data() {
     return {
@@ -164,41 +162,52 @@ export default {
     },
     },
  async mounted() {
-   
     
-    await this.getCategoriesAll()
+    await this.ProductsByType()
+   //  await this.getCategoriesAll()
 
   },
   methods: {
    encodeId(id) {
     return btoa(id); // Encode en Base64
   },
-  addToRecent(product) {
-      if (product) {
-        // Ajouter le produit aux produits récents
-        this.$store.dispatch('recentProducts/addProductToRecent', product);
-      }
-    },
-    addProductToCart(product) {
+  addProductToCart(product) {
       this.loadingItems[product?.id] = true;
       this.$store.dispatch('cart/addToCart', product);
     },
     async getCategoriesAll() {
-     
       this.loading = true
       try {
-        const response = await axios.get(`/marques/${ this.decodedId}`)
-    
-
+        const response = await axios.get(`/categories/${ this.decodedId}`)
         if (response.data.status === "success") {
           this.CategoriesArray = response.data?.data?.produits 
-         
-
           this.loading = false
         }
 
       } catch (error) {
         console.log('error', error)
+      }
+    },
+    async ProductsByType() {
+      this.loading = true
+      const token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2RhdGEud2FrYW5kYS5iZXN0L2FwaS9zeXN0ZW0vbG9naW4iLCJpYXQiOjE3MzAyNzYzODEsIm5iZiI6MTczMDI3NjM4MSwianRpIjoiVU5sN3J3RXBhTFZGdG1OaCIsInN1YiI6IjEiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.H40wgUqkMXolIzMq_zTz8Mg7Bp-QsyjbarTijztMzi4'
+      try {
+        const response = await axios.get(`/produits/nouveau-gamme`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+
+        });
+        
+        if (response.data?.status === "success") {
+          this.loading = true
+         this.CategoriesArray = response.data?.data?.data
+         console.log(this.CategoriesArray)
+          this.loading = false
+        }
+      } catch (error) {
+
+   console.log('errror',error)
       }
     },
     async FilterProduct(data){
@@ -244,7 +253,7 @@ export default {
     },
     // Formatage du prix
     formatPrice(price, symbol) { 
-   
+        console.log(symbol)
       const formattedPrice = price.toFixed().replace(/\B(?=(\d{3})+(?!\d))/g, " ");  
       if (symbol === 'CFA') {
         return `${formattedPrice} ${symbol}`;

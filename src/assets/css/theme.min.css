@@ -121,7 +121,7 @@ div.zoom img {
   --fc-gray-800: #21313c;
   --fc-gray-900: #001e2b;
   --fc-primary:  #fb2125;
-  --fc-secondary:#f28d36 ;
+  --fc-secondary:#fc7202 ;
   --fc-success: #198754;
   --fc-info: #016bf8;
   --fc-warning: #ffc107;
@@ -149,7 +149,7 @@ div.zoom img {
   --fc-teal: #20c997;
   --fc-purple: #6f42c1;
   --fc-primary-rgb: 10, 173, 10;
-  --fc-secondary-rgb: 136, 147, 151;
+  --fc-secondary-rgb: 252,114,2;
   --fc-success-rgb: 25, 135, 84;
   --fc-info-rgb: 1, 107, 248;
   --fc-warning-rgb: 255, 193, 7;
@@ -5251,7 +5251,7 @@ fieldset:disabled .btn {
 .navbar-text a,
 .navbar-text a:focus,
 .navbar-text a:hover {
-  color: #fff;
+  color: var(--fc-primary) !important;
 }
 .navbar-collapse {
   align-items: center;
@@ -22053,7 +22053,7 @@ a:hover {
   text-decoration: none;
 }
 a:hover {
-  color: #fff;
+  color: var(--fc-primary);
 }
 .h1,
 .h2,

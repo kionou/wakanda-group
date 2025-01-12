@@ -8,6 +8,7 @@ import ListeMarques from '../views/categories/listeMarques.vue'
 import Detail from '../views/Detail.vue'
 import Panier from '../views/panier.vue'
 import DetailType from '../views/VoirPlus.vue'
+import DetailFlah from '../views/venteFlash.vue'
 import Detailarque from '../views/DetailMarques.vue'
 
 import SignUp from '../views/users/auth/sign.vue'
@@ -52,6 +53,7 @@ const router = createRouter({
             { path: '/list-categories/:id', props:true, name: 'list-categories', component: ListeCategories},
             { path: '/list-marques/:id', props:true, name: 'list-marques', component: ListeMarques},
             { path: '/type-detail/:id', props:true, name: 'type-detail', component: DetailType},
+            { path: '/flash-promo/:id', props:true, name: 'flash-promo', component: DetailFlah},
             { path: '/marque-detail/:id', props:true, name: 'marque-detail', component: Detailarque},
             { path: '/detail/:id', props:true, name: 'detail', component: Detail},
             { path: '/panier', name: 'panier', component: Panier},

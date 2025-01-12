@@ -111,9 +111,20 @@
                                                 </div>
                                                 <div class="fs-5">
                                                    <!-- price -->
-                                                    <span class="fw-bold text-dark">{{ formatPrices(product.Prix)}} {{ product.devise?.Symbol }} </span>
-                                                   <!-- <span class="text-decoration-line-through text-muted">6 500 F CFA</span> -->
-                                                   <!-- <span><small class="fs-6 ms-2 text-danger">26% Off</small></span> -->
+                                               
+                                                    <div>
+                                                <span v-if="product?.PrixPromo" class="text-danger fs-5 fw-bold">
+                                                    {{ formatPrice(convertPrice(product.PrixPromo), selectedDevise.symbol, selectedDevise.isSymbolBefore) }}
+                                                </span>
+                                                <br>
+                                                <span v-if="product?.PrixPromo" class="text-muted text-decoration-line-through fs-5 fw-bold">
+                                                    {{ formatPrice(convertPrice(product.Prix), selectedDevise.symbol, selectedDevise.isSymbolBefore) }}
+                                                </span>
+                                                <span v-else class="text-danger fs-5 fw-bold">
+                                                    {{ formatPrice(convertPrice(product?.Prix), selectedDevise.symbol, selectedDevise.isSymbolBefore) }}
+                                                </span>
+                                                </div>
+                          
                                                 </div>
                                              </div>
                                           </div>
@@ -467,7 +478,11 @@ export default {
         })
         if (response.data.status === "success") {
           this.product = response.data?.data
-          this.images = this.product?.Photos?.split('|')
+          this.images = this.product?.Photos?.split('|') || []; 
+         if (this.product?.PhotoCover) {
+            this.images.unshift(this.product.PhotoCover); 
+         }
+    console.log(this.images);
          this.loading = false
 
 
@@ -502,9 +517,12 @@ export default {
       return prix / this.getSelectedRate; // Convertir avec le taux sélectionné
     },
     // Formatage du prix
-    formatPrice(price, symbol, isSymbolBefore = true) { 
+    formatPrice(price, symbol) { 
       const formattedPrice = price.toFixed().replace(/\B(?=(\d{3})+(?!\d))/g, " ");  
-      return isSymbolBefore ? `${symbol} ${formattedPrice}` : `${formattedPrice} ${symbol}`;
+      if (symbol === 'CFA') {
+        return `${formattedPrice} ${symbol}`;
+    }
+    return `${symbol} ${formattedPrice}`;
     },
     formatPrices(value) {
       return parseFloat(value).toLocaleString(); // Formatage avec séparateurs de milliers

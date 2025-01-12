@@ -5,7 +5,7 @@
        <div  class="row g-4 row-cols-xl-5 row-cols-lg-5 row-cols-2 row-cols-md-2 mt-2"  v-if="CategoriesArray?.length > 0">
        
                       
-       <div class="col-xl-3" v-for="(product,index) in CategoriesArray" :key="index">
+       <div class="col" v-for="(product,index) in CategoriesArray" :key="index">
           <!-- card -->
           <div class="card card-product">
              <div class="card-body">
@@ -16,7 +16,7 @@
                          -{{ calculateDiscount(product.produit?.Prix, product.produit?.PrixPromo) }}%
                          </span>
                    </div>
-                   <router-link :to="{ name: 'detail', params: { id: product.produit?.id }}">
+                   <router-link :to="{ name: 'detail', params: { id: encodeId(product.produit?.id) }}">
                       <img :src="product.produit?.PhotoCover ? product.produit?.PhotoCover : defaultImage"
                          :alt="product.produit?.NomProduit" :title="product.produit?.NomProduit"
                          style="width: 100%; height: auto; max-height: 30% !important;"
@@ -26,42 +26,58 @@
                 </div>
                 <!-- heading -->
                 <h2 class="fs-6"><router-link
-                                   :to="{ name: 'detail', params: { id: product.produit?.id }}"
+                                   :to="{ name: 'detail', params: { id: encodeId(product.produit?.id) }}"
                                    class="text-inherit text-decoration-none">{{
                                    truncateText(product.produit?.NomProduit , 15) }}
                                </router-link></h2>
 
                                <div class="d-flex justify-content-between align-items-center mt-3">
                              
-                             <div>
-                             <span v-if="product.produit?.PrixPromo" class="text-danger">
-                                 {{ formatPrice(convertPrice(product.produit?.PrixPromo), 'CFA', 'CFA') }}
-                             </span>
-                             <br>
-                             <span v-if="product.produit?.PrixPromo" class="text-muted text-decoration-line-through">
-                                 {{ formatPrice(convertPrice(product.produit?.Prix), 'CFA', 'CFA') }}
-                             </span>
-                             <span v-else class="text-danger">
-                                 {{ formatPrice(convertPrice(product.produit?.Prix), 'CFA', 'CFA') }}
-                             </span>
-                             </div>
+                                <div>
+                                                <span v-if="product.produit?.PrixPromo" class="text-danger">
+                                                    {{ formatPrice(convertPrice(product.produit.PrixPromo), selectedDevise.symbol) }}
+                                                </span>
+                                                <br>
+                                                <span v-if="product.produit?.PrixPromo" class="text-muted text-decoration-line-through">
+                                                    {{ formatPrice(convertPrice(product.produit.Prix), selectedDevise.symbol) }}
+                                                </span>
+                                                <span v-else class="text-danger">
+                                                    {{ formatPrice(convertPrice(product.produit?.Prix), selectedDevise.symbol) }}
+                                                </span>
+                                </div>
 
-                             <div>
+                            
+                          
+                              </div>
+                              <div class="prix">
 
-                                 <span class="text-uppercase small " @click="addProductToCart(product)"
-                                     :disabled="loadingItems[product?.produit?.id]">
-                                     <div class="icon-card">
-                                         <div v-if="loadingItems[product?.produit?.id]">
-                                             <LoaderBtn class="loadingbtn"></LoaderBtn>
-                                         </div>
-                                         <div v-else>
-                                             <i class="bi bi-cart2 fs-4"></i>
-                                         </div>
+<span class="text-uppercase small " @click="addProductToCart(product?.produit)"
+    :disabled="loadingItems[product?.produit?.id]">
+    <div class="icon-card">
+        <div v-if="loadingItems[product?.produit?.id]">
+            <LoaderBtn class="loadingbtn"></LoaderBtn>
+        </div>
+        <div v-else>
+            <i class="bi bi-cart2 fs-4"></i>
+        </div>
 
-                                     </div>
-                                 </span>
-                             </div>
-                         </div>
+    </div>
+</span>
+</div>
+                              <div class="mt-4">
+                              <div class="my-3">
+                                  <small>
+                                      Disponible :
+                                      <span class="text-dark fw-bold">8</span>
+                                  </small>
+                              </div>
+                              <div class="progress mt-1" style="height: 8px">
+                                  <div class="progress-bar bg-gray-400" role="progressbar"
+                                      style="width: 95%" aria-valuenow="95"
+                                      aria-valuemin="0" aria-valuemax="100"></div>
+                              </div>
+
+                          </div>
              </div>
           </div>
        </div>
@@ -117,7 +133,14 @@ props: ['id','dataProduct'],
 components: {
  LoadingSkeleton, LoaderBtn , SkeletonFilter
 },
+setup() {
+  const toast = useToast(); // Initialiser useToast
+  return { toast };
+},
 computed: {
+ decodedId() {
+    return atob(this.id); // Décode l'ID reçu en Base64
+  },
   ...mapGetters('cart', ['alertMessage', 'loading']),
   ...mapGetters("devise", ["selectedDevise", "getSelectedRate"]),
 },
@@ -138,6 +161,20 @@ watch: {
         this.FilterProduct(newData); 
       },
     },
+    alertMessage(newVal) {
+    console.log('newVal', newVal)
+    if (newVal) {
+      this.loadingItems = {};
+      this.toast.success(newVal, {
+        position: "top-right",
+        timeout: 2000,
+        closeOnClick: true,
+      });
+
+      
+
+    }
+  },
   },
 async mounted() {
   
@@ -146,11 +183,17 @@ async mounted() {
 
 },
 methods: {
- 
+ encodeId(id) {
+  return btoa(id); // Encode en Base64
+},
+addProductToCart(product) {
+    this.loadingItems[product?.id] = true;
+    this.$store.dispatch('cart/addToCart', product);
+  },
   async getCategoriesAll() {
     this.loading = true
     try {
-      const response = await axios.get(`/categories/${this.id}`)
+      const response = await axios.get(`/categories/${ this.decodedId}`)
       if (response.data.status === "success") {
         this.CategoriesArray = response.data?.data?.produits 
         this.loading = false
@@ -164,7 +207,7 @@ methods: {
     this.loading = true
     const token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2RhdGEud2FrYW5kYS5iZXN0L2FwaS9zeXN0ZW0vbG9naW4iLCJpYXQiOjE3MzAyNzYzODEsIm5iZiI6MTczMDI3NjM4MSwianRpIjoiVU5sN3J3RXBhTFZGdG1OaCIsInN1YiI6IjEiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.H40wgUqkMXolIzMq_zTz8Mg7Bp-QsyjbarTijztMzi4'
     try {
-      const response = await axios.get(`/type-ventes/${this.id}`, {
+      const response = await axios.get(`/type-ventes/${ this.decodedId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -172,7 +215,7 @@ methods: {
       });
       
       if (response.data?.status === "success") {
- this.loading = true
+        this.loading = true
        this.CategoriesArray = response.data?.data?.produits 
         this.loading = false
       }
@@ -223,10 +266,14 @@ methods: {
     return prix / this.getSelectedRate; // Convertir avec le taux sélectionné
   },
   // Formatage du prix
-  formatPrice(price, symbol, isSymbolBefore = true) { 
-    const formattedPrice = price.toFixed().replace(/\B(?=(\d{3})+(?!\d))/g, " ");  
-    return isSymbolBefore ? `${symbol} ${formattedPrice}` : `${formattedPrice} ${symbol}`;
-  },
+  formatPrice(price, symbol) { 
+        console.log(symbol)
+      const formattedPrice = price.toFixed().replace(/\B(?=(\d{3})+(?!\d))/g, " ");  
+      if (symbol === 'CFA') {
+        return `${formattedPrice} ${symbol}`;
+    }
+    return `${symbol} ${formattedPrice}`;
+    },
 },
 
 }

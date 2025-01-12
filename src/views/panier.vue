@@ -1,5 +1,17 @@
 <template >
    <div>
+      <div class="row">
+         <div class="col-xl-12">
+            <div class="hero-slider"  >
+                            <div class="hero-img-1" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">
+                                <div class=" col-xxl-5 col-lg-7 col-md-8  text-xs-center" style="width: 100%; height:100%">
+                                    <img src="@/assets/img/panier.jpg" alt="" style="width: 100%; height:100%">
+                                   
+                                </div>
+                            </div>
+                        </div> 
+         </div>
+      </div>
       <main>
          <section class="mb-lg-14 mb-8 mt-8">
             <div v-if="cartItems.length > 0">
@@ -320,6 +332,27 @@ export default {
 }
 </script>
 <style lang="css" scoped>
+.hero-slider{
+    height: 40vh !important;
+    width: 100%;
+}
+.hero-img-1 {
+  
+    height: 40vh !important;
+    width: 100%;   
+}
+@media (max-width: 800px) {
+.hero-slider{
+    height: 30vh !important;
+    width: 100%;
+}
+.hero-img-1 {
+  
+  height: 30vh !important;
+  width: 100%;   
+}
+
+}
 .cart-body {
    margin: 0px auto;
    display: -webkit-box;

@@ -107,8 +107,8 @@
                          <div class="d-lg-flex justify-content-between align-items-center bg-primary p-1">
                             <div class="mb-3 mb-lg-0">
                                 <div class="row align-items-center">
-                                 <h5 class="col-xl-5  text-white d-flex justify-content-between mb-0">Filter par intervalle de prix:  </h5>
-                                 <div class=" col-xl-7 d-flex align-items-center">
+                                 <h5 class="col-xl-3  text-white d-flex justify-content-between mb-0">Filter par intervalle de prix:  </h5>
+                                 <div class=" col-xl-5 d-flex align-items-center">
                                     <MazInput v-model="filters.min" color="warning"
                                                 name="filters.min" size="xs" rounded-size="xs"
                                                 type="number" />
@@ -119,11 +119,27 @@
                                                 type="number" />
                                                 <button class="text-dark btn btn-xs bg-gray-300 ms-3" style="cursor: pointer; cursor: pointer; padding: 5px 15px;  border-radius: 0;" @click="FilterProduct" >Filter</button>
                                  </div>
+                                 <div class="col-xl-4 text-end">
+                                    <a href="#" style="border-radius: 0px !important;font-size: 16px;"
+                                                            class="nav-link active d-flex justify-content-center text-white" id="nav-fruitsandveg-tab"
+                                                            data-bs-toggle="tab" data-bs-target="#nav-fruitsandveg"
+                                                            role="tab" aria-controls="nav-fruitsandveg"
+                                                            aria-selected="true">
+                                                            Termine dans
+                                                            <span class="d-flex">
+                                                                
+
+                                                                <div class="heure">{{ hours }}</div> h
+                                                                <div class="heure">{{ minutes }}</div> m
+                                                                <div class="heure">{{ seconds }}</div> s
+                                                            </span>
+                           </a>
+                                 </div>
                              
                                 </div>
                             </div>
     
-                         
+                           
                             <div class="d-md-flex justify-content-between align-items-center">
                                 <div class="d-flex align-items-center justify-content-between">
                                     <nav>
@@ -140,6 +156,9 @@
                                                     <i class="bi bi-grid"></i>
                                                 </a>
                                             </li>
+                                          
+                                        
+    
                                         </ul>
                                     </nav>
     
@@ -153,22 +172,15 @@
                         <div class="row">
                             <div class="col-xl-12">
                                 <!-- tab -->
-                                <div class="tab-content" id="nav-tabContent" v-if="decodedId === 'new'">
-                                  
-                                    <div class="tab-pane fade show active" id="grid" role="tabpanel"
-                                        aria-labelledby="nav-fruitsandveg-tab" tabindex="0">
-                                        <GridNew :id="id" :dataProduct="dataProduct"></GridNew>
+                                <div class="tab-content" id="nav-tabContent">
+                                    
+                                    <div class="tab-pane fade show active" id="gridplus" role="tabpanel"
+                                        aria-labelledby="nav-snackMunchies-tab" tabindex="0">
+                                        <GridPlus :id="id" :dataProduct="dataProduct"></GridPlus>
     
                                     </div>
-                                </div>
-
-                                <div class="tab-content" id="nav-tabContent" v-else>
-                                  
-                                    <div class="tab-pane fade show active" id="grid" role="tabpanel"
-                                        aria-labelledby="nav-fruitsandveg-tab" tabindex="0">
-                                        <grid :id="id" :dataProduct="dataProduct"></grid>
     
-                                    </div>
+    
                                 </div>
                             </div>
                         </div>
@@ -184,7 +196,6 @@
 import Listes from '@/components/Categories/Listes.vue';
 import grid from '@/components/types/grid.vue';
 import GridPlus from '@/components/types/gridPlus.vue';
-import GridNew from '@/components/types/gridNew.vue';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import $ from 'jquery';
@@ -198,7 +209,7 @@ import SkeletonCategorie from '@/components/others/loader/SkeletonCategorie.vue'
 export default {
   props: ['id'],
   components: {
-    Listes, grid, GridPlus , SkeletonCategorie , GridNew
+    Listes, grid, GridPlus , SkeletonCategorie
   },
   data() {
     return {
@@ -217,6 +228,11 @@ export default {
         max:'',
       },
       dataProduct:"",
+      startTime: null, 
+      endTime: null, 
+      hours: "00",
+      minutes: "00",
+      seconds: "00",
     }
   },
   computed: {
@@ -251,7 +267,6 @@ export default {
     },
   },
  async mounted() {
-  console.log(this.decodedId)
     
     this.initSliders();
     await this.getCategoriesAll()
@@ -299,6 +314,8 @@ export default {
       }
     },
     async getventeDetail() {
+       
+
         const token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2RhdGEud2FrYW5kYS5iZXN0L2FwaS9zeXN0ZW0vbG9naW4iLCJpYXQiOjE3MzAyNzYzODEsIm5iZiI6MTczMDI3NjM4MSwianRpIjoiVU5sN3J3RXBhTFZGdG1OaCIsInN1YiI6IjEiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.H40wgUqkMXolIzMq_zTz8Mg7Bp-QsyjbarTijztMzi4'
       try {
         const response = await axios.get(`/type-ventes/${this.decodedId}`, {
@@ -307,8 +324,13 @@ export default {
           },
 
         });
+       
         if (response.data.status === "success") {
-          this.vente = this.decodedId === 'new' ? 'Produits nouveaux' : response.data?.data?.Nom
+          this.vente = response.data?.data?.Nom
+          this.startTime = new Date(response.data?.data?.DateDebut); // Exemple : début à 08:00
+          this.endTime = new Date(response.data?.data?.DateFin);   // Exemple : fin à 20:00
+          this.startCountdown();
+          
 
          
           
@@ -328,6 +350,42 @@ export default {
        }
        
   },
+  startCountdown() {
+      const now = new Date();
+      
+      if (now < this.startTime) {
+        this.hours = "00";
+        this.minutes = "00";
+        this.seconds = "00";
+        console.log("Le compte à rebours n'a pas encore commencé.");
+        return;
+      }
+
+      
+      this.interval = setInterval(this.updateCountdown, 1000);
+      this.updateCountdown(); 
+    },
+    updateCountdown() {
+      const now = new Date();
+      const timeDiff = this.endTime - now;
+
+      if (timeDiff <= 0) {
+        clearInterval(this.interval);
+        this.hours = "00";
+        this.minutes = "00";
+        this.seconds = "00";
+        console.log("Le temps est écoulé.");
+        return;
+      }
+
+      const h = Math.floor(timeDiff / (1000 * 60 * 60));
+      const m = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+      const s = Math.floor((timeDiff % (1000 * 60)) / 1000);
+
+      this.hours = String(h).padStart(2, "0");
+      this.minutes = String(m).padStart(2, "0");
+      this.seconds = String(s).padStart(2, "0");
+    },
   
 
 }
@@ -424,5 +482,17 @@ export default {
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
+}
+.heure {
+
+background-color: #fff;
+color: #000;
+width: 30px;
+display: flex;
+align-items: center;
+justify-content: center;
+border-radius: 5px;
+box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .1), 0 1px 2px 0 rgba(0, 0, 0, .06);
+margin: 0 5px;
 }
 </style>

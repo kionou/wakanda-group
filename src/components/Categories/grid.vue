@@ -33,35 +33,36 @@
 
                                  <div class="d-flex justify-content-between align-items-center mt-3">
                                
-                               <div>
-                               <span v-if="product.PrixPromo" class="text-danger">
-                                   {{ formatPrice(convertPrice(product.PrixPromo), 'CFA', 'CFA') }}
-                               </span>
-                               <br>
-                               <span v-if="product.PrixPromo" class="text-muted text-decoration-line-through">
-                                   {{ formatPrice(convertPrice(product.Prix), 'CFA', 'CFA') }}
-                               </span>
-                               <span v-else class="text-danger">
-                                   {{ formatPrice(convertPrice(product.Prix), 'CFA', 'CFA') }}
-                               </span>
-                               </div>
+                                    <div>
+                                                <span v-if="product.produit?.PrixPromo" class="text-danger">
+                                                    {{ formatPrice(convertPrice(product.produit.PrixPromo), selectedDevise.symbol) }}
+                                                </span>
+                                                <br>
+                                                <span v-if="product.produit?.PrixPromo" class="text-muted text-decoration-line-through">
+                                                    {{ formatPrice(convertPrice(product.produit.Prix), selectedDevise.symbol) }}
+                                                </span>
+                                                <span v-else class="text-danger">
+                                                    {{ formatPrice(convertPrice(product.produit?.Prix), selectedDevise.symbol) }}
+                                                </span>
+                                     </div>
 
-                               <div>
-
-                                   <span class="text-uppercase small " @click="addProductToCart(product)"
-                                       :disabled="loadingItems[product?.id]">
-                                       <div class="icon-card">
-                                           <div v-if="loadingItems[product?.id]">
-                                               <LoaderBtn class="loadingbtn"></LoaderBtn>
-                                           </div>
-                                           <div v-else>
-                                               <i class="bi bi-cart2 fs-4"></i>
-                                           </div>
-
-                                       </div>
-                                   </span>
-                               </div>
                            </div>
+                           
+                           <div class="prix">
+
+<span class="text-uppercase small " @click="addProductToCart(product)"
+    :disabled="loadingItems[product?.id]">
+    <div class="icon-card">
+        <div v-if="loadingItems[product?.id]">
+            <LoaderBtn class="loadingbtn"></LoaderBtn>
+        </div>
+        <div v-else>
+            <i class="bi bi-cart2 fs-4"></i>
+        </div>
+
+    </div>
+</span>
+</div>
                </div>
             </div>
          </div>
@@ -201,9 +202,12 @@ export default {
       return prix / this.getSelectedRate; // Convertir avec le taux sélectionné
     },
     // Formatage du prix
-    formatPrice(price, symbol, isSymbolBefore = true) { 
+    formatPrice(price, symbol) { 
       const formattedPrice = price.toFixed().replace(/\B(?=(\d{3})+(?!\d))/g, " ");  
-      return isSymbolBefore ? `${symbol} ${formattedPrice}` : `${formattedPrice} ${symbol}`;
+      if (symbol === 'CFA') {
+        return `${formattedPrice} ${symbol}`;
+    }
+    return `${symbol} ${formattedPrice}`;
     },
   },
 

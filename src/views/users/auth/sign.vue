@@ -579,6 +579,7 @@ for (let i = 1; i < step; i++) {
  return stepData;
 },
 async registerClientData(Data) {
+    console.log('Data', Data)
  try {
      const response = await axios.post('/register-new/user', Data);
      if (response.data.status === 'success') {
