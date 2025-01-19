@@ -35,11 +35,6 @@ import ConfirmationService from 'primevue/confirmationservice';
 // import ToastService from 'primevue/toastservice';
 
 
-
-
-
-
-
 const app = createApp(App)
 
 app.component('MazBtn', MazBtn)

@@ -19,14 +19,14 @@
                                        <div class="">
 
                                        <div class="text-small mb-1">
-                                          <router-link :to="{ name: 'commandes-details', params: { id: encodeId(commande.id) }}" class="text-decoration-none text-muted"><small>N° commande : {{ commande?.NumeroCommande }}</small></router-link>
+                                          <router-link :to="{ name: 'commandes-details', params: { id: encodeId(commande.id) }}" class="text-decoration-none text-muted"><small class="text-muted fw-bold">N° commande : {{ commande?.NumeroCommande }}</small></router-link>
                                        </div>
-                                       <span class="badge bg-success">{{ commande?.StatutCommande }}</span>
+                                       <span class="badge bg-warning">{{ translateStatus(commande?.StatutCommande)  }}</span>
                                      
                                        <div class="mt-1">
                                           <!-- price -->
                                           <div>
-                                             <span class="text-dark fw-semibold">{{ commande?.created_at }}</span>
+                                             <span class="text-dark fw-semibold">{{ formatDate(commande?.created_at)  }}</span>
                                              
                                           </div>
                                          
@@ -109,6 +109,20 @@ async  mounted() {
           error
         );
       }
+    },
+    translateStatus(statut) {
+      const statusMap = {
+        PENDING: "En attente",
+        PROGRESS: "En cours",
+        "READY TO PICK": "Prêt à être récupéré",
+        DELIVERED: "Livrée",
+        CANCELED: "Annulée",
+      };
+      return statusMap[statut] || "Statut inconnu";
+    },
+    formatDate(dateString) {
+      const options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
+      return new Date(dateString).toLocaleDateString('fr-FR', options);
     },
    },
     

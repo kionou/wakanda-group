@@ -34,7 +34,19 @@
                                           class="text-inherit">
                                           <h6 class="mb-0">{{ item.NomProduit }}</h6>
                                        </router-link>
-                                       <span><small class="text-muted">{{ formatPrice(item.Prix)}} {{ item.devise?.Symbol }}</small></span>
+                                       <!-- <span><small class="text-muted">{{ formatPrice(item.Prix)}} {{ item.devise?.Symbol }}</small></span> -->
+                                               <div>
+                                                <span v-if="item?.PrixPromo" class="text-danger">
+                                                    {{ formatPrice(convertPrice(item?.PrixPromo), selectedDevise?.symbol) }}
+                                                </span>
+                                                <br>
+                                                <span v-if="item?.PrixPromo" class="text-muted text-decoration-line-through">
+                                                    {{ formatPrice(convertPrice(item?.Prix), selectedDevise?.symbol) }}
+                                                </span>
+                                                <span v-else class="text-danger">
+                                                    {{ formatPrice(convertPrice(item?.Prix), selectedDevise?.symbol) }}
+                                                </span>
+                                              </div>
                                        <!-- text -->
                                        <div class="mt-2 small lh-1">
                                           <button data-bs-toggle="modal" data-bs-target="#delete_product"  @click="removeItem(item.id)"
@@ -92,7 +104,9 @@
                               </div>
                               <!-- price -->
                               <div class="col-2 text-lg-end text-start text-md-end col-md-2">
-                                 <span class="fw-bold">{{ formatPrice(item.Prix * item.quantity)}} {{ item.devise.Symbol }}</span>
+
+                                 <span class="fw-bold" v-if="item.PrixPromo">{{ formatPrice(convertPrice(item?.PrixPromo * item.quantity), selectedDevise?.symbol) }}</span>
+                                 <span class="fw-bold" v-else>{{ formatPrice(convertPrice(item?.Prix * item.quantity), selectedDevise?.symbol) }}</span>
                               </div>
                            </div>
                         </li>
@@ -101,7 +115,7 @@
                      </ul>
                      <!-- btn -->
                      <div class="d-flex justify-content-end my-4">
-                        <a href="/" class="btn btn-primary">Continue Shopping</a>
+                        <a href="/" class="btn btn-primary">Continuez vos achats</a>
                       
                      </div>
    
@@ -112,24 +126,26 @@
                      <div class="mb-5 card ms-5">
                         <div class="card-body p-6">
                            <!-- heading -->
-                           <h2 class="h5 mb-4">Summary</h2>
+                           <h2 class="h5 mb-4">Résumé</h2>
                            <div class="card mb-2">
                               <!-- list group -->
                               <ul class="list-group list-group-flush">
                                  <!-- list group item: Item Subtotal -->
                                  <li class="list-group-item d-flex justify-content-between align-items-start">
                                     <div class="me-auto">
-                                       <div>Item Subtotal</div>
+                                       <div>Total articles</div>
                                     </div>
-                                    <span>{{ formatPrice(subtotal) }} F CFA</span>
+                                    <span>{{ formatPrice(convertPrice(subtotal), selectedDevise?.symbol) }}</span>
+                                    
                                  </li>
    
                                  <!-- list group item: Service Fee -->
                                  <li class="list-group-item d-flex justify-content-between align-items-start">
                                     <div class="me-auto">
-                                       <div>Service Fee</div>
+                                       <div>Frais de livraison</div>
                                     </div>
-                                    <span>{{ formatPrice(serviceFee) }} F CFA</span>
+                               
+                                    <span>{{ formatPrice(convertPrice(serviceFee), selectedDevise?.symbol) }}</span>
                                  </li>
    
                                  <!-- list group item: Subtotal -->
@@ -137,7 +153,8 @@
                                     <div class="me-auto">
                                        <div class="fw-bold">Total</div>
                                     </div>
-                                    <span class="fw-bold">{{ formatPrice(total) }} F CFA</span>
+                                    <span class="fw-bold">{{ formatPrice(convertPrice(total), selectedDevise?.symbol) }}</span>
+
                                  </li>
                               </ul>
                            </div>
@@ -147,7 +164,7 @@
                                <router-link to="/valider">
                                  <button class="btn btn-primary btn-lg d-flex justify-content-between align-items-center">
                                  Commander 
-                                 <span class="ms-2 fw-bold">{{ formatPrice(total) }} F CFA</span>
+                                 <span class="ms-2 fw-bold">{{ formatPrice(convertPrice(total), selectedDevise?.symbol) }}</span>
                               </button>
                                </router-link>
                            
@@ -243,11 +260,18 @@ export default {
   },
   computed: {
     ...mapGetters("cart", ["cartItems", "alertMessage", "isLoadingItem"]),
+    ...mapGetters("devise", ["selectedDevise", "getSelectedRate"]),
 
     subtotal() {
       return this.cartItems.reduce((total, item) => {
-        const itemPrice = parseFloat(item.Prix) || 0;
+         if(item.PrixPromo){
+            const itemPrice = parseFloat(item.PrixPromo) || 0;
         return total + item.quantity * itemPrice;
+         }else{
+            const itemPrice = parseFloat(item.Prix) || 0;
+        return total + item.quantity * itemPrice;
+         }
+        
       }, 0);
     },
    
@@ -273,6 +297,7 @@ export default {
   },
   methods: {
     ...mapActions('cart', ['increaseQuantity', 'decreaseQuantity', 'removeItemFromCart']),
+
     encodeId(id) {
     return btoa(id); // Encode en Base64
   },
@@ -285,8 +310,17 @@ export default {
        this.removeItemFromCart(this.ToId);
 
     },
-    formatPrice(value) {
-      return new Intl.NumberFormat('fr-FR').format(value);
+    convertPrice(prix) {
+      return prix / this.getSelectedRate; // Convertir avec le taux sélectionné
+    },
+    // Formatage du prix
+    formatPrice(price, symbol) { 
+    
+      const formattedPrice = price.toFixed().replace(/\B(?=(\d{3})+(?!\d))/g, " ");  
+      if (symbol === 'CFA') {
+        return `${formattedPrice} ${symbol}`;
+    }
+    return `${symbol} ${formattedPrice}`;
     },
 
     updateQuantity(productId, action) {

@@ -7,8 +7,7 @@ import axios from '@/lib/axiosConfig';
       // Ajoutez le paramètre "lang=fr" pour demander les données en français
       const response = await axios.get('countries');
       const countries = response.data?.data;
-      console.log(response.data?.data)
-   
+      
       const options = countries
     
 

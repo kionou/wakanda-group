@@ -122,7 +122,10 @@
                                  </div>
 
                                  <!-- Prévisualisation de l'image -->
-                                 <div v-else class="preview-container">
+                                 <div v-else class="preview-container mt-1 position-relative" >
+                                    <div   style="height: 250px; width: 100%; position: absolute;" class="d-flex justify-content-center align-items-center">
+                                    <img  src="@/assets/gif/loader.gif" alt="" class="img-fluid rounded" height="100" width="100" />
+                                   </div>
                                     <img :src="previewImage" alt="Preview" class="img-fluid" style="max-height: 330px">
                                     <button class="btn btn-sm btn-outline-danger" @click="clearImage">
                                        Supprimer
@@ -205,7 +208,7 @@
                                                    </router-link>
                                                 </li>
                                                 <li>
-                                                <a href="#">
+                                                <router-link to="client/commandes">
                                                    <span class="comet-icon comet-icon-orders my-account--icon--16yzkFW">
                                                       <svg
                                                          viewBox="0 0 1024 1024" width="1em" height="1em"
@@ -224,17 +227,9 @@
                                                          </path> </svg>
                                                       </span>
                                                       <span class="my-account--menuText--1km-qni">Mes Commandes</span>
-                                                   </a>
+                                                   </router-link>
                                                 </li>
-                                             <li><a href="#"><span
-                                                      class="comet-icon comet-icon-wishlist my-account--icon--16yzkFW"><svg
-                                                         viewBox="0 0 1024 1024" width="1em" height="1em"
-                                                         fill="currentColor" aria-hidden="false" focusable="false">
-                                                         <path
-                                                            d="M165.589333 578.005333c-83.584-83.584-83.584-219.093333 0-302.677333 83.584-83.584 219.093333-83.584 302.677334 0l43.797333 43.797333 43.797333-43.797333c83.562667-83.584 219.093333-83.584 302.656 0 83.584 83.562667 83.584 219.093333 0 302.656l-323.84 323.84a32 32 0 0 1-45.226666 0l-323.84-323.84z m45.269334-257.429333a150.016 150.016 0 0 0 0 212.181333l301.205333 301.205334 301.205333-301.226667a150.016 150.016 0 1 0-212.16-212.16l-66.432 66.432a32 32 0 0 1-45.248 0l-66.410666-66.432a150.016 150.016 0 0 0-212.16 0z">
-                                                         </path>
-                                                      </svg></span><span class="my-account--menuText--1km-qni">Mes
-                                                      favoris</span></a></li>
+                                            
 
                                           </ul>
                                           <hr class="m-0">
@@ -398,7 +393,7 @@
                                        </div>
                                        <div class="my-account--menuBox--3f9Nx8S">
                                           <ul class="my-account--menuInfo--3YpLtBU mb-0">
-                                             <li><a href="#"><span
+                                             <li><router-link  to="client/commandes"><span
                                                       class="comet-icon comet-icon-orders my-account--icon--16yzkFW"><svg
                                                          viewBox="0 0 1024 1024" width="1em" height="1em"
                                                          fill="currentColor" aria-hidden="false" focusable="false">
@@ -415,33 +410,10 @@
                                                             d="M352 469.333333m32 0l256 0q32 0 32 32l0 0q0 32-32 32l-256 0q-32 0-32-32l0 0q0-32 32-32Z">
                                                          </path>
                                                       </svg></span><span class="my-account--menuText--1km-qni">Mes
-                                                      Commandes</span></a></li>
+                                                      Commandes</span></router-link></li>
 
 
-                                             <li><a href="#"><span
-                                                      class="comet-icon comet-icon-creditcard my-account--icon--16yzkFW"><svg
-                                                         viewBox="0 0 1024 1024" width="1em" height="1em"
-                                                         fill="currentColor" aria-hidden="false" focusable="false">
-                                                         <path
-                                                            d="M405.333333 640H192v64h138.666667c38.4 0 74.666667-25.6 74.666666-64z">
-                                                         </path>
-                                                         <path
-                                                            d="M917.333333 832H106.666667c-23.466667 0-42.666667-19.2-42.666667-42.666667V234.666667c0-23.466667 19.2-42.666667 42.666667-42.666667h810.666666c23.466667 0 42.666667 19.2 42.666667 42.666667v554.666666c0 23.466667-19.2 42.666667-42.666667 42.666667zM128 768h768V256H128v512z m789.333333-512z">
-                                                         </path>
-                                                         <path
-                                                            d="M896 416H128c-17.066667 0-32-14.933333-32-32s14.933333-32 32-32h768c17.066667 0 32 14.933333 32 32s-14.933333 32-32 32z">
-                                                         </path>
-                                                      </svg></span><span
-                                                      class="my-account--menuText--1km-qni">Paiement</span></a></li>
-                                             <li><a href="#"><span
-                                                      class="comet-icon comet-icon-wishlist my-account--icon--16yzkFW"><svg
-                                                         viewBox="0 0 1024 1024" width="1em" height="1em"
-                                                         fill="currentColor" aria-hidden="false" focusable="false">
-                                                         <path
-                                                            d="M165.589333 578.005333c-83.584-83.584-83.584-219.093333 0-302.677333 83.584-83.584 219.093333-83.584 302.677334 0l43.797333 43.797333 43.797333-43.797333c83.562667-83.584 219.093333-83.584 302.656 0 83.584 83.562667 83.584 219.093333 0 302.656l-323.84 323.84a32 32 0 0 1-45.226666 0l-323.84-323.84z m45.269334-257.429333a150.016 150.016 0 0 0 0 212.181333l301.205333 301.205334 301.205333-301.226667a150.016 150.016 0 1 0-212.16-212.16l-66.432 66.432a32 32 0 0 1-45.248 0l-66.410666-66.432a150.016 150.016 0 0 0-212.16 0z">
-                                                         </path>
-                                                      </svg></span><span class="my-account--menuText--1km-qni">Mes
-                                                      favoris</span></a></li>
+                                          
 
                                           </ul>
 
@@ -554,7 +526,105 @@
          </div>
       </header>
    
+      <Dialog v-model:visible="productDispo"  header="Produit simulaire à l'image" :style="{ width: '70rem' }" :position="top"  :modal="true" :draggable="false">
+         <hr class="m-0">
+         <div class="row g-5 row-cols-lg-6 row-cols-2 row-cols-md-2 mt-2">
+                  <p v-if="recentProducts.length == 0">Pas de produit vue pour l'instant</p>
+            
    
+                  <div class="col" v-else v-for="(product,index) in recentProducts" :key="index">
+                                                    <!-- card -->
+                                                    <div class="card card-product-v2 h-100">
+                                                        <div class="card-body position-relative">
+                                                            <!-- badge -->
+                                                            <div class="text-center position-relative">
+                                                                <div class="position-absolute top-0 start-0">
+                                                                    <span v-if="product?.PrixPromo" class="badge bg-success text-white">
+                                                                    -{{ calculateDiscount(product?.Prix, product?.PrixPromo) }}%
+                                                                    </span>
+                                                                </div>
+                                                                <!-- img -->
+                                                                <a :href="`/detail/${ encodeId(product?.id)}`" @click="addToRecent(product)">
+                                                                    <img :src="product?.PhotoCover ? product?.PhotoCover : defaultImage"
+                                                                        :alt="product?.NomProduit" :title="product?.NomProduit"
+                                                                        style="width: 100%; height: auto; max-height: 30% !important;"
+                                                                        class="mb-3 img-fluid" />
+                                                                </a>
+                                                                <!-- action btn -->
+    
+                                                            </div>
+                                                            <!-- title -->
+                                                            <h2 class="fs-6"><a
+                                                                :href="`/detail/${ encodeId(product?.id)}`"
+                                                                class="text-inherit text-decoration-none" @click="addToRecent(product)">{{
+                                                                product?.NomProduit  }}
+                                                            </a></h2>
+    
+                                                            <!-- price -->
+                                                            <div class="d-flex justify-content-between align-items-center mt-3">
+                             
+                                                <div>
+                                             <span v-if="product?.PrixPromo" class="text-danger">
+                                                 {{ formatPrice(convertPrice(product.PrixPromo), selectedDevise.symbol) }}
+                                             </span>
+                                             <br>
+                                             <span v-if="product?.PrixPromo" class="text-muted text-decoration-line-through">
+                                                 {{ formatPrice(convertPrice(product.Prix), selectedDevise.symbol) }}
+                                             </span>
+                                             <span v-else class="text-danger">
+                                                 {{ formatPrice(convertPrice(product?.Prix), selectedDevise.symbol) }}
+                                             </span>
+                             </div>
+
+                         
+                       
+                           </div>
+                                           <div class="prix">
+                                             <p class="mb-0">
+                                                 <span v-if="product?.magasins_sum_quantite_reel !== null" class="badge bg-success text-white">Disponible</span>
+                                                 <span v-else class="badge bg-danger text-white">Pas disponible</span>
+                                             </p>
+                                                 <span  v-if="product?.magasins_sum_quantite_reel === null || product?.magasins_sum_quantite_reel === 0" class="text-uppercase small Icons " 
+                                                     disabled>
+                                                     <div class="icon-cards" disabled>
+                                                         <div v-if="loadingItems[product?.id]">
+                                                             <LoaderBtn class="loadingbtn"></LoaderBtn>
+                                                         </div>
+                                                         <div v-else>
+                                                             <i class="bi bi-cart2 fs-4"></i>
+                                                         </div>
+ 
+                                                     </div>
+                                                 </span>
+
+                                                 <span v-else class="text-uppercase small   " @click="addProductToCart(product)"
+                                                     :disabled="loadingItems[product?.id] " >
+                                                     <div class="icon-card">
+                                                         <div v-if="loadingItems[product?.id]">
+                                                             <LoaderBtn class="loadingbtn"></LoaderBtn>
+                                                         </div>
+                                                         <div v-else>
+                                                             <i class="bi bi-cart2 fs-4"></i>
+                                                         </div>
+ 
+                                                     </div>
+                                                 </span>
+                            </div>
+                                                  
+    
+                                                        </div>
+                                                        <!-- hidden class for hover -->
+                                                        <div class="product-content-fade border-info"></div>
+                                                    </div>
+                                                </div>
+   
+               </div>
+      </Dialog>
+
+      <Dialog v-model:visible="productNoDispo"  header="Produit simulaire à l'image" :style="{ width: '30rem' }" :position="top"  :modal="true" :draggable="false">
+         <hr class="m-0">
+         <p class="text-center mb-0 text-danger fw-bold fs-5" v-if="recentProducts.length == 0">Pas de correspondate trouvée!</p>
+      </Dialog>
    </div>
 </template>
 <script>
@@ -562,11 +632,21 @@ import uk from '@/assets/img/unit.svg'
 import fr from '@/assets/img/france-flag-icon.svg'
 import { mapActions, mapGetters } from 'vuex';
 import axios from 'axios'
+import { useToast } from "vue-toastification";
 import axiosInstance from '@/lib/axiosConfig';
+import LoaderBtn from '@/components/others/loader/loaderbtn.vue';
+
 
 export default {
+   setup() {
+    const toast = useToast(); // Initialiser useToast
+    return { toast };
+  },
+   components: {
+    LoaderBtn 
+  },
   computed: {
-    ...mapGetters('cart', ['cartItemCount']), // Utiliser le getter pour le nombre d'éléments
+    ...mapGetters('cart', ['cartItemCount' , "cartItems", "alertMessage", "isLoadingItem"]), // Utiliser le getter pour le nombre d'éléments
     ...mapGetters('devise', ['DeviesArray', 'selectedDevise' , 'getSelectedRate']),
     ...mapGetters("auth", ["isAuthenticated"]),
     shouldShowNavbar() {
@@ -591,12 +671,29 @@ export default {
     isLoggedIn(newValue) {
       console.log('User is logged in:', newValue);
     },
+    alertMessage(newVal) {
+      console.log('newVal', newVal)
+      if (newVal) {
+        this.loadingItems = {};
+      //   this.toast.success(newVal, {
+      //     position: "top-right",
+      //     timeout: 2000,
+      //     closeOnClick: true,
+      //   });
+
+       
+      }
+    },
   },
 
   data() {
     return {
       isOpen: false,
       isOpenLangage: false,
+      productDispo:false,
+      productNoDispo:false,
+      recentProducts:[],
+      loadingItems: {},
       currentLanguage: this.$i18n.locale === 'en' ? 'English' : 'French',
       currentFlag: this.$i18n.locale === 'en' ? uk : fr,
       products: [],           // Liste complète des produits récupérés depuis l'API
@@ -635,7 +732,9 @@ export default {
     }
   },
   methods: {
-   ...mapActions('devise', ['fetchDevises', 'changeDevise']),
+   ...mapActions('devise', ['fetchDevises', 'changeDevise' , 'alertMessage', 'loading']),
+   ...mapActions('cart', ['addToCart', 'increaseQuantity', 'decreaseQuantity']),
+
    encodeId(id) {
     return btoa(id); // Encode en Base64
   },
@@ -700,6 +799,41 @@ export default {
       } catch (error) {
         console.error("Erreur lors de la récupération des produits:", error);
       }
+    },
+
+       // Mettre à jour la quantité (augmenter/diminuer)
+       updateQuantity(productId, action) {
+      if (action === 'increase') {
+        this.increaseQuantity(productId);
+      } else if (action === 'decrease') {
+        this.decreaseQuantity(productId);
+      }
+    },
+   
+    calculateDiscount(price, promoPrice) {
+    if (!promoPrice || !price) return null;
+    const discount = ((price - promoPrice) / price) * 100;
+    return Math.round(discount); 
+  },
+    convertPrice(prix) {
+      return prix / this.getSelectedRate; // Convertir avec le taux sélectionné
+    },
+    // Formatage du prix
+    formatPrice(price, symbol) { 
+      const formattedPrice = price.toFixed().replace(/\B(?=(\d{3})+(?!\d))/g, " ");  
+      if (symbol === 'CFA') {
+        return `${formattedPrice} ${symbol}`;
+    }
+    return `${symbol} ${formattedPrice}`;
+    },
+    formatPrices(value) {
+      return parseFloat(value).toLocaleString(); // Formatage avec séparateurs de milliers
+    },
+    truncateText(text, maxLength) {
+      if (text.length > maxLength) {
+        return text.substring(0, maxLength) + '...'; // Ajoute "..." à la fin si le texte est trop long
+      }
+      return text;
     },
 
    
@@ -788,10 +922,34 @@ export default {
     },
 
 
-    handleFileSelect(event) {
+async    handleFileSelect(event) {
       const file = event.target.files[0]
       if (file) {
+         console.log(file)
         this.createPreview(file)
+      }
+         const formData =  new FormData()
+         formData.append('photo',file);
+         this.recentProducts = []
+      try {
+         const response = await axiosInstance.post('/search-product-by-image', formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        if(response?.data?.data?.length > 0 ){
+            this.recentProducts = response?.data?.data
+            this.productDispo = true
+            this.clearImage()
+        }else{
+            this.productNoDispo = true
+            this.clearImage()
+
+        }
+        
+      } catch (error) {
+         console.log('err',error)
+         
       }
     },
 
@@ -830,6 +988,14 @@ export default {
     formatPrice(price, symbol, isSymbolBefore = true) { 
       const formattedPrice = price.toFixed().replace(/\B(?=(\d{3})+(?!\d))/g, " ");  
       return isSymbolBefore ? `${symbol} ${formattedPrice}` : `${formattedPrice} ${symbol}`;
+    },
+     // Ajouter au panier
+     addToCartProduct(product) {
+      this.addToCart({ ...product, quantity: 1 });
+    }, 
+    addProductToCart(product) {
+      this.loadingItems[product?.id] = true;
+      this.$store.dispatch('cart/addToCart', product);
     },
 
   },
@@ -1452,5 +1618,9 @@ span.base--responseIcon--3et2x1Z {
   white-space: normal;
   word-wrap: break-word;
   max-width: calc(100% - 2rem); /* Tenir compte de l'avatar */
+}
+
+.p-dialog-header{
+   padding:10px !important;
 }
 </style>

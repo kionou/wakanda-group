@@ -28,7 +28,7 @@
                 <h2 class="fs-6"><router-link
                                    :to="{ name: 'detail', params: { id: encodeId(product.produit?.id) }}"
                                    class="text-inherit text-decoration-none">{{
-                                   truncateText(product.produit?.NomProduit , 15) }}
+                                   product.produit?.NomProduit  }}
                                </router-link></h2>
 
                                <div class="d-flex justify-content-between align-items-center mt-3">
@@ -50,21 +50,37 @@
                           
                               </div>
                               <div class="prix">
+                                                <p class="mb-0">
+                                                    <span v-if="product?.produit?.magasins_sum_quantite_reel !== null" class="badge bg-success text-white">Disponible</span>
+                                                    <span v-else class="badge bg-danger text-white">Pas disponible</span>
+                                                </p>
+                                                    <span  v-if="product?.produit?.magasins_sum_quantite_reel === null || product?.produit?.magasins_sum_quantite_reel === 0" class="text-uppercase small Icons " 
+                                                        disabled>
+                                                        <div class="icon-cards" disabled>
+                                                            <div v-if="loadingItems[product?.produit?.id]">
+                                                                <LoaderBtn class="loadingbtn"></LoaderBtn>
+                                                            </div>
+                                                            <div v-else>
+                                                                <i class="bi bi-cart2 fs-4"></i>
+                                                            </div>
+    
+                                                        </div>
+                                                    </span>
 
-<span class="text-uppercase small " @click="addProductToCart(product?.produit)"
-    :disabled="loadingItems[product?.produit?.id]">
-    <div class="icon-card">
-        <div v-if="loadingItems[product?.produit?.id]">
-            <LoaderBtn class="loadingbtn"></LoaderBtn>
-        </div>
-        <div v-else>
-            <i class="bi bi-cart2 fs-4"></i>
-        </div>
-
-    </div>
-</span>
-</div>
-                              <div class="mt-4">
+                                                    <span v-else class="text-uppercase small   " @click="addProductToCart(product?.produit)"
+                                                        :disabled="loadingItems[product?.produit?.id] " >
+                                                        <div class="icon-card">
+                                                            <div v-if="loadingItems[product?.produit?.id]">
+                                                                <LoaderBtn class="loadingbtn"></LoaderBtn>
+                                                            </div>
+                                                            <div v-else>
+                                                                <i class="bi bi-cart2 fs-4"></i>
+                                                            </div>
+    
+                                                        </div>
+                                                    </span>
+                               </div>
+                              <!-- <div class="mt-4">
                               <div class="my-3">
                                   <small>
                                       Disponible :
@@ -77,7 +93,7 @@
                                       aria-valuemin="0" aria-valuemax="100"></div>
                               </div>
 
-                          </div>
+                          </div> -->
              </div>
           </div>
        </div>
@@ -267,7 +283,6 @@ addProductToCart(product) {
   },
   // Formatage du prix
   formatPrice(price, symbol) { 
-        console.log(symbol)
       const formattedPrice = price.toFixed().replace(/\B(?=(\d{3})+(?!\d))/g, " ");  
       if (symbol === 'CFA') {
         return `${formattedPrice} ${symbol}`;

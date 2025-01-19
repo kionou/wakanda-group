@@ -73,13 +73,13 @@
                         </div>
                         <div class="mt-2">
                           <div class=" ">Point de Relais</div>
-                          <span class="text-muted">Livraison entre le  <span class="text-dark">23 décembre</span>  et <span  class="text-dark">23 décembre</span> </span>
+                          <span class="text-muted">Livraison dans  <span class="text-dark">02 </span>  à <span  class="text-dark">04 jours</span> </span>
                          <div class="card my-3">
                           <div class="card-header">Point de ralais</div>
                           <div class="card-body text-muted fw-bold">
-                            <span class="text-dark">Agence d'Agnibilekrou
+                            <span class="text-dark">Agence {{adresse.relais?.NomPointRelais}} ({{adresse.relais?.Ville}})
                             </span> <br>
-                              <span>Dioulakro1 , Non loin du carrefour Vagabond terrain, derrière la pharmacie K. Boilot, Pharmacie K. Boilot | Comoé - Agnibilekrou</span>
+                              <span v-html="adresse?.relais?.Description"></span>
                           </div>
                          </div>
                         </div>
@@ -172,7 +172,7 @@
             <div class="me-auto">
               <div>Total articles</div>
             </div>
-            <span>{{ formatPrice(subtotal) }} F CFA</span>
+            <span>{{ formatPrice(convertPrice(total), selectedDevise?.symbol) }} </span>
           </li>
 
           <!-- list group item: Service Fee -->
@@ -180,7 +180,7 @@
             <div class="me-auto">
               <div>Frais de livraison</div>
             </div>
-            <span>{{ formatPrice(serviceFee) }} F CFA</span>
+            <span>{{ formatPrice(convertPrice(serviceFee), selectedDevise?.symbol) }} </span>
           </li>
 
           <!-- list group item: Subtotal -->
@@ -188,7 +188,7 @@
             <div class="me-auto">
               <div class="fw-bold">Total</div>
             </div>
-            <span class="fw-bold">{{ formatPrice(totalWithDiscount) }} F CFA</span>
+            <span class="fw-bold">{{ formatPrice(convertPrice(totalWithDiscount), selectedDevise?.symbol)}} </span>
           </li>
         </ul>
       </div>
@@ -331,18 +331,26 @@ export default {
      loadingCoupon: false,
      discountPercentage: 0,
      couponApplied: false,
+     CouponId:'',
 
    }
  },
  computed: {
    ...mapGetters("cart", ["cartItems", "alertMessage", "isLoadingItem"]),
+   ...mapGetters("devise", ["selectedDevise", "getSelectedRate"]),
 
    subtotal() {
-     return this.cartItems.reduce((total, item) => {
-       const itemPrice = parseFloat(item.Prix) || 0;
-       return total + item.quantity * itemPrice;
-     }, 0);
-   },
+      return this.cartItems.reduce((total, item) => {
+         if(item.PrixPromo){
+            const itemPrice = parseFloat(item.PrixPromo) || 0;
+        return total + item.quantity * itemPrice;
+         }else{
+            const itemPrice = parseFloat(item.Prix) || 0;
+        return total + item.quantity * itemPrice;
+         }
+        
+      }, 0);
+    },
    loggedInUser() {
       return this.$store.getters["auth/myAuthenticatedUser"];
     },
@@ -390,9 +398,18 @@ async mounted() {
       this.removeItemFromCart(this.ToId);
 
    },
-   formatPrice(value) {
-     return new Intl.NumberFormat('fr-FR').format(value);
-   },
+   convertPrice(prix) {
+      return prix / this.getSelectedRate; // Convertir avec le taux sélectionné
+    },
+    // Formatage du prix
+    formatPrice(price, symbol) { 
+     
+      const formattedPrice = price.toFixed().replace(/\B(?=(\d{3})+(?!\d))/g, " ");  
+      if (symbol === 'CFA') {
+        return `${formattedPrice} ${symbol}`;
+    }
+    return `${symbol} ${formattedPrice}`;
+    },
    async getAdresse() {
         try {
           const response = await axiosInstance.get("/repertoire-clients", {
@@ -420,6 +437,7 @@ async mounted() {
             Authorization: `Bearer ${this.loggedInUser.token}`,
             "Content-Type": "application/json",
           },
+          params:{statut:1}
         });
 
       
@@ -438,7 +456,7 @@ async mounted() {
     async applyCoupon() {
       if (!this.code) return;
       this.loadingCoupon = true;
-      console.log(this.code)
+   
 
       try {
         
@@ -451,13 +469,24 @@ async mounted() {
 
   
         if (response.data?.status === "success") {
-          this.discountPercentage = response.data?.data?.Remise;
+          if( response.data?.data?.order == null){
+            this.discountPercentage = response.data?.data?.Remise;
+          this.CouponId = response.data?.data?.id;
           this.couponApplied = true
           this.toast.success('Code promo appliqué avec succès !', {
           position: "top-right",
           timeout: 2000,
           closeOnClick: true,
         });
+          }else{
+            this.code = ''
+            this.toast.error('Code promo non appliqué  coupon invalide !', {
+              position: "top-right",
+              timeout: 2000,
+              closeOnClick: true,
+            });
+          }
+        
         
         } else {
           this.toast.error('Code promo invalide !', {
@@ -484,7 +513,7 @@ async mounted() {
       const produits = []
       this.cartItems?.map(p =>{  produits.push({
           produit:p.id,
-          total:p.Prix * p.quantity,
+          total: (p.PrixPromo ? p.PrixPromo : p.Prix) * p.quantity,
           quantite:p.quantity
         })
       })
@@ -497,7 +526,7 @@ async mounted() {
 
       }
     if ( this.code) {
-      data.CouponId = this.discountPercentage
+      data.CouponId = this.CouponId
     }
     
 

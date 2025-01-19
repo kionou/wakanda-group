@@ -397,23 +397,23 @@
             <div class="offcanvas-body">
                 <div>
                     <ul class="nav nav-category" id="categoryCollapseMenu">
-                                        <li 
-                                            class="nav-item border-bottom w-100 card px-2 mt-1" 
-                                            v-for="(category, index) in CategoriesArray" 
-                                            :key="index" 
-                                            :class="{ active: category.id === getActiveCategoryId }"
-                                        >
-                                            <a :href="`/list-categories/${encodeId(category.id)}`" class="nav-link collapsed justify-content-start">
-                                            <img 
-                                                :src="category.Image !== null ? category.Image : defaultImageCategorie"
-                                                :alt="category.NomCategorie" 
-                                                width="24" 
-                                                height="24" 
-                                                style="width:20px; margin-right: 5px;"
-                                            >
-                                            <span>{{ category.NomCategorie }}</span>
-                                            </a>
-                                        </li>
+                    <li 
+                        class="nav-item border-bottom w-100 card px-2 mt-1" 
+                        v-for="(category, index) in CategoriesArray" 
+                        :key="index" 
+                        :class="{ active: category.id === getActiveCategoryId }"
+                    >
+                        <a :href="`/list-categories/${encodeId(category.id)}`" class="nav-link collapsed justify-content-start">
+                        <img 
+                            :src="category.Image !== null ? category.Image : defaultImageCategorie"
+                            :alt="category.NomCategorie" 
+                            width="24" 
+                            height="24" 
+                            style="width:20px; margin-right: 5px;"
+                        >
+                        <span>{{ category.NomCategorie }}</span>
+                        </a>
+                    </li>
                          </ul>
                   
                    
@@ -484,7 +484,7 @@ export default {
   },
  async mounted() {
     await this.getCategoriesAll()
-  await  this.getCountryOptions()
+
   },
   methods: {
     validatePasswordsMatch() {
@@ -687,28 +687,7 @@ async registerClientData(Data) {
 
  }
 },
-    async getCountryOptions() {
-
-try {
-  await this.$store.dispatch("fetchCountries");
-  const options = JSON.parse(
-    JSON.stringify(this.$store.getters["getCountryOptions"])
-  );
-  this.sortedCountryOptions = options.map((country) => ({
-      label:country.translations?.fra?.common,
-      flag: country.flags.png,
-      value: country.translations?.fra?.common,
-      code: country.cca3
-
-    }));
   
-} catch (error) {
-  console.error(
-    "Erreur lors de la récupération des options des pays :",
-    error.message
-  );
-}
-},
 async formatValidationErrors(errors) {
    const formattedErrors = {};
 

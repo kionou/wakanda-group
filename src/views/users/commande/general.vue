@@ -86,7 +86,7 @@ export default {
    
  },
   async mounted() {
-   await this.fetchUserDetail()
+   
      
    },
    methods: {
@@ -98,7 +98,7 @@ export default {
           },
         });
         if (response.data.status === "success") {
-          const profil = response.data.data;
+          const profil = response.data?.data;
             console.log(profil)
         
        

@@ -540,6 +540,7 @@ svg {
 table {
   border-collapse: collapse;
   caption-side: bottom;
+  width: 100% !important;
 }
 caption {
   color: #889397;
@@ -22053,7 +22054,7 @@ a:hover {
   text-decoration: none;
 }
 a:hover {
-  color: var(--fc-primary);
+  color: #fff;
 }
 .h1,
 .h2,

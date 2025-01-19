@@ -90,13 +90,27 @@
 
                                 </div>
                                
-    
                                 <div class="mb-8 position-relative" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">
+                                  <a href="#" style="border-radius: 0px !important;font-size: 16px; padding: 5px 2px;"
+                                    class="nav-link active text-white d-flex justify-content-center align-items-center bg-primary" id="nav-fruitsandveg-tab"
+                                    data-bs-toggle="tab" data-bs-target="#nav-fruitsandveg"
+                                    role="tab" aria-controls="nav-fruitsandveg"
+                                    aria-selected="true">
+                                      
+                                    <span class="d-flex text-white me-2">
+                                  <div class="heure">{{ countdownData.pub?.days }} </div> j
+                                  <div class="heure">{{ countdownData.pub?.hours }}</div> h
+                                  <div class="heure">{{ countdownData.pub?.minutes }}</div> m
+                                  <div class="heure">{{ countdownData.pub?.seconds }}</div> s
+                                    </span>
+                                </a>
                                    
-                                    <img src="@/assets/img/bnm.jpg" alt=""
-                                        class="img-fluid rounded" />
-                                    <!-- Banner Image -->
+                                <img   v-if="Banner.Banner" :src="Banner.Banner" alt="" class="img-fluid rounded-start" />
+                                   <div  v-else style="height: 250px; width: 100%;" class="d-flex justify-content-center align-items-center">
+                                    <img  src="@/assets/gif/loader.gif" alt="" class="img-fluid rounded" height="100" width="100" />
+                                   </div>
                                 </div>
+                               
                             </div>
                         </div>
                     </aside>
@@ -217,6 +231,12 @@ export default {
         max:'',
       },
       dataProduct:"",
+      countdownData: {
+        pub: { days: "00", hours: "00", minutes: "00", seconds: "00" },
+
+      },
+      intervals: {}, 
+      Banner:"",
     }
   },
   computed: {
@@ -256,6 +276,7 @@ export default {
     this.initSliders();
     await this.getCategoriesAll()
     await this.getventeDetail()
+    await this.getBannerActiver()
 
   },
   methods: {
@@ -309,9 +330,21 @@ export default {
         });
         if (response.data.status === "success") {
           this.vente = this.decodedId === 'new' ? 'Produits nouveaux' : response.data?.data?.Nom
+        }
 
-         
-          
+      } catch (error) {
+        console.log('error', error)
+      }
+    },
+    async getBannerActiver() {
+      try {
+        const response = await axios.get('/banniere-pub-active/par-zone',{
+          params:{zone:"ZONE PUB DETAIL"}
+        })
+        if (response.data.status === "success") {
+           const data =   response.data?.data
+           this.Banner =data
+           this.startCountdown("pub", new Date(this.Banner.DateDebut), new Date(this.Banner.DateFin));
 
         }
 
@@ -328,9 +361,67 @@ export default {
        }
        
   },
+  startCountdown(id, startDate, endDate) {
+      const now = new Date();
+
+      // Si la date actuelle est déjà après la fin
+      if (now >= endDate) {
+        this.countdownData[id] = {
+          days: "00",
+          hours: "00",
+          minutes: "00",
+          seconds: "00",
+        };
+        return;
+      }
+
+      // Nettoyez tout interval actif pour cet ID
+      if (this.intervals[id]) {
+        clearInterval(this.intervals[id]);
+      }
+
+      // Créez un nouvel interval pour cet ID
+      this.intervals[id] = setInterval(() => {
+        const now = new Date();
+        const diff = endDate - now;
+
+        if (diff <= 0) {
+          clearInterval(this.intervals[id]);
+          this.countdownData[id] = {
+            days: "00",
+            hours: "00",
+            minutes: "00",
+            seconds: "00",
+          };
+          return;
+        }
+
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+        const minutes = Math.floor((diff / (1000 * 60)) % 60);
+        const seconds = Math.floor((diff / 1000) % 60);
+
+        this.countdownData[id] = {
+          days: days.toString().padStart(2, "0"),
+          hours: hours.toString().padStart(2, "0"),
+          minutes: minutes.toString().padStart(2, "0"),
+          seconds: seconds.toString().padStart(2, "0"),
+        };
+      }, 1000);
+    },
+    stopCountdown(id) {
+      if (this.intervals[id]) {
+        clearInterval(this.intervals[id]);
+        delete this.intervals[id];
+      }
+    },
+  
   
 
-}
+},
+beforeUnmount() {
+    clearInterval(this.interval); 
+  },
 }
 </script>
 <style lang="css" scoped>

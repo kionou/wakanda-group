@@ -71,7 +71,7 @@ const router = createRouter({
                children:[
                   { path: '', name: 'infos',  meta: { requiresAuth: true }, component: Infos},
                   { path: 'commandes', name: 'commandes', meta: { requiresAuth: true }, component: Commande},
-                  { path: 'commandes-details/:id', name: 'commandes-details',  meta: { requiresAuth: true }, component: CommandeDetail},
+                  { path: 'commandes-details/:id', name: 'commandes-details',  props:true,  meta: { requiresAuth: true }, component: CommandeDetail},
                   { path: 'commandes-historique', name: 'commandes-historique',  meta: { requiresAuth: true }, component: CommandeHistorique},
                   { path: 'user-adresse', name: 'user-adresse',  meta: { requiresAuth: true }, component: AdresseUser},
                   { path: 'paiement', name: 'paiement',  meta: { requiresAuth: true }, component: Paiement},

@@ -86,7 +86,7 @@
                                  <div class="my-2">
                                     <div class=" mt-6 mt-md-0">
                                        <div class="row">
-                                          <div class="col-6">
+                                          <div class="col-6" v-if="product?.Videos">
                                              <div class="card ">
                                                 <video :src="product.Videos" class="h-100 w-100 " controls
                                                    style="border-radius:5px ">
@@ -97,18 +97,7 @@
                                           <div class="col-6">
                                              <div class="ms-3">
                                                 <h3 class="mb-1">{{ product.NomProduit }}</h3>
-                                                <div class="mb-4">
-                                                   <!-- rating -->
-                                                   <!-- rating -->
-                                                   <small class="text-warning">
-                                                      <i class="bi bi-star-fill"></i>
-                                                      <i class="bi bi-star-fill"></i>
-                                                      <i class="bi bi-star-fill"></i>
-                                                      <i class="bi bi-star-fill"></i>
-                                                      <i class="bi bi-star-half"></i>
-                                                   </small>
-                                                   <a href="#" class="ms-2">(30 reviews)</a>
-                                                </div>
+                                               
                                                 <div class="fs-5">
                                                    <!-- price -->
                                                
@@ -126,6 +115,8 @@
                                                 </div>
                           
                                                 </div>
+
+                                                
                                              </div>
                                           </div>
    
@@ -169,11 +160,19 @@
                                                             >
                                                             <LoaderBtn class="loadingbtn"></LoaderBtn>
                                                          </button>
-                                                         <button v-else class="btn btn-primary"
-                                                            @click="addToCartProduct(product)">
+                                                         <div v-else>
+                                                            <button   v-if="product?.magasins_sum_quantite_reel === null || product?.magasins_sum_quantite_reel === 0" class="btn btn-primary" disabled >
                                                             <i class="feather-icon icon-shopping-bag me-2"></i>
-                                                            Add to cart
+                                                            en rupture
                                                          </button>
+
+                                                         <button  v-else class="btn btn-primary" @click="addToCartProduct(product)">
+                                                            <i class="feather-icon icon-shopping-bag me-2"></i>
+                                                            Achète
+                                                         </button>
+
+                                                         </div>
+                                                        
                                                       </div>
                                                    </div>
                                                 </div>
@@ -181,12 +180,7 @@
                                                 <!-- Boutons de partage et wishlist -->
                                                 <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
                                                    <div class="row justify-content-center align-items-center">
-                                                      <div class="col-6">
-                                                         <a class="btn btn-light" href="shop-wishlist.html"
-                                                            data-bs-toggle="tooltip" aria-label="Wishlist">
-                                                            <i class="feather-icon icon-heart"></i>
-                                                         </a>
-                                                      </div>
+                                                      
    
                                                       <div class="col-6">
                                                          <div class="dropdown">
@@ -211,28 +205,43 @@
    
    
                                        <hr class="my-6" />
+                                       <div class="mt-4 text-muted mb-2">
+                                       <h5 class="fs-14">Caractéristiques :</h5>
+                                       <table class="table table-striped">
+                                             <!-- table -->
+                                             <tbody>
+                                                <tr v-for="carac in product?.caracteristiques" :key="carac.id">
+                                                   <th>{{ carac.caracteristique?.Name }}</th>
+                                                   <td>{{ carac.Valeur }}</td>
+                                                </tr>
+                                               
+                                               
+                                             </tbody>
+                                          </table>
+                                       
+                                    </div>
                                        <div>
                                           <!-- table -->
                                           <table class="table table-borderless table-striped mb-0">
                                              <tbody>
-                                                <tr>
-                                                   <td>Product Code:</td>
-                                                   <td>FBB00255</td>
-                                                </tr>
-                                                <tr>
-                                                   <td>Disponibilité:</td>
-                                                   <td>In Stock</td>
-                                                </tr>
+                                                
+                                               
                                                 <tr>
                                                    <td>Catégorie:</td>
-                                                   <td>{{ product?.categorie?.NomCategorie }}</td>
+                                                   <td>
+                                                      <router-link class="text-dark"  :to="{ name: 'list-categories', params: {  id: encodeId(product?.categorie.id) }}" >
+                                                       {{ product?.categorie?.NomCategorie }} 
+                                                      </router-link>
+                                                      
+                                                   </td>
                                                 </tr>
                                                 <tr>
                                                    <td>Marque:</td>
                                                    <td>
-                                                      <small>
-                                                         {{ product?.marque?.Nom }}
-                                                      </small>
+                                                      <router-link  :to="{ name: 'list-marques', params: {  id: encodeId(product?.marque.id) }}" >
+                                                         <small> {{ product?.marque?.Nom }} </small>
+                                                      </router-link>
+                                                     
                                                    </td>
                                                 </tr>
                                              </tbody>
@@ -247,23 +256,16 @@
                               <!-- tab pane -->
                               <div class="tab-pane fade" id="details-tab-pane" role="tabpanel"
                                  aria-labelledby="details-tab" tabindex="0">
-                                 <div class="my-8">
+                                 <div class="">
                                     <div class="row">
-                                       <div class="col-12">
-                                          <h4 class="mb-4">Details</h4>
+                                       
+                                       <div class="col-12 col-lg-12">
+                                          <div class="content-preview">
+                                       
+                                       <div v-html="product.Description" class="preview-content"></div>
+                                      
                                        </div>
-                                       <div class="col-12 col-lg-6">
-                                          <table class="table table-striped">
-                                             <!-- table -->
-                                             <tbody>
-                                                <tr v-for="carac in product?.caracteristiques" :key="carac.id">
-                                                   <th>{{ carac.caracteristique?.Name }}</th>
-                                                   <td>{{ carac.Valeur }}</td>
-                                                </tr>
-                                               
-                                               
-                                             </tbody>
-                                          </table>
+                                         
                                        </div>
                                        <!-- <div class="col-12 col-lg-6">
                                           <table class="table table-striped">
@@ -347,39 +349,59 @@
                                                             <h2 class="fs-6"><a
                                                                 :href="`/detail/${ encodeId(product?.id)}`"
                                                                 class="text-inherit text-decoration-none" @click="addToRecent(product)">{{
-                                                                truncateText(product?.NomProduit , 15) }}
+                                                                product?.NomProduit  }}
                                                             </a></h2>
     
                                                             <!-- price -->
                                                             <div class="d-flex justify-content-between align-items-center mt-3">
-                                                                <div>
-                                                <span v-if="product?.PrixPromo" class="text-danger">
-                                                    {{ formatPrice(convertPrice(product?.PrixPromo), selectedDevise?.symbol, selectedDevise?.isSymbolBefore) }}
-                                                </span>
-                                                <br>
-                                                <span v-if="product?.PrixPromo" class="text-muted text-decoration-line-through">
-                                                    {{ formatPrice(convertPrice(product?.Prix), selectedDevise?.symbol, selectedDevise?.isSymbolBefore) }}
-                                                </span>
-                                                <span v-else class="text-danger">
-                                                    {{ formatPrice(convertPrice(product?.Prix), selectedDevise?.symbol, selectedDevise?.isSymbolBefore) }}
-                                                </span>
-                                                </div>
-                                                                <div>
-                                                                    
-                                                    <span class="text-uppercase small " @click="addProductToCart(product)"
-                                                        :disabled="loadingItems[product?.id]">
-                                                        <div class="icon-card">
-                                                            <div v-if="loadingItems[product?.id]">
-                                                                <LoaderBtn class="loadingbtn"></LoaderBtn>
-                                                            </div>
-                                                            <div v-else>
-                                                                <i class="bi bi-cart2 fs-4"></i>
-                                                            </div>
-    
-                                                        </div>
-                                                    </span>
-                                                                </div>
-                                                            </div>
+                             
+                                                <div>
+                                             <span v-if="product?.PrixPromo" class="text-danger">
+                                                 {{ formatPrice(convertPrice(product.PrixPromo), selectedDevise.symbol) }}
+                                             </span>
+                                             <br>
+                                             <span v-if="product?.PrixPromo" class="text-muted text-decoration-line-through">
+                                                 {{ formatPrice(convertPrice(product.Prix), selectedDevise.symbol) }}
+                                             </span>
+                                             <span v-else class="text-danger">
+                                                 {{ formatPrice(convertPrice(product?.Prix), selectedDevise.symbol) }}
+                                             </span>
+                             </div>
+
+                         
+                       
+                           </div>
+                                           <div class="prix">
+                                             <p class="mb-0">
+                                                 <span v-if="product?.magasins_sum_quantite_reel !== null" class="badge bg-success text-white">Disponible</span>
+                                                 <span v-else class="badge bg-danger text-white">Pas disponible</span>
+                                             </p>
+                                                 <span  v-if="product?.magasins_sum_quantite_reel === null || product?.magasins_sum_quantite_reel === 0" class="text-uppercase small Icons " 
+                                                     disabled>
+                                                     <div class="icon-cards" disabled>
+                                                         <div v-if="loadingItems[product?.id]">
+                                                             <LoaderBtn class="loadingbtn"></LoaderBtn>
+                                                         </div>
+                                                         <div v-else>
+                                                             <i class="bi bi-cart2 fs-4"></i>
+                                                         </div>
+ 
+                                                     </div>
+                                                 </span>
+
+                                                 <span v-else class="text-uppercase small   " @click="addProductToCart(product)"
+                                                     :disabled="loadingItems[product?.id] " >
+                                                     <div class="icon-card">
+                                                         <div v-if="loadingItems[product?.id]">
+                                                             <LoaderBtn class="loadingbtn"></LoaderBtn>
+                                                         </div>
+                                                         <div v-else>
+                                                             <i class="bi bi-cart2 fs-4"></i>
+                                                         </div>
+ 
+                                                     </div>
+                                                 </span>
+                            </div>
                                                   
     
                                                         </div>
@@ -448,7 +470,13 @@ export default {
   watch: {
     alertMessage(newMessage) {
       if (newMessage) {
-        this.toast.success(newMessage);
+      //   this.toast.success(newMessage);
+        this.toast.success(newMessage, {
+          position: "top-right",
+          timeout: 2000,
+          closeOnClick: true,
+        });
+        this.loadingItems = {};
       }
     }
   },
@@ -482,10 +510,7 @@ export default {
          if (this.product?.PhotoCover) {
             this.images.unshift(this.product.PhotoCover); 
          }
-    console.log(this.images);
          this.loading = false
-
-
         }
 
       } catch (error) {
@@ -497,7 +522,7 @@ export default {
     // Ajouter au panier
     addToCartProduct(product) {
       this.addToCart({ ...product, quantity: 1 });
-    },
+    },  
 
     // Mettre à jour la quantité (augmenter/diminuer)
     updateQuantity(productId, action) {
@@ -532,6 +557,10 @@ export default {
         return text.substring(0, maxLength) + '...'; // Ajoute "..." à la fin si le texte est trop long
       }
       return text;
+    },
+    addProductToCart(product) {
+      this.loadingItems[product?.id] = true;
+      this.$store.dispatch('cart/addToCart', product);
     },
   },
   async mounted() {
@@ -571,5 +600,9 @@ export default {
 }
 </script>
 <style lang="css" scoped>
+
+table{
+   width:100% !important;
+}
 
 </style>

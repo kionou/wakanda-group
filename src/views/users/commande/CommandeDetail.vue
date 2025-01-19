@@ -8,102 +8,68 @@
                <!-- row -->
                <div class="row row-cols-1 row-cols-lg-3 row-cols-md-3 g-4 g-lg-4">
                   <!-- col -->
-                  <div class="col-xl-12" style="border-bottom: 1px solid;">
-                  
-                     <div class=" ">
-                           <h3 class="mb-1 ">Commande n° 3234342</h3>
-                           <div class=" text-muted d-flex justify-content-between " style="font-size: 16px;">
-                              <span class="" style="font-weight: bolder;">1 articles </span> 
-                              <span style="font-weight: bolder;">Effectué 23/23/2345</span>
-                              <span style="font-weight: bolder;">Total 2 3434 FCFA</span>
+                  <div class="col-xl-12" >
+                     <div class="card">
+                        <div class="card-header mb-0">
+                           <div class="card-title d-flex justify-content-between mb-0">
+                              <h6 class="mb-0 ">N° Commande : <strong>{{ data?.NumeroCommande }}</strong> </h6>
+                              <h6 class="mb-0 ">Statut Commande : <strong class="badge bg-info text-white px-2 py-1">{{ translateStatus(data?.StatutCommande)  }}</strong> </h6>
+                           </div>
+                        </div>
+                        <div class="card-body">
+                           <div class="  d-flex justify-content-between " style="font-size: 14px;">
+                              <span class="" style=""><strong class="text-danger">{{ data?.items?.length }}</strong>  article(s) </span> 
+                              <span style="">Effectué le : <b class="text-danger"> {{ formatDate(data?.created_at)  }}</b></span>
+                              <span style="">Total : <b class="text-info">{{ TotalPrice(data?.items , 'a') }}</b>  </span>
                             
                            </div>
-                          
-                           
-                           <div>
-                             
-                         
                         </div>
+                          
                      </div>
                   </div>
                   <div class="col-xl-12">
                    
 
-                     <div class="table-responsive-xxl border-1 mb-4">
+                     <div class="table-responsive-xxl  mb-4">
                            <!-- Table -->
                            <table class="table mb-0 text-nowrap table-centered">
                               <!-- Table Head -->
                               <thead class="bg-light">
                                  <tr>
-                                    <th>&nbsp;</th>
+                                    <th>N°</th>
                                     <th>Product</th>
-                                    <th>Items</th>
-                                    <th>Status</th>
-                                    <th>Price</th>
+                                    <th>Prix unitaitre</th>
+                                    <th>Quantité</th>
+                                    <th>Coupon</th>
+                                    <th>Total</th>
                                  </tr>
                               </thead>
                               <tbody>
                                  <!-- Table body -->
-                                 <tr>
+                                 <tr v-for="(product , index ) in data?.items" :key="product.id">
                                     <td class="align-middle border-top-0 w-0">
-                                       <a href="#"><img src="@/assets/images/products/product-img-1.jpg" alt="Ecommerce" class="icon-shape icon-xl"></a>
+                                       {{ index + 1 }}
                                     </td>
-                                    <td class="align-middle border-top-0">
+                                    <td class="align-middle border-top-0 d-flex align-items-center">
+                                       <img :src="product?.produit?.PhotoCover ? product?.produit?.PhotoCover : defaultImage"
+                                                      :alt="product?.produit?.NomProduit" :title="product?.produit?.NomProduit" class="icon-shape icon-xl" />
                                        <a href="#" class="fw-semibold text-inherit">
-                                          <h6 class="mb-0">Haldiram's Nagpur Aloo Bhujia</h6>
+                                          <h6 class="mb-0">{{ product?.produit?.NomProduit }}</h6>
                                        </a>
-                                       <span><small class="text-muted">400g</small></span>
                                     </td>
                                     
                                    
-                                    <td class="align-middle border-top-0">1</td>
+                                    <td class="align-middle border-top-0">{{formatPrixs(product?.total / product?.Quantite) }} {{ product?.produit?.devise?.Symbol }}</td>
                                     <td class="align-middle border-top-0">
-                                       <span class="badge bg-warning">Processing</span>
+                                       <!-- <span class="badge bg-warning">Processing</span> -->
+                                       {{ product?.Quantite }}
                                     </td>
-                                    <td class="align-middle border-top-0">$15.00</td>
-                                   
-                                 </tr>
-                                 <tr>
-                                    <td class="align-middle border-top-0 w-0">
-                                       <a href="#"><img src="@/assets/images/products/product-img-2.jpg" alt="Ecommerce" class="icon-shape icon-xl"></a>
-                                    </td>
-                                    <td class="align-middle border-top-0">
-                                       <a href="#" class="fw-semibold text-inherit">
-                                          <h6 class="mb-0">Nutri Choise Biscuit</h6>
-                                       </a>
-                                       <span><small class="text-muted">2 Pkt</small></span>
-                                    </td>
-                                   
-                                   
-                                    <td class="align-middle border-top-0">2</td>
-                                    <td class="align-middle border-top-0">
-                                       <span class="badge bg-success">Completed</span>
-                                    </td>
-                                    <td class="align-middle border-top-0">$45.00</td>
-                                  
-                                 </tr>
-                                 <tr>
-                                    <td class="align-middle border-top-0 w-0">
-                                       <a href="#"><img src="@/assets/images/products/product-img-3.jpg" alt="Ecommerce" class="icon-shape icon-xl"></a>
-                                    </td>
-                                    <td class="align-middle border-top-0">
-                                       <a href="#" class="text-inherit">
-                                          <h6 class="mb-0">Cadbury Dairy Milk 5 Star Bites</h6>
-                                          <span><small class="text-muted">202 g</small></span>
-                                       </a>
-                                    </td>
-                                   
-                                   
-                                    <td class="align-middle border-top-0">4</td>
-                                    <td class="align-middle border-top-0">
-                                       <span class="badge bg-success">Completed</span>
-                                    </td>
-                                    <td class="align-middle border-top-0">$99.00</td>
+                                    <td class="align-middle border-top-0"> {{ product?.coupon ?? "-" }}</td>
+                                    <td class="align-middle border-top-0">{{formatPrixs(product?.total)  }} {{ product?.produit?.devise?.Symbol }}</td>
                                    
                                  </tr>
 
-                                
-                                 
+                               
                               </tbody>
                            </table>
                         </div>
@@ -120,14 +86,14 @@
                         <div class="card-body">
                             <div class="mb-3">
                               <h6 class="mb-0 fw-bold">Mode de paiement</h6>
-                              <p class="mb-0 text-muted">Payer cash à la livraison.</p>
+                              <p class="mb-0 text-muted">{{ data?.mode?.Label }}.</p>
                            </div>
 
                            <div class="mb-3">
                               <h6 class="mb-0 fw-bold">Détails du paiement</h6>
-                              <p class="mb-0 text-muted">Sous-total: 2,190 FCFA</p>
-                              <p class="mb-0 text-muted">Frais de livraison: 500 FCFA</p>
-                              <p class="mb-0 text-">Total: 2,690 FCFA.</p>
+                              <p class="mb-0 text-muted">Sous-total:{{ TotalPrice(data?.items , 'a') }}</p>
+                              <p class="mb-0 text-muted">Frais de livraison: {{ fraisExpedition || 0 }}</p>
+                              <p class="mb-0 text-">Total: {{ TotalPrice(data?.items , 'a') }}</p>
                            </div>
                            
 
@@ -172,12 +138,123 @@
     </div>
 </template>
 <script>
+
+
+import axios from '@/lib/axiosConfig';
+import SkeletonCategorie from '@/components/others/loader/SkeletonCategorie.vue';
+import defaultImage from '@/assets/images/products/product-img-2.jpg';
 export default {
    props:['id'],
+   components: {
+      SkeletonCategorie
+  },
+   computed:{
+      loggedInUser() {
+      return this.$store.getters["auth/myAuthenticatedUser"];
+    },
+  
+    decodedId() {
+      return atob(this.id); // Décode l'ID reçu en Base64
+    },
+
+
+   },
    data() {
       return {
+         defaultImage:defaultImage,
+         data:"",
+         fraisExpedition:2000
          
       }
+   },
+   mounted(){
+
+    this.getCommandesDetail()
+
+   },
+   methods: {
+      async getCommandesDetail() {
+      try {
+
+        const response = await axios.get(`/commandes/${this.decodedId}`, {
+          headers: {
+            Authorization: `Bearer ${this.loggedInUser.token}`,
+            "Content-Type": "application/json",
+          },
+        });
+
+        this.data = response?.data?.data
+  
+
+      } catch (error) {
+        console.error(
+          "Erreur lors de la récupération des utilisateurs:",
+          error
+        );
+      }
+    },
+   //  TotalPrice(price){
+   //  if (Array.isArray(price)) {
+   //      const devise = price[0]?.produit?.devise?.Symbol || ''
+   //      const total = this.formatPrix(price.reduce((acc, p) => acc + (p.total || 0) , 0), devise) ;
+   //      return total 
+        
+   //  } else {
+   //      return this.formatPrix(0 , 'CFA')
+        
+   //  }
+
+   //  },
+   TotalPrice(price , d){
+    if (Array.isArray(price)) {
+        const devise = price[0]?.produit?.devise?.Symbol || ''
+        const total = this.formatPrix(price.reduce((acc, p) => acc + (p.total || 0) , 0), devise) ;
+        const totals = this.formatPrix(price.reduce((acc, p) => acc + (p.total || 0) + this.fraisExpedition , 0), devise) ;
+        console.log(total  )
+        return d === 'b' ?  totals : total 
+        
+    } else {
+        return this.formatPrix(0 , 'CFA')
+        
+    }
+
+    },
+    formatPrix(value , devise) {
+    let Formatter = new Intl.NumberFormat('fr-FR', { 
+        style:'currency',
+        currency: devise ||  'CFA',
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0
+         })
+        return Formatter.format(value)
+
+    },
+    formatPrixs(value , devise) {
+    let Formatter = new Intl.NumberFormat('fr-FR', { 
+        style:'currency',
+        currency: devise ||  'CFA',
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0
+         })
+        return Formatter.format(value)
+
+    },
+    formatDate(date) {
+    if (!date) return '';
+    const options = { day: '2-digit', month: 'short', year: 'numeric' };
+    return new Date(date).toLocaleDateString('fr-FR', options);
+  },
+  translateStatus(statut) {
+      const statusMap = {
+        PENDING: "EN ATTENTE",
+        PROGRESS: "EN COURS",
+        "READY TO PICK": "PRET A ETRE RECUPERER",
+        DELIVERED: " LIVRER",
+        CANCELED: "ANNULER",
+      };
+      return statusMap[statut] || "Statut inconnu";
+    },
+  
    },
     
 }

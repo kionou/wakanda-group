@@ -61,7 +61,7 @@
                     <div class="col-xl-2 d-none d-xl-block  pe-0">
     
                         <div class="card ms-2 height-slick card-right" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">
-                            <img src="@/assets/img/right.jpg" alt="" class="h-100">    
+                            <img :src="firstAccueilBanner" alt="" class="h-100">    
                         </div>
     
     
@@ -69,24 +69,24 @@
     
                 </div>
             </section>
-            <section class="mt-4">
+            <section class="mt-0">
                 <div class="px-0">
-                    <div class="row align-items-center mb-3">
+                    <div class="row align-items-center mb-3 bg-primary">
     
                         <div class="col-xl-12 col-lg-12 col-md-12 mb-12 mb-md-0 px-0"
                             style="border-bottom: 1px solid var(--fc-primary);">
     
-                            <div class="col-12 px-0 mb-2 ">
+                            <div class="col-12 px-0 mb-0 p-1 ps-1 ">
                                 <!-- heading    -->
                                 <h3 class="align-items-center d-flex mb-0 h4">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                        stroke-linejoin="round" class="feather feather-layers text-primary">
+                                        stroke-linejoin="round" class="feather feather-layers text-white">
                                         <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
                                         <polyline points="2 17 12 22 22 17"></polyline>
                                         <polyline points="2 12 12 17 22 12"></polyline>
                                     </svg>
-                                    <span class="ms-3 " style="font-weight: bold;">Nos Marques</span>
+                                    <span class="ms-3 text-white" style="font-weight: bold;">Nos Marques</span>
                                 </h3>
                             </div>
     
@@ -117,9 +117,6 @@
                                             </div>
                                         </router-link>
                                     </div>
-    
-    
-    
                                 </div>
                             </div>
                         </div>
@@ -131,12 +128,10 @@
             <section class="row mt-1">
                 <div class="col-xl-3 col-lg-4 col-md-4 ">
                     <div class="row" style="height:100%">
-                       
-
                         <div class="col-xl-12">
-                            <div class="card    me-1" style="height: 100%;">
+                        <div class="card  me-1" style="height: 100%;">
                                 <div class="text-white card-header text-center p-0" style="background-color: var(--fc-secondary);">
-                                    <p style="border-bottom:0 " class="fs-3 fw-bold mb-0"> FLASH PROMOS </p>
+                                    <p style="border-bottom:0 " class="fs-3 fw-bold mb-0"> OFFRE SPECIAL </p>
 
                                 </div>
                             <div class="card-body p-3">
@@ -144,11 +139,11 @@
                               <div class="col-lg-12 text-center">
                               
                                 <div class="slide-one">
-                                    <div class="item" style="display: grid !important; justify-content: center !important;"  v-for="(product,index) in ProductFlash?.produits" :key="index">
+                                    <div class="item" style="display: grid !important; justify-content: center !important;"  v-for="(product,index) in OffreSpecial?.produits" :key="index">
                                         <div class="col-lg-12 text-center text-lg-start">
                                  
                                  <h4 class="fs-10">
-                                    <span> {{truncateText(product.produit?.NomProduit , 15) }}</span>
+                                    <span> {{product.produit?.NomProduit  }}</span>
                                    
                                 </h4>
 
@@ -180,9 +175,6 @@
                                               </router-link> 
                               </div>
                               </div>
-                             
-                                           
-                                              <!-- <div>{{ product.produit?.Description }}</div> -->
                               </div>
                             
                                 </div>
@@ -214,8 +206,7 @@
                                 style="border-bottom: 1px solid var(--fc-primary); width:100% !important">
                                 <h3 class=" mb-0 pb-2 pt-1 ps-2 text-white bg-primary row align-items-center" style="width:100% !important;">
                                     <router-link :to="{ name: 'type-detail', params: { id: encodeId('new') }}" class="text-white col-xl-10 col-md-8" title="Voir plus"
-                                        style="border-radius: 0px !important;font-size: 20px;">
-                                        {{ProduitNew?.Nom}}</router-link>
+                                        style="border-radius: 0px !important;font-size: 20px;"> Les nouveaux produits</router-link>
                                         <div class="col-xl-2 col-md-4 d-none d-sm-block  text-end " style="cursor: pointer;" @click="$router.push({path:`/type-detail/${encodeId('new')}`})">
                                          
                                          <div style="font-size:14px" class="me-3">VOIR PLUS <i class="bi bi-arrow-right"></i></div>
@@ -255,7 +246,7 @@
                                             <h2 class="fs-6"><router-link
                                                     :to="{ name: 'detail', params: { id: encodeId(product?.id) }}"
                                                     class="text-inherit text-decoration-none" @click="addToRecent(product)">{{
-                                                    truncateText(product?.NomProduit , 15) }}
+                                                    product?.NomProduit  }}
                                                 </router-link></h2>
                                             <div class="d-flex justify-content-between align-items-center mt-3">
                                               
@@ -275,8 +266,25 @@
                                                
                                             </div>
                                             <div class="prix">
-                                                    <span class="text-uppercase small " @click="addProductToCart(product)"
-                                                        :disabled="loadingItems[product?.id]">
+                                                <p class="mb-0">
+                                                    <span v-if="product?.magasins_sum_quantite_reel !== null" class="badge bg-success text-white">Disponible</span>
+                                                    <span v-else class="badge bg-danger text-white">Pas disponible</span>
+                                                </p>
+                                                    <span  v-if="product?.magasins_sum_quantite_reel === null || product?.magasins_sum_quantite_reel === 0" class="text-uppercase small Icons " 
+                                                        disabled>
+                                                        <div class="icon-cards" disabled>
+                                                            <div v-if="loadingItems[product?.id]">
+                                                                <LoaderBtn class="loadingbtn"></LoaderBtn>
+                                                            </div>
+                                                            <div v-else>
+                                                                <i class="bi bi-cart2 fs-4"></i>
+                                                            </div>
+    
+                                                        </div>
+                                                    </span>
+
+                                                    <span v-else class="text-uppercase small  btn-success " @click="addProductToCart(product)"
+                                                        :disabled="loadingItems[product?.id] " >
                                                         <div class="icon-card">
                                                             <div v-if="loadingItems[product?.id]">
                                                                 <LoaderBtn class="loadingbtn"></LoaderBtn>
@@ -313,7 +321,7 @@
 
                 <!-- section moment start -->
             <section  class="">
-                <div class="mb-5 product-content">
+                <div class="mb-1 product-content">
                             <div class="mb-4 "
                                 style="border-bottom: 1px solid var(--fc-primary); width:100% !important">
                                 <h3 class=" mb-0 pb-2 pt-1 ps-2 text-white bg-primary row align-items-center" style="width:100% !important;">
@@ -357,7 +365,7 @@
                                             <h2 class="fs-6"><router-link
                                                     :to="{ name: 'detail', params: { id: encodeId (product.produit?.id) }}"
                                                     class="text-inherit text-decoration-none" @click="addToRecent(product.produit)">{{
-                                                    truncateText(product.produit?.NomProduit , 15) }}
+                                                    product.produit?.NomProduit  }}
                                                 </router-link></h2>
                                             <div class="d-flex justify-content-between align-items-center mt-3">
                                               
@@ -377,20 +385,36 @@
                                                
                                             </div>
                                             <div class="prix">
+                                                <p class="mb-0">
+                                                    <span v-if="product?.produit?.magasins_sum_quantite_reel !== null" class="badge bg-success text-white">Disponible</span>
+                                                    <span v-else class="badge bg-danger text-white">Pas disponible</span>
+                                                </p>
+                                                    <span  v-if="product?.produit?.magasins_sum_quantite_reel === null || product?.produit?.magasins_sum_quantite_reel === 0" class="text-uppercase small Icons " 
+                                                        disabled>
+                                                        <div class="icon-cards" disabled>
+                                                            <div v-if="loadingItems[product?.produit?.id]">
+                                                                <LoaderBtn class="loadingbtn"></LoaderBtn>
+                                                            </div>
+                                                            <div v-else>
+                                                                <i class="bi bi-cart2 fs-4"></i>
+                                                            </div>
     
-                                            <span class="text-uppercase small " @click="addProductToCart(product?.produit)"
-                                                :disabled="loadingItems[product?.produit?.id]">
-                                                <div class="icon-card">
-                                                    <div v-if="loadingItems[product?.produit?.id]">
-                                                        <LoaderBtn class="loadingbtn"></LoaderBtn>
-                                                    </div>
-                                                    <div v-else>
-                                                        <i class="bi bi-cart2 fs-4"></i>
-                                                    </div>
+                                                        </div>
+                                                    </span>
 
-                                                </div>
-                                            </span>
-                                        </div>
+                                                    <span v-else class="text-uppercase small  btn-success " @click="addProductToCart(product?.produit)"
+                                                        :disabled="loadingItems[product?.produit?.id] " >
+                                                        <div class="icon-card">
+                                                            <div v-if="loadingItems[product?.produit?.id]">
+                                                                <LoaderBtn class="loadingbtn"></LoaderBtn>
+                                                            </div>
+                                                            <div v-else>
+                                                                <i class="bi bi-cart2 fs-4"></i>
+                                                            </div>
+    
+                                                        </div>
+                                                    </span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -401,13 +425,33 @@
             </section>
             <!-- section moment end  -->
                 </div>
-                <div class="col-xl-3 col-lg-4 col-md-4  ">
-                    <div class="row ms-2" style="height:95%">
+                <div class="col-xl-3 col-lg-4 col-md-4 ">
+                
+                    <div class="row ms-2" style="height:70%">
                         <div class="col-xl-12">
-                            <div class="card  mb-2  me-1" style="height: 100%;">
-                             <img src="../assets/img/bnm.jpg" alt="">
-                          
+                            <a href="#" style="border-radius: 0px !important;font-size: 16px; padding: 5px 0;"
+                                    class="nav-link active d-flex justify-content-center align-items-center bg-primary" id="nav-fruitsandveg-tab"
+                                    data-bs-toggle="tab" data-bs-target="#nav-fruitsandveg"
+                                    role="tab" aria-controls="nav-fruitsandveg"
+                                    aria-selected="true">
+                                
+                                    <span class="d-flex text-white">
+                                        
+                                        <!-- <div v-if="days !== '00'"></div> -->
+                                        <div class="heure">{{ countdownData.promo?.days }} </div> j
+                                        <div class="heure">{{ countdownData.promo?.hours }}</div> h
+                                        <div class="heure">{{ countdownData.promo?.minutes }}</div> m
+                                        <div class="heure">{{ countdownData.promo?.seconds }}</div> s
+                                    </span>
+                                </a>
                         </div>
+                        <div class="col-xl-12">
+                           
+                            <div class="card  me-1" style="height: 100%;">
+                              
+                             <img :src="firstPromoBanner?.Banner" alt="promo" style="height:310px">
+                          
+                                </div>
                         </div>
 
                     </div>
@@ -454,10 +498,11 @@
                                                             Termine dans
                                                             <span class="d-flex">
                                                                 
-
-                                                                <div class="heure">{{ hours }}</div> h
-                                                                <div class="heure">{{ minutes }}</div> m
-                                                                <div class="heure">{{ seconds }}</div> s
+                                                                <!-- <div v-if="days !== '00'"></div> -->
+                                                                <div class="heure">{{ countdownData.flash.days }} </div> j
+                                                                <div class="heure">{{ countdownData.flash.hours }}</div> h
+                                                                <div class="heure">{{ countdownData.flash.minutes }}</div> m
+                                                                <div class="heure">{{ countdownData.flash.seconds }}</div> s
                                                             </span>
                                                         </a>
                                                     </li>
@@ -479,8 +524,8 @@
                                         <div class="tab-pane fade show active" id="nav-fruitsandveg" role="tabpanel"
                                             aria-labelledby="nav-fruitsandveg-tab" tabindex="0">
                                             <!-- row -->
-                                            <div class="row g-4 row-cols-xl-6 row-cols-lg-6 row-cols-lg-6 row-cols-2 row-cols-md-3 mt-2 ">
-                                                <div class="col" v-for="(product,index) in ProductFlash?.produits" :key="index">
+                                            <div class="row g-4 row-cols-xl-6 row-cols-lg-6 row-cols-lg-6 row-cols-2 row-cols-md-3 mt-1 ">
+                                                <div class="col mt-0" v-for="(product,index) in ProductFlash?.produits" :key="index">
                                                     <!-- card -->
                                                     <div class="card card-product-v2 h-100">
                                                         <div class="card-body position-relative">
@@ -505,7 +550,7 @@
                                                             <h2 class="fs-6"><router-link
                                                                 :to="{ name: 'detail', params: { id:encodeId(product.produit?.id)  }}"
                                                                 class="text-inherit text-decoration-none" @click="addToRecent(product.produit)">{{
-                                                                truncateText(product.produit?.NomProduit , 15) }}
+                                                                product.produit?.NomProduit  }}
                                                             </router-link></h2>
     
                                                             <!-- price -->
@@ -525,34 +570,37 @@
                                                                
                                                             </div>
                                                             <div class="prix">
-                                                                    
-                                                                    <span class="text-uppercase small " @click="addProductToCart(product?.produit)"
-                                                                        :disabled="loadingItems[product?.produit?.id]">
-                                                                        <div class="icon-card">
-                                                                            <div v-if="loadingItems[product?.produit?.id]">
-                                                                                <LoaderBtn class="loadingbtn"></LoaderBtn>
-                                                                            </div>
-                                                                            <div v-else>
-                                                                                <i class="bi bi-cart2 fs-4"></i>
-                                                                            </div>
-                    
-                                                                        </div>
-                                                                    </span>
-                                                                                </div>
-                                                            <div class="mt-4">
-                                                                <div class="my-3">
-                                                                    <small>
-                                                                        Disponible :
-                                                                        <span class="text-dark fw-bold">8</span>
-                                                                    </small>
-                                                                </div>
-                                                                <div class="progress mt-1" style="height: 8px">
-                                                                    <div class="progress-bar bg-gray-400" role="progressbar"
-                                                                        style="width: 95%" aria-valuenow="95"
-                                                                        aria-valuemin="0" aria-valuemax="100"></div>
-                                                                </div>
-    
+                                                <p class="mb-0">
+                                                    <span v-if="product?.produit?.magasins_sum_quantite_reel !== null" class="badge bg-success text-white">Disponible</span>
+                                                    <span v-else class="badge bg-danger text-white">Pas disponible</span>
+                                                </p>
+                                                    <span  v-if="product?.produit?.magasins_sum_quantite_reel === null || product?.produit?.magasins_sum_quantite_reel === 0" class="text-uppercase small Icons " 
+                                                        disabled>
+                                                        <div class="icon-cards" disabled>
+                                                            <div v-if="loadingItems[product?.produit?.id]">
+                                                                <LoaderBtn class="loadingbtn"></LoaderBtn>
                                                             </div>
+                                                            <div v-else>
+                                                                <i class="bi bi-cart2 fs-4"></i>
+                                                            </div>
+    
+                                                        </div>
+                                                    </span>
+
+                                                    <span v-else class="text-uppercase small  btn-success " @click="addProductToCart(product?.produit)"
+                                                        :disabled="loadingItems[product?.produit?.id] " >
+                                                        <div class="icon-card">
+                                                            <div v-if="loadingItems[product?.produit?.id]">
+                                                                <LoaderBtn class="loadingbtn"></LoaderBtn>
+                                                            </div>
+                                                            <div v-else>
+                                                                <i class="bi bi-cart2 fs-4"></i>
+                                                            </div>
+    
+                                                        </div>
+                                                    </span>
+                                            </div>
+                                                            
     
                                                         </div>
                                                         <!-- hidden class for hover -->
@@ -568,22 +616,30 @@
                             </div>
     
                         </section>
-                        <section>
-    
+                        <section class="d-lg-block d-none">
+                            <div class="d-flex justify-content-center">
+                                <a href="#" style="border-radius: 0px !important;font-size: 16px; padding: 5px 2px;"
+                                    class="nav-link active d-flex justify-content-center align-items-center bg-primary" id="nav-fruitsandveg-tab"
+                                    data-bs-toggle="tab" data-bs-target="#nav-fruitsandveg"
+                                    role="tab" aria-controls="nav-fruitsandveg"
+                                    aria-selected="true">
+                                
+                                    <span class="d-flex text-white me-2">
+                                       
+                                    <div class="heure">{{ countdownData.banner1?.days }} </div> j
+                                    <div class="heure">{{ countdownData.banner1?.hours }}</div> h
+                                    <div class="heure">{{ countdownData.banner1?.minutes }}</div> m
+                                    <div class="heure">{{ countdownData.banner1?.seconds }}</div> s
+                                    </span>
+                                </a>
+                            </div>
+                           
                             <div class="row">
                                 <div class="col-12">
-                                    <div class="mb-4 bg-white d-lg-flex justify-content-between align-items-center rounded">
-                                        <div class="p-6 ">
-                                            <h2 class="mb-1 fw-bold"> Offres exceptionnelles</h2>
-                                            <p class="mb-0 lead">
-                                                jusqu'à -30% sur une sélection d'articles
-                                                <br />
-                                                treats, and more in one easy spot.
-                                            </p>
-                                            <a href="#" class="btn btn-dark mt-5">Get Discount on Share</a>
-                                        </div>
-                                        <div class="p-4 d-lg-block d-none col-7" style="height: 30vh !important"><img
-                                                src="@/assets/img/pub-2.jpg" alt="" class="img-fluid"
+                                    <div class="mb-4 bg-white  rounded">
+                                      
+                                        <div class="p-4 d-lg-block  col-7 border-1" style="width: 100%; height: 40vh;"><img
+                                                :src="firstBanniere1Banner?.Banner" alt="" class="img-fluid"
                                                 style="height: 100% !important" />
                                         </div>
                                     </div>
@@ -593,8 +649,8 @@
                         <div class="row" v-if="ProductPlusVendu?.produits?.length !== 0">
                             <!-- col -->
     
-                            <div class="col-xl-12 col-lg-12 col-md-12 mb-12 mb-md-0">
-                                <div class="mb-3 product-content">
+                            <div class="col-xl-12 col-lg-12 col-md-12 mb-2 mb-md-0">
+                                <div class="mb-1 product-content">
                                     <div class="mb-4 "
                                 style="border-bottom: 1px solid var(--fc-primary); width:100% !important">
                                 <h3 class=" mb-0 pb-2 pt-1 ps-2 text-white bg-primary row align-items-center" style="width:100% !important;">
@@ -640,7 +696,7 @@
                                             <h2 class="fs-6"><router-link
                                                     :to="{ name: 'detail', params: { id: encodeId(product.produit?.id) }}"
                                                     class="text-inherit text-decoration-none" @click="addToRecent(product.produit)">{{
-                                                    truncateText(product.produit?.NomProduit , 15) }}
+                                                    product.produit?.NomProduit }}
                                                 </router-link></h2>
                                             <div class="d-flex justify-content-between align-items-center mt-3">
                                               
@@ -659,21 +715,37 @@
 
                                                
                                             </div>
-                                            <div  class="prix">
+                                            <div class="prix">
+                                                <p class="mb-0">
+                                                    <span v-if="product?.produit?.magasins_sum_quantite_reel !== null" class="badge bg-success text-white">Disponible</span>
+                                                    <span v-else class="badge bg-danger text-white">Pas disponible</span>
+                                                </p>
+                                                    <span  v-if="product?.produit?.magasins_sum_quantite_reel === null || product?.produit?.magasins_sum_quantite_reel === 0" class="text-uppercase small Icons " 
+                                                        disabled>
+                                                        <div class="icon-cards" disabled>
+                                                            <div v-if="loadingItems[product?.produit?.id]">
+                                                                <LoaderBtn class="loadingbtn"></LoaderBtn>
+                                                            </div>
+                                                            <div v-else>
+                                                                <i class="bi bi-cart2 fs-4"></i>
+                                                            </div>
     
-    <span class="text-uppercase small " @click="addProductToCart(product?.produit)"
-        :disabled="loadingItems[product?.produit?.id]">
-        <div class="icon-card">
-            <div v-if="loadingItems[product?.produit?.id]">
-                <LoaderBtn class="loadingbtn"></LoaderBtn>
-            </div>
-            <div v-else>
-                <i class="bi bi-cart2 fs-4"></i>
-            </div>
+                                                        </div>
+                                                    </span>
 
-        </div>
-    </span>
-</div>
+                                                    <span v-else class="text-uppercase small  btn-success " @click="addProductToCart(product?.produit)"
+                                                        :disabled="loadingItems[product?.produit?.id] " >
+                                                        <div class="icon-card">
+                                                            <div v-if="loadingItems[product?.produit?.id]">
+                                                                <LoaderBtn class="loadingbtn"></LoaderBtn>
+                                                            </div>
+                                                            <div v-else>
+                                                                <i class="bi bi-cart2 fs-4"></i>
+                                                            </div>
+    
+                                                        </div>
+                                                    </span>
+                                            </div>
                                         </div>
                                     </div>
                                       </div>
@@ -736,7 +808,7 @@
                                             <h2 class="fs-6"><router-link
                                                     :to="{ name: 'detail', params: { id: encodeId(product.produit?.id) }}"
                                                     class="text-inherit text-decoration-none" @click="addToRecent(product.produit)">{{
-                                                    truncateText(product.produit?.NomProduit , 15) }}
+                                                    product.produit?.NomProduit  }}
                                                 </router-link></h2>
                                             <div class="d-flex justify-content-between align-items-center mt-3">
                                               
@@ -763,25 +835,33 @@
                                       </div>
                                     </div>
                                 </div>
-                                <section>
+                                <section class="d-lg-block d-none">
+                                    <div class="d-flex justify-content-center">
+                                <a href="#" style="border-radius: 0px !important;font-size: 16px; padding: 5px 2px;"
+                                    class="nav-link active d-flex justify-content-center align-items-center bg-primary" id="nav-fruitsandveg-tab"
+                                    data-bs-toggle="tab" data-bs-target="#nav-fruitsandveg"
+                                    role="tab" aria-controls="nav-fruitsandveg"
+                                    aria-selected="true">
+                                
+                                    <span class="d-flex text-white me-2">
+                                        
+                                        <!-- <div v-if="days !== '00'"></div> -->
+                                        <div class="heure">{{ countdownData.banner2?.days }} </div> j
+                                        <div class="heure">{{ countdownData.banner2?.hours }}</div> h
+                                        <div class="heure">{{ countdownData.banner2?.minutes }}</div> m
+                                        <div class="heure">{{ countdownData.banner2?.seconds }}</div> s
+                                    </span>
+                                </a>
+                            </div>
                                     <div class="row">
                                         <div class="col-12">
-                                            <div
-                                                class="mb-4 bg-white d-lg-flex justify-content-between align-items-center rounded">
-                                                <div class="p-6">
-                                                    <h2 class="mb-1 fw-bold">One Stop Grocery Shop</h2>
-                                                    <p class="mb-0 lead">
-                                                        Shopping for your furry friend? Find food,
-                                                        <br />
-                                                        treats, and more in one easy spot.
-                                                    </p>
-                                                    <a href="#" class="btn btn-dark mt-5">Get Discount on Share</a>
-                                                </div>
-                                                <div class="p-4 d-lg-block d-none col-7" style="height: 30vh !important">
-                                                    <img src="@/assets/img/pub-3.jpg" alt="" class="img-fluid"
-                                                        style="height: 100% !important" />
-                                                </div>
-                                            </div>
+                                            <div class="mb-4 bg-white  rounded">
+                                      
+                                      <div class="p-4  col-7 border-1" style="width: 100%; height: 40vh;"><img
+                                              :src="firstBanniere2Banner?.Banner" alt="" class="img-fluid"
+                                              style="height: 100% !important" />
+                                      </div>
+                                  </div>
                                         </div>
                                     </div>
                                 </section>
@@ -836,7 +916,7 @@
                                             <h2 class="fs-6"><router-link
                                                     :to="{ name: 'detail', params: { id: encodeId(product?.id) }}"
                                                     class="text-inherit text-decoration-none" @click="addToRecent(product)">{{
-                                                    truncateText(product?.NomProduit , 15) }}
+                                                    product?.NomProduit }}
                                                 </router-link></h2>
                                             <div class="d-flex justify-content-between align-items-center mt-3">
                                               
@@ -856,20 +936,36 @@
                                               
                                             </div>
                                             <div class="prix">
+                                                <p class="mb-0">
+                                                    <span v-if="product?.magasins_sum_quantite_reel !== null" class="badge bg-success text-white">Disponible</span>
+                                                    <span v-else class="badge bg-danger text-white">Pas disponible</span>
+                                                </p>
+                                                    <span  v-if="product?.magasins_sum_quantite_reel === null || product?.produit?.magasins_sum_quantite_reel === 0" class="text-uppercase small Icons " 
+                                                        disabled>
+                                                        <div class="icon-cards" disabled>
+                                                            <div v-if="loadingItems[product?.id]">
+                                                                <LoaderBtn class="loadingbtn"></LoaderBtn>
+                                                            </div>
+                                                            <div v-else>
+                                                                <i class="bi bi-cart2 fs-4"></i>
+                                                            </div>
     
-    <span class="text-uppercase small " @click="addProductToCart(product)"
-        :disabled="loadingItems[product?.id]">
-        <div class="icon-card">
-            <div v-if="loadingItems[product?.id]">
-                <LoaderBtn class="loadingbtn"></LoaderBtn>
-            </div>
-            <div v-else>
-                <i class="bi bi-cart2 fs-4"></i>
-            </div>
+                                                        </div>
+                                                    </span>
 
-        </div>
-    </span>
-</div>
+                                                    <span v-else class="text-uppercase small  btn-success " @click="addProductToCart(product)"
+                                                        :disabled="loadingItems[product?.id] " >
+                                                        <div class="icon-card">
+                                                            <div v-if="loadingItems[product?.id]">
+                                                                <LoaderBtn class="loadingbtn"></LoaderBtn>
+                                                            </div>
+                                                            <div v-else>
+                                                                <i class="bi bi-cart2 fs-4"></i>
+                                                            </div>
+    
+                                                        </div>
+                                                    </span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -928,18 +1024,36 @@
     
         <div class="modal fade" id="modal-subscribe" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog modal-lg modal-dialog-centered">
-                <div class="modal-content" style="height: 500px; width:500px">
+                <div class="modal-content" style="height: auto; width:500px">
                     <div class="modal-body p-0">
                         <div class="">
+                            <a href="#" style="border-radius: 0px !important;font-size: 16px; padding: 5px 2px;"
+                                    class="nav-link active text-white d-flex justify-content-center align-items-center bg-primary" id="nav-fruitsandveg-tab"
+                                    data-bs-toggle="tab" data-bs-target="#nav-fruitsandveg"
+                                    role="tab" aria-controls="nav-fruitsandveg"
+                                    aria-selected="true">
+                                        Termine dans 
+                                    <span class="d-flex text-white me-2">
+                                         
+                                        <!-- <div v-if="days !== '00'"></div> -->
+                                        <div class="heure">{{ countdownData.modal?.days }} </div> j
+                                        <div class="heure">{{ countdownData.modal?.hours }}</div> h
+                                        <div class="heure">{{ countdownData.modal?.minutes }}</div> m
+                                        <div class="heure">{{ countdownData.modal?.seconds }}</div> s
+                                    </span>
+                                </a>
                             <div class="" style="height: 100%; width:100%">
-                                <img src="@/assets/img/bnm.jpg" alt="" class="img-fluid rounded-start" />
+                                <img   v-if="firstModalBanner.Banner" :src="firstModalBanner.Banner" alt="" class="img-fluid rounded-start" />
+                                   <div  v-else style="height: 250px; width: 100%;" class="d-flex justify-content-center align-items-center">
+                                    <img  src="@/assets/gif/loader.gif" alt="" class="img-fluid rounded" height="100" width="100" />
+                                   </div>
                             </div>
                            
                         </div>
-                        <div class="px-8 py-8 py-lg-0">
-                                <div class="position-absolute " style="top: -32px; right: -27px; background-color: red; padding: 4px; border-radius: 50%;">
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
+                        <div class="px-8 py-0 py-lg-0">
+                                <div class="position-absolute " style="top: -36px; right: -54px; background-color: red; padding: 4px; border-radius: 50%;">
+                                    <button type="button" class="btn text-white d-lg-block d-none" data-bs-dismiss="modal"
+                                        aria-label="Close">X</button>
                                 </div>
                     
                             </div>
@@ -1169,11 +1283,22 @@ export default {
       ProductPlusVendu:"",
       ProductSurCommande:"",
       ProduitNew:"",
-      startTime: null, 
-      endTime: null, 
-      hours: "00",
-      minutes: "00",
-      seconds: "00",
+      OffreSpecial:"",
+      countdownData: {
+        modal: { days: "00", hours: "00", minutes: "00", seconds: "00" },
+        flash: { days: "00", hours: "00", minutes: "00", seconds: "00" },
+        banner1: { days: "00", hours: "00", minutes: "00", seconds: "00" },
+        banner2: { days: "00", hours: "00", minutes: "00", seconds: "00" },
+        promo: { days: "00", hours: "00", minutes: "00", seconds: "00" },
+      },
+      intervals: {}, 
+
+      firstAccueilBanner:"",
+      firstModalBanner:"",
+      firstBanniere1Banner:"",
+      firstBanniere2Banner:"",
+      firstPromoBanner:"",
+
 
       images: [
         '@/assets/images/slider/hero-img-slider-1.jpg',
@@ -1185,6 +1310,7 @@ export default {
   },
 
   async mounted() {
+    await this.getBannerActiver()
     await this.getCategoriesAll()
     await this.getBannerPrincipale()
     await this.getMarquesAll()
@@ -1436,12 +1562,63 @@ export default {
         console.log('error', error)
       }
     },
+    async getBannerActiver() {
+      try {
+        const response = await axios.get('/banniere-pub-active/accueil')
+        if (response.data.status === "success") {
+     const data =   response.data?.data
+     let zoneAccueil = [];
+      let zoneModal = [];
+      let zoneBanniere1 = [];
+      let zoneBanniere2 = [];
+      let zonePromo = [];
+      data.forEach(item => {
+        switch (item.Zone) {
+          case 'ZONE PUB ACCUEIL':
+            zoneAccueil.push(item);
+            break;
+          case 'ZONE PUB MODAL':
+            zoneModal.push(item);
+            break;
+          case 'ZONE PUB BANNIERE 1':
+            zoneBanniere1.push(item);
+            break;
+          case 'ZONE PUB BANNIERE 2':
+            zoneBanniere2.push(item);
+            break;
+            case 'ZONE PUB PROMO':
+            zonePromo.push(item);
+            break;
+        }
+      });
+
+   
+
+     this.firstAccueilBanner = zoneAccueil[0]?.Banner || null;
+     this.firstModalBanner = zoneModal[0] || null;
+     this.firstBanniere1Banner = zoneBanniere1[0] || null;
+     this.firstBanniere2Banner = zoneBanniere2[0] || null;
+     this.firstPromoBanner = zonePromo[0] || null;
+
+   
+        
+     this.startCountdown("modal", new Date(this.firstModalBanner.DateDebut), new Date(this.firstModalBanner.DateFin)); 
+     this.startCountdown("promo", new Date(this.firstPromoBanner.DateDebut), new Date(this.firstPromoBanner.DateFin)); 
+     this.startCountdown("banner1", new Date(this.firstBanniere1Banner.DateDebut), new Date(this.firstBanniere1Banner.DateFin)); 
+     this.startCountdown("banner2", new Date(this.firstBanniere2Banner.DateDebut), new Date(this.firstBanniere2Banner.DateFin)); 
+
+        }
+
+      } catch (error) {
+        console.log('error', error)
+      }
+    },
     async getBannerPrincipale() {
       try {
         const response = await axios.get('/banniere-active/principale')
         if (response.data.status === "success") {
           this.BannerPrincipale = response.data?.data
-          console.log( this.BannerPrincipale )
+        
 
         }
 
@@ -1453,18 +1630,18 @@ export default {
       try {
         const response = await axios.get('/type-ventes')
         if (response.data.status === "success") {
-            console.log('response.data?.data',response.data?.data?.data)
           this.productsAll = response.data?.data?.data
           .filter(m  =>m.IsActive === 1)
            this.ProductMoment = this.productsAll.find(m => m.id === 1);
             this.ProductFlash = this.productsAll.find(m => m.id === 2);
             this.ProductPlusVendu = this.productsAll.find(m => m.id === 3);
             this.ProductSurCommande = this.productsAll.find(m => m.id === 4);
-            this.ProduitNew = this.productsAll.find(m => m.id === 5);
+            this.OffreSpecial = this.productsAll.find(m => m.id === 6);
 
-            this.startTime = new Date(this.ProductFlash.DateDebut); // Exemple : début à 08:00
-             this.endTime = new Date(this.ProductFlash.DateFin);   // Exemple : fin à 20:00
-            this.startCountdown();
+            // this.startTime = new Date(this.ProductFlash.DateDebut); // Exemple : début à 08:00
+            //  this.endTime = new Date(this.ProductFlash.DateFin);   // Exemple : fin à 20:00
+            // this.startCountdown();
+            this.startCountdown("flash", new Date(this.ProductFlash.DateDebut), new Date(this.ProductFlash.DateFin));
 
         }
 
@@ -1477,8 +1654,7 @@ export default {
         const response = await axios.get('/produits/nouveau-gamme')
         if (response.data.status === "success") {
           this.NewProductArray= response.data?.data?.data
-        //   .filter(m  =>m.IsActive === 1)
-          console.log(this.NewProductArray)
+       
 
         }
 
@@ -1514,49 +1690,68 @@ export default {
     },
     // Formatage du prix
     formatPrice(price, symbol) { 
-        console.log(symbol)
       const formattedPrice = price.toFixed().replace(/\B(?=(\d{3})+(?!\d))/g, " ");  
       if (symbol === 'CFA') {
         return `${formattedPrice} ${symbol}`;
     }
     return `${symbol} ${formattedPrice}`;
     },
-    startCountdown() {
+   
+    startCountdown(id, startDate, endDate) {
       const now = new Date();
-      
-      if (now < this.startTime) {
-        this.hours = "00";
-        this.minutes = "00";
-        this.seconds = "00";
-        console.log("Le compte à rebours n'a pas encore commencé.");
+
+      // Si la date actuelle est déjà après la fin
+      if (now >= endDate) {
+        this.countdownData[id] = {
+          days: "00",
+          hours: "00",
+          minutes: "00",
+          seconds: "00",
+        };
         return;
       }
 
-      
-      this.interval = setInterval(this.updateCountdown, 1000);
-      this.updateCountdown(); 
-    },
-    updateCountdown() {
-      const now = new Date();
-      const timeDiff = this.endTime - now;
-
-      if (timeDiff <= 0) {
-        clearInterval(this.interval);
-        this.hours = "00";
-        this.minutes = "00";
-        this.seconds = "00";
-        console.log("Le temps est écoulé.");
-        return;
+      // Nettoyez tout interval actif pour cet ID
+      if (this.intervals[id]) {
+        clearInterval(this.intervals[id]);
       }
 
-      const h = Math.floor(timeDiff / (1000 * 60 * 60));
-      const m = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
-      const s = Math.floor((timeDiff % (1000 * 60)) / 1000);
+      // Créez un nouvel interval pour cet ID
+      this.intervals[id] = setInterval(() => {
+        const now = new Date();
+        const diff = endDate - now;
 
-      this.hours = String(h).padStart(2, "0");
-      this.minutes = String(m).padStart(2, "0");
-      this.seconds = String(s).padStart(2, "0");
+        if (diff <= 0) {
+          clearInterval(this.intervals[id]);
+          this.countdownData[id] = {
+            days: "00",
+            hours: "00",
+            minutes: "00",
+            seconds: "00",
+          };
+          return;
+        }
+
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+        const minutes = Math.floor((diff / (1000 * 60)) % 60);
+        const seconds = Math.floor((diff / 1000) % 60);
+
+        this.countdownData[id] = {
+          days: days.toString().padStart(2, "0"),
+          hours: hours.toString().padStart(2, "0"),
+          minutes: minutes.toString().padStart(2, "0"),
+          seconds: seconds.toString().padStart(2, "0"),
+        };
+      }, 1000);
     },
+    stopCountdown(id) {
+      if (this.intervals[id]) {
+        clearInterval(this.intervals[id]);
+        delete this.intervals[id];
+      }
+    },
+  
   },
   beforeUnmount() {
     clearInterval(this.interval); 
@@ -1574,6 +1769,7 @@ export default {
 .hero-slider{
     height: 40vh !important;
     width: 100%;
+    margin-bottom:10px !important;
 }
 .hero-img-1 {
   
