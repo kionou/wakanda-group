@@ -38,8 +38,7 @@
                         </div>
                     </div>
                     <div class="col-xl-8 col-md-12 col-sm-12  pe-0">
-    
-    
+
                         <div class="hero-slider"  >
                             <div class="hero-img-1" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;" v-if="BannerPrincipale.length === 0">
                                 <div class=" col-xxl-5 col-lg-7 col-md-8  text-xs-center" style="width: 100%; height:100%">
