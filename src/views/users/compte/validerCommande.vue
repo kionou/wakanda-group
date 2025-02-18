@@ -56,7 +56,7 @@
                                         :alt="mode.Label"  width="24" height="24" style="width:50px ; height:50px">
                                     <div class="ms-4">
                                        <h5 class="mb-0 h6 h6">{{ mode?.Label }}</h5>
-                                       <p class="mb-0 small">Expires in 10/2023</p>
+                                       <!-- <p class="mb-0 small">Expires in 10/2023</p> -->
                                     </div>
                                  </div>
                                 
@@ -101,7 +101,18 @@
                                        class="text-inherit">
                                        <h6 class="mb-0">{{ item.NomProduit }}</h6>
                                     </router-link>
-                                    <span><small class="text-muted">{{ formatPrice(item.Prix)}} {{ item.devise?.Symbol }}</small></span>
+                                    <div>
+                                                <span v-if="item?.PrixPromo" class="text-danger">
+                                                    {{ formatPrice(convertPrice(item?.PrixPromo), selectedDevise?.symbol) }}
+                                                </span>
+                                                <br>
+                                                <span v-if="item?.PrixPromo" class="text-muted text-decoration-line-through">
+                                                    {{ formatPrice(convertPrice(item?.Prix), selectedDevise?.symbol) }}
+                                                </span>
+                                                <span v-else class="text-danger">
+                                                    {{ formatPrice(convertPrice(item?.Prix), selectedDevise?.symbol) }}
+                                                </span>
+                                              </div>
                                     <!-- text -->
                                     <div class="mt-2 small lh-1">
                                       
@@ -142,7 +153,8 @@
                            </div>
                            <!-- price -->
                            <div class="col-2 text-lg-end text-start text-md-end col-md-2">
-                              <span class="fw-bold">{{ formatPrice(item.Prix * item.quantity)}} {{ item.devise.Symbol }}</span>
+                            <span class="fw-bold" v-if="item.PrixPromo">{{ formatPrice(convertPrice(item?.PrixPromo * item.quantity), selectedDevise?.symbol) }}</span>
+                            <span class="fw-bold" v-else>{{ formatPrice(convertPrice(item?.Prix * item.quantity), selectedDevise?.symbol) }}</span>
                            </div>
                         </div>
                      </li>
@@ -207,7 +219,7 @@
             />
           </div>
           <div class="col-xl-4 text-end">
-            <button class="btn btn-primary btn-sm" :disabled="!code || loadingCoupon || couponApplied">
+            <button class="btn btn-primary " :disabled="!code || loadingCoupon || couponApplied">
               {{ loadingCoupon ? "Chargement..." : "Appliquer" }}
             </button>
           </div>
@@ -332,6 +344,7 @@ export default {
      discountPercentage: 0,
      couponApplied: false,
      CouponId:'',
+     TotalGeneral:0
 
    }
  },
@@ -356,13 +369,14 @@ export default {
     },
   
    serviceFee() {
-     return 2000;
+     return this.adresse?.relais?.FraisLivraision;
    },
    total() {
-     return this.subtotal + this.serviceFee;
+     return this.subtotal ;
    },
    totalWithDiscount() {
     const discountAmount = (this.subtotal * this.discountPercentage) / 100;
+    this.TotalGeneral = this.subtotal + this.serviceFee - discountAmount;
     return this.subtotal + this.serviceFee - discountAmount;
   },
  },
@@ -420,6 +434,8 @@ async mounted() {
           });
           if (response.data.status === "success") {
             this.adresse  = response?.data?.data?.data?.find(a => a.IsDefault === 1)
+            console.log( ' this.adresse',this.adresse)
+         
             // this.loading = false
         
            
@@ -523,6 +539,7 @@ async mounted() {
         ClientId:this.loggedInUser?.id_user,
         ModePaymentId:this.selectedMode, 
          produits:produits,
+         TotalGeneral:this.TotalGeneral
 
       }
     if ( this.code) {

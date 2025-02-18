@@ -735,7 +735,9 @@ export default {
     },
     async getCountries() {
       try {
-        const response = await axiosInstance.get("countries");
+        const response = await axiosInstance.get("countries",{
+          params: { statut: 1 },
+        });
         const countries = response.data?.data;
         const options = countries.map((country) => ({
           label: country.NomPays,

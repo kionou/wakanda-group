@@ -1,1261 +1,2084 @@
-<template >
-    <div>
-        <LoadingSkeleton v-if="loading " style="z-index: 99999"></LoadingSkeleton>
-        <main v-else >
-            <section class="" >
-                <div class="row mt-3 height-slick">
-    
-                    <div class="col-xl-2  d-none d-lg-block pe-0" >
-                        <div class="mb-4">
-    
-    
-                            <div class="card height-slick justify-content-between categorie " style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">
-                              
-                                <ul class="nav-item dropdown align-items-center  p-2 mb-0" style="list-style: none;">
-                                    
-                                    <span class="">
-                                        <h6  class="fs-5"><i  class="bi bi-list"></i> Categories</h6>
+<template>
+  <div>
+    <LoadingSkeleton v-if="loading" style="z-index: 99999"></LoadingSkeleton>
+    <main v-else>
+      <section class="">
+        <div class="row mt-3 height-slick">
+          <div class="col-xl-2 col-md-3 d-none d-lg-block pe-0">
+            <div class="mb-4">
+              <div
+                class="card height-slick justify-content-between categorie"
+                style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px"
+              >
+                <ul
+                  class="nav-item dropdown align-items-center p-2 mb-0"
+                  style="list-style: none"
+                >
+                  <span class="">
+                    <h3 class="fs-5 text-center mt-2">
+                      <b>
+                        <i class="bi bi-list text-primary"> W </i> GAMMES DE
+                        PRODUITS
+                      </b>
+                    </h3>
+                  </span>
+                  <hr />
+                  <li
+                    v-for="(category, index) in CategoriesArray"
+                    :key="index"
+                    class="dropdown-menu-list"
+                  >
+                    <router-link
+                      :to="{
+                        name: 'list-categories',
+                        params: { id: encodeId(category.id) }
+                      }"
+                      class="dropdown-item d-flex justify-content-between mb-1 py-1"
+                    >
+                      <div>
+                        <img
+                          :src="
+                            category.Image !== null
+                              ? category.Image
+                              : defaultImageCategorie
+                          "
+                          :alt="category.NomCategorie"
+                          width="24"
+                          height="24"
+                          style="width: 20px"
+                        />
 
-                                </span>
-                                    <li v-for="(category,index) in CategoriesArray" :key="index" class="dropdown-menu-list">
-                                        <router-link :to="{ name: 'list-categories', params: { id: encodeId(category.id)  }}"
-                                            class="dropdown-item d-flex justify-content-between mb-1 py-1">
-                                            <div>
-                                                <img :src="category.Image !== null ? category.Image : defaultImageCategorie"
-                                                    :alt="category.NomCategorie" width="24" height="24" style="width:20px">
-    
-                                                <span class="ms-1">{{ category.NomCategorie }}</span>
-                                            </div>
-    
-    
-                                        </router-link>
-    
-    
-                                    </li>
-                                </ul>
-                              
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-8 col-md-12 col-sm-12  pe-0">
-
-                        <div class="hero-slider"  >
-                            <div class="hero-img-1" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;" v-if="BannerPrincipale.length === 0">
-                                <div class=" col-xxl-5 col-lg-7 col-md-8  text-xs-center" style="width: 100%; height:100%">
-                                    <img :src="defaultBanner" alt="" style="width: 100%; height:100%">
-                                   
-                                </div>
-                            </div> 
-                            <div  v-else class="hero-img-1" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;" v-for="(banner , index) in BannerPrincipale" :key="index">
-                                <div class=" col-xxl-5 col-lg-7 col-md-8  text-xs-center" style="width: 100%; height:100%">
-                                    <img :src="banner.Banner" alt="" style="width: 100%; height:100%">
-                                   
-                                </div>
-                            </div>
-                            
-                          
-                          
-                        </div>
-                    </div>
-                    <div class="col-xl-2 d-none d-xl-block  pe-0">
-    
-                        <div class="card ms-2 height-slick card-right" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">
-                            <img :src="firstAccueilBanner" alt="" class="h-100">    
-                        </div>
-    
-    
-                    </div>
-    
-                </div>
-            </section>
-            <section class="mt-0">
-                <div class="px-0">
-                    <div class="row align-items-center mb-3 bg-primary">
-    
-                        <div class="col-xl-12 col-lg-12 col-md-12 mb-12 mb-md-0 px-0"
-                            style="border-bottom: 1px solid var(--fc-primary);">
-    
-                            <div class="col-12 px-0 mb-0 p-1 ps-1 ">
-                                <!-- heading    -->
-                                <h3 class="align-items-center d-flex mb-0 h4">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                        stroke-linejoin="round" class="feather feather-layers text-white">
-                                        <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
-                                        <polyline points="2 17 12 22 22 17"></polyline>
-                                        <polyline points="2 12 12 17 22 12"></polyline>
-                                    </svg>
-                                    <span class="ms-3 text-white" style="font-weight: bold;">Nos Marques</span>
-                                </h3>
-                            </div>
-    
-                        </div>
-    
-    
-                    </div>
-                    <div class="row g-6 mt-1">
-                        <div class="col-12 m-0">
-                            <div class="position-relative">
-                                <div class="slider-8-columns" id="slider-8-columns">
-                                    <!-- item -->
-                                    <div class="item" v-for="(marque, index) in marquesArray" :key="index">
-                                        <!-- item -->
-                                        <router-link  :to="{ name: 'list-marques', params: {  id: encodeId(marque.id) }}" class="text-decoration-none text-inherit">
-                                            <!-- card -->
-                                            <div class="card mb-3 card-lift">
-                                                <div class="card-body  p-2  d-flex flex-column justify-content-center align-items-center">
-                                                     <!-- <router-link :to="{ name: 'marque-detail', params: { id: marque?.id }}"></router-link> -->
-                                                    <div class="my-2" style="height: 100px; width:auto">
-                                                      
-                                                        <img :src="marque.Logo !== null ||  !marque.Logo.startsWith('https') ? marque.Logo : defaultImageCategorie"
-                                                        :alt="marque.Nom"  height="24" style="width:100% ; height:100%">
-                                                    </div>
-                                                    <!-- text -->
-                                                    <div>{{ marque.Nom }}</div>
-                                                </div>
-                                            </div>
-                                        </router-link>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-           
-            <!-- section slick and marque 1111111111, moment  -->
-            <section class="row mt-1">
-                <div class="col-xl-3 col-lg-4 col-md-4 ">
-                    <div class="row" style="height:100%">
-                        <div class="col-xl-12">
-                        <div class="card  me-1" style="height: 100%;">
-                                <div class="text-white card-header text-center p-0" style="background-color: var(--fc-secondary);">
-                                    <p style="border-bottom:0 " class="fs-3 fw-bold mb-0"> OFFRE SPECIAL </p>
-
-                                </div>
-                            <div class="card-body p-3">
-                                <div class="row" style="height: 100%;">
-                              <div class="col-lg-12 text-center">
-                              
-                                <div class="slide-one">
-                                    <div class="item" style="display: grid !important; justify-content: center !important;"  v-for="(product,index) in OffreSpecial?.produits" :key="index">
-                                        <div class="col-lg-12 text-center text-lg-start">
-                                 
-                                 <h4 class="fs-10">
-                                    <span> {{product.produit?.NomProduit  }}</span>
-                                   
-                                </h4>
-
-                                 <div class="d-flex justify-content-center align-items-center mt-3">
-                                    <div>
-                                                <span v-if="product.produit?.PrixPromo" class="text-danger fs-5 fw-bold me-2">
-                                                    {{ formatPrice(convertPrice(product.produit.PrixPromo), selectedDevise.symbol) }}
-                                                </span>
-                                                
-                                                <span v-if="product.produit?.PrixPromo" class="text-muted text-decoration-line-through fs-5 fw-bold">
-                                                    {{ formatPrice(convertPrice(product.produit.Prix), selectedDevise.symbol) }}
-                                                </span>
-                                                <span v-else class="text-danger fs-5 fw-bold">
-                                                    {{ formatPrice(convertPrice(product.produit?.Prix), selectedDevise.symbol) }}
-                                                </span>
-                                                </div>
-                                 </div>
-                                 
-                                
-                              </div>
-                              <div class="d-flex justify-content-center align-items-center" style="width:100%">
-                                <div style="width:150px; height:150px">
-                                <router-link :to="{ name: 'detail', params: { id: encodeId(product.produit?.id) }}" class="d-flex justify-content-center" @click="addToRecent(product.produit)">
-                                                  
-                                                  <img :src="product.produit?.PhotoCover ? product.produit?.PhotoCover : defaultImage"
-                                                      :alt="product.produit?.NomProduit" :title="product.produit?.NomProduit"
-                                                      style="width: 100%; height: 100%; "
-                                                      class="img-fluid" />
-                                              </router-link> 
-                              </div>
-                              </div>
-                              </div>
-                            
-                                </div>
-                               
-                             
-                                </div>
-                                
-                           </div>
-                            </div>
-                          
-                        </div>
-                        </div>
-
-                    </div>
-                   
-                       
-                   
-                </div>
-                <div class="col-xl-9 col-lg-8 col-md-8">
-                     <!-- section new product start -->
-         
-
-            <div class="row" v-if="NewProductArray?.length !== 0">
-                            <!-- col -->
-    
-                            <div class="col-xl-12 col-lg-12 col-md-12 mb-1 mb-md-0">
-                                <div class="mb-3 product-content">
-                                    <div class="mb-4 "
-                                style="border-bottom: 1px solid var(--fc-primary); width:100% !important">
-                                <h3 class=" mb-0 pb-2 pt-1 ps-2 text-white bg-primary row align-items-center" style="width:100% !important;">
-                                    <router-link :to="{ name: 'type-detail', params: { id: encodeId('new') }}" class="text-white col-xl-10 col-md-8" title="Voir plus"
-                                        style="border-radius: 0px !important;font-size: 20px;"> Les nouveaux produits</router-link>
-                                        <div class="col-xl-2 col-md-4 d-none d-sm-block  text-end " style="cursor: pointer;" @click="$router.push({path:`/type-detail/${encodeId('new')}`})">
-                                         
-                                         <div style="font-size:14px" class="me-3">VOIR PLUS <i class="bi bi-arrow-right"></i></div>
-                                                
-                                     </div>
-                                </h3>
-                               
-                            </div>
-                                   
-                                    <div class="product-slider-four-columns">
-                                     
-                                        <div class="item" v-for="(product,index) in NewProductArray" :key="index">
-                                    <!-- card -->
-                                    <div class="card card-product h-100">
-                                        <div class="card-body position-relative">
-                                            <div class="text-center position-relative d-flex justify-content-center">
-                                                <div class="position-absolute top-0 start-0">
-                                                    <span v-if="product?.PrixPromo" class="badge bg-success text-white">
-                                                    -{{ calculateDiscount(product?.Prix, product?.PrixPromo) }}%
-                                                    </span>
-                                                </div>
-                                                <!-- img -->
-                                                <div>
-                                                    <router-link :to="{ name: 'detail', params: { id: encodeId(product?.id) }}" @click="addToRecent(product)">
-                                                  
-                                                  <img :src="product?.PhotoCover ? product?.PhotoCover : defaultImage"
-                                                      :alt="product?.NomProduit" :title="product?.NomProduit"
-                                                      style="width: 150px; height:auto; "
-                                                      class="mb-3 img-fluid" />
-                                              </router-link> 
-                                                    </div>
-                                               
-                                                <!-- action btn -->
-    
-                                            </div>
-                                            <!-- title -->
-                                            <h2 class="fs-6"><router-link
-                                                    :to="{ name: 'detail', params: { id: encodeId(product?.id) }}"
-                                                    class="text-inherit text-decoration-none" @click="addToRecent(product)">{{
-                                                    product?.NomProduit  }}
-                                                </router-link></h2>
-                                            <div class="d-flex justify-content-between align-items-center mt-3">
-                                              
-                                                <div>
-                                                <span v-if="product?.PrixPromo" class="text-danger">
-                                                    {{ formatPrice(convertPrice(product.PrixPromo), selectedDevise.symbol) }}
-                                                </span>
-                                                <br>
-                                                <span v-if="product?.PrixPromo" class="text-muted text-decoration-line-through">
-                                                    {{ formatPrice(convertPrice(product.Prix), selectedDevise.symbol) }}
-                                                </span>
-                                                <span v-else class="text-danger">
-                                                    {{ formatPrice(convertPrice(product?.Prix), selectedDevise.symbol) }}
-                                                </span>
-                                                </div>
-
-                                               
-                                            </div>
-                                            <div class="prix">
-                                                <p class="mb-0">
-                                                    <span v-if="product?.magasins_sum_quantite_reel !== null" class="badge bg-success text-white">Disponible</span>
-                                                    <span v-else class="badge bg-danger text-white">Pas disponible</span>
-                                                </p>
-                                                    <span  v-if="product?.magasins_sum_quantite_reel === null || product?.magasins_sum_quantite_reel === 0" class="text-uppercase small Icons " 
-                                                        disabled>
-                                                        <div class="icon-cards" disabled>
-                                                            <div v-if="loadingItems[product?.id]">
-                                                                <LoaderBtn class="loadingbtn"></LoaderBtn>
-                                                            </div>
-                                                            <div v-else>
-                                                                <i class="bi bi-cart2 fs-4"></i>
-                                                            </div>
-    
-                                                        </div>
-                                                    </span>
-
-                                                    <span v-else class="text-uppercase small  btn-success " @click="addProductToCart(product)"
-                                                        :disabled="loadingItems[product?.id] " >
-                                                        <div class="icon-card">
-                                                            <div v-if="loadingItems[product?.id]">
-                                                                <LoaderBtn class="loadingbtn"></LoaderBtn>
-                                                            </div>
-                                                            <div v-else>
-                                                                <i class="bi bi-cart2 fs-4"></i>
-                                                            </div>
-    
-                                                        </div>
-                                                    </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                      </div>
-                                       
-                                       
-                                    </div>
-                                </div>
-    
-    
-                            </div>
+                        <span class="ms-1">{{ category.NomCategorie }}</span>
+                      </div>
+                    </router-link>
+                  </li>
+                </ul>
+              </div>
             </div>
-            <!-- section new product end -->
-
-              
+          </div>
+          <div class="col-xl-8 col-md-9 col-sm-12 pe-0">
+            <div class="hero-slider">
+              <div
+                class="hero-img-1"
+                style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px"
+                v-if="BannerPrincipale.length === 0"
+              >
+                <div
+                  class="col-xxl-5 col-lg-7 col-md-8 text-xs-center"
+                  style="width: 100%; height: 100%"
+                >
+                  <img
+                    :src="defaultBanner"
+                    alt=""
+                    style="width: 100%; height: 100%"
+                  />
                 </div>
-            </section>
- <!-- section slick and marque 222222, moment  -->
-            <section class="row mt-2">
-               
-                <div class="col-xl-9 col-lg-8 col-md-8">
-                     <!-- section new product start -->            
-            <!-- section new product end -->
-
-                <!-- section moment start -->
-            <section  class="">
-                <div class="mb-1 product-content">
-                            <div class="mb-4 "
-                                style="border-bottom: 1px solid var(--fc-primary); width:100% !important">
-                                <h3 class=" mb-0 pb-2 pt-1 ps-2 text-white bg-primary row align-items-center" style="width:100% !important;">
-                                    <router-link :to="{ name: 'type-detail', params: { id: encodeId(ProductMoment?.id) }}" class="text-white col-xl-10 col-md-8 col-sm-6" title="Voir plus"
-                                        style="border-radius: 0px !important;font-size: 20px;">
-                                        {{ProductMoment?.Nom}}</router-link>
-                                        <div class="col-xl-2 col-md-4  d-none d-sm-block text-end " style="cursor: pointer;" @click="$router.push({path:`/type-detail/${ encodeId(ProductMoment?.id)}`})">
-                                       <div style="font-size:14px" class="me-3">VOIR PLUS <i class="bi bi-arrow-right"></i></div>
-                                           
-                                </div>
-                                </h3>
-                               
-                            </div>
-                            <div class="product-slider-four-columns">
-                               
-                                <div class="item" v-for="(product,index) in ProductMoment?.produits" :key="index">
-                                    <!-- card -->
-                                    <div class="card card-product h-100">
-                                        <div class="card-body position-relative">
-                                            <div class="text-center position-relative d-flex justify-content-center">
-                                                <div class="position-absolute top-0 start-0">
-                                                    <span v-if="product.produit?.PrixPromo" class="badge bg-success text-white">
-                                                    -{{ calculateDiscount(product.produit?.Prix, product.produit?.PrixPromo) }}%
-                                                    </span>
-                                                </div>
-                                                <!-- img -->
-                                                <div>
-                                                    <router-link :to="{ name: 'detail', params: { id: encodeId(product.produit?.id) }}" @click="addToRecent(product.produit)">
-                                                  
-                                                  <img :src="product.produit?.PhotoCover ? product.produit?.PhotoCover : defaultImage"
-                                                      :alt="product.produit?.NomProduit" :title="product.produit?.NomProduit"
-                                                      style="width: 200px; height: auto; "
-                                                      class="mb-3 img-fluid" />
-                                                    </router-link> 
-                                                    </div>
-                                               
-                                                <!-- action btn -->
-    
-                                            </div>
-                                            <!-- title -->
-                                            <h2 class="fs-6"><router-link
-                                                    :to="{ name: 'detail', params: { id: encodeId (product.produit?.id) }}"
-                                                    class="text-inherit text-decoration-none" @click="addToRecent(product.produit)">{{
-                                                    product.produit?.NomProduit  }}
-                                                </router-link></h2>
-                                            <div class="d-flex justify-content-between align-items-center mt-3">
-                                              
-                                                <div class="">
-                                                <span v-if="product.produit?.PrixPromo" class="text-danger">
-                                                    {{ formatPrice(convertPrice(product.produit.PrixPromo), selectedDevise.symbol) }}
-                                                </span>
-                                                <br>
-                                                <span v-if="product.produit?.PrixPromo" class="text-muted text-decoration-line-through">
-                                                    {{ formatPrice(convertPrice(product.produit.Prix), selectedDevise.symbol) }}
-                                                </span>
-                                                <span v-else class="text-danger">
-                                                    {{ formatPrice(convertPrice(product.produit?.Prix), selectedDevise.symbol) }}
-                                                </span>
-                                                </div>
-
-                                               
-                                            </div>
-                                            <div class="prix">
-                                                <p class="mb-0">
-                                                    <span v-if="product?.produit?.magasins_sum_quantite_reel !== null" class="badge bg-success text-white">Disponible</span>
-                                                    <span v-else class="badge bg-danger text-white">Pas disponible</span>
-                                                </p>
-                                                    <span  v-if="product?.produit?.magasins_sum_quantite_reel === null || product?.produit?.magasins_sum_quantite_reel === 0" class="text-uppercase small Icons " 
-                                                        disabled>
-                                                        <div class="icon-cards" disabled>
-                                                            <div v-if="loadingItems[product?.produit?.id]">
-                                                                <LoaderBtn class="loadingbtn"></LoaderBtn>
-                                                            </div>
-                                                            <div v-else>
-                                                                <i class="bi bi-cart2 fs-4"></i>
-                                                            </div>
-    
-                                                        </div>
-                                                    </span>
-
-                                                    <span v-else class="text-uppercase small  btn-success " @click="addProductToCart(product?.produit)"
-                                                        :disabled="loadingItems[product?.produit?.id] " >
-                                                        <div class="icon-card">
-                                                            <div v-if="loadingItems[product?.produit?.id]">
-                                                                <LoaderBtn class="loadingbtn"></LoaderBtn>
-                                                            </div>
-                                                            <div v-else>
-                                                                <i class="bi bi-cart2 fs-4"></i>
-                                                            </div>
-    
-                                                        </div>
-                                                    </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-    
-    
-                            </div>
-                        </div>
-            </section>
-            <!-- section moment end  -->
+              </div>
+              <div
+                v-else
+                class="hero-img-1"
+                style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px"
+                v-for="(banner, index) in BannerPrincipale"
+                :key="index"
+              >
+                <div
+                  class="col-xxl-5 col-lg-7 col-md-8 text-xs-center"
+                  style="width: 100%; height: 100%"
+                >
+                  <img
+                    :src="banner.Banner"
+                    alt=""
+                    style="width: 100%; height: 100%"
+                  />
                 </div>
-                <div class="col-xl-3 col-lg-4 col-md-4 ">
-                
-                    <div class="row ms-2" style="height:70%">
-                        <div class="col-xl-12">
-                            <a href="#" style="border-radius: 0px !important;font-size: 16px; padding: 5px 0;"
-                                    class="nav-link active d-flex justify-content-center align-items-center bg-primary" id="nav-fruitsandveg-tab"
-                                    data-bs-toggle="tab" data-bs-target="#nav-fruitsandveg"
-                                    role="tab" aria-controls="nav-fruitsandveg"
-                                    aria-selected="true">
-                                
-                                    <span class="d-flex text-white">
-                                        
-                                        <!-- <div v-if="days !== '00'"></div> -->
-                                        <div class="heure">{{ countdownData.promo?.days }} </div> j
-                                        <div class="heure">{{ countdownData.promo?.hours }}</div> h
-                                        <div class="heure">{{ countdownData.promo?.minutes }}</div> m
-                                        <div class="heure">{{ countdownData.promo?.seconds }}</div> s
-                                    </span>
-                                </a>
-                        </div>
-                        <div class="col-xl-12">
-                           
-                            <div class="card  me-1" style="height: 100%;">
-                              
-                             <img :src="firstPromoBanner?.Banner" alt="promo" style="height:310px">
-                          
-                                </div>
-                        </div>
-
-                    </div>
-
-                </div>
-            </section>
-          
-
-            <div class=" mb-3">
-    
-    
-                <div class="row">
-                    <!-- col -->
-    
-                    <div class="col-xl-12 col-lg-12 col-md-12 mb-12 mb-md-0">
-                       
-                        <section class=" mb-3">
-    
-                            <!-- row -->
-                            <div class="row align-items-center bg-primary text-white mb-2" style="border: 1px solid red">
-                                <div class="col-xl-2 col-md-3">
-                                     <div class="mb-xl-0">
-                                         <h3 class="mb-0 d-flex justify-content-center align-items-center" style="cursor: pointer;" @click="$router.push({path:`/type-detail/${encodeId(ProductFlash?.id)}`})"> 
-                                           <img src="@/assets/img/flash.png" alt="" style="width:13%">
-                                           <span class="text-white"> {{ProductFlash?.Nom}}</span>
-                                           
-                                        </h3>
-                                        </div>
-                                    </div>
-                                <div class="col-xl-9 col-md-7">
-                                    <div>
-                                            <!-- nav -->
-                                            <nav>
-                                                <ul class="nav justify-content-center nav-pills nav-scroll border-bottom-0 gap-1" id="nav-tab"
-                                                    role="tablist">
-                                                    <!-- nav item -->
-                                                    <li class="nav-item">
-                                                        <!-- nav link -->
-                                                        <a href="#" style="border-radius: 0px !important;font-size: 16px;"
-                                                            class="nav-link active d-flex" id="nav-fruitsandveg-tab"
-                                                            data-bs-toggle="tab" data-bs-target="#nav-fruitsandveg"
-                                                            role="tab" aria-controls="nav-fruitsandveg"
-                                                            aria-selected="true">
-                                                            Termine dans
-                                                            <span class="d-flex">
-                                                                
-                                                                <!-- <div v-if="days !== '00'"></div> -->
-                                                                <div class="heure">{{ countdownData.flash.days }} </div> j
-                                                                <div class="heure">{{ countdownData.flash.hours }}</div> h
-                                                                <div class="heure">{{ countdownData.flash.minutes }}</div> m
-                                                                <div class="heure">{{ countdownData.flash.seconds }}</div> s
-                                                            </span>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </nav>
-                                        </div>
-                                </div>
-                               
-                                <div class="col-xl-1 col-md-2 d-none d-sm-block"  style="cursor: pointer;" @click="$router.push({path:`/flash-promo/${encodeId(ProductFlash?.id) }`})">
-                                    <div>VOIR PLUS <i class="bi bi-arrow-right"></i></div>
-                                </div>
-                               
-                            </div>
-                            <!-- row -->
-                            <div class="row">
-                                <div class="col-12">
-                                    <!-- tab -->
-                                    <div class="tab-content" id="nav-tabContent">
-                                        <div class="tab-pane fade show active" id="nav-fruitsandveg" role="tabpanel"
-                                            aria-labelledby="nav-fruitsandveg-tab" tabindex="0">
-                                            <!-- row -->
-                                            <div class="row g-4 row-cols-xl-6 row-cols-lg-6 row-cols-lg-6 row-cols-2 row-cols-md-3 mt-1 ">
-                                                <div class="col mt-0" v-for="(product,index) in ProductFlash?.produits" :key="index">
-                                                    <!-- card -->
-                                                    <div class="card card-product-v2 h-100">
-                                                        <div class="card-body position-relative">
-                                                            <!-- badge -->
-                                                            <div class="text-center position-relative">
-                                                                <div class="position-absolute top-0 start-0">
-                                                                    <span v-if="product.produit?.PrixPromo" class="badge bg-success text-white">
-                                                                    -{{ calculateDiscount(product.produit?.Prix, product.produit?.PrixPromo) }}%
-                                                                    </span>
-                                                                </div>
-                                                                <!-- img -->
-                                                                <router-link :to="{ name: 'detail', params: { id:encodeId(product.produit?.id)  }}" @click="addToRecent(product.produit)">
-                                                                    <img :src="product.produit?.PhotoCover ? product.produit?.PhotoCover : defaultImage"
-                                                                        :alt="product.produit?.NomProduit" :title="product.produit?.NomProduit"
-                                                                        style="width: 100%; height: auto; max-height: 30% !important;"
-                                                                        class="mb-3 img-fluid" />
-                                                                </router-link>
-                                                                <!-- action btn -->
-    
-                                                            </div>
-                                                            <!-- title -->
-                                                            <h2 class="fs-6"><router-link
-                                                                :to="{ name: 'detail', params: { id:encodeId(product.produit?.id)  }}"
-                                                                class="text-inherit text-decoration-none" @click="addToRecent(product.produit)">{{
-                                                                product.produit?.NomProduit  }}
-                                                            </router-link></h2>
-    
-                                                            <!-- price -->
-                                                            <div class="d-flex justify-content-between align-items-center mt-3">
-                                                                <div>
-                                                <span v-if="product.produit?.PrixPromo" class="text-danger">
-                                                    {{ formatPrice(convertPrice(product.produit.PrixPromo), selectedDevise.symbol) }}
-                                                </span>
-                                                <br>
-                                                <span v-if="product.produit?.PrixPromo" class="text-muted text-decoration-line-through">
-                                                    {{ formatPrice(convertPrice(product.produit.Prix), selectedDevise.symbol) }}
-                                                </span>
-                                                <span v-else class="text-danger">
-                                                    {{ formatPrice(convertPrice(product.produit?.Prix), selectedDevise.symbol) }}
-                                                </span>
-                                                               </div>
-                                                               
-                                                            </div>
-                                                            <div class="prix">
-                                                <p class="mb-0">
-                                                    <span v-if="product?.produit?.magasins_sum_quantite_reel !== null" class="badge bg-success text-white">Disponible</span>
-                                                    <span v-else class="badge bg-danger text-white">Pas disponible</span>
-                                                </p>
-                                                    <span  v-if="product?.produit?.magasins_sum_quantite_reel === null || product?.produit?.magasins_sum_quantite_reel === 0" class="text-uppercase small Icons " 
-                                                        disabled>
-                                                        <div class="icon-cards" disabled>
-                                                            <div v-if="loadingItems[product?.produit?.id]">
-                                                                <LoaderBtn class="loadingbtn"></LoaderBtn>
-                                                            </div>
-                                                            <div v-else>
-                                                                <i class="bi bi-cart2 fs-4"></i>
-                                                            </div>
-    
-                                                        </div>
-                                                    </span>
-
-                                                    <span v-else class="text-uppercase small  btn-success " @click="addProductToCart(product?.produit)"
-                                                        :disabled="loadingItems[product?.produit?.id] " >
-                                                        <div class="icon-card">
-                                                            <div v-if="loadingItems[product?.produit?.id]">
-                                                                <LoaderBtn class="loadingbtn"></LoaderBtn>
-                                                            </div>
-                                                            <div v-else>
-                                                                <i class="bi bi-cart2 fs-4"></i>
-                                                            </div>
-    
-                                                        </div>
-                                                    </span>
-                                            </div>
-                                                            
-    
-                                                        </div>
-                                                        <!-- hidden class for hover -->
-                                                        <div class="product-content-fade border-info"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        
-    
-                                    </div>
-                                </div>
-                            </div>
-    
-                        </section>
-                        <section class="d-lg-block d-none">
-                            <div class="d-flex justify-content-center">
-                                <a href="#" style="border-radius: 0px !important;font-size: 16px; padding: 5px 2px;"
-                                    class="nav-link active d-flex justify-content-center align-items-center bg-primary" id="nav-fruitsandveg-tab"
-                                    data-bs-toggle="tab" data-bs-target="#nav-fruitsandveg"
-                                    role="tab" aria-controls="nav-fruitsandveg"
-                                    aria-selected="true">
-                                
-                                    <span class="d-flex text-white me-2">
-                                       
-                                    <div class="heure">{{ countdownData.banner1?.days }} </div> j
-                                    <div class="heure">{{ countdownData.banner1?.hours }}</div> h
-                                    <div class="heure">{{ countdownData.banner1?.minutes }}</div> m
-                                    <div class="heure">{{ countdownData.banner1?.seconds }}</div> s
-                                    </span>
-                                </a>
-                            </div>
-                           
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="mb-4 bg-white  rounded">
-                                      
-                                        <div class="p-4 d-lg-block  col-7 border-1" style="width: 100%; height: 40vh;"><img
-                                                :src="firstBanniere1Banner?.Banner" alt="" class="img-fluid"
-                                                style="height: 100% !important" />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
-                        <div class="row" v-if="ProductPlusVendu?.produits?.length !== 0">
-                            <!-- col -->
-    
-                            <div class="col-xl-12 col-lg-12 col-md-12 mb-2 mb-md-0">
-                                <div class="mb-1 product-content">
-                                    <div class="mb-4 "
-                                style="border-bottom: 1px solid var(--fc-primary); width:100% !important">
-                                <h3 class=" mb-0 pb-2 pt-1 ps-2 text-white bg-primary row align-items-center" style="width:100% !important;">
-                                    <router-link :to="{ name: 'type-detail', params: { id: encodeId(ProductPlusVendu?.id) }}" class="text-white col-xl-11 col-md-8" title="Voir plus"
-                                        style="border-radius: 0px !important;font-size: 20px;">
-                                        {{ProductPlusVendu?.Nom}}</router-link>
-                                        <div class="col-xl-1 col-md-4 d-none d-sm-block  text-end " style="cursor: pointer;" @click="$router.push({path:`/type-detail/${encodeId(ProductPlusVendu?.id)}`})">
-                                         
-                                         <div style="font-size:14px" class="me-3">VOIR PLUS <i class="bi bi-arrow-right"></i></div>
-                                                
-                                     </div>
-                                </h3>
-                               
-                            </div>
-                                   
-                                    <div class="product-slider-four-column">
-                                     
-                                        <div class="item" v-for="(product,index) in ProductPlusVendu?.produits" :key="index">
-                                    <!-- card -->
-                                    <div class="card card-product h-100">
-                                        <div class="card-body position-relative">
-                                            <div class="text-center position-relative d-flex justify-content-center">
-                                                <div class="position-absolute top-0 start-0">
-                                                    <span v-if="product.produit?.PrixPromo" class="badge bg-success text-white">
-                                                    -{{ calculateDiscount(product.produit?.Prix, product.produit?.PrixPromo) }}%
-                                                    </span>
-                                                </div>
-                                                <!-- img -->
-                                                <div>
-                                                    <router-link :to="{ name: 'detail', params: { id: encodeId(product.produit?.id) }}" @click="addToRecent(product.produit)">
-                                                  
-                                                  <img :src="product.produit?.PhotoCover ? product.produit?.PhotoCover : defaultImage"
-                                                      :alt="product.produit?.NomProduit" :title="product.produit?.NomProduit"
-                                                      style="width: 150px; height:auto; "
-                                                      class="mb-3 img-fluid" />
-                                              </router-link> 
-                                                    </div>
-                                               
-                                                <!-- action btn -->
-    
-                                            </div>
-                                            <!-- title -->
-                                            <h2 class="fs-6"><router-link
-                                                    :to="{ name: 'detail', params: { id: encodeId(product.produit?.id) }}"
-                                                    class="text-inherit text-decoration-none" @click="addToRecent(product.produit)">{{
-                                                    product.produit?.NomProduit }}
-                                                </router-link></h2>
-                                            <div class="d-flex justify-content-between align-items-center mt-3">
-                                              
-                                                <div>
-                                                <span v-if="product.produit?.PrixPromo" class="text-danger">
-                                                    {{ formatPrice(convertPrice(product.produit.PrixPromo), selectedDevise.symbol) }}
-                                                </span>
-                                                <br>
-                                                <span v-if="product.produit?.PrixPromo" class="text-muted text-decoration-line-through">
-                                                    {{ formatPrice(convertPrice(product.produit.Prix), selectedDevise.symbol) }}
-                                                </span>
-                                                <span v-else class="text-danger">
-                                                    {{ formatPrice(convertPrice(product.produit?.Prix), selectedDevise.symbol) }}
-                                                </span>
-                                                </div>
-
-                                               
-                                            </div>
-                                            <div class="prix">
-                                                <p class="mb-0">
-                                                    <span v-if="product?.produit?.magasins_sum_quantite_reel !== null" class="badge bg-success text-white">Disponible</span>
-                                                    <span v-else class="badge bg-danger text-white">Pas disponible</span>
-                                                </p>
-                                                    <span  v-if="product?.produit?.magasins_sum_quantite_reel === null || product?.produit?.magasins_sum_quantite_reel === 0" class="text-uppercase small Icons " 
-                                                        disabled>
-                                                        <div class="icon-cards" disabled>
-                                                            <div v-if="loadingItems[product?.produit?.id]">
-                                                                <LoaderBtn class="loadingbtn"></LoaderBtn>
-                                                            </div>
-                                                            <div v-else>
-                                                                <i class="bi bi-cart2 fs-4"></i>
-                                                            </div>
-    
-                                                        </div>
-                                                    </span>
-
-                                                    <span v-else class="text-uppercase small  btn-success " @click="addProductToCart(product?.produit)"
-                                                        :disabled="loadingItems[product?.produit?.id] " >
-                                                        <div class="icon-card">
-                                                            <div v-if="loadingItems[product?.produit?.id]">
-                                                                <LoaderBtn class="loadingbtn"></LoaderBtn>
-                                                            </div>
-                                                            <div v-else>
-                                                                <i class="bi bi-cart2 fs-4"></i>
-                                                            </div>
-    
-                                                        </div>
-                                                    </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                      </div>
-                                       
-                                       
-                                    </div>
-                                </div>
-    
-    
-                            </div>
-                        </div>
-    
-                        <div class="row" v-if="ProductSurCommande?.produits?.length !== 0">
-                            <!-- col -->
-    
-                            <div class="col-xl-12 col-lg-12 col-md-12 mb-12 mb-md-0">
-                                <div class="mb-3 product-content">
-                                    <div class="mb-4 bg-primary"
-                                style="border-bottom: 1px solid var(--fc-primary); width:100% !important">
-                                <h3 class=" mb-0 pb-2 pt-1 ps-2 text-white bg-primary row align-items-center" style="width:100% !important;">
-                                    <router-link :to="{ name: 'type-detail', params: { id:encodeId(ProductSurCommande?.id) }}" class="text-white col-xl-11 col-md-8" title="Voir plus"
-                                        style="border-radius: 0px !important;font-size: 20px;">
-                                        {{ProductSurCommande?.Nom}}</router-link>
-                                        <div class="col-xl-1 col-md-4 d-none d-sm-block text-end " style="cursor: pointer;" @click="$router.push({path:`/type-detail/${encodeId(ProductSurCommande?.id)}`})">
-                                         
-                                         <div style="font-size:14px" class="me-3">VOIR PLUS <i class="bi bi-arrow-right"></i></div>
-                                                
-                                     </div>
-                                </h3>
-                               
-                            </div>
-                                  
-                                    <div class="sur_commande">
-                                       
-                                        <div class="item" v-for="(product,index) in ProductSurCommande?.produits" :key="index">
-                                    <!-- card -->
-                                    <div class="card card-product h-100">
-                                        <div class="card-body position-relative">
-                                            <div class="text-center position-relative d-flex justify-content-center">
-                                                <div class="position-absolute top-0 start-0">
-                                                    <span v-if="product.produit?.PrixPromo" class="badge bg-success text-white">
-                                                    -{{ calculateDiscount(product.produit?.Prix, product.produit?.PrixPromo) }}%
-                                                    </span>
-                                                </div>
-                                                <!-- img -->
-                                                <div>
-                                                    <router-link :to="{ name: 'detail', params: { id: encodeId(product.produit?.id) }}" @click="addToRecent(product.produit)">
-                                                  
-                                                  <img :src="product.produit?.PhotoCover ? product.produit?.PhotoCover : defaultImage"
-                                                      :alt="product.produit?.NomProduit" :title="product.produit?.NomProduit"
-                                                      style="width: 150px; height: auto; "
-                                                      class="mb-3 img-fluid" />
-                                                </router-link> 
-                                                    </div>
-                                               
-                                                <!-- action btn -->
-    
-                                            </div>
-                                            <!-- title -->
-                                            <h2 class="fs-6"><router-link
-                                                    :to="{ name: 'detail', params: { id: encodeId(product.produit?.id) }}"
-                                                    class="text-inherit text-decoration-none" @click="addToRecent(product.produit)">{{
-                                                    product.produit?.NomProduit  }}
-                                                </router-link></h2>
-                                            <div class="d-flex justify-content-between align-items-center mt-3">
-                                              
-                                             <p class="badge bg-success text-white mb-0">sur commande</p>
-
-                                                <div>
-    
-                                                    <span class="text-uppercase small " @click="addProductToCart(product?.produit)"
-                                                        :disabled="loadingItems[product?.produit?.id]">
-                                                        <div class="icon-card">
-                                                            <div v-if="loadingItems[product?.produit?.id]">
-                                                                <LoaderBtn class="loadingbtn"></LoaderBtn>
-                                                            </div>
-                                                            <div v-else>
-                                                                <i class="bi bi-cart2 fs-4"></i>
-                                                            </div>
-    
-                                                        </div>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                      </div>
-                                    </div>
-                                </div>
-                                <section class="d-lg-block d-none">
-                                    <div class="d-flex justify-content-center">
-                                <a href="#" style="border-radius: 0px !important;font-size: 16px; padding: 5px 2px;"
-                                    class="nav-link active d-flex justify-content-center align-items-center bg-primary" id="nav-fruitsandveg-tab"
-                                    data-bs-toggle="tab" data-bs-target="#nav-fruitsandveg"
-                                    role="tab" aria-controls="nav-fruitsandveg"
-                                    aria-selected="true">
-                                
-                                    <span class="d-flex text-white me-2">
-                                        
-                                        <!-- <div v-if="days !== '00'"></div> -->
-                                        <div class="heure">{{ countdownData.banner2?.days }} </div> j
-                                        <div class="heure">{{ countdownData.banner2?.hours }}</div> h
-                                        <div class="heure">{{ countdownData.banner2?.minutes }}</div> m
-                                        <div class="heure">{{ countdownData.banner2?.seconds }}</div> s
-                                    </span>
-                                </a>
-                            </div>
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <div class="mb-4 bg-white  rounded">
-                                      
-                                      <div class="p-4  col-7 border-1" style="width: 100%; height: 40vh;"><img
-                                              :src="firstBanniere2Banner?.Banner" alt="" class="img-fluid"
-                                              style="height: 100% !important" />
-                                      </div>
-                                  </div>
-                                        </div>
-                                    </div>
-                                </section>
-                            </div>
-                        </div>
-    
-                        <div class="row">
-                            <!-- col -->
-    
-                            <div class="col-xl-12 col-lg-12 col-md-12 mb-12 mb-md-0">
-                                <div class="mb-3 product-content">
-                                    <div class="mb-4 bg-primary"
-                                        style="border-bottom: 1px solid var(--fc-primary); display: flex; width:100% !important">
-                                        <div class="row" style="width:101% !important">
-                                            <div class="col-11">
-                                                <h3 class=" mb-0  pb-2 pt-1 ps-2 text-white bg-primary">
-                                                    <router-link to="/categories" title="Voir plus" class="text-white"
-                                                        style="border-radius: 0px !important;font-size: 18px;"> Les produits
-                                                        vus recécemment</router-link>
-                                                </h3>
-                                            </div>
-                                        </div>
-    
-                                    </div>
-                                    <div class="vus_recemment  ">
-                                        <p v-if="recentProducts.length === 0">Pas de produit vue pour l'instant</p>
-                                        <div v-else class="item" v-for="(product,index) in recentProducts" :key="index">
-                                    <!-- card -->
-                                    <div class="card card-product h-100">
-                                        <div class="card-body position-relative">
-                                            <div class="text-center position-relative d-flex justify-content-center">
-                                                <div class="position-absolute top-0 start-0">
-                                                    <span v-if="product?.PrixPromo" class="badge bg-success text-white">
-                                                    -{{ calculateDiscount(product?.Prix, product?.PrixPromo) }}%
-                                                    </span>
-                                                </div>
-                                                <!-- img -->
-                                                <div>
-                                                    <router-link :to="{ name: 'detail', params: { id: encodeId(product?.id) }}" @click="addToRecent(product)">
-                                                  
-                                                  <img :src="product?.PhotoCover ? product?.PhotoCover : defaultImage"
-                                                      :alt="product?.NomProduit" :title="product?.NomProduit"
-                                                      style="width: 200px; height: auto; "
-                                                      class="mb-3 img-fluid" />
-                                                    </router-link> 
-                                                    </div>
-                                               
-                                                <!-- action btn -->
-    
-                                            </div>
-                                            <!-- title -->
-                                            <h2 class="fs-6"><router-link
-                                                    :to="{ name: 'detail', params: { id: encodeId(product?.id) }}"
-                                                    class="text-inherit text-decoration-none" @click="addToRecent(product)">{{
-                                                    product?.NomProduit }}
-                                                </router-link></h2>
-                                            <div class="d-flex justify-content-between align-items-center mt-3">
-                                              
-                                                <div>
-                                                <span v-if="product?.PrixPromo" class="text-danger">
-                                                    {{ formatPrice(convertPrice(product.PrixPromo), selectedDevise.symbol) }}
-                                                </span>
-                                                <br>
-                                                <span v-if="product?.PrixPromo" class="text-muted text-decoration-line-through">
-                                                    {{ formatPrice(convertPrice(product.Prix), selectedDevise.symbol) }}
-                                                </span>
-                                                <span v-else class="text-danger">
-                                                    {{ formatPrice(convertPrice(product?.Prix), selectedDevise.symbol) }}
-                                                </span>
-                                                </div>
-
-                                              
-                                            </div>
-                                            <div class="prix">
-                                                <p class="mb-0">
-                                                    <span v-if="product?.magasins_sum_quantite_reel !== null" class="badge bg-success text-white">Disponible</span>
-                                                    <span v-else class="badge bg-danger text-white">Pas disponible</span>
-                                                </p>
-                                                    <span  v-if="product?.magasins_sum_quantite_reel === null || product?.produit?.magasins_sum_quantite_reel === 0" class="text-uppercase small Icons " 
-                                                        disabled>
-                                                        <div class="icon-cards" disabled>
-                                                            <div v-if="loadingItems[product?.id]">
-                                                                <LoaderBtn class="loadingbtn"></LoaderBtn>
-                                                            </div>
-                                                            <div v-else>
-                                                                <i class="bi bi-cart2 fs-4"></i>
-                                                            </div>
-    
-                                                        </div>
-                                                    </span>
-
-                                                    <span v-else class="text-uppercase small  btn-success " @click="addProductToCart(product)"
-                                                        :disabled="loadingItems[product?.id] " >
-                                                        <div class="icon-card">
-                                                            <div v-if="loadingItems[product?.id]">
-                                                                <LoaderBtn class="loadingbtn"></LoaderBtn>
-                                                            </div>
-                                                            <div v-else>
-                                                                <i class="bi bi-cart2 fs-4"></i>
-                                                            </div>
-    
-                                                        </div>
-                                                    </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                      
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-    
-    
-               
+              </div>
             </div>
-    
-            <section>
-                <!-- col -->
-                <div class="col-xl-12 col-lg-12 col-12 bg-white p-3">
-                    <div class="row align-items-center mb-3">
-                        <div class="col-md-6">
-                            <!-- text -->
-                            <div class="ms-xxl-14 me-xxl-15 mb-8 mb-md-0 text-center text-md-start">
-                                <h1 class="mb-6">A propos de Wakanda group:</h1>
-                                <p class="mb-0 ">
-                                    Bienvenue chez Wakanda, votre destination en ligne pour une expérience de shopping
-                                    unique, inspirée par l’innovation, la diversité et la qualité. Chez Wakanda, nous
-                                    croyons en un futur où la technologie et la culture se rencontrent pour offrir des
-                                    produits qui résonnent avec tous les aspects de votre vie moderne.
-    
-                                    Fondé avec une passion pour l'excellence et un engagement à fournir des produits de
-                                    haute qualité, Wakanda est bien plus qu'une simple boutique en ligne. Nous sommes un
-                                    espace où chaque client peut trouver des articles soigneusement sélectionnés qui
-                                    correspondent à leurs besoins, leur style et leurs valeurs. Notre objectif est de vous
-                                    offrir une vaste gamme de produits allant de la mode aux articles électroniques, en
-                                    passant par les accessoires et les gadgets innovants.
-                                </p>
-    
-    
-                            </div>
-                        </div>
-                        <!-- col -->
-                        <div class="col-md-6">
-                            <div>
-                                <!-- img -->
-                                <img src="@/assets/img/propos.png" alt="" class="img-fluid rounded"
-                                    style="height:auto !important ; width:100% !important">
-                            </div>
-                        </div>
-                    </div>
-    
-                </div>
-            </section>
-        </main>
-    
-        <!-- Modal -->
-    
-        <div class="modal fade" id="modal-subscribe" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog modal-lg modal-dialog-centered">
-                <div class="modal-content" style="height: auto; width:500px">
-                    <div class="modal-body p-0">
-                        <div class="">
-                            <a href="#" style="border-radius: 0px !important;font-size: 16px; padding: 5px 2px;"
-                                    class="nav-link active text-white d-flex justify-content-center align-items-center bg-primary" id="nav-fruitsandveg-tab"
-                                    data-bs-toggle="tab" data-bs-target="#nav-fruitsandveg"
-                                    role="tab" aria-controls="nav-fruitsandveg"
-                                    aria-selected="true">
-                                        Termine dans 
-                                    <span class="d-flex text-white me-2">
-                                         
-                                        <!-- <div v-if="days !== '00'"></div> -->
-                                        <div class="heure">{{ countdownData.modal?.days }} </div> j
-                                        <div class="heure">{{ countdownData.modal?.hours }}</div> h
-                                        <div class="heure">{{ countdownData.modal?.minutes }}</div> m
-                                        <div class="heure">{{ countdownData.modal?.seconds }}</div> s
-                                    </span>
-                                </a>
-                            <div class="" style="height: 100%; width:100%">
-                                <img   v-if="firstModalBanner.Banner" :src="firstModalBanner.Banner" alt="" class="img-fluid rounded-start" />
-                                   <div  v-else style="height: 250px; width: 100%;" class="d-flex justify-content-center align-items-center">
-                                    <img  src="@/assets/gif/loader.gif" alt="" class="img-fluid rounded" height="100" width="100" />
-                                   </div>
-                            </div>
-                           
-                        </div>
-                        <div class="px-8 py-0 py-lg-0">
-                                <div class="position-absolute " style="top: -36px; right: -54px; background-color: red; padding: 4px; border-radius: 50%;">
-                                    <button type="button" class="btn text-white d-lg-block d-none" data-bs-dismiss="modal"
-                                        aria-label="Close">X</button>
-                                </div>
-                    
-                            </div>
-                    </div>
-                </div>
+          </div>
+          <div class="col-xl-2 d-none d-xl-block pe-0">
+            <div
+              class="card ms-2 height-slick card-right"
+              style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px"
+            >
+              <img :src="firstAccueilBanner" alt="" class="h-100" />
             </div>
-        </div>  
-        <!-- Modal -->
-        <div class="modal fade" id="quickViewModal" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog modal-xl modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-body p-8">
-                        <div class="position-absolute top-0 end-0 me-3 mt-3">
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <!-- img slide -->
-                                <div class="product productModal" id="productModal">
-                                    <div class="zoom" onmousemove="zoom(event)" style="
-                                              background-image: url(@/assets/images/products/product-single-img-1.jpg);
-                                            ">
-                                        <!-- img -->
-                                        <img src="@/assets/images/products/product-single-img-1.jpg" alt="">
-                                    </div>
-                                    <div>
-                                        <div class="zoom" onmousemove="zoom(event)" style="
-                                                background-image: url(@/assets/images/products/product-single-img-2.jpg);
-                                              ">
-                                            <!-- img -->
-                                            <img src="@/assets/images/products/product-single-img-2.jpg" alt="">
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="zoom" onmousemove="zoom(event)" style="
-                                                background-image: url(@/assets/images/products/product-single-img-3.jpg);
-                                              ">
-                                            <!-- img -->
-                                            <img src="@/assets/images/products/product-single-img-3.jpg" alt="">
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="zoom" onmousemove="zoom(event)" style="
-                                                background-image: url(@/assets/images/products/product-single-img-4.jpg);
-                                              ">
-                                            <!-- img -->
-                                            <img src="@/assets/images/products/product-single-img-4.jpg" alt="">
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- product tools -->
-                                <div class="product-tools">
-                                    <div class="thumbnails row g-3" id="productModalThumbnails">
-                                        <div class="col-3 tns-nav-active">
-                                            <div class="thumbnails-img">
-                                                <!-- img -->
-                                                <img src="@/assets/images/products/product-single-img-1.jpg" alt="">
-                                            </div>
-                                        </div>
-                                        <div class="col-3">
-                                            <div class="thumbnails-img">
-                                                <!-- img -->
-                                                <img src="@/assets/images/products/product-single-img-2.jpg" alt="">
-                                            </div>
-                                        </div>
-                                        <div class="col-3">
-                                            <div class="thumbnails-img">
-                                                <!-- img -->
-                                                <img src="@/assets/images/products/product-single-img-3.jpg" alt="">
-                                            </div>
-                                        </div>
-                                        <div class="col-3">
-                                            <div class="thumbnails-img">
-                                                <!-- img -->
-                                                <img src="@/assets/images/products/product-single-img-4.jpg" alt="">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="ps-lg-8 mt-6 mt-lg-0">
-                                    <a href="#!" class="mb-4 d-block">Bakery Biscuits</a>
-                                    <h2 class="mb-1 h1">Napolitanke Ljesnjak</h2>
-                                    <div class="mb-4">
-                                        <small class="text-warning">
-                                            <i class="bi bi-star-fill"></i>
-                                            <i class="bi bi-star-fill"></i>
-                                            <i class="bi bi-star-fill"></i>
-                                            <i class="bi bi-star-fill"></i>
-                                            <i class="bi bi-star-half"></i></small><a href="#" class="ms-2">(30 reviews)</a>
-                                    </div>
-                                    <div class="fs-4">
-                                        <span class="fw-bold text-dark">$32</span>
-                                        <span class="text-decoration-line-through text-muted">$35</span><span><small
-                                                class="fs-6 ms-2 text-danger">26% Off</small></span>
-                                    </div>
-                                    <hr class="my-6">
-                                    <div class="mb-4">
-                                        <button type="button" class="btn btn-outline-secondary">
-                                            250g
-                                        </button>
-                                        <button type="button" class="btn btn-outline-secondary">
-                                            500g
-                                        </button>
-                                        <button type="button" class="btn btn-outline-secondary">
-                                            1kg
-                                        </button>
-                                    </div>
-                                    <div>
-                                        <!-- input -->
-                                        <!-- input -->
-                                        <div class="input-group input-spinner  ">
-                                            <input type="button" value="-" class="button-minus  btn  btn-sm "
-                                                data-field="quantity">
-                                            <input type="number" step="1" max="10" value="1" name="quantity"
-                                                class="quantity-field form-control-sm form-input   ">
-                                            <input type="button" value="+" class="button-plus btn btn-sm "
-                                                data-field="quantity">
-                                        </div>
-                                    </div>
-                                    <div class="mt-3 row justify-content-start g-2 align-items-center">
-    
-                                        <div class="col-lg-4 col-md-5 col-6 d-grid">
-                                            <!-- button -->
-                                            <!-- btn -->
-                                            <button type="button" class="btn btn-primary">
-                                                <i class="feather-icon icon-shopping-bag me-2"></i>Add to
-                                                cart
-                                            </button>
-                                        </div>
-                                        <div class="col-md-4 col-5">
-                                            <!-- btn -->
-                                            <a class="btn btn-light" href="#" data-bs-toggle="tooltip" data-bs-html="true"
-                                                aria-label="Compare"><i class="bi bi-arrow-left-right"></i></a>
-                                            <a class="btn btn-light" href="#!" data-bs-toggle="tooltip" data-bs-html="true"
-                                                aria-label="Wishlist"><i class="feather-icon icon-heart"></i></a>
-                                        </div>
-                                    </div>
-                                    <hr class="my-6">
-                                    <div>
-                                        <table class="table table-borderless">
-                                            <tbody>
-                                                <tr>
-                                                    <td>Product Code:</td>
-                                                    <td>FBB00255</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Availability:</td>
-                                                    <td>In Stock</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Type:</td>
-                                                    <td>Fruits</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Shipping:</td>
-                                                    <td>
-                                                        <small>01 day shipping.<span class="text-muted">( Free pickup
-                                                                today)</span></small>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+          </div>
         </div>
-    
+      </section>
+      <section class="mt-0">
+        <div class="px-0">
+          <div class="row align-items-center mb-2 bg-primary">
+            <div
+              class="col-xl-10 col-lg-110 col-md-10 mb-md-0 px-0"
+              style="border-bottom: 1px solid var(--fc-primary)"
+            >
+              <div class="col-12 px-0 mb-0 p-1 ps-1">
+                <!-- heading    -->
+                <h3 class="align-items-center d-flex mb-0 h4">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="feather feather-layers text-white"
+                  >
+                    <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                    <polyline points="2 17 12 22 22 17"></polyline>
+                    <polyline points="2 12 12 17 22 12"></polyline>
+                  </svg>
+                  <span
+                    class="ms-3 text-white text-uppercase"
+                    style="font-weight: bold"
+                    >Nos Marques</span
+                  >
+                </h3>
+              </div>
+            </div>
+          </div>
+          <div class="row g-6 mt-1">
+            <div class="col-12 m-0">
+              <div class="position-relative">
+                <div class="slider-8-columns" id="slider-8-columns">
+                  <!-- item -->
+                  <div
+                    class="item"
+                    v-for="(marque, index) in marquesArray"
+                    :key="index"
+                  >
+                    <!-- item -->
+                    <router-link
+                      :to="{
+                        name: 'list-marques',
+                        params: { id: encodeId(marque.id) }
+                      }"
+                      class="text-decoration-none text-inherit"
+                    >
+                      <!-- card -->
+                      <div class="card mb-3 card-lift" style="border-radius:50%">
+                        <div
+                          class="card-body p-2 d-flex flex-column justify-content-center align-items-center"
+                        >
+                          <!-- <router-link :to="{ name: 'marque-detail', params: { id: marque?.id }}"></router-link> -->
+                          <div class="my-2 d-flex p-1 justify-content-center align-items-center" style="height: 100px; width: auto ; border-radius:50% ">
+                            <img
+                              :src="
+                                marque.Logo !== null ||
+                                !marque.Logo.startsWith('https')
+                                  ? marque.Logo
+                                  : defaultImageCategorie
+                              "
+                              :alt="marque.Nom"
+                              height="24"
+                              style="width: 90%; height: 90%"
+                            />
+                          </div>
+                          <!-- text -->
+                          <!-- <div>{{ marque.Nom }}</div> -->
+                        </div>
+                      </div>
+                    </router-link>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- section slick and marque 1111111111, moment  -->
+      <section class="row mt-1">
+        <div class="col-xl-3 col-lg-4 col-md-4">
+          <div class="row" style="height: 100%">
+            <div class="col-xl-12">
+              <div class="card me-1" style="height: 100%">
+                <div
+                  class="text-white card-header text-center p-0"
+                  style="background-color: var(--fc-secondary)"
+                >
+                  <p style="border-bottom: 0" class="fs-3 fw-bold mb-0">
+                    OFFRE SPECIAL
+                  </p>
+                </div>
+                <div class="card-body p-3">
+                  <div class="row" style="height: 100%">
+                    <div class="col-lg-12 text-center">
+                      <div class="slide-one">
+                        <div
+                          class="item"
+                          style="
+                            display: grid !important;
+                            justify-content: center !important;
+                          "
+                          v-for="(product, index) in OffreSpecial?.produits"
+                          :key="index"
+                        >
+                          <div class="col-lg-12 text-center text-lg-start">
+                            <h4 class="fs-10">
+                              <span> {{ product.produit?.NomProduit }}</span>
+                            </h4>
+
+                            <div
+                              class="d-flex justify-content-center align-items-center mt-3"
+                            >
+                              <div>
+                                <span
+                                  v-if="product.produit?.PrixPromo"
+                                  class="text-danger fs-5 fw-bold me-2"
+                                >
+                                  {{
+                                    formatPrice(
+                                      convertPrice(product.produit.PrixPromo),
+                                      selectedDevise.symbol
+                                    )
+                                  }}
+                                </span>
+
+                                <span
+                                  v-if="product.produit?.PrixPromo"
+                                  class="text-muted text-decoration-line-through fs-5 fw-bold"
+                                >
+                                  {{
+                                    formatPrice(
+                                      convertPrice(product.produit.Prix),
+                                      selectedDevise.symbol
+                                    )
+                                  }}
+                                </span>
+                                <span v-else class="text-danger fs-5 fw-bold">
+                                  {{
+                                    formatPrice(
+                                      convertPrice(product.produit?.Prix),
+                                      selectedDevise.symbol
+                                    )
+                                  }}
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                          <div
+                            class="d-flex justify-content-center align-items-center"
+                            style="width: 100%"
+                          >
+                            <div style="width: 150px; height: 150px">
+                              <router-link
+                                :to="{
+                                  name: 'detail',
+                                  params: { id: encodeId(product.produit?.id) }
+                                }"
+                                class="d-flex justify-content-center"
+                                @click="addToRecent(product.produit)"
+                              >
+                                <img
+                                  :src="
+                                    product.produit?.PhotoCover
+                                      ? product.produit?.PhotoCover
+                                      : defaultImage
+                                  "
+                                  :alt="product.produit?.NomProduit"
+                                  :title="product.produit?.NomProduit"
+                                  style="width: 100%; height: 100%"
+                                  class="img-fluid"
+                                />
+                              </router-link>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-9 col-lg-8 col-md-8">
+          <!-- section new product start -->
+
+          <div class="row" v-if="NewProductArray?.length !== 0">
+            <!-- col -->
+
+            <div class="col-xl-12 col-lg-12 col-md-12 mb-1 mb-md-0">
+              <div class="mb-3 product-content">
+                <div
+                  class="mb-4"
+                  style="
+                    border-bottom: 1px solid var(--fc-primary);
+                    width: 100% !important;
+                  "
+                >
+                  <h3
+                    class="mb-0 pb-2 pt-1 ps-2 text-white bg-primary row align-items-center"
+                    style="width: 100% !important"
+                  >
+                    <router-link
+                      :to="{
+                        name: 'type-detail',
+                        params: { id: encodeId('new') }
+                      }"
+                      class="text-white col-xl-10 col-md-8"
+                      title="Voir plus"
+                      style="border-radius: 0px !important; font-size: 20px"
+                    >
+                      Les nouveaux produits</router-link
+                    >
+                    <div
+                      class="col-xl-2 col-md-4 d-none d-sm-block text-end"
+                      style="cursor: pointer"
+                      @click="
+                        $router.push({
+                          path: `/type-detail/${encodeId('new')}`
+                        })
+                      "
+                    >
+                      <div style="font-size: 14px" class="me-3">
+                        VOIR PLUS <i class="bi bi-arrow-right"></i>
+                      </div>
+                    </div>
+                  </h3>
+                </div>
+
+                <div class="product-slider-four-columns">
+                  <div
+                    class="item"
+                    v-for="(product, index) in NewProductArray"
+                    :key="index"
+                  >
+                    <!-- card -->
+                    <div class="card card-product h-100">
+                      <div class="card-body position-relative">
+                        <div
+                          class="text-center position-relative d-flex justify-content-center"
+                        >
+                          <div class="position-absolute top-0 start-0">
+                            <span
+                              v-if="product?.PrixPromo"
+                              class="badge bg-success text-white"
+                            >
+                              -{{
+                                calculateDiscount(
+                                  product?.Prix,
+                                  product?.PrixPromo
+                                )
+                              }}%
+                            </span>
+                          </div>
+                          <!-- img -->
+                          <div>
+                            <router-link
+                              :to="{
+                                name: 'detail',
+                                params: { id: encodeId(product?.id) }
+                              }"
+                              @click="addToRecent(product)"
+                            >
+                              <img
+                                :src="
+                                  product?.PhotoCover
+                                    ? product?.PhotoCover
+                                    : defaultImage
+                                "
+                                :alt="product?.NomProduit"
+                                :title="product?.NomProduit"
+                                style="width: 150px; height: auto"
+                                class="mb-3 img-fluid"
+                              />
+                            </router-link>
+                          </div>
+
+                          <!-- action btn -->
+                        </div>
+                        <!-- title -->
+                        <h2 class="fs-6">
+                          <router-link
+                            :to="{
+                              name: 'detail',
+                              params: { id: encodeId(product?.id) }
+                            }"
+                            class="text-inherit text-decoration-none"
+                            @click="addToRecent(product)"
+                            >{{ product?.NomProduit }}
+                          </router-link>
+                        </h2>
+                        <div
+                          class="d-flex justify-content-between align-items-center mt-3"
+                        >
+                          <div>
+                            <span v-if="product?.PrixPromo" class="text-danger">
+                              {{
+                                formatPrice(
+                                  convertPrice(product.PrixPromo),
+                                  selectedDevise.symbol
+                                )
+                              }}
+                            </span>
+                            <br />
+                            <span
+                              v-if="product?.PrixPromo"
+                              class="text-muted text-decoration-line-through"
+                            >
+                              {{
+                                formatPrice(
+                                  convertPrice(product.Prix),
+                                  selectedDevise.symbol
+                                )
+                              }}
+                            </span>
+                            <span v-else class="text-danger">
+                              {{
+                                formatPrice(
+                                  convertPrice(product?.Prix),
+                                  selectedDevise.symbol
+                                )
+                              }}
+                            </span>
+                          </div>
+                        </div>
+                        <div class="prix">
+                          <p class="mb-0">
+                            <span
+                              v-if="
+                                product?.magasins_sum_quantite_reel !== null
+                              "
+                              class="badge bg-success text-white"
+                              >Disponible</span
+                            >
+                            <span v-else class="badge bg-danger text-white"
+                              >Pas disponible</span
+                            >
+                          </p>
+                          <span
+                            v-if="
+                              product?.magasins_sum_quantite_reel === null ||
+                              product?.magasins_sum_quantite_reel === 0
+                            "
+                            class="text-uppercase small Icons"
+                            disabled
+                          >
+                            <div class="icon-cards" disabled>
+                              <div v-if="loadingItems[product?.id]">
+                                <LoaderBtn class="loadingbtn"></LoaderBtn>
+                              </div>
+                              <div v-else>
+                                <i class="bi bi-cart2 fs-4"></i>
+                              </div>
+                            </div>
+                          </span>
+
+                          <span
+                            v-else
+                            class="text-uppercase small btn-success"
+                            @click="addProductToCart(product)"
+                            :disabled="loadingItems[product?.id]"
+                          >
+                            <div class="icon-card">
+                              <div v-if="loadingItems[product?.id]">
+                                <LoaderBtn class="loadingbtn"></LoaderBtn>
+                              </div>
+                              <div v-else>
+                                <i class="bi bi-cart2 fs-4"></i>
+                              </div>
+                            </div>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- section new product end -->
+        </div>
+      </section>
+      <!-- section slick and marque 222222, moment  -->
+      <section class="row mt-2">
+        <div class="col-xl-9 col-lg-8 col-md-8">
+          <!-- section new product start -->
+          <!-- section new product end -->
+
+          <!-- section moment start -->
+          <section class="">
+            <div class="mb-1 product-content">
+              <div
+                class="mb-4"
+                style="
+                  border-bottom: 1px solid var(--fc-primary);
+                  width: 100% !important;
+                "
+              >
+                <h3
+                  class="mb-0 pb-2 pt-1 ps-2 text-white bg-primary row align-items-center text-uppercase"
+                  style="width: 100% !important"
+                >
+                  <router-link
+                    :to="{
+                      name: 'type-detail',
+                      params: { id: encodeId(ProductMoment?.id) }
+                    }"
+                    class="text-white col-xl-10 col-md-8 col-sm-6"
+                    title="Voir plus"
+                    style="border-radius: 0px !important; font-size: 20px"
+                  >
+                    {{ ProductMoment?.Nom }}</router-link
+                  >
+                  <div
+                    class="col-xl-2 col-md-4 d-none d-sm-block text-end"
+                    style="cursor: pointer"
+                    @click="
+                      $router.push({
+                        path: `/type-detail/${encodeId(ProductMoment?.id)}`
+                      })
+                    "
+                  >
+                    <div style="font-size: 14px" class="me-3">
+                      VOIR PLUS <i class="bi bi-arrow-right"></i>
+                    </div>
+                  </div>
+                </h3>
+              </div>
+              <div class="product-slider-four-columns">
+                <div
+                  class="item"
+                  v-for="(product, index) in ProductMoment?.produits"
+                  :key="index"
+                >
+                  <!-- card -->
+                  <div class="card card-product h-100">
+                    <div class="card-body position-relative">
+                      <div
+                        class="text-center position-relative d-flex justify-content-center"
+                      >
+                        <div class="position-absolute top-0 start-0">
+                          <span
+                            v-if="product.produit?.PrixPromo"
+                            class="badge bg-success text-white"
+                          >
+                            -{{
+                              calculateDiscount(
+                                product.produit?.Prix,
+                                product.produit?.PrixPromo
+                              )
+                            }}%
+                          </span>
+                        </div>
+                        <!-- img -->
+                        <div>
+                          <router-link
+                            :to="{
+                              name: 'detail',
+                              params: { id: encodeId(product.produit?.id) }
+                            }"
+                            @click="addToRecent(product.produit)"
+                          >
+                            <img
+                              :src="
+                                product.produit?.PhotoCover
+                                  ? product.produit?.PhotoCover
+                                  : defaultImage
+                              "
+                              :alt="product.produit?.NomProduit"
+                              :title="product.produit?.NomProduit"
+                              style="width: 200px; height: auto"
+                              class="mb-3 img-fluid"
+                            />
+                          </router-link>
+                        </div>
+
+                        <!-- action btn -->
+                      </div>
+                      <!-- title -->
+                      <h2 class="fs-6">
+                        <router-link
+                          :to="{
+                            name: 'detail',
+                            params: { id: encodeId(product.produit?.id) }
+                          }"
+                          class="text-inherit text-decoration-none"
+                          @click="addToRecent(product.produit)"
+                          >{{ product.produit?.NomProduit }}
+                        </router-link>
+                      </h2>
+                      <div
+                        class="d-flex justify-content-between align-items-center mt-3"
+                      >
+                        <div class="">
+                          <span
+                            v-if="product.produit?.PrixPromo"
+                            class="text-danger"
+                          >
+                            {{
+                              formatPrice(
+                                convertPrice(product.produit.PrixPromo),
+                                selectedDevise.symbol
+                              )
+                            }}
+                          </span>
+                          <br />
+                          <span
+                            v-if="product.produit?.PrixPromo"
+                            class="text-muted text-decoration-line-through"
+                          >
+                            {{
+                              formatPrice(
+                                convertPrice(product.produit.Prix),
+                                selectedDevise.symbol
+                              )
+                            }}
+                          </span>
+                          <span v-else class="text-danger">
+                            {{
+                              formatPrice(
+                                convertPrice(product.produit?.Prix),
+                                selectedDevise.symbol
+                              )
+                            }}
+                          </span>
+                        </div>
+                      </div>
+                      <div class="prix">
+                        <p class="mb-0">
+                          <span
+                            v-if="
+                              product?.produit?.magasins_sum_quantite_reel !==
+                              null
+                            "
+                            class="badge bg-success text-white"
+                            >Disponible</span
+                          >
+                          <span v-else class="badge bg-danger text-white"
+                            >Pas disponible</span
+                          >
+                        </p>
+                        <span
+                          v-if="
+                            product?.produit?.magasins_sum_quantite_reel ===
+                              null ||
+                            product?.produit?.magasins_sum_quantite_reel === 0
+                          "
+                          class="text-uppercase small Icons"
+                          disabled
+                        >
+                          <div class="icon-cards" disabled>
+                            <div v-if="loadingItems[product?.produit?.id]">
+                              <LoaderBtn class="loadingbtn"></LoaderBtn>
+                            </div>
+                            <div v-else>
+                              <i class="bi bi-cart2 fs-4"></i>
+                            </div>
+                          </div>
+                        </span>
+
+                        <span
+                          v-else
+                          class="text-uppercase small btn-success"
+                          @click="addProductToCart(product?.produit)"
+                          :disabled="loadingItems[product?.produit?.id]"
+                        >
+                          <div class="icon-card">
+                            <div v-if="loadingItems[product?.produit?.id]">
+                              <LoaderBtn class="loadingbtn"></LoaderBtn>
+                            </div>
+                            <div v-else>
+                              <i class="bi bi-cart2 fs-4"></i>
+                            </div>
+                          </div>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+          <!-- section moment end  -->
+        </div>
+        <div class="col-xl-3 col-lg-4 col-md-4">
+          <div class="row ms-2" style="height: 70%">
+            <div class="col-xl-12">
+              <a
+                href="#"
+                style="
+                  border-radius: 0px !important;
+                  font-size: 16px;
+                  padding: 5px 0;
+                "
+                class="nav-link active d-flex justify-content-center align-items-center bg-primary text-uppercase"
+                id="nav-fruitsandveg-tab"
+                data-bs-toggle="tab"
+                data-bs-target="#nav-fruitsandveg"
+                role="tab"
+                aria-controls="nav-fruitsandveg"
+                aria-selected="true"
+              >
+                <span class="d-flex text-white">
+                  <!-- <div v-if="days !== '00'"></div> -->
+                  <div class="heure">{{ countdownData.promo?.days }}</div>
+                  J
+                  <div class="heure">{{ countdownData.promo?.hours }}</div>
+                  H
+                  <div class="heure">{{ countdownData.promo?.minutes }}</div>
+                  M
+                  <div class="heure">{{ countdownData.promo?.seconds }}</div>
+                  S
+                </span>
+              </a>
+            </div>
+            <div class="col-xl-12">
+              <div class="card me-1" style="width: 100%; height: auto">
+                <img
+                  :src="firstPromoBanner?.Banner"
+                  alt="promo wakanda produit"
+                  style="height: 370px"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="mb-3">
+        <div class="row">
+          <!-- col -->
+
+          <div class="col-xl-12 col-lg-12 col-md-12 mb-2 mb-md-0">
+            <section class="mb-3">
+              <!-- row -->
+              <div
+                class="row align-items-center bg-primary text-white mb-2"
+                style="border: 1px solid red"
+              >
+                <div class="col-xl-2 col-md-3 col-lg-4">
+                  <div class="mb-xl-0">
+                    <h3
+                      class="mb-0 d-flex justify-content-center align-items-center text-uppercase"
+                      style="cursor: pointer"
+                      @click="
+                        $router.push({
+                          path: `/type-detail/${encodeId(ProductFlash?.id)}`
+                        })
+                      "
+                    >
+                      <img
+                        src="@/assets/img/flash.png"
+                        alt=""
+                        style="width: 13%"
+                      />
+                      <span class="text-white"> {{ ProductFlash?.Nom }}</span>
+                    </h3>
+                  </div>
+                </div>
+                <div class="col-xl-9 col-md-7 col-lg-6">
+                  <div>
+                    <!-- nav -->
+                    <nav>
+                      <ul
+                        class="nav justify-content-center nav-pills nav-scroll border-bottom-0 gap-1 text-uppercase"
+                        id="nav-tab"
+                        role="tablist"
+                      >
+                        <!-- nav item -->
+                        <li class="nav-item">
+                          <!-- nav link -->
+                          <a
+                            href="#"
+                            style="
+                              border-radius: 0px !important;
+                              font-size: 16px;
+                            "
+                            class="nav-link active d-flex"
+                            id="nav-fruitsandveg-tab"
+                            data-bs-toggle="tab"
+                            data-bs-target="#nav-fruitsandveg"
+                            role="tab"
+                            aria-controls="nav-fruitsandveg"
+                            aria-selected="true"
+                          >
+                            Termine dans
+                            <span class="d-flex">
+                              <!-- <div v-if="days !== '00'"></div> -->
+                              <div class="heure">
+                                {{ countdownData.flash.days }}
+                              </div>
+                              j
+                              <div class="heure">
+                                {{ countdownData.flash.hours }}
+                              </div>
+                              h
+                              <div class="heure">
+                                {{ countdownData.flash.minutes }}
+                              </div>
+                              m
+                              <div class="heure">
+                                {{ countdownData.flash.seconds }}
+                              </div>
+                              s
+                            </span>
+                          </a>
+                        </li>
+                      </ul>
+                    </nav>
+                  </div>
+                </div>
+
+                <div
+                  class="col-xl-1 col-md-2 col-lg-2 d-none d-sm-block"
+                  style="cursor: pointer"
+                  @click="
+                    $router.push({
+                      path: `/flash-promo/${encodeId(ProductFlash?.id)}`
+                    })
+                  "
+                >
+                  <div>VOIR PLUS <i class="bi bi-arrow-right"></i></div>
+                </div>
+              </div>
+              <!-- row -->
+              <div class="row mt-1">
+                <div class="col-12">
+                  <!-- tab -->
+                  <div class="tab-content" id="nav-tabContent">
+                    <div
+                      class="tab-pane fade show active"
+                      id="nav-fruitsandveg"
+                      role="tabpanel"
+                      aria-labelledby="nav-fruitsandveg-tab"
+                      tabindex="0"
+                    >
+                      <!-- row -->
+                      <div
+                        class="row g-4 row-cols-xl-6 row-cols-lg-6 row-cols-lg-6 row-cols-2 row-cols-md-3"
+                      >
+                        <div
+                          class="col mt-3"
+                          v-for="(product, index) in ProductFlash?.produits"
+                          :key="index"
+                        >
+                          <!-- card -->
+                          <div class="card card-product-v2 h-100">
+                            <div class="card-body position-relative">
+                              <!-- badge -->
+                              <div class="text-center position-relative">
+                                <div class="position-absolute top-0 start-0">
+                                  <span
+                                    v-if="product.produit?.PrixPromo"
+                                    class="badge bg-success text-white"
+                                  >
+                                    -{{
+                                      calculateDiscount(
+                                        product.produit?.Prix,
+                                        product.produit?.PrixPromo
+                                      )
+                                    }}%
+                                  </span>
+                                </div>
+                                <!-- img -->
+                                <router-link
+                                  :to="{
+                                    name: 'detail',
+                                    params: {
+                                      id: encodeId(product.produit?.id)
+                                    }
+                                  }"
+                                  @click="addToRecent(product.produit)"
+                                >
+                                  <img
+                                    :src="
+                                      product.produit?.PhotoCover
+                                        ? product.produit?.PhotoCover
+                                        : defaultImage
+                                    "
+                                    :alt="product.produit?.NomProduit"
+                                    :title="product.produit?.NomProduit"
+                                    style="
+                                      width: 100%;
+                                      height: auto;
+                                      max-height: 30% !important;
+                                    "
+                                    class="mb-3 img-fluid"
+                                  />
+                                </router-link>
+                                <!-- action btn -->
+                              </div>
+                              <!-- title -->
+                              <h2 class="fs-6">
+                                <router-link
+                                  :to="{
+                                    name: 'detail',
+                                    params: {
+                                      id: encodeId(product.produit?.id)
+                                    }
+                                  }"
+                                  class="text-inherit text-decoration-none"
+                                  @click="addToRecent(product.produit)"
+                                  >{{ product.produit?.NomProduit }}
+                                </router-link>
+                              </h2>
+
+                              <!-- price -->
+                              <div
+                                class="d-flex justify-content-between align-items-center mt-3"
+                              >
+                                <div>
+                                  <span
+                                    v-if="product.produit?.PrixPromo"
+                                    class="text-danger"
+                                  >
+                                    {{
+                                      formatPrice(
+                                        convertPrice(product.produit.PrixPromo),
+                                        selectedDevise.symbol
+                                      )
+                                    }}
+                                  </span>
+                                  <br />
+                                  <span
+                                    v-if="product.produit?.PrixPromo"
+                                    class="text-muted text-decoration-line-through"
+                                  >
+                                    {{
+                                      formatPrice(
+                                        convertPrice(product.produit.Prix),
+                                        selectedDevise.symbol
+                                      )
+                                    }}
+                                  </span>
+                                  <span v-else class="text-danger">
+                                    {{
+                                      formatPrice(
+                                        convertPrice(product.produit?.Prix),
+                                        selectedDevise.symbol
+                                      )
+                                    }}
+                                  </span>
+                                </div>
+                              </div>
+                              <div class="prix">
+                                <p class="mb-0">
+                                  <span
+                                    v-if="
+                                      product?.produit
+                                        ?.magasins_sum_quantite_reel !== null
+                                    "
+                                    class="badge bg-success text-white"
+                                    >Disponible</span
+                                  >
+                                  <span
+                                    v-else
+                                    class="badge bg-danger text-white"
+                                    >Pas disponible</span
+                                  >
+                                </p>
+                                <span
+                                  v-if="
+                                    product?.produit
+                                      ?.magasins_sum_quantite_reel === null ||
+                                    product?.produit
+                                      ?.magasins_sum_quantite_reel === 0
+                                  "
+                                  class="text-uppercase small Icons"
+                                  disabled
+                                >
+                                  <div class="icon-cards" disabled>
+                                    <div
+                                      v-if="loadingItems[product?.produit?.id]"
+                                    >
+                                      <LoaderBtn class="loadingbtn"></LoaderBtn>
+                                    </div>
+                                    <div v-else>
+                                      <i class="bi bi-cart2 fs-4"></i>
+                                    </div>
+                                  </div>
+                                </span>
+
+                                <span
+                                  v-else
+                                  class="text-uppercase small btn-success"
+                                  @click="addProductToCart(product?.produit)"
+                                  :disabled="loadingItems[product?.produit?.id]"
+                                >
+                                  <div class="icon-card">
+                                    <div
+                                      v-if="loadingItems[product?.produit?.id]"
+                                    >
+                                      <LoaderBtn class="loadingbtn"></LoaderBtn>
+                                    </div>
+                                    <div v-else>
+                                      <i class="bi bi-cart2 fs-4"></i>
+                                    </div>
+                                  </div>
+                                </span>
+                              </div>
+                            </div>
+                            <!-- hidden class for hover -->
+                            <div class="product-content-fade border-info"></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+            <section class="d-lg-block d-none">
+              <div class="d-flex justify-content-center">
+                <a
+                  href="#"
+                  style="
+                    border-radius: 0px !important;
+                    font-size: 16px;
+                    padding: 5px 2px;
+                  "
+                  class="nav-link active d-flex justify-content-center align-items-center bg-primary text-uppercase"
+                  id="nav-fruitsandveg-tab"
+                  data-bs-toggle="tab"
+                  data-bs-target="#nav-fruitsandveg"
+                  role="tab"
+                  aria-controls="nav-fruitsandveg"
+                  aria-selected="true"
+                >
+                  <span class="d-flex text-white me-2">
+                    <div class="heure">{{ countdownData.banner1?.days }}</div>
+                    j
+                    <div class="heure">{{ countdownData.banner1?.hours }}</div>
+                    h
+                    <div class="heure">
+                      {{ countdownData.banner1?.minutes }}
+                    </div>
+                    m
+                    <div class="heure">
+                      {{ countdownData.banner1?.seconds }}
+                    </div>
+                    s
+                  </span>
+                </a>
+              </div>
+
+              <div class="row">
+                <div class="col-12">
+                  <div class="mb-4 bg-white rounded">
+                    <div
+                      class="p-4 d-lg-block col-7 border-1"
+                      style="width: 100%; height: 40vh"
+                    >
+                      <img
+                        :src="firstBanniere1Banner?.Banner"
+                        alt=""
+                        class="img-fluid"
+                        style="height: 100% !important"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+            <div class="row" v-if="ProductPlusVendu?.produits?.length !== 0">
+              <!-- col -->
+
+              <div class="col-xl-12 col-lg-12 col-md-12 mb-2 mb-md-0">
+                <div class="mb-1 product-content">
+                  <div
+                    class="mb-4"
+                    style="
+                      border-bottom: 1px solid var(--fc-primary);
+                      width: 100% !important;
+                    "
+                  >
+                    <h3
+                      class="mb-0 pb-2 pt-1 ps-2 text-white bg-primary row align-items-center text-uppercase"
+                      style="width: 100% !important"
+                    >
+                      <router-link
+                        :to="{
+                          name: 'type-detail',
+                          params: { id: encodeId(ProductPlusVendu?.id) }
+                        }"
+                        class="text-white col-xl-11 col-md-8"
+                        title="Voir plus"
+                        style="border-radius: 0px !important; font-size: 20px"
+                      >
+                        {{ ProductPlusVendu?.Nom }}</router-link
+                      >
+                      <div
+                        class="col-xl-1 col-md-4 d-none d-sm-block text-end"
+                        style="cursor: pointer"
+                        @click="
+                          $router.push({
+                            path: `/type-detail/${encodeId(
+                              ProductPlusVendu?.id
+                            )}`
+                          })
+                        "
+                      >
+                        <div style="font-size: 14px" class="me-3">
+                          VOIR PLUS <i class="bi bi-arrow-right"></i>
+                        </div>
+                      </div>
+                    </h3>
+                  </div>
+
+                  <div class="product-slider-four-column">
+                    <div
+                      class="item"
+                      v-for="(product, index) in ProductPlusVendu?.produits"
+                      :key="index"
+                    >
+                      <!-- card -->
+                      <div class="card card-product h-100">
+                        <div class="card-body position-relative">
+                          <div
+                            class="text-center position-relative d-flex justify-content-center"
+                          >
+                            <div class="position-absolute top-0 start-0">
+                              <span
+                                v-if="product.produit?.PrixPromo"
+                                class="badge bg-success text-white"
+                              >
+                                -{{
+                                  calculateDiscount(
+                                    product.produit?.Prix,
+                                    product.produit?.PrixPromo
+                                  )
+                                }}%
+                              </span>
+                            </div>
+                            <!-- img -->
+                            <div>
+                              <router-link
+                                :to="{
+                                  name: 'detail',
+                                  params: { id: encodeId(product.produit?.id) }
+                                }"
+                                @click="addToRecent(product.produit)"
+                              >
+                                <img
+                                  :src="
+                                    product.produit?.PhotoCover
+                                      ? product.produit?.PhotoCover
+                                      : defaultImage
+                                  "
+                                  :alt="product.produit?.NomProduit"
+                                  :title="product.produit?.NomProduit"
+                                  style="width: 150px; height: auto"
+                                  class="mb-3 img-fluid"
+                                />
+                              </router-link>
+                            </div>
+
+                            <!-- action btn -->
+                          </div>
+                          <!-- title -->
+                          <h2 class="fs-6">
+                            <router-link
+                              :to="{
+                                name: 'detail',
+                                params: { id: encodeId(product.produit?.id) }
+                              }"
+                              class="text-inherit text-decoration-none"
+                              @click="addToRecent(product.produit)"
+                              >{{ product.produit?.NomProduit }}
+                            </router-link>
+                          </h2>
+                          <div
+                            class="d-flex justify-content-between align-items-center mt-3"
+                          >
+                            <div>
+                              <span
+                                v-if="product.produit?.PrixPromo"
+                                class="text-danger"
+                              >
+                                {{
+                                  formatPrice(
+                                    convertPrice(product.produit.PrixPromo),
+                                    selectedDevise.symbol
+                                  )
+                                }}
+                              </span>
+                              <br />
+                              <span
+                                v-if="product.produit?.PrixPromo"
+                                class="text-muted text-decoration-line-through"
+                              >
+                                {{
+                                  formatPrice(
+                                    convertPrice(product.produit.Prix),
+                                    selectedDevise.symbol
+                                  )
+                                }}
+                              </span>
+                              <span v-else class="text-danger">
+                                {{
+                                  formatPrice(
+                                    convertPrice(product.produit?.Prix),
+                                    selectedDevise.symbol
+                                  )
+                                }}
+                              </span>
+                            </div>
+                          </div>
+                          <div class="prix">
+                            <p class="mb-0">
+                              <span
+                                v-if="
+                                  product?.produit
+                                    ?.magasins_sum_quantite_reel !== null
+                                "
+                                class="badge bg-success text-white"
+                                >Disponible</span
+                              >
+                              <span v-else class="badge bg-danger text-white"
+                                >Pas disponible</span
+                              >
+                            </p>
+                            <span
+                              v-if="
+                                product?.produit?.magasins_sum_quantite_reel ===
+                                  null ||
+                                product?.produit?.magasins_sum_quantite_reel ===
+                                  0
+                              "
+                              class="text-uppercase small Icons"
+                              disabled
+                            >
+                              <div class="icon-cards" disabled>
+                                <div v-if="loadingItems[product?.produit?.id]">
+                                  <LoaderBtn class="loadingbtn"></LoaderBtn>
+                                </div>
+                                <div v-else>
+                                  <i class="bi bi-cart2 fs-4"></i>
+                                </div>
+                              </div>
+                            </span>
+
+                            <span
+                              v-else
+                              class="text-uppercase small btn-success"
+                              @click="addProductToCart(product?.produit)"
+                              :disabled="loadingItems[product?.produit?.id]"
+                            >
+                              <div class="icon-card">
+                                <div v-if="loadingItems[product?.produit?.id]">
+                                  <LoaderBtn class="loadingbtn"></LoaderBtn>
+                                </div>
+                                <div v-else>
+                                  <i class="bi bi-cart2 fs-4"></i>
+                                </div>
+                              </div>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row" v-if="ProductSurCommande?.produits?.length !== 0">
+              <!-- col -->
+
+              <div class="col-xl-12 col-lg-12 col-md-12 mb-2 mb-md-0">
+                <div class="mb-3 product-content">
+                  <div
+                    class="mb-4 bg-primary"
+                    style="
+                      border-bottom: 1px solid var(--fc-primary);
+                      width: 100% !important;
+                    "
+                  >
+                    <h3
+                      class="mb-0 pb-2 pt-1 ps-2 text-white bg-primary row align-items-center text-uppercase"
+                      style="width: 100% !important"
+                    >
+                      <router-link
+                        :to="{
+                          name: 'type-detail',
+                          params: { id: encodeId(ProductSurCommande?.id) }
+                        }"
+                        class="text-white col-xl-11 col-md-8"
+                        title="Voir plus"
+                        style="border-radius: 0px !important; font-size: 20px"
+                      >
+                        {{ ProductSurCommande?.Nom }}</router-link
+                      >
+                      <div
+                        class="col-xl-1 col-md-4 d-none d-sm-block text-end"
+                        style="cursor: pointer"
+                        @click="
+                          $router.push({
+                            path: `/type-detail/${encodeId(
+                              ProductSurCommande?.id
+                            )}`
+                          })
+                        "
+                      >
+                        <div style="font-size: 14px" class="me-3">
+                          VOIR PLUS <i class="bi bi-arrow-right"></i>
+                        </div>
+                      </div>
+                    </h3>
+                  </div>
+
+                  <div class="sur_commande">
+                    <div
+                      class="item"
+                      v-for="(product, index) in ProductSurCommande?.produits"
+                      :key="index"
+                    >
+                      <!-- card -->
+                      <div class="card card-product h-100">
+                        <div class="card-body position-relative">
+                          <div
+                            class="text-center position-relative d-flex justify-content-center"
+                          >
+                            <div class="position-absolute top-0 start-0">
+                              <span
+                                v-if="product.produit?.PrixPromo"
+                                class="badge bg-success text-white"
+                              >
+                                -{{
+                                  calculateDiscount(
+                                    product.produit?.Prix,
+                                    product.produit?.PrixPromo
+                                  )
+                                }}%
+                              </span>
+                            </div>
+                            <!-- img -->
+                            <div>
+                              <router-link
+                                :to="{
+                                  name: 'detail',
+                                  params: { id: encodeId(product.produit?.id) }
+                                }"
+                                @click="addToRecent(product.produit)"
+                              >
+                                <img
+                                  :src="
+                                    product.produit?.PhotoCover
+                                      ? product.produit?.PhotoCover
+                                      : defaultImage
+                                  "
+                                  :alt="product.produit?.NomProduit"
+                                  :title="product.produit?.NomProduit"
+                                  style="width: 150px; height: auto"
+                                  class="mb-3 img-fluid"
+                                />
+                              </router-link>
+                            </div>
+
+                            <!-- action btn -->
+                          </div>
+                          <!-- title -->
+                          <h2 class="fs-6">
+                            <router-link
+                              :to="{
+                                name: 'detail',
+                                params: { id: encodeId(product.produit?.id) }
+                              }"
+                              class="text-inherit text-decoration-none"
+                              @click="addToRecent(product.produit)"
+                              >{{ product.produit?.NomProduit }}
+                            </router-link>
+                          </h2>
+                          <div
+                            class="d-flex justify-content-between align-items-center mt-3"
+                          >
+                            <p class="badge bg-success text-white mb-0">
+                              sur commande
+                            </p>
+
+                            <div>
+                              <span
+                                class="text-uppercase small"
+                                @click="addProductToCart(product?.produit)"
+                                :disabled="loadingItems[product?.produit?.id]"
+                              >
+                                <div class="icon-card">
+                                  <div
+                                    v-if="loadingItems[product?.produit?.id]"
+                                  >
+                                    <LoaderBtn class="loadingbtn"></LoaderBtn>
+                                  </div>
+                                  <div v-else>
+                                    <i class="bi bi-cart2 fs-4"></i>
+                                  </div>
+                                </div>
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <section class="d-lg-block d-none">
+                  <div class="d-flex justify-content-center">
+                    <a
+                      href="#"
+                      style="
+                        border-radius: 0px !important;
+                        font-size: 16px;
+                        padding: 5px 2px;
+                      "
+                      class="nav-link active d-flex justify-content-center align-items-center bg-primary text-uppercase"
+                      id="nav-fruitsandveg-tab"
+                      data-bs-toggle="tab"
+                      data-bs-target="#nav-fruitsandveg"
+                      role="tab"
+                      aria-controls="nav-fruitsandveg"
+                      aria-selected="true"
+                    >
+                      <span class="d-flex text-white me-2 text-uppercase">
+                        <!-- <div v-if="days !== '00'"></div> -->
+                        <div class="heure">
+                          {{ countdownData.banner2?.days }}
+                        </div>
+                        j
+                        <div class="heure">
+                          {{ countdownData.banner2?.hours }}
+                        </div>
+                        h
+                        <div class="heure">
+                          {{ countdownData.banner2?.minutes }}
+                        </div>
+                        m
+                        <div class="heure">
+                          {{ countdownData.banner2?.seconds }}
+                        </div>
+                        s
+                      </span>
+                    </a>
+                  </div>
+                  <div class="row">
+                    <div class="col-12">
+                      <div class="mb-4 bg-white rounded">
+                        <div
+                          class="p-4 col-7 border-1"
+                          style="width: 100%; height: 40vh"
+                        >
+                          <img
+                            :src="firstBanniere2Banner?.Banner"
+                            alt=""
+                            class="img-fluid"
+                            style="height: 100% !important"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+              </div>
+            </div>
+
+            <div class="row">
+              <!-- col -->
+
+              <div class="col-xl-12 col-lg-12 col-md-12 mb-2 mb-md-0">
+                <div class="mb-3 product-content">
+                  <div
+                    class="mb-4 bg-primary"
+                    style="
+                      border-bottom: 1px solid var(--fc-primary);
+                      display: flex;
+                      width: 100% !important;
+                    "
+                  >
+                    <div class="row" style="width: 101% !important">
+                      <div class="col-11">
+                        <h3
+                          class="mb-0 pb-2 pt-1 ps-2 text-white bg-primary text-uppercase"
+                        >
+                          <router-link
+                            to="/categories"
+                            title="Voir plus"
+                            class="text-white"
+                            style="
+                              border-radius: 0px !important;
+                              font-size: 18px;
+                            "
+                          >
+                            Les produits vus recécemment</router-link
+                          >
+                        </h3>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="vus_recemment">
+                    <p v-if="recentProducts.length === 0">
+                      Pas de produit vue pour l'instant
+                    </p>
+                    <div
+                      v-else
+                      class="item"
+                      v-for="(product, index) in recentProducts"
+                      :key="index"
+                    >
+                      <!-- card -->
+                      <div class="card card-product h-100">
+                        <div class="card-body position-relative">
+                          <div
+                            class="text-center position-relative d-flex justify-content-center"
+                          >
+                            <div class="position-absolute top-0 start-0">
+                              <span
+                                v-if="product?.PrixPromo"
+                                class="badge bg-success text-white"
+                              >
+                                -{{
+                                  calculateDiscount(
+                                    product?.Prix,
+                                    product?.PrixPromo
+                                  )
+                                }}%
+                              </span>
+                            </div>
+                            <!-- img -->
+                            <div>
+                              <router-link
+                                :to="{
+                                  name: 'detail',
+                                  params: { id: encodeId(product?.id) }
+                                }"
+                                @click="addToRecent(product)"
+                              >
+                                <img
+                                  :src="
+                                    product?.PhotoCover
+                                      ? product?.PhotoCover
+                                      : defaultImage
+                                  "
+                                  :alt="product?.NomProduit"
+                                  :title="product?.NomProduit"
+                                  style="width: 200px; height: auto"
+                                  class="mb-3 img-fluid"
+                                />
+                              </router-link>
+                            </div>
+
+                            <!-- action btn -->
+                          </div>
+                          <!-- title -->
+                          <h2 class="fs-6">
+                            <router-link
+                              :to="{
+                                name: 'detail',
+                                params: { id: encodeId(product?.id) }
+                              }"
+                              class="text-inherit text-decoration-none"
+                              @click="addToRecent(product)"
+                              >{{ product?.NomProduit }}
+                            </router-link>
+                          </h2>
+                          <div
+                            class="d-flex justify-content-between align-items-center mt-3"
+                          >
+                            <div>
+                              <span
+                                v-if="product?.PrixPromo"
+                                class="text-danger"
+                              >
+                                {{
+                                  formatPrice(
+                                    convertPrice(product.PrixPromo),
+                                    selectedDevise.symbol
+                                  )
+                                }}
+                              </span>
+                              <br />
+                              <span
+                                v-if="product?.PrixPromo"
+                                class="text-muted text-decoration-line-through"
+                              >
+                                {{
+                                  formatPrice(
+                                    convertPrice(product.Prix),
+                                    selectedDevise.symbol
+                                  )
+                                }}
+                              </span>
+                              <span v-else class="text-danger">
+                                {{
+                                  formatPrice(
+                                    convertPrice(product?.Prix),
+                                    selectedDevise.symbol
+                                  )
+                                }}
+                              </span>
+                            </div>
+                          </div>
+                          <div class="prix">
+                            <p class="mb-0">
+                              <span
+                                v-if="
+                                  product?.magasins_sum_quantite_reel !== null
+                                "
+                                class="badge bg-success text-white"
+                                >Disponible</span
+                              >
+                              <span v-else class="badge bg-danger text-white"
+                                >Pas disponible</span
+                              >
+                            </p>
+                            <span
+                              v-if="
+                                product?.magasins_sum_quantite_reel === null ||
+                                product?.produit?.magasins_sum_quantite_reel ===
+                                  0
+                              "
+                              class="text-uppercase small Icons"
+                              disabled
+                            >
+                              <div class="icon-cards" disabled>
+                                <div v-if="loadingItems[product?.id]">
+                                  <LoaderBtn class="loadingbtn"></LoaderBtn>
+                                </div>
+                                <div v-else>
+                                  <i class="bi bi-cart2 fs-4"></i>
+                                </div>
+                              </div>
+                            </span>
+
+                            <span
+                              v-else
+                              class="text-uppercase small btn-success"
+                              @click="addProductToCart(product)"
+                              :disabled="loadingItems[product?.id]"
+                            >
+                              <div class="icon-card">
+                                <div v-if="loadingItems[product?.id]">
+                                  <LoaderBtn class="loadingbtn"></LoaderBtn>
+                                </div>
+                                <div v-else>
+                                  <i class="bi bi-cart2 fs-4"></i>
+                                </div>
+                              </div>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <section>
+        <!-- col -->
+        <div class="col-xl-12 col-lg-12 col-12 bg-white p-3">
+          <div class="row align-items-center mb-3">
+            <div class="col-md-6">
+              <!-- text -->
+              <div
+                class="ms-xxl-14 me-xxl-15 mb-8 mb-md-0 text-center text-md-start"
+              >
+                <h1 class="mb-6">A propos de Wakanda group:</h1>
+                <p class="mb-0">
+                  Bienvenue chez Wakanda, votre destination en ligne pour une
+                  expérience de shopping unique, inspirée par l’innovation, la
+                  diversité et la qualité. Chez Wakanda, nous croyons en un
+                  futur où la technologie et la culture se rencontrent pour
+                  offrir des produits qui résonnent avec tous les aspects de
+                  votre vie moderne. Fondé avec une passion pour l'excellence et
+                  un engagement à fournir des produits de haute qualité, Wakanda
+                  est bien plus qu'une simple boutique en ligne. Nous sommes un
+                  espace où chaque client peut trouver des articles
+                  soigneusement sélectionnés qui correspondent à leurs besoins,
+                  leur style et leurs valeurs. Notre objectif est de vous offrir
+                  une vaste gamme de produits allant de la mode aux articles
+                  électroniques, en passant par les accessoires et les gadgets
+                  innovants.
+                </p>
+              </div>
+            </div>
+            <!-- col -->
+            <div class="col-md-6">
+              <div>
+                <!-- img -->
+                <img
+                  src="@/assets/img/propos.png"
+                  alt=""
+                  class="img-fluid rounded"
+                  style="height: auto !important ; width: 100% !important"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Modal -->
+
+    <div
+      class="modal fade"
+      id="modal-subscribe"
+      tabindex="-1"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content" style="height: auto; width: 500px">
+          <div class="modal-body p-0">
+            <div class="">
+              <a
+                href="#"
+                style="
+                  border-radius: 0px !important;
+                  font-size: 16px;
+                  padding: 5px 2px;
+                "
+                class="nav-link active text-white d-flex justify-content-center align-items-center bg-primary text-uppercase"
+                id="nav-fruitsandveg-tab"
+                data-bs-toggle="tab"
+                data-bs-target="#nav-fruitsandveg"
+                role="tab"
+                aria-controls="nav-fruitsandveg"
+                aria-selected="true"
+              >
+                Termine dans
+                <span class="d-flex text-white me-2">
+                  <!-- <div v-if="days !== '00'"></div> -->
+                  <div class="heure">{{ countdownData.modal?.days }}</div>
+                  j
+                  <div class="heure">{{ countdownData.modal?.hours }}</div>
+                  h
+                  <div class="heure">{{ countdownData.modal?.minutes }}</div>
+                  m
+                  <div class="heure">{{ countdownData.modal?.seconds }}</div>
+                  s
+                </span>
+              </a>
+              <div class="" style="height: 100%; width: 100%">
+                <img
+                  v-if="firstModalBanner.Banner"
+                  :src="firstModalBanner.Banner"
+                  alt=""
+                  class="img-fluid rounded-start"
+                />
+                <div
+                  v-else
+                  style="height: 250px; width: 100%"
+                  class="d-flex justify-content-center align-items-center"
+                >
+                  <img
+                    src="@/assets/gif/loader.gif"
+                    alt=""
+                    class="img-fluid rounded"
+                    height="100"
+                    width="100"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="px-8 py-0 py-lg-0">
+              <div
+                class="position-absolute"
+                style="
+                  top: -36px;
+                  right: -54px;
+                  background-color: red;
+                  padding: 4px;
+                  border-radius: 50%;
+                "
+              >
+                <button
+                  type="button"
+                  class="btn text-white d-lg-block d-none"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                >
+                  X
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+    <!-- Modal -->
+    <div
+      class="modal fade"
+      id="quickViewModal"
+      tabindex="-1"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-xl modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-body p-8">
+            <div class="position-absolute top-0 end-0 me-3 mt-3">
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="row">
+              <div class="col-lg-6">
+                <!-- img slide -->
+                <div class="product productModal" id="productModal">
+                  <div
+                    class="zoom"
+                    onmousemove="zoom(event)"
+                    style="
+                      background-image: url(@/assets/images/products/product-single-img-1.jpg);
+                    "
+                  >
+                    <!-- img -->
+                    <img
+                      src="@/assets/images/products/product-single-img-1.jpg"
+                      alt=""
+                    />
+                  </div>
+                  <div>
+                    <div
+                      class="zoom"
+                      onmousemove="zoom(event)"
+                      style="
+                        background-image: url(@/assets/images/products/product-single-img-2.jpg);
+                      "
+                    >
+                      <!-- img -->
+                      <img
+                        src="@/assets/images/products/product-single-img-2.jpg"
+                        alt=""
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <div
+                      class="zoom"
+                      onmousemove="zoom(event)"
+                      style="
+                        background-image: url(@/assets/images/products/product-single-img-3.jpg);
+                      "
+                    >
+                      <!-- img -->
+                      <img
+                        src="@/assets/images/products/product-single-img-3.jpg"
+                        alt=""
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <div
+                      class="zoom"
+                      onmousemove="zoom(event)"
+                      style="
+                        background-image: url(@/assets/images/products/product-single-img-4.jpg);
+                      "
+                    >
+                      <!-- img -->
+                      <img
+                        src="@/assets/images/products/product-single-img-4.jpg"
+                        alt=""
+                      />
+                    </div>
+                  </div>
+                </div>
+                <!-- product tools -->
+                <div class="product-tools">
+                  <div class="thumbnails row g-3" id="productModalThumbnails">
+                    <div class="col-3 tns-nav-active">
+                      <div class="thumbnails-img">
+                        <!-- img -->
+                        <img
+                          src="@/assets/images/products/product-single-img-1.jpg"
+                          alt=""
+                        />
+                      </div>
+                    </div>
+                    <div class="col-3">
+                      <div class="thumbnails-img">
+                        <!-- img -->
+                        <img
+                          src="@/assets/images/products/product-single-img-2.jpg"
+                          alt=""
+                        />
+                      </div>
+                    </div>
+                    <div class="col-3">
+                      <div class="thumbnails-img">
+                        <!-- img -->
+                        <img
+                          src="@/assets/images/products/product-single-img-3.jpg"
+                          alt=""
+                        />
+                      </div>
+                    </div>
+                    <div class="col-3">
+                      <div class="thumbnails-img">
+                        <!-- img -->
+                        <img
+                          src="@/assets/images/products/product-single-img-4.jpg"
+                          alt=""
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="ps-lg-8 mt-6 mt-lg-0">
+                  <a href="#!" class="mb-4 d-block">Bakery Biscuits</a>
+                  <h2 class="mb-1 h1">Napolitanke Ljesnjak</h2>
+                  <div class="mb-4">
+                    <small class="text-warning">
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-half"></i></small
+                    ><a href="#" class="ms-2">(30 reviews)</a>
+                  </div>
+                  <div class="fs-4">
+                    <span class="fw-bold text-dark">$32</span>
+                    <span class="text-decoration-line-through text-muted"
+                      >$35</span
+                    ><span
+                      ><small class="fs-6 ms-2 text-danger"
+                        >26% Off</small
+                      ></span
+                    >
+                  </div>
+                  <hr class="my-6" />
+                  <div class="mb-4">
+                    <button type="button" class="btn btn-outline-secondary">
+                      250g
+                    </button>
+                    <button type="button" class="btn btn-outline-secondary">
+                      500g
+                    </button>
+                    <button type="button" class="btn btn-outline-secondary">
+                      1kg
+                    </button>
+                  </div>
+                  <div>
+                    <!-- input -->
+                    <!-- input -->
+                    <div class="input-group input-spinner">
+                      <input
+                        type="button"
+                        value="-"
+                        class="button-minus btn btn-sm"
+                        data-field="quantity"
+                      />
+                      <input
+                        type="number"
+                        step="1"
+                        max="10"
+                        value="1"
+                        name="quantity"
+                        class="quantity-field form-control-sm form-input"
+                      />
+                      <input
+                        type="button"
+                        value="+"
+                        class="button-plus btn btn-sm"
+                        data-field="quantity"
+                      />
+                    </div>
+                  </div>
+                  <div
+                    class="mt-3 row justify-content-start g-2 align-items-center"
+                  >
+                    <div class="col-lg-4 col-md-5 col-6 d-grid">
+                      <!-- button -->
+                      <!-- btn -->
+                      <button type="button" class="btn btn-primary">
+                        <i class="feather-icon icon-shopping-bag me-2"></i>Add
+                        to cart
+                      </button>
+                    </div>
+                    <div class="col-md-4 col-5">
+                      <!-- btn -->
+                      <a
+                        class="btn btn-light"
+                        href="#"
+                        data-bs-toggle="tooltip"
+                        data-bs-html="true"
+                        aria-label="Compare"
+                        ><i class="bi bi-arrow-left-right"></i
+                      ></a>
+                      <a
+                        class="btn btn-light"
+                        href="#!"
+                        data-bs-toggle="tooltip"
+                        data-bs-html="true"
+                        aria-label="Wishlist"
+                        ><i class="feather-icon icon-heart"></i
+                      ></a>
+                    </div>
+                  </div>
+                  <hr class="my-6" />
+                  <div>
+                    <table class="table table-borderless">
+                      <tbody>
+                        <tr>
+                          <td>Product Code:</td>
+                          <td>FBB00255</td>
+                        </tr>
+                        <tr>
+                          <td>Availability:</td>
+                          <td>In Stock</td>
+                        </tr>
+                        <tr>
+                          <td>Type:</td>
+                          <td>Fruits</td>
+                        </tr>
+                        <tr>
+                          <td>Shipping:</td>
+                          <td>
+                            <small
+                              >01 day shipping.<span class="text-muted"
+                                >( Free pickup today)</span
+                              ></small
+                            >
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 <script>
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
-import $ from 'jquery';
-import 'slick-carousel';
-import LoadingSkeleton from '@/components/others/loader/LoadingSkeleton.vue';
-import defaultImage from '@/assets/images/products/product-img-2.jpg';
-import defaultImageCategorie from '@/assets/img/logo_mobile.png';
-import { mapActions, mapGetters } from 'vuex';
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import $ from "jquery";
+import "slick-carousel";
+import LoadingSkeleton from "@/components/others/loader/LoadingSkeleton.vue";
+import defaultImage from "@/assets/images/products/product-img-2.jpg";
+import defaultImageCategorie from "@/assets/img/logo_mobile.png";
+import { mapActions, mapGetters } from "vuex";
 import { useToast } from "vue-toastification";
-import LoaderBtn from '@/components/others/loader/loaderbtn.vue';
-import defaultBanner from '@/assets/img/banner_default.jpg'
-import axios from '@/lib/axiosConfig';
-
-
-
+import LoaderBtn from "@/components/others/loader/loaderbtn.vue";
+import defaultBanner from "@/assets/img/banner_default.jpg";
+import axios from "@/lib/axiosConfig";
 
 export default {
   components: {
-    LoadingSkeleton, LoaderBtn
+    LoadingSkeleton,
+    LoaderBtn
   },
   computed: {
-    ...mapGetters('cart', ['alertMessage', 'loading']),
+    ...mapGetters("cart", ["alertMessage", "loading"]),
     ...mapGetters("devise", ["selectedDevise", "getSelectedRate"]),
     recentProducts() {
-    
-      return this.$store.getters['recentProducts/recentProducts'];
-    },
+      return this.$store.getters["recentProducts/recentProducts"];
+    }
   },
   setup() {
     const toast = useToast(); // Initialiser useToast
@@ -1263,63 +2086,58 @@ export default {
   },
 
   data() {
-
     return {
       loading: true,
       loadingItems: {},
       products: [],
       defaultImage: defaultImage,
-      defaultBanner:defaultBanner,
+      defaultBanner: defaultBanner,
       defaultImageCategorie: defaultImageCategorie,
       CategoriesArray: [],
       marquesArray: [],
-      NewProductArray:[],
-      productsArray:[],
-      productsAll:[],
-      BannerPrincipale:[],
-      ProductMoment:"",
-      ProductFlash:"",
-      ProductPlusVendu:"",
-      ProductSurCommande:"",
-      ProduitNew:"",
-      OffreSpecial:"",
+      NewProductArray: [],
+      productsArray: [],
+      productsAll: [],
+      BannerPrincipale: [],
+      ProductMoment: "",
+      ProductFlash: "",
+      ProductPlusVendu: "",
+      ProductSurCommande: "",
+      ProduitNew: "",
+      OffreSpecial: "",
       countdownData: {
         modal: { days: "00", hours: "00", minutes: "00", seconds: "00" },
         flash: { days: "00", hours: "00", minutes: "00", seconds: "00" },
         banner1: { days: "00", hours: "00", minutes: "00", seconds: "00" },
         banner2: { days: "00", hours: "00", minutes: "00", seconds: "00" },
-        promo: { days: "00", hours: "00", minutes: "00", seconds: "00" },
+        promo: { days: "00", hours: "00", minutes: "00", seconds: "00" }
       },
-      intervals: {}, 
+      intervals: {},
 
-      firstAccueilBanner:"",
-      firstModalBanner:"",
-      firstBanniere1Banner:"",
-      firstBanniere2Banner:"",
-      firstPromoBanner:"",
-
+      firstAccueilBanner: "",
+      firstModalBanner: "",
+      firstBanniere1Banner: "",
+      firstBanniere2Banner: "",
+      firstPromoBanner: "",
 
       images: [
-        '@/assets/images/slider/hero-img-slider-1.jpg',
-        '@/assets/images/slider/hero-img-slider-2.jpg',
-        '@/assets/images/slider/hero-img-slider-3.jpg'
+        "@/assets/images/slider/hero-img-slider-1.jpg",
+        "@/assets/images/slider/hero-img-slider-2.jpg",
+        "@/assets/images/slider/hero-img-slider-3.jpg"
       ]
-
-    }
+    };
   },
 
   async mounted() {
-    await this.getBannerActiver()
-    await this.getCategoriesAll()
-    await this.getBannerPrincipale()
-    await this.getMarquesAll()
-    await this.getNewProducts()
-    await this.getTypesVentesAll()
-    await this.getProductsAll()
+    await this.getBannerActiver();
+    await this.getCategoriesAll();
+    await this.getBannerPrincipale();
+    await this.getMarquesAll();
+    await this.getNewProducts();
+    await this.getTypesVentesAll();
+    await this.getProductsAll();
 
     // await this.recupererProduits()
-    
-
   },
   watch: {
     loading(newVal) {
@@ -1328,13 +2146,13 @@ export default {
       }
     },
     alertMessage(newVal) {
-      console.log('newVal', newVal)
+      console.log("newVal", newVal);
       if (newVal) {
         this.loadingItems = {};
         this.toast.success(newVal, {
           position: "top-right",
           timeout: 2000,
-          closeOnClick: true,
+          closeOnClick: true
         });
 
         // const modalElement = document.getElementById('productPaye');
@@ -1343,62 +2161,59 @@ export default {
         // if (modalInstance) {
         //   modalInstance.show();
         // }
-
       }
-    },
+    }
   },
   methods: {
     // ...mapActions('cart', ['addToCart']),
     encodeId(id) {
-    return btoa(id); // Encode en Base64
-  },
+      return btoa(id); // Encode en Base64
+    },
 
     addProductToCart(product) {
       this.loadingItems[product?.id] = true;
-      this.$store.dispatch('cart/addToCart', product);
+      this.$store.dispatch("cart/addToCart", product);
     },
     addToRecent(product) {
       if (product) {
         // Ajouter le produit aux produits récents
-        this.$store.dispatch('recentProducts/addProductToRecent', product);
+        this.$store.dispatch("recentProducts/addProductToRecent", product);
       }
     },
 
     recupererProduits() {
-
       fetch("/data/products.json")
-        .then(response => {
+        .then((response) => {
           if (!response.ok) {
             throw new Error("Erreur lors du chargement des produits");
           }
           return response.json();
         })
-        .then(data => {
+        .then((data) => {
           this.products = data;
           this.loading = false;
         })
-        .catch(error => {
+        .catch((error) => {
           console.error("Erreur :", error);
         });
     },
     truncateText(text, maxLength) {
       if (text.length > maxLength) {
-        return text.substring(0, maxLength) + '...'; // Ajoute "..." à la fin si le texte est trop long
+        return text.substring(0, maxLength) + "..."; // Ajoute "..." à la fin si le texte est trop long
       }
       return text;
     },
     initSliders() {
-
       this.$nextTick(() => {
-        $('.hero-slider').slick({
+        $(".hero-slider").slick({
           infinite: !0,
           slidesToShow: 1,
           slidesToScroll: 1,
           autoplay: !0,
           dots: !0,
-          arrows: !1,
+          arrows: !1
         });
-        $('.slider-8-columns').slick({
+        $(".slider-8-columns").slick({
           infinite: !0,
           slidesToShow: 8,
           slidesToScroll: 1,
@@ -1411,28 +2226,28 @@ export default {
           responsive: [
             {
               breakpoint: 1025,
-              settings: { slidesToShow: 8, slidesToScroll: 4 },
+              settings: { slidesToShow: 8, slidesToScroll: 4 }
             },
             {
               breakpoint: 900,
-              settings: { slidesToShow: 6, slidesToScroll: 4 },
+              settings: { slidesToShow: 6, slidesToScroll: 4 }
             },
             {
               breakpoint: 768,
-              settings: { slidesToShow: 4, slidesToScroll: 1 },
+              settings: { slidesToShow: 4, slidesToScroll: 1 }
             },
             {
               breakpoint: 480,
-              settings: { slidesToShow: 2, slidesToScroll: 1 },
-            },
+              settings: { slidesToShow: 2, slidesToScroll: 1 }
+            }
           ],
           prevArrow:
             '<span class="slick-prev"><i class="feather-icon icon-chevron-left"></i></span>',
           nextArrow:
-            '<span class="slick-next"><i class="feather-icon icon-chevron-right"></i></span>',
+            '<span class="slick-next"><i class="feather-icon icon-chevron-right"></i></span>'
           // appendArrows: "#" + s + "-arrows",
         });
-        $('.product-slider-four-columns').slick({
+        $(".product-slider-four-columns").slick({
           infinite: !0,
           slidesToShow: 6,
           slidesToScroll: 1,
@@ -1444,16 +2259,37 @@ export default {
           nextArrow:
             '<span class="slick-next "><i class="feather-icon icon-chevron-right "></i></span>',
           responsive: [
-            { breakpoint: 1500,settings: { slidesToShow: 6, slidesToScroll: 2 } },
-            { breakpoint: 1400,settings: { slidesToShow: 6, slidesToScroll: 2 } },
-            { breakpoint: 1300,settings: { slidesToShow: 5, slidesToScroll: 2 } },
-            { breakpoint: 1200,settings: { slidesToShow: 3, slidesToScroll: 2 } },
-            { breakpoint: 768,settings: { slidesToShow: 3, slidesToScroll: 2 } },
-            { breakpoint: 480, settings: { slidesToShow: 2, slidesToScroll: 1 } },
-            { breakpoint: 425, settings: { slidesToShow: 2, slidesToScroll: 1 } },
-          ],
+            {
+              breakpoint: 1500,
+              settings: { slidesToShow: 6, slidesToScroll: 2 }
+            },
+            {
+              breakpoint: 1400,
+              settings: { slidesToShow: 6, slidesToScroll: 2 }
+            },
+            {
+              breakpoint: 1300,
+              settings: { slidesToShow: 5, slidesToScroll: 2 }
+            },
+            {
+              breakpoint: 1200,
+              settings: { slidesToShow: 3, slidesToScroll: 2 }
+            },
+            {
+              breakpoint: 768,
+              settings: { slidesToShow: 3, slidesToScroll: 2 }
+            },
+            {
+              breakpoint: 480,
+              settings: { slidesToShow: 2, slidesToScroll: 1 }
+            },
+            {
+              breakpoint: 425,
+              settings: { slidesToShow: 2, slidesToScroll: 1 }
+            }
+          ]
         });
-        $('.product-slider-four-column').slick({
+        $(".product-slider-four-column").slick({
           infinite: !0,
           slidesToShow: 7,
           slidesToScroll: 1,
@@ -1465,16 +2301,37 @@ export default {
           nextArrow:
             '<span class="slick-next "><i class="feather-icon icon-chevron-right "></i></span>',
           responsive: [
-            { breakpoint: 1500,settings: { slidesToShow: 7, slidesToScroll: 6 } },
-            { breakpoint: 1400,settings: { slidesToShow: 7, slidesToScroll: 6 } },
-            { breakpoint: 1300,settings: { slidesToShow: 6, slidesToScroll: 5 } },
-            { breakpoint: 1200,settings: { slidesToShow: 3, slidesToScroll: 3 } },
-            { breakpoint: 1000,settings: { slidesToShow: 3, slidesToScroll: 3 } },
-            { breakpoint: 480, settings: { slidesToShow: 2, slidesToScroll: 1 } },
-            { breakpoint: 425, settings: { slidesToShow: 2, slidesToScroll: 1 } },
-          ],
+            {
+              breakpoint: 1500,
+              settings: { slidesToShow: 7, slidesToScroll: 6 }
+            },
+            {
+              breakpoint: 1400,
+              settings: { slidesToShow: 7, slidesToScroll: 6 }
+            },
+            {
+              breakpoint: 1300,
+              settings: { slidesToShow: 6, slidesToScroll: 5 }
+            },
+            {
+              breakpoint: 1200,
+              settings: { slidesToShow: 3, slidesToScroll: 3 }
+            },
+            {
+              breakpoint: 1000,
+              settings: { slidesToShow: 3, slidesToScroll: 3 }
+            },
+            {
+              breakpoint: 480,
+              settings: { slidesToShow: 2, slidesToScroll: 1 }
+            },
+            {
+              breakpoint: 425,
+              settings: { slidesToShow: 2, slidesToScroll: 1 }
+            }
+          ]
         });
-        $('.sur_commande').slick({
+        $(".sur_commande").slick({
           infinite: !0,
           slidesToShow: 7,
           slidesToScroll: 1,
@@ -1486,16 +2343,37 @@ export default {
           nextArrow:
             '<span class="slick-next "><i class="feather-icon icon-chevron-right "></i></span>',
           responsive: [
-          { breakpoint: 1500,settings: { slidesToShow: 7, slidesToScroll: 6 } },
-            { breakpoint: 1400,settings: { slidesToShow: 7, slidesToScroll: 6 } },
-            { breakpoint: 1300,settings: { slidesToShow: 6, slidesToScroll: 5 } },
-            { breakpoint: 1200,settings: { slidesToShow: 3, slidesToScroll: 3 } },
-            { breakpoint: 1000,settings: { slidesToShow: 3, slidesToScroll: 3 } },
-            { breakpoint: 480, settings: { slidesToShow: 2, slidesToScroll: 1 } },
-            { breakpoint: 425, settings: { slidesToShow: 2, slidesToScroll: 1 } },
-          ],
+            {
+              breakpoint: 1500,
+              settings: { slidesToShow: 7, slidesToScroll: 6 }
+            },
+            {
+              breakpoint: 1400,
+              settings: { slidesToShow: 7, slidesToScroll: 6 }
+            },
+            {
+              breakpoint: 1300,
+              settings: { slidesToShow: 6, slidesToScroll: 5 }
+            },
+            {
+              breakpoint: 1200,
+              settings: { slidesToShow: 3, slidesToScroll: 3 }
+            },
+            {
+              breakpoint: 1000,
+              settings: { slidesToShow: 3, slidesToScroll: 3 }
+            },
+            {
+              breakpoint: 480,
+              settings: { slidesToShow: 2, slidesToScroll: 1 }
+            },
+            {
+              breakpoint: 425,
+              settings: { slidesToShow: 2, slidesToScroll: 1 }
+            }
+          ]
         });
-        $('.vus_recemment').slick({
+        $(".vus_recemment").slick({
           infinite: !0,
           slidesToShow: 7,
           slidesToScroll: 1,
@@ -1507,195 +2385,220 @@ export default {
           nextArrow:
             '<span class="slick-next "><i class="feather-icon icon-chevron-right "></i></span>',
           responsive: [
-            { breakpoint: 1500,settings: { slidesToShow: 7, slidesToScroll: 6 } },
-            { breakpoint: 1400,settings: { slidesToShow: 7, slidesToScroll: 6 } },
-            { breakpoint: 1300,settings: { slidesToShow: 6, slidesToScroll: 5 } },
-            { breakpoint: 1200,settings: { slidesToShow: 3, slidesToScroll: 3 } },
-            { breakpoint: 1000,settings: { slidesToShow: 3, slidesToScroll: 3 } },
-            { breakpoint: 480, settings: { slidesToShow: 2, slidesToScroll: 1 } },
-            { breakpoint: 425, settings: { slidesToShow: 2, slidesToScroll: 1 } },
-          ],
+            {
+              breakpoint: 1500,
+              settings: { slidesToShow: 7, slidesToScroll: 6 }
+            },
+            {
+              breakpoint: 1400,
+              settings: { slidesToShow: 7, slidesToScroll: 6 }
+            },
+            {
+              breakpoint: 1300,
+              settings: { slidesToShow: 6, slidesToScroll: 5 }
+            },
+            {
+              breakpoint: 1200,
+              settings: { slidesToShow: 3, slidesToScroll: 3 }
+            },
+            {
+              breakpoint: 1000,
+              settings: { slidesToShow: 3, slidesToScroll: 3 }
+            },
+            {
+              breakpoint: 480,
+              settings: { slidesToShow: 2, slidesToScroll: 1 }
+            },
+            {
+              breakpoint: 425,
+              settings: { slidesToShow: 2, slidesToScroll: 1 }
+            }
+          ]
         });
-        
-        $('.slide-one').slick({
-        dots: false,
-        infinite: true,
-        speed: 300,
-        slidesToShow: 1,
-        adaptiveHeight: true,
-        autoplay: true,
-        autoplaySpeed: 2000,
-        arrows: !1,
+
+        $(".slide-one").slick({
+          dots: false,
+          infinite: true,
+          speed: 300,
+          slidesToShow: 1,
+          adaptiveHeight: true,
+          autoplay: true,
+          autoplaySpeed: 2000,
+          arrows: !1,
           prevArrow:
             '<span class="slick-preve btn btn-primary" style="border:1px solid red;padding:6px;position:absolute;left:71px;bottom:-20px;z-index:1">Précédent<i class="feather-icon icon-chevron-left"></i></span>',
           nextArrow:
-            '<span class="slick-nexte btn btn-primary" style="border:1px solid red;padding:6px 10px;position:absolute;left:180px;bottom:-20px;z-index:1">Suivant<i class="feather-icon icon-chevron-right "></i></span>',
+            '<span class="slick-nexte btn btn-primary" style="border:1px solid red;padding:6px 10px;position:absolute;left:180px;bottom:-20px;z-index:1">Suivant<i class="feather-icon icon-chevron-right "></i></span>'
         });
-
-      })
+      });
     },
     async getCategoriesAll() {
       try {
-        const response = await axios.get('liste/categories')
+        const response = await axios.get("liste/categories");
         if (response.data.status === "success") {
           this.CategoriesArray = response.data.data?.data
-          ?.filter(c =>c.Parent === null)
-          ?.slice(0, 7)
-          
+            ?.filter((c) => c.Parent === null)
+            ?.slice(0, 7);
         }
-
       } catch (error) {
-        console.log('error', error)
+        console.log("error", error);
       }
     },
     async getMarquesAll() {
       try {
-        const response = await axios.get('/marques')
+        const response = await axios.get("/marques");
         if (response.data.status === "success") {
-          this.marquesArray = response.data?.data?.data
-          .filter(m  =>m.IsActive === 1)
-
+          this.marquesArray = response.data?.data?.data.filter(
+            (m) => m.IsActive === 1
+          );
         }
-
       } catch (error) {
-        console.log('error', error)
+        console.log("error", error);
       }
     },
     async getBannerActiver() {
       try {
-        const response = await axios.get('/banniere-pub-active/accueil')
+        const response = await axios.get("/banniere-pub-active/accueil");
         if (response.data.status === "success") {
-     const data =   response.data?.data
-     let zoneAccueil = [];
-      let zoneModal = [];
-      let zoneBanniere1 = [];
-      let zoneBanniere2 = [];
-      let zonePromo = [];
-      data.forEach(item => {
-        switch (item.Zone) {
-          case 'ZONE PUB ACCUEIL':
-            zoneAccueil.push(item);
-            break;
-          case 'ZONE PUB MODAL':
-            zoneModal.push(item);
-            break;
-          case 'ZONE PUB BANNIERE 1':
-            zoneBanniere1.push(item);
-            break;
-          case 'ZONE PUB BANNIERE 2':
-            zoneBanniere2.push(item);
-            break;
-            case 'ZONE PUB PROMO':
-            zonePromo.push(item);
-            break;
+          const data = response.data?.data;
+          let zoneAccueil = [];
+          let zoneModal = [];
+          let zoneBanniere1 = [];
+          let zoneBanniere2 = [];
+          let zonePromo = [];
+          data.forEach((item) => {
+            switch (item.Zone) {
+              case "ZONE PUB ACCUEIL":
+                zoneAccueil.push(item);
+                break;
+              case "ZONE PUB MODAL":
+                zoneModal.push(item);
+                break;
+              case "ZONE PUB BANNIERE 1":
+                zoneBanniere1.push(item);
+                break;
+              case "ZONE PUB BANNIERE 2":
+                zoneBanniere2.push(item);
+                break;
+              case "ZONE PUB PROMO":
+                zonePromo.push(item);
+                break;
+            }
+          });
+
+          this.firstAccueilBanner = zoneAccueil[0]?.Banner || null;
+          this.firstModalBanner = zoneModal[0] || null;
+          this.firstBanniere1Banner = zoneBanniere1[0] || null;
+          this.firstBanniere2Banner = zoneBanniere2[0] || null;
+          this.firstPromoBanner = zonePromo[0] || null;
+
+          this.startCountdown(
+            "modal",
+            new Date(this.firstModalBanner.DateDebut),
+            new Date(this.firstModalBanner.DateFin)
+          );
+          this.startCountdown(
+            "promo",
+            new Date(this.firstPromoBanner.DateDebut),
+            new Date(this.firstPromoBanner.DateFin)
+          );
+          this.startCountdown(
+            "banner1",
+            new Date(this.firstBanniere1Banner.DateDebut),
+            new Date(this.firstBanniere1Banner.DateFin)
+          );
+          this.startCountdown(
+            "banner2",
+            new Date(this.firstBanniere2Banner.DateDebut),
+            new Date(this.firstBanniere2Banner.DateFin)
+          );
         }
-      });
-
-   
-
-     this.firstAccueilBanner = zoneAccueil[0]?.Banner || null;
-     this.firstModalBanner = zoneModal[0] || null;
-     this.firstBanniere1Banner = zoneBanniere1[0] || null;
-     this.firstBanniere2Banner = zoneBanniere2[0] || null;
-     this.firstPromoBanner = zonePromo[0] || null;
-
-   
-        
-     this.startCountdown("modal", new Date(this.firstModalBanner.DateDebut), new Date(this.firstModalBanner.DateFin)); 
-     this.startCountdown("promo", new Date(this.firstPromoBanner.DateDebut), new Date(this.firstPromoBanner.DateFin)); 
-     this.startCountdown("banner1", new Date(this.firstBanniere1Banner.DateDebut), new Date(this.firstBanniere1Banner.DateFin)); 
-     this.startCountdown("banner2", new Date(this.firstBanniere2Banner.DateDebut), new Date(this.firstBanniere2Banner.DateFin)); 
-
-        }
-
       } catch (error) {
-        console.log('error', error)
+        console.log("error", error);
       }
     },
     async getBannerPrincipale() {
       try {
-        const response = await axios.get('/banniere-active/principale')
+        const response = await axios.get("/banniere-active/principale");
         if (response.data.status === "success") {
-          this.BannerPrincipale = response.data?.data
-        
-
+          this.BannerPrincipale = response.data?.data;
         }
-
       } catch (error) {
-        console.log('error', error)
+        console.log("error", error);
       }
     },
     async getTypesVentesAll() {
       try {
-        const response = await axios.get('/type-ventes')
+        const response = await axios.get("/type-ventes");
         if (response.data.status === "success") {
-          this.productsAll = response.data?.data?.data
-          .filter(m  =>m.IsActive === 1)
-           this.ProductMoment = this.productsAll.find(m => m.id === 1);
-            this.ProductFlash = this.productsAll.find(m => m.id === 2);
-            this.ProductPlusVendu = this.productsAll.find(m => m.id === 3);
-            this.ProductSurCommande = this.productsAll.find(m => m.id === 4);
-            this.OffreSpecial = this.productsAll.find(m => m.id === 6);
+          this.productsAll = response.data?.data?.data.filter(
+            (m) => m.IsActive === 1
+          );
+          this.ProductMoment = this.productsAll.find((m) => m.id === 1);
+          this.ProductFlash = this.productsAll.find((m) => m.id === 2);
+          this.ProductPlusVendu = this.productsAll.find((m) => m.id === 3);
+          this.ProductSurCommande = this.productsAll.find((m) => m.id === 4);
+          this.OffreSpecial = this.productsAll.find((m) => m.id === 6);
 
-            // this.startTime = new Date(this.ProductFlash.DateDebut); // Exemple : début à 08:00
-            //  this.endTime = new Date(this.ProductFlash.DateFin);   // Exemple : fin à 20:00
-            // this.startCountdown();
-            this.startCountdown("flash", new Date(this.ProductFlash.DateDebut), new Date(this.ProductFlash.DateFin));
-
+          // this.startTime = new Date(this.ProductFlash.DateDebut); // Exemple : début à 08:00
+          //  this.endTime = new Date(this.ProductFlash.DateFin);   // Exemple : fin à 20:00
+          // this.startCountdown();
+          this.startCountdown(
+            "flash",
+            new Date(this.ProductFlash.DateDebut),
+            new Date(this.ProductFlash.DateFin)
+          );
         }
-
       } catch (error) {
-        console.log('error', error)
+        console.log("error", error);
       }
     },
     async getNewProducts() {
       try {
-        const response = await axios.get('/produits/nouveau-gamme')
+        const response = await axios.get("/produits/nouveau-gamme");
         if (response.data.status === "success") {
-          this.NewProductArray= response.data?.data?.data
-       
-
+          this.NewProductArray = response.data?.data?.data;
         }
-
       } catch (error) {
-        console.log('error', error)
+        console.log("error", error);
       }
     },
     async getProductsAll() {
-        const token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2RhdGEud2FrYW5kYS5iZXN0L2FwaS9zeXN0ZW0vbG9naW4iLCJpYXQiOjE3MzAyNzYzODEsIm5iZiI6MTczMDI3NjM4MSwianRpIjoiVU5sN3J3RXBhTFZGdG1OaCIsInN1YiI6IjEiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.H40wgUqkMXolIzMq_zTz8Mg7Bp-QsyjbarTijztMzi4'
+      const token =
+        "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2RhdGEud2FrYW5kYS5iZXN0L2FwaS9zeXN0ZW0vbG9naW4iLCJpYXQiOjE3MzAyNzYzODEsIm5iZiI6MTczMDI3NjM4MSwianRpIjoiVU5sN3J3RXBhTFZGdG1OaCIsInN1YiI6IjEiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.H40wgUqkMXolIzMq_zTz8Mg7Bp-QsyjbarTijztMzi4";
       try {
-        const response = await axios.get('/produits',{
-            headers: {
-            Authorization: `Bearer ${token}`,
-          },
-
-        })
+        const response = await axios.get("/produits", {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
         if (response.data.status === "success") {
-          this.productsArray = response.data.data?.data
+          this.productsArray = response.data.data?.data;
           this.loading = false;
         }
-
       } catch (error) {
-        console.log('error', error)
+        console.log("error", error);
       }
     },
     calculateDiscount(price, promoPrice) {
-    if (!promoPrice || !price) return null;
-    const discount = ((price - promoPrice) / price) * 100;
-    return Math.round(discount); 
-  },
+      if (!promoPrice || !price) return null;
+      const discount = ((price - promoPrice) / price) * 100;
+      return Math.round(discount);
+    },
     convertPrice(prix) {
       return prix / this.getSelectedRate; // Convertir avec le taux sélectionné
     },
     // Formatage du prix
-    formatPrice(price, symbol) { 
-      const formattedPrice = price.toFixed().replace(/\B(?=(\d{3})+(?!\d))/g, " ");  
-      if (symbol === 'CFA') {
+    formatPrice(price, symbol) {
+      const formattedPrice = price
+        .toFixed()
+        .replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+      if (symbol === "CFA") {
         return `${formattedPrice} ${symbol}`;
-    }
-    return `${symbol} ${formattedPrice}`;
+      }
+      return `${symbol} ${formattedPrice}`;
     },
-   
+
     startCountdown(id, startDate, endDate) {
       const now = new Date();
 
@@ -1705,7 +2608,7 @@ export default {
           days: "00",
           hours: "00",
           minutes: "00",
-          seconds: "00",
+          seconds: "00"
         };
         return;
       }
@@ -1726,7 +2629,7 @@ export default {
             days: "00",
             hours: "00",
             minutes: "00",
-            seconds: "00",
+            seconds: "00"
           };
           return;
         }
@@ -1740,7 +2643,7 @@ export default {
           days: days.toString().padStart(2, "0"),
           hours: hours.toString().padStart(2, "0"),
           minutes: minutes.toString().padStart(2, "0"),
-          seconds: seconds.toString().padStart(2, "0"),
+          seconds: seconds.toString().padStart(2, "0")
         };
       }, 1000);
     },
@@ -1749,121 +2652,109 @@ export default {
         clearInterval(this.intervals[id]);
         delete this.intervals[id];
       }
-    },
-  
+    }
   },
   beforeUnmount() {
-    clearInterval(this.interval); 
+    clearInterval(this.interval);
   },
 
-  beforeDestroy() {
-  }
-
-}
+  beforeDestroy() {}
+};
 </script>
 <style lang="css" scoped>
-.slick-list .draggable{
-    height: 100% !important;
+.slick-list .draggable {
+  height: 100% !important;
 }
-.hero-slider{
-    height: 40vh !important;
-    width: 100%;
-    margin-bottom:10px !important;
+.hero-slider {
+  height: 40vh !important;
+  width: 100%;
+  margin-bottom: 10px !important;
 }
 .hero-img-1 {
-  
-    height: 40vh !important;
-    width: 100%;   
+  height: 40vh !important;
+  width: 100%;
 }
 
 .categorie {
-    height: 40vh !important;
-    overflow-y: scroll;
-    overflow-x:hidden ;
+  height: 40vh !important;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 .card-right {
-    height: 40vh !important;
-
+  height: 40vh !important;
 }
 @media (max-width: 800px) {
-    .hero-slider{
-    height: 30vh !important;
+  .hero-slider {
+    height: 20vh !important;
     width: 100%;
-}
-    .hero-img-1 {
-  
-  height: 30vh !important;
-  width: 100%;   
-}
+  }
+  .hero-img-1 {
+    height: 20vh !important;
+    width: 100%;
+  }
 
-.categorie {
-  height: 30vh !important;
-  overflow-y: scroll;
-}
+  .categorie {
+    height: 20vh !important;
+    overflow-y: scroll;
+  }
 
-.card-right {
-  height: 30vh !important;
-
-}
+  .card-right {
+    height: 20vh !important;
+  }
 }
 
 .slick-prev d .slick-arrow,
 .slick-next .slick-arrow {
-    display: none !important;
+  display: none !important;
 }
 
 .slick-slider .slick-next {
-    display: none !important;
+  display: none !important;
 }
 
-
 .swiper {
-    width: 100%;
-    height: 300px;
+  width: 100%;
+  height: 300px;
 }
 
 .swiper-slide {
-    text-align: center;
-    font-size: 18px;
-    background: #fff;
+  text-align: center;
+  font-size: 18px;
+  background: #fff;
 
-    /* Center slide text vertically */
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  /* Center slide text vertically */
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .swiper-slide img {
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .heure {
-
-    background-color: #fff;
-    color: #000;
-    width: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 5px;
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .1), 0 1px 2px 0 rgba(0, 0, 0, .06);
-    margin: 0 5px;
+  background-color: #fff;
+  color: #000;
+  width: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  margin: 0 5px;
 }
 
 .swiper-container {
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
 }
-
 
 img {
-    width: 100%;
-    height: auto;
+  width: 100%;
+  height: auto;
 }
-
-
 </style>

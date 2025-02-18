@@ -37,8 +37,11 @@
                         </div>
                     </router-link>
                 </div>
-                <div class="w-25 ms-2 py-4 icon-hover">
-                    <router-link to="/sign-up" class="text-inherit">
+                <div class=" dropdown w-25 ms-2 py-4 icon-hover">
+                    <router-link to="#" 
+                    data-bs-toggle="offcanvas" data-bs-target="#offcanvasMarques" href="#offcanvasExample" role="button"
+                    aria-controls="offcanvasRight" class="text-inherit"
+                    >
                         <div class="text-center">
                             <div>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor"
@@ -386,10 +389,45 @@
     
         <!-- Shop Cart -->
     
+        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasMarques" aria-labelledby="offcanvasMarquesLabel">
+            <div class="offcanvas-header border-bottom">
+                <div class="text-start">
+                    <h6 id="offcanvasMarquesLabel" class="mb-0 fs-4">Marques</h6>
+                    
+                </div>
+                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+                <div>
+                    <ul class="nav nav-category" id="categoryCollapseMenu">
+                    <li 
+                        class="nav-item border-bottom w-100 card px-2 mt-1" 
+                        v-for="(category, index) in marquesArray" 
+                        :key="index" 
+                        :class="{ active: category.id === getActiveCategoryId }"
+                    >
+                        <a :href="`/list-marques/${encodeId(category.id)}`" class="nav-link collapsed justify-content-start">
+                        <img 
+                            :src="category.Logo !== null ? category.Logo : defaultImageCategorie"
+                            :alt="category.Nom" 
+                            width="24" 
+                            height="24" 
+                            style="width:20px; margin-right: 5px;"
+                        >
+                        <span>{{ category.Nom }}</span>
+                        </a>
+                    </li>
+                         </ul>
+                  
+                   
+                </div>
+            </div>
+        </div>
+
         <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
             <div class="offcanvas-header border-bottom">
                 <div class="text-start">
-                    <h6 id="offcanvasRightLabel" class="mb-0 fs-4">Catégories</h6>
+                    <h6 id="offcanvasRightLabel" class="mb-0 fs-4">W GAMMES DE PRODUITS</h6>
                     
                 </div>
                 <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -452,6 +490,7 @@ export default {
       resultError: {},
       sortedCountryOptions:[],
       CategoriesArray:[],
+      marquesArray:[],
       step1:{
         email:"",
         Nom:"",
@@ -484,6 +523,7 @@ export default {
   },
  async mounted() {
     await this.getCategoriesAll()
+    await this.getMarquesAll()
 
   },
   methods: {
@@ -517,6 +557,22 @@ export default {
         this.CategoriesArray = response.data.data?.data
           ?.filter(c =>  c.Parent === null)
         
+          this.loading = false
+          
+        }
+
+      } catch (error) {
+        console.log('error', error)
+      }
+    },
+    async getMarquesAll() {
+      try {
+        const response = await axios.get('/marques')
+        if (response.data.status === "success") {
+       
+            this.marquesArray = response.data?.data?.data.filter(
+            (m) => m.IsActive === 1
+          );
           this.loading = false
           
         }

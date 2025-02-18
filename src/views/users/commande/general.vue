@@ -13,8 +13,8 @@
    
                <div class="col_xl-3 col-lg-3  col-md-4 col-12  d-none d-md-block " style="border-right: 1px solid #f3f6f9;">
                   <div id="page-menu">
-  <div class="page-menu-item page-menu-title" data-spm-anchor-id="a2g0o.new_account_index.0.i8.244d5955wy7i0m">
-    <div class="item-text">Compte</div>
+  <div class="page-menu-item page-menu-title bg-primary text-white mb-1 fw-bold" data-spm-anchor-id="a2g0o.new_account_index.0.i8.244d5955wy7i0m">
+    <div class="item-text">COMPTE</div>
   </div>
 
   <div class="page-menu-item" :class="{ 'page-menu-item-active': $route.path === '/client' }">

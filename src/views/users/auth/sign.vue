@@ -103,7 +103,6 @@
                                     </button>
                                 </div> 
                             </div>
-    
                             <!-- Étape 2 -->
                             <div v-if="currentStep === 2">
                                
@@ -143,6 +142,21 @@
                 pas.</small>
         </div>
     </div>
+    <div class="col-12">
+        <div class="input-groupe">
+            <label for="userpassword">
+                    Date de naissance <span class="text-danger">*</span></label>
+            <MazInput v-model="step2.DateNaissance" color="secondary"
+                name="step2.DateNaissance" size="sm" rounded-size="sm"
+                type="password" />
+                <small v-if="v$.step2.DateNaissance.$error">{{
+            v$.step2.DateNaissance.$errors[0].$message
+            }}</small>
+            <small v-if="resultError['DateNaissance']">
+                {{ resultError["DateNaissance"] }}
+            </small>
+        </div>
+    </div>
 
 </div>  
 <div class="btnForm py-3 d-flex items-center justify-content-end">
@@ -162,10 +176,8 @@
                                     </button>
                                 </div> 
                             </div>
-    
-    
                             <!-- Étape 3 -->
-                            <div v-if="currentStep === 3">
+                            <div v-if="currentStep === 1">
                               
                                 <div class="row mt-3 content-group">
     
@@ -291,6 +303,7 @@ export default {
       step2:{
         password:"",
         password_confirmation:"",
+        DateNaissance:"",
       },
       step3:{
         Nom:"",
@@ -315,6 +328,7 @@ export default {
     step2:{
         password: { require },
       password_confirmation: { require },
+      DateNaissance: {require}
     },
     step3: {
       Nom: { require },
@@ -555,6 +569,7 @@ for (let i = 1; i < step; i++) {
            ...stepData,
            password: this.step2.password,
            password_confirmation: this.step2.password_confirmation,
+           DateNaissance:this.step2.DateNaissance,
           
 
          };

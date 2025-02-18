@@ -64,7 +64,7 @@
                                                         </div>
                                                     </span>
 
-                                                    <span v-else class="text-uppercase small  btn-success " @click="addProductToCart(product?.produit)"
+                                                    <span v-else class="text-uppercase small  btn-success " @click="addProductToCart(product)"
                                                         :disabled="loadingItems[product?.id] " >
                                                         <div class="icon-card">
                                                             <div v-if="loadingItems[product?.id]">
@@ -291,9 +291,7 @@ async mounted() {
   padding-bottom: 60px;
 }
 
-.es--comet-pro-fallback--3ctNGin.es--pc--1mZE03B {
-  padding: 30px 30% 0;
-}
+
 
 .es--comet-pro-fallback--3ctNGin {
   margin: 0 auto;

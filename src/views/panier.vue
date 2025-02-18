@@ -140,20 +140,20 @@
                                  </li>
    
                                  <!-- list group item: Service Fee -->
-                                 <li class="list-group-item d-flex justify-content-between align-items-start">
+                                 <!-- <li class="list-group-item d-flex justify-content-between align-items-start">
                                     <div class="me-auto">
                                        <div>Frais de livraison</div>
                                     </div>
                                
                                     <span>{{ formatPrice(convertPrice(serviceFee), selectedDevise?.symbol) }}</span>
-                                 </li>
+                                 </li> -->
    
                                  <!-- list group item: Subtotal -->
                                  <li class="list-group-item d-flex justify-content-between align-items-start">
                                     <div class="me-auto">
                                        <div class="fw-bold">Total</div>
                                     </div>
-                                    <span class="fw-bold">{{ formatPrice(convertPrice(total), selectedDevise?.symbol) }}</span>
+                                    <span class="fw-bold">{{ formatPrice(convertPrice(subtotal), selectedDevise?.symbol) }}</span>
 
                                  </li>
                               </ul>
@@ -164,7 +164,7 @@
                                <router-link to="/valider">
                                  <button class="btn btn-primary btn-lg d-flex justify-content-between align-items-center">
                                  Commander 
-                                 <span class="ms-2 fw-bold">{{ formatPrice(convertPrice(total), selectedDevise?.symbol) }}</span>
+                                 <span class="ms-2 fw-bold">{{ formatPrice(convertPrice(subtotal), selectedDevise?.symbol) }}</span>
                               </button>
                                </router-link>
                            

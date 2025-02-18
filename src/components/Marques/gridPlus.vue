@@ -14,7 +14,7 @@
                                          -{{ calculateDiscount(product.Prix, product.PrixPromo) }}%
                                          </span>
                                    </div>
-                                   <router-link :to="{ name: 'detail', params: { id: product.id }}">
+                                   <router-link :to="{ name: 'detail', params: { id:encodeId(product.id) }}" @click="addToRecent(product)">
                                       <img :src="product.PhotoCover ? product.PhotoCover : defaultImage"
                                          :alt="product.NomProduit" :title="product.NomProduit"
                                          style="width: 100%; height: auto; max-height: 30% !important;"
@@ -24,37 +24,37 @@
                                 </div>
                                 <!-- heading -->
                                 <h2 class="fs-6"><router-link
-                                                   :to="{ name: 'detail', params: { id: product.id }}"
+                                                   :to="{ name: 'detail', params: { id: encodeId(product.id) }}" @click="addToRecent(product)"
                                                    class="text-inherit text-decoration-none">{{
-                                                  product.NomProduit }}
+                                                   product.NomProduit }}
                                                </router-link></h2>
 
                                                <div class="d-flex justify-content-between align-items-center mt-3">
                                              
                                                 <div>
-                                                <span v-if="product.produit?.PrixPromo" class="text-danger">
-                                                    {{ formatPrice(convertPrice(product.produit.PrixPromo), selectedDevise.symbol) }}
+                                                <span v-if="product?.PrixPromo" class="text-danger">
+                                                    {{ formatPrice(convertPrice(product.PrixPromo), selectedDevise.symbol) }}
                                                 </span>
                                                 <br>
-                                                <span v-if="product.produit?.PrixPromo" class="text-muted text-decoration-line-through">
-                                                    {{ formatPrice(convertPrice(product.produit.Prix), selectedDevise.symbol) }}
+                                                <span v-if="product?.PrixPromo" class="text-muted text-decoration-line-through">
+                                                    {{ formatPrice(convertPrice(product.Prix), selectedDevise.symbol) }}
                                                 </span>
                                                 <span v-else class="text-danger">
-                                                    {{ formatPrice(convertPrice(product.produit?.Prix), selectedDevise.symbol) }}
+                                                    {{ formatPrice(convertPrice(product?.Prix), selectedDevise.symbol) }}
                                                 </span>
                                                 </div>
 
-                                           
+                                             
                                          </div>
                                          <div class="prix">
                                                 <p class="mb-0">
-                                                    <span v-if="product?.produit?.magasins_sum_quantite_reel !== null" class="badge bg-success text-white">Disponible</span>
+                                                    <span v-if="product?.magasins_sum_quantite_reel !== null" class="badge bg-success text-white">Disponible</span>
                                                     <span v-else class="badge bg-danger text-white">Pas disponible</span>
                                                 </p>
-                                                    <span  v-if="product?.produit?.magasins_sum_quantite_reel === null || product?.produit?.magasins_sum_quantite_reel === 0" class="text-uppercase small Icons " 
+                                                    <span  v-if="product?.magasins_sum_quantite_reel === null || product?.magasins_sum_quantite_reel === 0" class="text-uppercase small Icons " 
                                                         disabled>
                                                         <div class="icon-cards" disabled>
-                                                            <div v-if="loadingItems[product?.produit?.id]">
+                                                            <div v-if="loadingItems[product?.id]">
                                                                 <LoaderBtn class="loadingbtn"></LoaderBtn>
                                                             </div>
                                                             <div v-else>
@@ -64,10 +64,10 @@
                                                         </div>
                                                     </span>
 
-                                                    <span v-else class="text-uppercase small  btn-success " @click="addProductToCart(product?.produit)"
-                                                        :disabled="loadingItems[product?.produit?.id] " >
+                                                    <span v-else class="text-uppercase small  btn-success " @click="addProductToCart(product)"
+                                                        :disabled="loadingItems[product?.id] " >
                                                         <div class="icon-card">
-                                                            <div v-if="loadingItems[product?.produit?.id]">
+                                                            <div v-if="loadingItems[product?.id]">
                                                                 <LoaderBtn class="loadingbtn"></LoaderBtn>
                                                             </div>
                                                             <div v-else>
@@ -136,6 +136,10 @@ export default {
    ...mapGetters('cart', ['alertMessage', 'loading']),
    ...mapGetters("devise", ["selectedDevise", "getSelectedRate"]),
  },
+ setup() {
+    const toast = useToast(); // Initialiser useToast
+    return { toast };
+  },
  data() {
    return {
     CategoriesArray:[],
@@ -156,6 +160,25 @@ export default {
           this.FilterProduct(newData); 
         },
       },
+    //   loading(newVal) {
+    //   if (newVal === false) {
+    //     this.initSliders();
+    //   }
+    // },
+    alertMessage(newVal) {
+      console.log('newVal', newVal)
+      if (newVal) {
+        this.loadingItems = {};
+        this.toast.success(newVal, {
+          position: "top-right",
+          timeout: 2000,
+          closeOnClick: true,
+        });
+
+        
+
+      }
+    },
     },
 async mounted() {
    
@@ -163,13 +186,21 @@ async mounted() {
 
  },
  methods: {
+  encodeId(id) {
+    return btoa(id); // Encode en Base64
+  },
+  addProductToCart(product) {
+      this.loadingItems[product?.id] = true;
+      this.$store.dispatch('cart/addToCart', product);
+    },
   
-   async getCategoriesAll() {
+    async getCategoriesAll() {
      this.loading = true
      try {
        const response = await axios.get(`/marques/${this.id}`)
        if (response.data.status === "success") {
          this.CategoriesArray = response.data?.data?.produits 
+         console.log(this.CategoriesArray)
          this.loading = false
        }
 
@@ -177,6 +208,12 @@ async mounted() {
        console.log('error', error)
      }
    },
+   addToRecent(product) {
+      if (product) {
+        // Ajouter le produit aux produits récents
+        this.$store.dispatch('recentProducts/addProductToRecent', product);
+      }
+    },
    async FilterProduct(data){
     
       this.loading = true
@@ -214,7 +251,6 @@ async mounted() {
    },
    // Formatage du prix
    formatPrice(price, symbol) { 
-        console.log(symbol)
       const formattedPrice = price.toFixed().replace(/\B(?=(\d{3})+(?!\d))/g, " ");  
       if (symbol === 'CFA') {
         return `${formattedPrice} ${symbol}`;
@@ -256,9 +292,7 @@ async mounted() {
   padding-bottom: 60px;
 }
 
-.es--comet-pro-fallback--3ctNGin.es--pc--1mZE03B {
-  padding: 30px 30% 0;
-}
+
 
 .es--comet-pro-fallback--3ctNGin {
   margin: 0 auto;

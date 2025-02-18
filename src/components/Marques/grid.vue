@@ -38,7 +38,7 @@
                                                     {{ formatPrice(convertPrice(product.PrixPromo), selectedDevise.symbol) }}
                                                 </span>
                                                 <br>
-                                                <span v-if="product.produit?.PrixPromo" class="text-muted text-decoration-line-through">
+                                                <span v-if="product?.PrixPromo" class="text-muted text-decoration-line-through">
                                                     {{ formatPrice(convertPrice(product.Prix), selectedDevise.symbol) }}
                                                 </span>
                                                 <span v-else class="text-danger">
@@ -50,13 +50,13 @@
                            </div>
                            <div class="prix">
                                                 <p class="mb-0">
-                                                    <span v-if="product?.produit?.magasins_sum_quantite_reel !== null" class="badge bg-success text-white">Disponible</span>
+                                                    <span v-if="product?.magasins_sum_quantite_reel !== null" class="badge bg-success text-white">Disponible</span>
                                                     <span v-else class="badge bg-danger text-white">Pas disponible</span>
                                                 </p>
-                                                    <span  v-if="product?.produit?.magasins_sum_quantite_reel === null || product?.produit?.magasins_sum_quantite_reel === 0" class="text-uppercase small Icons " 
+                                                    <span  v-if="product?.magasins_sum_quantite_reel === null || product?.magasins_sum_quantite_reel === 0" class="text-uppercase small Icons " 
                                                         disabled>
                                                         <div class="icon-cards" disabled>
-                                                            <div v-if="loadingItems[product?.produit?.id]">
+                                                            <div v-if="loadingItems[product?.id]">
                                                                 <LoaderBtn class="loadingbtn"></LoaderBtn>
                                                             </div>
                                                             <div v-else>
@@ -66,10 +66,10 @@
                                                         </div>
                                                     </span>
 
-                                                    <span v-else class="text-uppercase small  btn-success " @click="addProductToCart(product?.produit)"
-                                                        :disabled="loadingItems[product?.produit?.id] " >
+                                                    <span v-else class="text-uppercase small  btn-success " @click="addProductToCart(product)"
+                                                        :disabled="loadingItems[product?.id] " >
                                                         <div class="icon-card">
-                                                            <div v-if="loadingItems[product?.produit?.id]">
+                                                            <div v-if="loadingItems[product?.id]">
                                                                 <LoaderBtn class="loadingbtn"></LoaderBtn>
                                                             </div>
                                                             <div v-else>
@@ -302,9 +302,7 @@ export default {
    padding-bottom: 60px;
 }
 
-.es--comet-pro-fallback--3ctNGin.es--pc--1mZE03B {
-   padding: 30px 30% 0;
-}
+
 
 .es--comet-pro-fallback--3ctNGin {
    margin: 0 auto;
