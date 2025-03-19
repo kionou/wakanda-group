@@ -53,13 +53,13 @@ const actions = {
           if (existingDevise) {
             commit('SET_SELECTED_DEVISE', existingDevise);
           } else if (devises.length > 0) {
-            commit('SET_SELECTED_DEVISE', devises[0]);
-            localStorage.setItem('selectedDevise', JSON.stringify(devises[0]));
+            commit('SET_SELECTED_DEVISE', devises[2]);
+            localStorage.setItem('selectedDevise', JSON.stringify(devises[2]));
           }
         } else if (devises.length > 0) {
           // Définir une devise par défaut si aucune n'est sélectionnée
-          commit('SET_SELECTED_DEVISE', devises[0]);
-          localStorage.setItem('selectedDevise', JSON.stringify(devises[0]));
+          commit('SET_SELECTED_DEVISE', devises[2]);
+          localStorage.setItem('selectedDevise', JSON.stringify(devises[2]));
         }
       }
     } catch (error) {

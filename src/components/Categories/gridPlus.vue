@@ -1,12 +1,12 @@
 <template >
   <div>
      <SkeletonFilter v-if="loading " style="z-index: 99999"></SkeletonFilter>
-     <div v-else>
+     <div v-else >
       <div class="row g-4 row-cols-xl-5 row-cols-lg-5 row-cols-2 row-cols-md-2 mt-2"  v-if="CategoriesArray?.length > 0">      
                        <div class="col" v-for="(product,index) in CategoriesArray" :key="index">
                           <!-- card -->
-                          <div class="card card-product">
-                             <div class="card-body">
+                          <div class="card card-product ">
+                             <div class="card-body p-1">
                                 <!-- badge -->
                                 <div class="text-center position-relative">
                                    <div class="position-absolute top-0 start-0">
@@ -84,6 +84,7 @@
                       
                       
          </div>
+       
          <div class="div" v-else>
               <div class="cart-body">
                  <div class="cart-main">
@@ -146,6 +147,10 @@ export default {
       defaultImage: defaultImage,
       loading: true,
       loadingItems: {}, 
+      page: 1,
+      perPage: 12,
+      loadingMore: false,
+      hasMoreData: true,
    
    
     
@@ -197,9 +202,12 @@ async mounted() {
    async getCategoriesAll() {
      this.loading = true
      try {
-       const response = await axios.get(`/categories/${this.id}`)
+     
+
+       const response = await axios.get(`/categories/${ this.id}/produits`)
+      console.log('response',response)
        if (response.data.status === "success") {
-         this.CategoriesArray = response.data?.data?.produits 
+         this.CategoriesArray = response.data?.data 
          this.loading = false
        }
 

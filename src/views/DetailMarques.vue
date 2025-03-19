@@ -22,7 +22,7 @@
                 <div class="row">
                     <div class="col-xl-12 col-md-12 col-sm-12  pe-0">
                         
-                        <div class="hero-slider" style="height: 40vh !important;" >
+                        <div class="hero-slider"  >
                             <div class="hero-img-1" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;">
                                 <div class=" col-xxl-5 col-lg-7 col-md-8  text-xs-center" style="width: 100%; height:100%">
                                     <img src="@/assets/img/bn1.jpg" alt="" style="width: 100%; height:100%">
@@ -55,7 +55,7 @@
                 <!-- row -->
                 <div class="row ">
                     <!-- col -->
-                    <aside class="col-lg-3 col-md-4 mb-6 mb-md-0">
+                    <aside class="col-lg-3 col-md-4 mb-md-0">
                         <div class="offcanvas offcanvas-start offcanvas-collapse w-md-50" tabindex="-1"
                             id="offcanvasCategory" aria-labelledby="offcanvasCategoryLabel">
                             <div class="offcanvas-header d-lg-none">
@@ -309,11 +309,37 @@ export default {
 }
 </script>
 <style lang="css" scoped>
+ .hero-slider{
+    height: 40vh !important;
+    width: 100%;
+}
+
 .hero-img-1 {
   
   height: 40vh !important;
   width: 100%;
   
+}
+@media (max-width: 800px) {
+    .hero-slider{
+    height: 30vh !important;
+    width: 100%;
+}
+    .hero-img-1 {
+  
+  height: 30vh !important;
+  width: 100%;   
+}
+
+.categorie {
+  height: 30vh !important;
+  overflow-y: scroll;
+}
+
+.card-right {
+  height: 30vh !important;
+
+}
 }
 
 .lv3Category--lv3Category--1hf3Fqv {

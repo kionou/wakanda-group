@@ -8,7 +8,7 @@
        <div class="col" v-for="(product,index) in CategoriesArray" :key="index">
           <!-- card -->
           <div class="card card-product">
-             <div class="card-body">
+             <div class="card-body p-1">
                 <!-- badge -->
                 <div class="text-center position-relative">
                    <div class="position-absolute top-0 start-0">

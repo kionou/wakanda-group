@@ -1,14 +1,12 @@
 <template >
   <div>
-    <RouterView />
+    
+    <RouterView  />
   </div>
 </template>
 
 <script>
 import { mapActions } from 'vuex';
-//  import "@/assets/libs/slick-carousel/slick/slick.min.js"
-// import "@/assets/libs/slick-carousel/slick/slick.css"
-// import "@/assets/libs/slick-carousel/slick/slick-theme.css"
 
 
 import "@/assets/libs/tiny-slider/dist/tiny-slider.css"
@@ -18,12 +16,25 @@ import "@/assets/libs/simplebar/dist/simplebar.min.css"
 import "@/assets/css/theme.min.css"
 
 
+
+
    
 
   export default {
   name:'App',
+  components:{
+    
+  },
+   data() {
+    return {
+    
+    }
+  },
+
   created() {
-    this.fetchDevises();
+    
+      this.fetchDevises();
+   
   },
   watch: {
     
@@ -45,6 +56,7 @@ import "@/assets/css/theme.min.css"
   },
   methods: {
     ...mapActions('devise', ['fetchDevises']),
+
   },
   
 }

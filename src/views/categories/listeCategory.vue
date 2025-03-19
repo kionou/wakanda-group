@@ -22,7 +22,7 @@
                 <div class="row">
                     <div class="col-xl-12 col-md-12 col-sm-12  pe-0">
      
-                      <div class="hero-slider" style="height: 40vh !important;" >
+                      <div class="hero-slider"  >
                           <div class="hero-img-1 " style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;"  v-if="SlidersArray.length === 0">
                                 <div class=" col-xxl-5 col-lg-7 col-md-8  text-xs-center" style="width: 100%; height:100%">
                                     <img :src="defaultBanner " alt="" style="width: 100%; height:100%">
@@ -49,16 +49,17 @@
                     <img src="@/assets/img/searchs.png" alt="" style="height: 100px; width: 100px;">
                     Pas de données!
                 </div> -->
-                <div class="lv3Category--lv3CategoryContentCatainer--3covqIo row "  v-if="CategoriesChildrenArray.length > 0">
-                    <div class="lv3Category--lv3CategoryBox--1Nts99Z ms-2 col-xl-4 col-md-3" v-for="(category,index) in CategoriesChildrenArray" :key="index" >
-                        <a :href="`/list-categories/${encodeId(category.id)}`"
+             
+                <div class="lv3Category--lv3CategoryContentCatainer--3covqIo row "  v-if="CategoriesChildrenArray?.length > 0">
+                    <div class="lv3Category--lv3CategoryBox--1Nts99Z ms-2 col-xl-4 col-md-3 col-sm-6" v-for="(category,index) in CategoriesChildrenArray" :key="index" >
+                        <a :href="`/list-categories/${encodeId(category?.id)}`"
                             >
                             <div class="lv3Category--lv3CategoryContent--2eCQWkm card card-product">
                                 <div class="lv3Category--lv3CategoryContentImg--2GZvdRG">
                                     <div class="lv3Category--lv3CategoryContentMask--1VpLYwR"></div>
                                     <img :src=" category.Image">
                                 </div>
-                                <div class="lv3Category--lv3CategoryContentName--2JnCa6z">{{ category.NomCategorie }}</div>
+                                <div class="lv3Category--lv3CategoryContentName--2JnCa6z">{{ category?.NomCategorie }}</div>
                             </div>
                         </a>
                     </div>
@@ -67,12 +68,12 @@
                 </div>
             </div>
             <!-- section -->
-            <div class="mt-3  mb-3">
+            <div class="mt-1 mb-3">
     
                 <!-- row -->
                 <div class="row ">
                     <!-- col -->
-                    <aside class="col-xl-3 col-lg-2 col-md-3 mb-6 mb-md-0">
+                    <aside class="col-xl-3 col-lg-2 col-md-3 mb-md-0">
                         <div class="offcanvas offcanvas-start offcanvas-collapse w-md-50" tabindex="-1"
                             id="offcanvasCategory" aria-labelledby="offcanvasCategoryLabel">
                             <div class="offcanvas-header d-lg-none">
@@ -320,11 +321,15 @@ export default {
         const response = await axios.get('liste/categories')
         if (response.data.status === "success") {
        
+          console.log("response", this.decodedId ,response.data.data)
 
-          this.CategoriesChildrenArray = response.data.data?.data
-          ?.filter(c =>c.Parent === parseInt( this.decodedId) )
+          const CategoriesChildrenArray = response.data.data?.data
+          ?.filter(c =>c.id == parseInt( this.decodedId) )
+        
+          this.CategoriesChildrenArray = CategoriesChildrenArray[0]?.children
         this.CategoriesArray = response.data.data?.data
           ?.filter(c =>  c.Parent === null)
+          
         
           this.loading = false
           
@@ -346,10 +351,6 @@ export default {
         this.initSliders();
       });
          
-          
-         
-          
-
         }
 
       } catch (error) {
@@ -445,6 +446,10 @@ beforeUnmount() {
 }
 </script>
 <style lang="css" scoped>
+  .hero-slider{
+    height: 40vh !important;
+    width: 100%;
+}
 .hero-img-1 {
   
   height: 40vh !important;
@@ -531,6 +536,20 @@ beforeUnmount() {
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
+}
+
+
+@media (max-width: 360px) {
+  .lv3Category--lv3CategoryBox--1Nts99Z{
+    width: 140px;
+  }
+
+  .lv3Category--lv3Category--1hf3Fqv .lv3Category--lv3CategoryContentCatainer--3covqIo .lv3Category--lv3CategoryBox--1Nts99Z .lv3Category--lv3CategoryContent--2eCQWkm .lv3Category--lv3CategoryContentImg--2GZvdRG {
+  
+    width: auto;
+   
+}
+ 
 }
 
 </style>

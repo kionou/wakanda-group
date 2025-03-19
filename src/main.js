@@ -60,6 +60,7 @@ app.component('ProgressSpinner', ProgressSpinner);
 // app.component('Toast', Toast);
 
 
+
 store.dispatch('auth/loadMyAuthenticatedUser').then(() => {
   app.use(VueLazyload, {
     preLoad: 1,

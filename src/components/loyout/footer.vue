@@ -3,10 +3,10 @@
         <footer class="footer bg-white pb-6 pt-1 pt-md-4" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;" >
 	<div class="container">
 		<div class="row align-items-center">
-			<div class="col-xl-xl-8 col-md-8 col-lg-4">
+			<div class="col-8 col-xl-8 col-md-8 col-lg-8">
 				<a href="#"><img src="@/assets/img/logo_wakanda.png" alt="" style="height: 50px !important;" /></a>
 			</div>
-			<div class="col-4 col-md-4 col-lg-8 text-end">
+			<div class="col-4 col-xl-8 col-md-4 col-lg-4 text-end">
 				<ul class="list-inline text-md-end mb-0 small">
 					<li class="list-inline-item me-2">
 						<a href="#!" class="social-links">
@@ -41,9 +41,9 @@
 		<hr class="my-lg-3 opacity-1" />
 		<div class="row g-4">
 			
-			<div class="col-xl-8 col-md-8 col-lg-8">
-				<div class="row g-4">
-					<div class="col-xl-4 col-sm-4 col-md-4">
+			<div class="col-xl-12 col-md-12 col-lg-12">
+				<div class="row g-4 ">
+					<div class="col-xl-3   d-none col-lg-3 d-lg-block">
 						<h6 class="mb-4 ">Catégories</h6>
 						<!-- list -->
 						<ul class="nav flex-column">
@@ -55,7 +55,7 @@
 						
 						</ul>
 					</div>
-					<div class="col-xl-4 col-sm-4 col-md-4">
+					<div class="col-xl-3   d-none col-lg-3 d-lg-block text-center">
 						<h6 class="mb-4 ">Marques</h6>
 						<ul class="nav flex-column">
 							
@@ -67,7 +67,7 @@
 					
 						</ul>
 					</div>
-					<div class="col-xl-4 col-sm-4 col-md-4">
+					<div class="col-xl-3 col-sm-6 col-lg-3 text-center">
 						<h6 class="mb-4 ">A propos</h6>
 						<ul class="nav flex-column">
 							<!-- list -->
@@ -77,9 +77,7 @@
 
 						</ul>
 					</div>
-				</div>
-			</div>
-			<div class="col-xl-4 col-md-4 col-lg-4">
+					<div class="col-xl-3 col-sm-6  col-lg-3 text-center">
 				<h6 class="mb-4 ">Besoins d'aide ?</h6>
 				<div class="row">
 					<div class="col-xl-12">
@@ -93,6 +91,9 @@
 					</div>
 				</div>
 			</div>
+				</div>
+			</div>
+			
 		</div>
 		<hr class="mt-3 opacity-1" />
 		<div>

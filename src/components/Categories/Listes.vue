@@ -6,7 +6,7 @@
             <!-- card -->
             <div class="card card-product">
                <!-- card body -->
-               <div class="card-body">
+               <div class="card-body p-1">
                   <div class="row align-items-center">
                      <!-- col -->
                      <div class="col-md-4 col-12 mt-0">

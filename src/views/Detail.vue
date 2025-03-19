@@ -139,8 +139,8 @@
 
                                 <div class="fs-5">
                                   <!-- price -->
-
-                                  <div>
+                                    <div v-if="product?.SurCommande == 1" class="text-warning fs-5 fw-bold">Sur commande</div>
+                                  <div v-else>
                                     <span
                                       v-if="product?.PrixPromo"
                                       class="text-danger fs-5 fw-bold"
@@ -181,9 +181,9 @@
                             </div>
                           </div>
 
-                          <hr class="my-6" />
+                          <hr class="my-6" v-if="product?.SurCommande != 1"/>
 
-                          <div class="row align-items-center">
+                          <div class="row align-items-center" v-if="product?.SurCommande != 1">
                             <div class="col-12">
                               <div class="row">
                                 <div
@@ -461,27 +461,27 @@
           <div class="row">
             <div class="col-12">
               <!-- heading -->
-              <h3>Produits vus récemment</h3>
+              <h3>Produits similaires</h3>
             </div>
           </div>
           <!-- row -->
           <div class="row g-5 row-cols-lg-6 row-cols-2 row-cols-md-2 mt-2">
             <p v-if="recentProducts.length === 0">
-              Pas de produit vue pour l'instant
+              Pas de produit similaire pour l'instant
             </p>
 
             <div
               class="col"
               v-else
-              v-for="(product, index) in recentProducts"
+              v-for="(product, index) in ProductSimulairesArray"
               :key="index"
             >
               <!-- card -->
-              <div class="card card-product-v2 h-100">
-                <div class="card-body position-relative">
+              <div class="card card-product-v2 ">
+                <div class="card-body position-relative p-1">
                   <!-- badge -->
-                  <div class="text-center position-relative">
-                    <div class="position-absolute top-0 start-0">
+                  <div class="text-center position-relative" >
+                    <div class="position-absolute top-0 start-0" v-if="product?.SurCommande !=1">
                       <span
                         v-if="product?.PrixPromo"
                         class="badge bg-success text-white"
@@ -526,7 +526,7 @@
 
                   <!-- price -->
                   <div
-                    class="d-flex justify-content-between align-items-center mt-3"
+                    class="d-flex justify-content-between align-items-center mt-3" v-if="product?.SurCommande !=1"
                   >
                     <div>
                       <span v-if="product?.PrixPromo" class="text-danger">
@@ -547,7 +547,8 @@
                     </div>
                   </div>
                   <div class="prix">
-                    <p class="mb-0">
+
+                    <p class="mb-0" v-if="product?.SurCommande !=1">
                       <span
                         v-if="product?.magasins_sum_quantite_reel !== null"
                         class="badge bg-success text-white"
@@ -557,6 +558,169 @@
                         >Pas disponible</span
                       >
                     </p>
+                    <p v-else>
+                      <span
+                      
+                        class="badge bg-success text-white"
+                        >Sur commande</span
+                      >
+                    </p>
+
+
+                    <span
+                      v-if="
+                        product?.magasins_sum_quantite_reel === null ||
+                        product?.magasins_sum_quantite_reel === 0
+                      "
+                      class="text-uppercase small Icons"
+                      disabled
+                    >
+                      <div class="icon-cards" disabled>
+                        <div v-if="loadingItems[product?.id]">
+                          <LoaderBtn class="loadingbtn"></LoaderBtn>
+                        </div>
+                        <div v-else>
+                          <i class="bi bi-cart2 fs-4"></i>
+                        </div>
+                      </div>
+                    </span>
+
+                    <span
+                      v-else
+                      class="text-uppercase small"
+                      @click="addProductToCart(product)"
+                      :disabled="loadingItems[product?.id]"
+                    >
+                      <div class="icon-card">
+                        <div v-if="loadingItems[product?.id]">
+                          <LoaderBtn class="loadingbtn"></LoaderBtn>
+                        </div>
+                        <div v-else>
+                          <i class="bi bi-cart2 fs-4"></i>
+                        </div>
+                      </div>
+                    </span>
+                  </div>
+                </div>
+                <!-- hidden class for hover -->
+                <div class="product-content-fade border-info"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="my-lg-5 my-5">
+        <div class="container-fluid">
+          <!-- row -->
+          <div class="row">
+            <div class="col-12">
+              <!-- heading -->
+              <h3>Produits vus récemment</h3>
+            </div>
+          </div>
+          <!-- row -->
+          <div class="row g-5 row-cols-lg-6 row-cols-2 row-cols-md-2 mt-2">
+            <p v-if="recentProducts.length === 0">
+              Pas de produit vue pour l'instant
+            </p>
+
+            <div
+              class="col"
+              v-else
+              v-for="(product, index) in recentProducts"
+              :key="index"
+            >
+              <!-- card -->
+              <div class="card card-product-v2 ">
+                <div class="card-body position-relative p-1">
+                  <!-- badge -->
+                  <div class="text-center position-relative" >
+                    <div class="position-absolute top-0 start-0" v-if="product?.SurCommande !=1">
+                      <span
+                        v-if="product?.PrixPromo"
+                        class="badge bg-success text-white"
+                      >
+                        -{{
+                          calculateDiscount(product?.Prix, product?.PrixPromo)
+                        }}%
+                      </span>
+                    </div>
+                    <!-- img -->
+                    <a
+                      :href="`/detail/${encodeId(product?.id)}`"
+                      @click="addToRecent(product)"
+                    >
+                      <img
+                        :src="
+                          product?.PhotoCover
+                            ? product?.PhotoCover
+                            : defaultImage
+                        "
+                        :alt="product?.NomProduit"
+                        :title="product?.NomProduit"
+                        style="
+                          width: 100%;
+                          height: auto;
+                          max-height: 30% !important;
+                        "
+                        class="mb-3 img-fluid"
+                      />
+                    </a>
+                    <!-- action btn -->
+                  </div>
+                  <!-- title -->
+                  <h2 class="fs-6">
+                    <a
+                      :href="`/detail/${encodeId(product?.id)}`"
+                      class="text-inherit text-decoration-none"
+                      @click="addToRecent(product)"
+                      >{{ product?.NomProduit }}
+                    </a>
+                  </h2>
+
+                  <!-- price -->
+                  <div
+                    class="d-flex justify-content-between align-items-center mt-3" v-if="product?.SurCommande !=1"
+                  >
+                    <div>
+                      <span v-if="product?.PrixPromo" class="text-danger">
+                        {{
+                          formatPrice(convertPrice(product.PrixPromo), "F CFA")
+                        }}
+                      </span>
+                      <br />
+                      <span
+                        v-if="product?.PrixPromo"
+                        class="text-muted text-decoration-line-through"
+                      >
+                        {{ formatPrice(convertPrice(product.Prix), "F CFA") }}
+                      </span>
+                      <span v-else class="text-danger">
+                        {{ formatPrice(convertPrice(product?.Prix), "F CFA") }}
+                      </span>
+                    </div>
+                  </div>
+                  <div class="prix">
+
+                    <p class="mb-0" v-if="product?.SurCommande !=1">
+                      <span
+                        v-if="product?.magasins_sum_quantite_reel !== null"
+                        class="badge bg-success text-white"
+                        >Disponible</span
+                      >
+                      <span v-else class="badge bg-danger text-white"
+                        >Pas disponible</span
+                      >
+                    </p>
+                    <p v-else>
+                      <span
+                      
+                        class="badge bg-success text-white"
+                        >Sur commande</span
+                      >
+                    </p>
+
+
                     <span
                       v-if="
                         product?.magasins_sum_quantite_reel === null ||
@@ -619,6 +783,7 @@ export default {
   data() {
     return {
       images: [],
+      ProductSimulairesArray:[],
       product: "",
       loading: true,
       loadingItems: {}
@@ -699,12 +864,34 @@ export default {
           if (this.product?.PhotoCover) {
             this.images.unshift(this.product.PhotoCover);
           }
+          this.getMarquesbyId(this.product?.Marque ,this.product?.id)
           this.loading = false;
         }
       } catch (error) {
         console.log("error", error);
       }
     },
+    async getMarquesbyId(id ,productId) {
+     
+     this.loading = true
+     try {
+       const response = await axios.get(`/marques/${id}`)
+   
+
+       if (response.data.status === "success") {
+        console.log("response.data?.data",response.data?.data);
+        
+         this.ProductSimulairesArray = response.data?.data?.produits.filter(item => item.id !== productId)
+         console.log(" this.ProductSimulairesArra",this.ProductSimulairesArray )
+        
+
+         this.loading = false
+       }
+
+     } catch (error) {
+       console.log('error', error)
+     }
+   },
 
     // Ajouter au panier
     addToCartProduct(product) {

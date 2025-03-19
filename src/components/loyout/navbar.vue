@@ -44,34 +44,29 @@
         <!-- </div> -->
 
         <div class="container px-0">
-          <div
-            class="row align-items-center justify-content-center p-2 mt-0 mt-lg-0 bg-white"
-          >
-            <div
-              class="col-xxl-2 col-xl-2 col-lg-2 col-md-3 d-lg-block fw-bold d-none d-md-block"
+          <div class="row align-items-center justify-content-center p-2 mt-0 mt-lg-0 bg-white">
+            <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-3 col-sm-3 d-lg-block fw-bold d-none d-sm-block"
             >
               <a href="/">
                 <img
                   src="@/assets/img/logo_wakanda.png"
-                  alt=""
+                  alt="logo"
                   class="img-fluid"
                   style="height: 50px !important"
                 />
               </a>
             </div>
-            <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-9">
-              <div class="row align-items-center">
-                <div class="col-2 d-sm-none">
-                  <a href="/">
-                    <img
-                      src="@/assets/img/logo_mobile.png"
-                      alt=""
-                      style="width: 40px"
-                    />
-                  </a>
-                </div>
-                <div class="col-7 col-xs-8 col-sm-8 col-md-10 col-lg-10">
-                  <form action="#" class="me-2">
+            <div class="col-xxl-6 col-xl-6 col-lg-6 col-md-9 col-sm-9">
+  <div class="row align-items-center justify-content-end">
+    <div class="col-8 d-sm-none">
+      <a href="/">
+        <img src="@/assets/img/logo_wakanda.png" alt="logo" style="height: 50px !important" />
+      </a>
+    </div>
+    
+    <!-- Barre de recherche - cachée sur mobile mais visible sur desktop -->
+    <div class="col-7 col-xs-8 col-sm-8 col-md-10 col-lg-10 d-none d-md-block">
+      <form action="#" class="me-2">
                     <div class="input-group">
                       <AutoComplete
                         v-model="selectedProduct"
@@ -124,9 +119,8 @@
                       </AutoComplete>
                     </div>
                   </form>
-                </div>
-                <div
-                  class="col-2 col-xs-2 col-sm-2 col-md-1 col-lg-1 position-relative"
+    </div>
+    <div class="col-2 col-xs-2 col-sm-1 col-md-1 col-lg-1 position-relative"
                   @mouseenter="showDropdown = true"
                   @mouseleave="showDropdown = false"
                 >
@@ -134,7 +128,7 @@
                     src="@/assets/img/search.png"
                     alt="search by picture"
                     class="cursor-pointer me-3"
-                    style="height: 40px; width: 40px"
+                    style="height:30px; width:30px"
                   />
 
                   <!-- Dropdown de recherche par image avec transition -->
@@ -231,14 +225,93 @@
                     </div>
                   </Transition>
                 </div>
-                <div class="col-1 col-xs-2 col-sm-2 col-md-1 col-lg-1">
-                  <a href="#"> <i class="bi bi-mic fs-2"></i></a>
+    <!-- Icône de recherche visible uniquement sur mobile -->
+    <div class="col-auto  d-md-none ms-3"  >
+      <img
+        src="@/assets/img/search2.png"
+        alt="search"
+        class="cursor-pointer"
+        style="height: 23px; width: 23px"
+        @click="toggleMobileSearch"
+      />
+    </div>
+    
+    <!-- Reste du code... -->
+  </div>
+  
+  <!-- Barre de recherche mobile qui apparaît lors du clic sur l'icône -->
+            <div 
+              v-if="showMobileSearch" 
+              class="mobile-search-container w-100 position-absolute bg-white py-2 px-3 shadow"
+              style="left: 0; top: 60px; z-index: 1000;"
+            >
+              <div class="d-flex align-items-center">
+                <div class="flex-grow-1">
+                  <form action="#" class="me-2">
+                    <div class="input-group">
+                      <AutoComplete
+                        v-model="selectedProduct"
+                        optionLabel="NomProduit"
+                        :suggestions="filteredProducts"
+                        @complete="search"
+                        style="width: 100%"
+                        size="sm"
+                        placeholder="Rechercher un produit..."
+                      >
+                        <template #option="slotProps">
+                          <div
+                            class="d-flex align-items-center"
+                            @click="goToProductDetail(slotProps)"
+                          >
+                            <div class="d-flex align-items-center ms-2">
+                              <img
+                                :alt="slotProps.option.NomProduit"
+                                :src="slotProps.option.PhotoCover"
+                                style="
+                                  width: 30px;
+                                  height: 30px;
+                                  object-fit: cover;
+                                "
+                                class="me-2"
+                              />
+                              <div>{{ slotProps.option.NomProduit }}</div>
+                            </div>
+                            <div class="fw-bold ms-2">
+                              <!-- <div class="fw-bold">({{ slotProps.option?.Prix }})</div> -->
+                              <div class="fw-bold">
+                                (
+                                {{
+                                  formatPrice(
+                                    convertPrice(slotProps.option?.Prix),
+                                    selectedDevise.symbol,
+                                    selectedDevise.isSymbolBefore
+                                  )
+                                }})
+                              </div>
+                            </div>
+                          </div>
+                        </template>
+
+                        <template #header>
+                          <div class="font-medium px-3 py-2">
+                            Produits Disponibles
+                          </div>
+                        </template>
+                      </AutoComplete>
+                    </div>
+                  </form>
+                </div>
+                <div class="ms-2">
+                  <button class="btn btn-sm btn-outline-secondary" @click="toggleMobileSearch">
+                    <i class="bi bi-x"></i>
+                  </button>
                 </div>
               </div>
             </div>
+          </div>
             <div class="col-xxl-4 col-xl-4 col-lg-4 d-none d-lg-block">
               <div class="row align-items-center" v-if="shouldShowNavbar">
-                <div class="col-xl-6">
+                <div class="col-xl-6 col-md-5">
                   <div
                     ref="dropdownWrapper"
                     class="my-account--menuItem--1GDZChA"
@@ -283,7 +356,7 @@
                     ></span>
                   </div>
                 </div>
-                <div class="col-xl-1">
+                <div class="col-xl-1 col-md-1">
                   <div>
                     <div
                       v-if="isOpen"
@@ -412,9 +485,9 @@
                     </div>
                   </div>
                 </div>
-                <div class="col-xl-5">
+                <div class="col-xl-5 col-md-5">
                   <div class="navbar-container ms-3">
-                    <div class="dropdown selectBox" ref="dropdownWrapper1">
+                    <div class="dropdown selectBox" ref="dropdownWrapper1" style="height:33px">
                       <a
                         ref="dropdownWrapper1"
                         class="dropdown-toggle selectValue text-reset show d-flex align-items-center"
@@ -668,7 +741,7 @@
                 </div>
                 <div class="col-xl-5">
                   <div class="navbar-container">
-                    <div class="dropdown selectBox" ref="dropdownWrapper1">
+                    <div class="dropdown selectBox" ref="dropdownWrapper1" style="height:33px">
                       <a
                         ref="dropdownWrapper1"
                         class="dropdown-toggle selectValue text-reset show d-flex align-items-center"
@@ -683,9 +756,8 @@
 
                       <div class="es--wrap--RYjm1RT" v-if="isOpenLangage">
                         <div
-                          class="es--contentWrap--ypzOXHr es--visible--12ePDdG"
-                        >
-                          <div class="form-item--title--1ZN23sl">Envoyez à</div>
+                          class="es--contentWrap--ypzOXHr es--visible--12ePDdG">
+                          <!-- <div class="form-item--title--1ZN23sl">Envoyez à</div>
                           <MazSelect
                             label=""
                             v-model="detected"
@@ -712,7 +784,7 @@
                                 {{ option.code }}
                               </strong>
                             </div>
-                          </MazSelect>
+                          </MazSelect> -->
 
                           <div class="form-item--title--1ZN23sl">Langue</div>
                           <MazSelect
@@ -766,8 +838,6 @@
                               {{ option.label }}
                             </div>
                           </MazSelect>
-
-                          <!-- <div class="es--saveBtn--w8EuBuy">Enregistrer</div> -->
                         </div>
                       </div>
                     </div>
@@ -951,13 +1021,13 @@
   </div>
 </template>
 <script>
-import uk from "@/assets/img/unit.svg";
 import fr from "@/assets/img/france-flag-icon.svg";
-import { mapActions, mapGetters } from "vuex";
+import uk from "@/assets/img/unit.svg";
+import LoaderBtn from "@/components/others/loader/loaderbtn.vue";
+import axiosInstance from "@/lib/axiosConfig";
 import axios from "axios";
 import { useToast } from "vue-toastification";
-import axiosInstance from "@/lib/axiosConfig";
-import LoaderBtn from "@/components/others/loader/loaderbtn.vue";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   setup() {
@@ -965,19 +1035,19 @@ export default {
     return { toast };
   },
   components: {
-    LoaderBtn
+    LoaderBtn,
   },
   computed: {
     ...mapGetters("cart", [
       "cartItemCount",
       "cartItems",
       "alertMessage",
-      "isLoadingItem"
+      "isLoadingItem",
     ]), // Utiliser le getter pour le nombre d'éléments
     ...mapGetters("devise", [
       "DeviesArray",
       "selectedDevise",
-      "getSelectedRate"
+      "getSelectedRate",
     ]),
     ...mapGetters("auth", ["isAuthenticated"]),
     shouldShowNavbar() {
@@ -991,7 +1061,7 @@ export default {
     },
     loggedInUser() {
       return this.$store.getters["auth/myAuthenticatedUser"];
-    }
+    },
   },
 
   watch: {
@@ -1008,13 +1078,14 @@ export default {
         //     closeOnClick: true,
         //   });
       }
-    }
+    },
   },
 
   data() {
     return {
       isOpen: false,
       isOpenLangage: false,
+      showMobileSearch: false,
       productDispo: false,
       productNoDispo: false,
       recentProducts: [],
@@ -1026,7 +1097,7 @@ export default {
       filteredProducts: [],
       LangageOptions: [
         { picture: fr, label: "French", value: "fr" },
-        { picture: uk, label: "English", value: "en" }
+        { picture: uk, label: "English", value: "en" },
       ],
       countriesOptions: [],
       // DeviesArray:[],
@@ -1036,7 +1107,7 @@ export default {
       isDragging: false,
       previewImage: null,
       fileInput: null,
-      detected: null
+      detected: null,
     };
   },
   async mounted() {
@@ -1046,6 +1117,7 @@ export default {
 
     if (this.DeviesArray.length > 0) {
       this.devise = this.DeviesArray[2].value;
+      console.log("this.devise", this.DeviesArray);
     }
     document.addEventListener("click", this.handleClickOutside);
     const savedLanguage = localStorage.getItem("language");
@@ -1059,14 +1131,16 @@ export default {
       "fetchDevises",
       "changeDevise",
       "alertMessage",
-      "loading"
+      "loading",
     ]),
     ...mapActions("cart", [
       "addToCart",
       "increaseQuantity",
-      "decreaseQuantity"
+      "decreaseQuantity",
     ]),
-
+    toggleMobileSearch() {
+    this.showMobileSearch = !this.showMobileSearch;
+  },
     encodeId(id) {
       return btoa(id); // Encode en Base64
     },
@@ -1125,8 +1199,8 @@ export default {
       try {
         const response = await axiosInstance.get("/autocomplete", {
           headers: {
-            "Content-Type": "application/json"
-          }
+            "Content-Type": "application/json",
+          },
         });
 
         if (response.data.status === "success") {
@@ -1212,7 +1286,7 @@ export default {
           label: country.NomPays,
           flag: country.Flag,
           value: country.CodePays,
-          code: country.NomAbr
+          code: country.NomAbr,
         }));
         const detected = options.find((i) => i.code === detectedLanguage);
         this.detected = detected.value;
@@ -1233,7 +1307,7 @@ export default {
             .map((d) =>
               this.DeviesArray?.push({
                 label: d.Title,
-                value: d.id
+                value: d.id,
               })
             );
 
@@ -1269,8 +1343,8 @@ export default {
           formData,
           {
             headers: {
-              "Content-Type": "multipart/form-data"
-            }
+              "Content-Type": "multipart/form-data",
+            },
           }
         );
         if (response?.data?.data?.length > 0) {
@@ -1333,11 +1407,11 @@ export default {
     addProductToCart(product) {
       this.loadingItems[product?.id] = true;
       this.$store.dispatch("cart/addToCart", product);
-    }
+    },
   },
   beforeDestroy() {
     document.removeEventListener("click", this.handleClickOutside);
-  }
+  },
 };
 </script>
 <style lang="css" scoped>
@@ -1706,7 +1780,7 @@ span.base--responseIcon--3et2x1Z {
   width: 250px;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
-  margin-top: 24px;
+  margin-top: 4px;
   padding: 8px 20px 20px;
   color: #191919;
   background: #fff;

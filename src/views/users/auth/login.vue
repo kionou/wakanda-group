@@ -61,6 +61,12 @@
                       </small>
                     </div>
                   </div>
+                  <div class="mt-1">
+                          <div class="float-end">
+                            <a href="#" class="text-info" v-on:click="(()=>{addEmail = true})">Mot de passe oublié?</a>
+                          </div>
+  
+                        </div>
                 </div>
               </div>
               <div
@@ -235,6 +241,151 @@
         </button>
       </div>
     </Dialog>
+
+    <!-- mot de passe oublie -->
+
+    <Dialog v-model:visible="addEmail" modal
+      header="Entrez votre adresse email"
+      :style="{ width: '30rem' }"
+    >
+      <div class="d-flex justify-content-center align-items-center flex-column">
+        <span class="text-primary mb-2 text-center">{{ errorOtp }}</span>
+        <span class="mb-2 text-center"
+          >  Entrez votre email et des instructions vous seront envoyées !</span
+        >
+      </div>
+      <div class="form-container">
+                <div class="row mt-3 content-group">
+                  <div class="col-xl-12">
+                    <div class="input-groupe">
+                      
+                      <MazInput
+                        v-model="step3.email"
+                        color="warning"
+                        name="step3.email"
+                        size="sm"
+                        rounded-size="sm"
+                        type="email"
+                        placeholder="Entrez votre adresse email"
+                      />
+                      <small v-if="v$.step3.email.$error">{{
+                        v$.step3.email.$errors[0].$message
+                      }}</small>
+                      <small v-if="resultError['email']"
+                        >{{ resultError["email"] }}
+                      </small>
+                    </div>
+                  </div>
+                 
+                 
+                </div>
+              </div>
+      <div class="btnForm py-3 d-flex items-center justify-content-evenly">
+        
+
+        <button
+          class="btnLogin d-flex align-items-center"
+          style="padding: 0.5em 2em !important"
+          :disabled="isButtonDisabled"
+          @click.prevent="SendEmail('addEmail')"
+        >
+        
+          <span
+            class="text-uppercase small ms-2"
+            :disabled="loadingItems['addEmail']"
+          >
+            <div v-if="loadingItems['addEmail']" class="d-flex align-items-center">
+              <LoaderBtn class="loadingbtn"></LoaderBtn>
+              <span class="">loading...</span>
+            </div>
+            <div v-else>Envoyer</div>
+          </span>
+        </button>
+      </div>
+    </Dialog>
+
+    <Dialog v-model:visible="addPassword" modal
+      header="Créer un nouveau mot de passe"
+      :style="{ width: '30rem' }"
+    >
+      <div class="d-flex justify-content-center align-items-center flex-column">
+        <span class="text-primary mb-2 text-center">{{ errorOtp }}</span>
+        <span class="mb-2 text-center"
+          >Votre nouveau mot de passe doit être différent du mot de passe utilisé précédemment!</span
+        >
+      </div>
+      <div class="form-container">
+                <div class="row mt-3 content-group">
+                  <div class="col-12">
+                    <div class="input-groupe">
+                      <label for="userpassword">
+                        Mot de passe <span class="text-danger">*</span></label
+                      >
+                      <MazInput
+                        v-model="step4.password"
+                        color="warning"
+                        name="step4.password"
+                        size="sm"
+                        rounded-size="sm"
+                        type="password"
+                      />
+                      <small v-if="v$.step4.password.$error">{{
+                        v$.step4.password.$errors[0].$message
+                      }}</small>
+                      <small v-if="resultError['password']">
+                        {{ resultError["password"] }}
+                      </small>
+                    </div>
+                  </div>
+                  <div class="col-12">
+                    <div class="input-groupe">
+                      <label for="userpassword">
+                        Confirmez le mot de passe<span class="text-danger">*</span></label
+                      >
+                      <MazInput
+                        v-model="step4.password_confirmation"
+                        color="warning"
+                        name="step4.password_confirmation"
+                        size="sm"
+                        rounded-size="sm"
+                        type="password"
+                      />
+                      <small v-if="v$.step4.password_confirmation.$error">{{
+                        v$.step4.password_confirmation.$errors[0].$message
+                      }}</small>
+                      <small v-if="resultError['password_confirmation']">
+                        {{ resultError["password_confirmation"] }}
+                      </small>
+                      <small v-if="!validatePasswordsMatch()" >Les mots de passe ne correspondent pas.</small>
+                    </div>
+                  </div>
+                 
+                 
+                </div>
+              </div>
+      <div class="btnForm py-3 d-flex items-center justify-content-evenly">
+        
+
+        <button
+          class="btnLogin d-flex align-items-center"
+          style="padding: 0.5em 2em !important"
+          :disabled="isButtonDisabled"
+          @click.prevent="HamdlePassword('addPassword')"
+        >
+        
+          <span
+            class="text-uppercase small ms-2"
+            :disabled="loadingItems['addPassword']"
+          >
+            <div v-if="loadingItems['addPassword']" class="d-flex align-items-center">
+              <LoaderBtn class="loadingbtn"></LoaderBtn>
+              <span class="">loading...</span>
+            </div>
+            <div v-else>Valider</div>
+          </span>
+        </button>
+      </div>
+    </Dialog>
   </div>
 </template>
 <script>
@@ -244,11 +395,16 @@ import { require, lgmin, lgmax, ValidEmail } from "@/functions/rules";
 import MazPhoneNumberInput from "maz-ui/components/MazPhoneNumberInput";
 import LoaderBtn from "@/components/others/loader/loaderbtn.vue";
 import { mapActions } from "vuex";
+import { useToast } from "vue-toastification";
 
 export default {
   components: {
     MazPhoneNumberInput,
     LoaderBtn,
+  },
+  setup() {
+    const toast = useToast(); // Initialiser useToast
+    return { toast };
   },
   data() {
     return {
@@ -261,6 +417,8 @@ export default {
       errorOtps: false,
       loadingVerification: false,
       ChoiceMethodeSendOtp: false,
+      addEmail:false,
+      addPassword:false,
       GlobalData: "",
       telephone: "",
       step1: {
@@ -269,6 +427,13 @@ export default {
       },
       step2: {
         code: "",
+      },
+      step3: {
+        email: "",
+      },
+      step4: {
+        password: "",
+        password_confirmation: "",
       },
       VerifieCodeByMail: false,
       VerifieCodeBywhatsapp: false,
@@ -289,10 +454,20 @@ export default {
       email: { require, ValidEmail },
       password: { require },
     },
+    step3: {
+      email: { require, ValidEmail },
+    },
+    step4: {
+      password: { require, lgmin: lgmin(8), lgmax: lgmax(20) },
+      password_confirmation: { require, lgmin: lgmin(8), lgmax: lgmax(20) },
+    },
   },
   async mounted() {},
   methods: {
     ...mapActions("auth", ["setMyAuthenticatedUser"]),
+    validatePasswordsMatch() {
+      return this.step4.password === this.step4.password_confirmation;
+    },
 
     startCountdown() {
       this.timeRemaining = 59;
@@ -364,7 +539,7 @@ export default {
 
       try {
         const response = await axios.post("/send-otp", CodeUserWhatsapp);
-        console.log(response);
+        
 
         if (response.status === 201) {
           this.loadingItems[modalId] = false;
@@ -465,20 +640,29 @@ export default {
       this.errorOtp = "";
       let DataUser = {
         email: true,
-        value: this.telephone?.data?.user?.email,
+        value: this.telephone?.data?.user?.email ?? this.step3.email,
         code: this.step2.code,
       };
+      
+      
       try {
         const response = await axios.post("/verification-otp", DataUser);
         console.log("err", response);
 
         if (response.data.status === "success") {
-          this.setMyAuthenticatedUser(this.telephone?.data);
-          this.$router.push("/client");
-          // this.$router.go(-1);
+          if (this.telephone?.data?.user?.email) {
+           this.setMyAuthenticatedUser(this.telephone?.data);
+            this.$router.push("/client");
+          } else {
+        
+         this.addPassword = true
+         this.VerifieCodeByMail = false;
+          }
+          
+        
         } else {
           this.loadingVerification = false;
-          console.log("errssss", response);
+          
 
           this.errorOtp = "Echec de vérification du code.";
           this.errorOtps = true;
@@ -494,6 +678,104 @@ export default {
         }
       }
     },
+
+    // mot de passe oublie 
+    async SendEmail(modalId) {
+      (this.errorOtp = ""), this.v$.step3.$touch();
+      if (this.v$.$errors.length == 0) {
+        this.loadingItems[modalId] = true; 
+        let CodeUserWhatsapp = {
+        email: 1,
+        value: this.step3.email,
+      };
+      try {
+        const response = await axios.post("/send-otp", CodeUserWhatsapp);
+        if (response.status === 201) {
+          this.loadingItems[modalId] = false;
+          this.errorOtp = response.data.message;
+        }
+        if (response.data.status === "success") {
+          this.loadingItems[modalId] = false;
+          this.VerifieCodeByMail = true;
+          this.addEmail = false
+        } else {
+        }
+      } catch (error) {
+        this.loadingItems[modalId] = false;
+
+        console.log("err", error);
+      }
+      }else{
+        this.loadingItems[modalId] = false;
+      }
+      
+    },
+    async HamdlePassword(modalId) {
+      this.v$.step4.$touch()
+      if (this.v$.$errors.length == 0) {
+        let DataUser = {
+      code: this.step2.code,
+      email:true,
+     value:this.step3.email,
+     password: this.step4.password,
+     password_confirmation: this.step4.password_confirmation,
+   };
+   this.loadingItems[modalId] = true
+   try {
+     const response = await axios.post("/password/reset", DataUser);
+     if (response.data.status === "success") {
+       this.loadingItems[modalId] = false
+       this.addPassword = false
+       this.step2 = {}
+       this.step4 = {}
+       this.v$.step2.$reset();
+       this.v$.step4.$reset();
+       this.toast.success("Votre mot de passe a été modifié avec succès. vous pouvez maintenant vous  connecter en toute sécurité. !", {
+              position: "top-right",
+              timeout: 2000,
+              closeOnClick: true,
+            });
+  this.$router.push('/');
+
+      
+//        Swal.fire({
+// title: "Changement de mot passe réussi",
+// text: "Votre mot de passe a été modifié avec succès. vous pouvez maintenant vous  connecter en toute sécurité. Merçi pour votre vigilance en matière de sécurité !",
+// icon: "success",
+// showCancelButton: false,
+// confirmButtonColor: "#3085d6",
+// cancelButtonColor: "#d33",
+// confirmButtonText: "OK"
+// }).then((result) => {
+// if (result.isConfirmed) {
+//   this.$router.push('/');
+ 
+// }
+// });
+     
+     } else {
+     }
+   } catch (error) {
+    console.log(error)
+    this.loadingItems[modalId] = false
+     if (
+       error.response.data.message === "Vous n'êtes pas autorisé." ||
+       error.response.status === 401
+     ) {
+       await this.$store.dispatch("auth/clearMyAuthenticatedUser");
+       this.$router.push("/"); //a revoir
+     }
+     if (error.response.data.status === "error") {
+       return (this.error = error.response.data.message);
+     } else {
+       this.formatValidationErrors(error.response.data.errors);
+     }
+   }
+      }
+  
+ },
+
+    // fin mot de passe oublie
     async getCountryOptions() {
       try {
         await this.$store.dispatch("fetchCountries");

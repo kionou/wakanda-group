@@ -101,88 +101,134 @@
    
                   <div class="col" v-else v-for="(product,index) in recentProducts" :key="index">
                                                     <!-- card -->
-                                                    <div class="card card-product-v2 h-100">
-                                                        <div class="card-body position-relative">
-                                                            <!-- badge -->
-                                                            <div class="text-center position-relative">
-                                                                <div class="position-absolute top-0 start-0">
-                                                                    <span v-if="product?.PrixPromo" class="badge bg-success text-white">
-                                                                    -{{ calculateDiscount(product?.Prix, product?.PrixPromo) }}%
-                                                                    </span>
-                                                                </div>
-                                                                <!-- img -->
-                                                                <a :href="`/detail/${ encodeId(product?.id)}`" @click="addToRecent(product)">
-                                                                    <img :src="product?.PhotoCover ? product?.PhotoCover : defaultImage"
-                                                                        :alt="product?.NomProduit" :title="product?.NomProduit"
-                                                                        style="width: 100%; height: auto; max-height: 30% !important;"
-                                                                        class="mb-3 img-fluid" />
-                                                                </a>
-                                                                <!-- action btn -->
-    
-                                                            </div>
-                                                            <!-- title -->
-                                                            <h2 class="fs-6"><a
-                                                                :href="`/detail/${ encodeId(product?.id)}`"
-                                                                class="text-inherit text-decoration-none" @click="addToRecent(product)">{{
-                                                                product?.NomProduit  }}
-                                                            </a></h2>
-    
-                                                            <!-- price -->
-                                                            <div class="d-flex justify-content-between align-items-center mt-3">
-                             
-                                                <div>
-                                             <span v-if="product?.PrixPromo" class="text-danger">
-                                                 {{ formatPrice(convertPrice(product.PrixPromo), selectedDevise?.symbol) }}
-                                             </span>
-                                             <br>
-                                             <span v-if="product?.PrixPromo" class="text-muted text-decoration-line-through">
-                                                 {{ formatPrice(convertPrice(product.Prix), selectedDevise?.symbol) }}
-                                             </span>
-                                             <span v-else class="text-danger">
-                                                 {{ formatPrice(convertPrice(product?.Prix), selectedDevise?.symbol) }}
-                                             </span>
-                             </div>
+                                                    <div class="card card-product-v2 ">
+                <div class="card-body position-relative p-1">
+                  <!-- badge -->
+                  <div class="text-center position-relative" >
+                    <div class="position-absolute top-0 start-0" v-if="product?.SurCommande !=1">
+                      <span
+                        v-if="product?.PrixPromo"
+                        class="badge bg-success text-white"
+                      >
+                        -{{
+                          calculateDiscount(product?.Prix, product?.PrixPromo)
+                        }}%
+                      </span>
+                    </div>
+                    <!-- img -->
+                    <a
+                      :href="`/detail/${encodeId(product?.id)}`"
+                      @click="addToRecent(product)"
+                    >
+                      <img
+                        :src="
+                          product?.PhotoCover
+                            ? product?.PhotoCover
+                            : defaultImage
+                        "
+                        :alt="product?.NomProduit"
+                        :title="product?.NomProduit"
+                        style="
+                          width: 100%;
+                          height: auto;
+                          max-height: 30% !important;
+                        "
+                        class="mb-3 img-fluid"
+                      />
+                    </a>
+                    <!-- action btn -->
+                  </div>
+                  <!-- title -->
+                  <h2 class="fs-6">
+                    <a
+                      :href="`/detail/${encodeId(product?.id)}`"
+                      class="text-inherit text-decoration-none"
+                      @click="addToRecent(product)"
+                      >{{ product?.NomProduit }}
+                    </a>
+                  </h2>
 
-                         
-                       
-                           </div>
-                                           <div class="prix">
-                                             <p class="mb-0">
-                                                 <span v-if="product?.magasins_sum_quantite_reel !== null" class="badge bg-success text-white">Disponible</span>
-                                                 <span v-else class="badge bg-danger text-white">Pas disponible</span>
-                                             </p>
-                                                 <span  v-if="product?.magasins_sum_quantite_reel === null || product?.magasins_sum_quantite_reel === 0" class="text-uppercase small Icons " 
-                                                     disabled>
-                                                     <div class="icon-cards" disabled>
-                                                         <div v-if="loadingItems[product?.id]">
-                                                             <LoaderBtn class="loadingbtn"></LoaderBtn>
-                                                         </div>
-                                                         <div v-else>
-                                                             <i class="bi bi-cart2 fs-4"></i>
-                                                         </div>
- 
-                                                     </div>
-                                                 </span>
+                  <!-- price -->
+                  <div
+                    class="d-flex justify-content-between align-items-center mt-3" v-if="product?.SurCommande !=1"
+                  >
+                    <div>
+                      <span v-if="product?.PrixPromo" class="text-danger">
+                        {{
+                          formatPrice(convertPrice(product.PrixPromo), "F CFA")
+                        }}
+                      </span>
+                      <br />
+                      <span
+                        v-if="product?.PrixPromo"
+                        class="text-muted text-decoration-line-through"
+                      >
+                        {{ formatPrice(convertPrice(product.Prix), "F CFA") }}
+                      </span>
+                      <span v-else class="text-danger">
+                        {{ formatPrice(convertPrice(product?.Prix), "F CFA") }}
+                      </span>
+                    </div>
+                  </div>
+                  <div class="prix">
 
-                                                 <span v-else class="text-uppercase small   " @click="addProductToCart(product)"
-                                                     :disabled="loadingItems[product?.id] " >
-                                                     <div class="icon-card">
-                                                         <div v-if="loadingItems[product?.id]">
-                                                             <LoaderBtn class="loadingbtn"></LoaderBtn>
-                                                         </div>
-                                                         <div v-else>
-                                                             <i class="bi bi-cart2 fs-4"></i>
-                                                         </div>
- 
-                                                     </div>
-                                                 </span>
-                            </div>
-                                                  
-    
-                                                        </div>
-                                                        <!-- hidden class for hover -->
-                                                        <div class="product-content-fade border-info"></div>
-                                                    </div>
+                    <p class="mb-0" v-if="product?.SurCommande !=1">
+                      <span
+                        v-if="product?.magasins_sum_quantite_reel !== null"
+                        class="badge bg-success text-white"
+                        >Disponible</span
+                      >
+                      <span v-else class="badge bg-danger text-white"
+                        >Pas disponible</span
+                      >
+                    </p>
+                    <p v-else>
+                      <span
+                      
+                        class="badge bg-success text-white"
+                        >Sur commande</span
+                      >
+                    </p>
+
+
+                    <span
+                      v-if="
+                        product?.magasins_sum_quantite_reel === null ||
+                        product?.magasins_sum_quantite_reel === 0
+                      "
+                      class="text-uppercase small Icons"
+                      disabled
+                    >
+                      <div class="icon-cards" disabled>
+                        <div v-if="loadingItems[product?.id]">
+                          <LoaderBtn class="loadingbtn"></LoaderBtn>
+                        </div>
+                        <div v-else>
+                          <i class="bi bi-cart2 fs-4"></i>
+                        </div>
+                      </div>
+                    </span>
+
+                    <span
+                      v-else
+                      class="text-uppercase small"
+                      @click="addProductToCart(product)"
+                      :disabled="loadingItems[product?.id]"
+                    >
+                      <div class="icon-card">
+                        <div v-if="loadingItems[product?.id]">
+                          <LoaderBtn class="loadingbtn"></LoaderBtn>
+                        </div>
+                        <div v-else>
+                          <i class="bi bi-cart2 fs-4"></i>
+                        </div>
+                      </div>
+                    </span>
+                  </div>
+                </div>
+                <!-- hidden class for hover -->
+                <div class="product-content-fade border-info"></div>
+              </div>
                                                 </div>
    
                </div>
