@@ -97,7 +97,7 @@
                             </div>
                             <div class="fw-bold ms-2">
                               <!-- <div class="fw-bold">({{ slotProps.option?.Prix }})</div> -->
-                              <div class="fw-bold">
+                              <div class="fw-bold" v-if="slotProps.option?.SurCommande !=1">
                                 (
                                 {{
                                   formatPrice(
@@ -106,6 +106,9 @@
                                     selectedDevise.isSymbolBefore
                                   )
                                 }})
+                              </div>
+                              <div class="fw-bold text-primary" v-else>
+                                (Sur Commande)
                               </div>
                             </div>
                           </div>
@@ -872,7 +875,7 @@
         >
           <!-- card -->
           <div class="card card-product-v2 h-100">
-            <div class="card-body position-relative">
+            <div class="card-body position-relative p-1">
               <!-- badge -->
               <div class="text-center position-relative">
                 <div class="position-absolute top-0 start-0">
@@ -915,9 +918,7 @@
               </h2>
 
               <!-- price -->
-              <div
-                class="d-flex justify-content-between align-items-center mt-3"
-              >
+              <div class="d-flex justify-content-between align-items-center mt-3" v-if="product?.SurCommande !=1">
                 <div>
                   <span v-if="product?.PrixPromo" class="text-danger">
                     {{
@@ -949,7 +950,7 @@
                   </span>
                 </div>
               </div>
-              <div class="prix">
+              <div class="prix" v-if="product?.SurCommande !=1">
                 <p class="mb-0">
                   <span
                     v-if="product?.magasins_sum_quantite_reel !== null"
@@ -994,6 +995,15 @@
                   </div>
                 </span>
               </div>
+              <div class=" text-center w-100" v-else>
+                    <p class="mb-1"> 
+                      <span
+                      
+                        class="badge bg-success text-white"
+                        >Sur commande</span
+                      >
+                    </p>
+                  </div>
             </div>
             <!-- hidden class for hover -->
             <div class="product-content-fade border-info"></div>

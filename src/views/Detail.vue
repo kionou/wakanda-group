@@ -139,16 +139,22 @@
 
                                 <div class="fs-5">
                                   <!-- price -->
-                                    <div v-if="product?.SurCommande == 1" class="text-warning fs-5 fw-bold">Sur commande</div>
+                                    <div v-if="product?.SurCommande == 1" >
+                                      <!-- <button class="btn">Commander via WhatsApp</button> -->
+                                      <a   :href="getWhatsApp('+22891994964')"
+                                      target="_blank" class="btn d-flex align-items-center text-white fs-6"  style=" background-color: #25d366; width:237px">
+                                           <i class="bi bi-whatsapp me-2"></i>  Commander via WhatsApp 
+                                      </a>
+                                    </div>
                                   <div v-else>
-                                    <span
+                                    <!-- <span
                                       v-if="product?.PrixPromo"
                                       class="text-danger fs-5 fw-bold"
                                     >
                                       {{
                                         formatPrice(
                                           convertPrice(product.PrixPromo),
-                                          "F CFA"
+                                          selectedDevise.symbol
                                         )
                                       }}
                                     </span>
@@ -160,7 +166,7 @@
                                       {{
                                         formatPrice(
                                           convertPrice(product.Prix),
-                                          "F CFA"
+                                          selectedDevise.symbol
                                         )
                                       }}
                                     </span>
@@ -171,10 +177,29 @@
                                       {{
                                         formatPrice(
                                           convertPrice(product?.Prix),
-                                          "F CFA"
+                                         selectedDevise.symbol
                                         )
                                       }}
-                                    </span>
+                                    </span> -->
+
+
+                                    <!-- nouveau -->
+
+                                    <div>
+          <span v-if="isPromotionActive && product?.PrixPromo" class="text-danger fs-5 fw-bold">
+            {{ formatPrice(convertPrice(product.PrixPromo), selectedDevise.symbol) }}
+          </span>
+          <span v-else class="text-danger fs-5 fw-bold">
+            {{ formatPrice(convertPrice(product?.Prix), selectedDevise.symbol) }}
+          </span>
+          <br />
+          <span
+            v-if="isPromotionActive && product?.PrixPromo"
+            class="text-muted text-decoration-line-through fs-5 fw-bold"
+          >
+            {{ formatPrice(convertPrice(product.Prix), selectedDevise.symbol) }}
+          </span>
+        </div>
                                   </div>
                                 </div>
                               </div>
@@ -525,8 +550,7 @@
                   </h2>
 
                   <!-- price -->
-                  <div
-                    class="d-flex justify-content-between align-items-center mt-3" v-if="product?.SurCommande !=1"
+                  <div class="d-flex justify-content-between align-items-center mt-3" v-if="product?.SurCommande !=1"
                   >
                     <div>
                       <span v-if="product?.PrixPromo" class="text-danger">
@@ -816,6 +840,22 @@ export default {
     },
     decodedId() {
       return atob(this.id); // Décode l'ID reçu en Base64
+    },
+    isPromotionActive() {
+      if (!this.product || !this.product.PrixPromo || !this.product.DateFinPromo) {
+        return false;
+      }
+      
+      const today = new Date();
+      const endDate = new Date(this.product.DateFinPromo);
+      
+      // Vérifier également la date de début si elle existe
+      if (this.product.DateDebutPromo) {
+        const startDate = new Date(this.product.DateDebutPromo);
+        return today >= startDate && today <= endDate;
+      }
+      
+      return today <= endDate;
     }
   },
   watch: {
@@ -937,7 +977,12 @@ export default {
     addProductToCart(product) {
       this.loadingItems[product?.id] = true;
       this.$store.dispatch("cart/addToCart", product);
-    }
+    },
+    getWhatsApp(numero) {
+
+      const numeros = numero?.startsWith("+") ? numero.replace("+", "") : numero;
+      return `https://wa.me/${numeros}`;
+    },
   },
   async mounted() {
     await this.recupererProduits();

@@ -201,7 +201,7 @@
       <div class="btnForm py-3 d-flex items-center justify-content-evenly">
         <button
           class="btnLogin d-flex align-items-center"
-          style="padding: 0.5em 2em !important; background-color: #198754"
+          style="padding: 0.5em 2em !important; background-color: #25d366"
           :disabled="isButtonDisabled"
           @click.prevent="MethodeOtp('whatsapp')"
         >

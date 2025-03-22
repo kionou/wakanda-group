@@ -24,7 +24,14 @@
                     <div class="col-xl-12 col-md-12 col-sm-12  pe-0 mb-2">
                         
                         <div class="hero-slider"  >
-                          <div class="hero-img-1 " style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;"  v-if="SlidersArray.length === 0">
+                          <div class="hero-img-1 " style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; height:40vh !important"  v-if="loader">
+                                <div class=" col-xxl-5 col-lg-7 col-md-8  text-xs-center" style="width: 100%; height:50%">
+                                    <!-- <img :src="defaultBanner " alt="" style="width: 100%; height:100%"> -->
+                                    <Loader></Loader>
+                                   
+                                </div>
+                            </div>
+                            <div class="hero-img-1 " style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;"  v-else-if="SlidersArray.length === 0">
                                 <div class=" col-xxl-5 col-lg-7 col-md-8  text-xs-center" style="width: 100%; height:100%">
                                     <img :src="defaultBanner " alt="" style="width: 100%; height:100%">
                                    
@@ -208,6 +215,8 @@ import defaultImage from '@/assets/images/products/product-img-2.jpg'
 import defaultBanner from '@/assets/img/banner_default.jpg'
 import axios from '@/lib/axiosConfig';
 import SkeletonCategorie from '@/components/others/loader/SkeletonCategorie.vue';
+import Loader from '@/components/others/loader/loader.vue';
+
 
 
 
@@ -216,7 +225,7 @@ import SkeletonCategorie from '@/components/others/loader/SkeletonCategorie.vue'
 export default {
   props: ['id'],
   components: {
-    Listes, grid, GridPlus , SkeletonCategorie , 
+    Listes, grid, GridPlus , SkeletonCategorie ,Loader 
    
   },
   data() {
@@ -226,6 +235,7 @@ export default {
       defaultImage: defaultImage,
       defaultBanner:defaultBanner,
       loading:false,
+      loader:true,
      
       filters:{
         min:'',
@@ -322,6 +332,8 @@ export default {
           this.MarquesChildrenArray = response.data?.data?.Nom
           const slider =  response.data?.data?.Sliders !== null &&  response.data?.data?.Sliders !== ''  ? true : false
           this.SlidersArray = slider ?  response.data?.data?.Sliders.split('|') : []
+          this.loader = false
+          this.loading = false
           
 
          

@@ -8,79 +8,111 @@
          <div class="col-xl-3" v-for="(product,index) in CategoriesArray" :key="index">
             <!-- card -->
             <div class="card card-product">
-               <div class="card-body p-1">
-                  <!-- badge -->
-                  <div class="text-center position-relative">
-                     <div class="position-absolute top-0 start-0">
-                           <span v-if="product.PrixPromo" class="badge bg-success text-white">
-                           -{{ calculateDiscount(product.Prix, product.PrixPromo) }}%
-                           </span>
-                     </div>
-                     <router-link :to="{ name: 'detail', params: { id: product.id }}">
-                        <img :src="product.PhotoCover ? product.PhotoCover : defaultImage"
-                           :alt="product.NomProduit" :title="product.NomProduit"
-                           style="width: 100%; height: auto; max-height: 30% !important;"
-                           class="mb-3 img-fluid" />
-                  </router-link>
-                     
-                  </div>
-                  <!-- heading -->
-                  <h2 class="fs-6"><router-link
-                                     :to="{ name: 'detail', params: { id: product.id }}"
-                                     class="text-inherit text-decoration-none">{{
-                                     product.NomProduit }}
-                                 </router-link></h2>
+  <div class="card-body p-1">
+    <!-- badge -->
+    <div class="text-center position-relative">
+      <div class="position-absolute top-0 start-0">
+        <span
+          v-if="isPromotionActive(product) && product.PrixPromo"
+          class="badge bg-success text-white"
+        >
+          -{{ calculateDiscount(product.Prix, product.PrixPromo) }}%
+        </span>
+      </div>
+      <router-link
+        :to="{ name: 'detail', params: { id: encodeId(product.id) } }"
+        @click="addToRecent(product)"
+      >
+        <img
+          :src="product.PhotoCover ? product.PhotoCover : defaultImage"
+          :alt="product.NomProduit"
+          :title="product.NomProduit"
+          style="width: 100%; height: auto; max-height: 30% !important;"
+          class="mb-3 img-fluid"
+        />
+      </router-link>
+    </div>
+    <!-- heading -->
+    <h2 class="fs-6">
+      <router-link
+        :to="{ name: 'detail', params: { id: encodeId(product.id) } }"
+        @click="addToRecent(product)"
+        class="text-inherit text-decoration-none"
+      >
+        {{ product.NomProduit }}
+      </router-link>
+    </h2>
 
-                                 <div class="d-flex justify-content-between align-items-center mt-3">
-                               
-                                    <div>
-                                                <span v-if="product.produit?.PrixPromo" class="text-danger">
-                                                    {{ formatPrice(convertPrice(product.produit.PrixPromo), selectedDevise.symbol) }}
-                                                </span>
-                                                <br>
-                                                <span v-if="product.produit?.PrixPromo" class="text-muted text-decoration-line-through">
-                                                    {{ formatPrice(convertPrice(product.produit.Prix), selectedDevise.symbol) }}
-                                                </span>
-                                                <span v-else class="text-danger">
-                                                    {{ formatPrice(convertPrice(product.produit?.Prix), selectedDevise.symbol) }}
-                                                </span>
-                                     </div>
+    <div
+      class="d-flex justify-content-between align-items-center mt-3"
+      v-if="product?.SurCommande != 1"
+    >
+      <div>
+        <span v-if="isPromotionActive(product) && product?.PrixPromo" class="text-danger">
+          {{ formatPrice(convertPrice(product.PrixPromo), selectedDevise.symbol) }}
+        </span>
+        <span v-else class="text-danger">
+          {{ formatPrice(convertPrice(product?.Prix), selectedDevise.symbol) }}
+        </span>
+        <br />
+        <span
+          v-if="isPromotionActive(product) && product?.PrixPromo"
+          class="text-muted text-decoration-line-through"
+        >
+          {{ formatPrice(convertPrice(product.Prix), selectedDevise.symbol) }}
+        </span>
+      </div>
+    </div>
+    <div class="prix">
+      <p class="mb-0" v-if="product?.SurCommande != 1">
+        <span
+          v-if="product?.magasins_sum_quantite_reel !== null"
+          class="badge bg-success text-white"
+        >Disponible</span>
+        <span v-else class="badge bg-danger text-white">Pas disponible</span>
+      </p>
+      <p v-else style="width: 100%" class="text-center">
+        <span class="badge bg-success text-white">Sur commande</span>
+      </p>
 
-                           </div>
-                           
-                           <div class="prix">
-                                                <p class="mb-0">
-                                                    <span v-if="product?.produit?.magasins_sum_quantite_reel !== null" class="badge bg-success text-white">Disponible</span>
-                                                    <span v-else class="badge bg-danger text-white">Pas disponible</span>
-                                                </p>
-                                                    <span  v-if="product?.produit?.magasins_sum_quantite_reel === null || product?.produit?.magasins_sum_quantite_reel === 0" class="text-uppercase small Icons " 
-                                                        disabled>
-                                                        <div class="icon-cards" disabled>
-                                                            <div v-if="loadingItems[product?.produit?.id]">
-                                                                <LoaderBtn class="loadingbtn"></LoaderBtn>
-                                                            </div>
-                                                            <div v-else>
-                                                                <i class="bi bi-cart2 fs-4"></i>
-                                                            </div>
-    
-                                                        </div>
-                                                    </span>
-
-                                                    <span v-else class="text-uppercase small  btn-success " @click="addProductToCart(product?.produit)"
-                                                        :disabled="loadingItems[product?.produit?.id] " >
-                                                        <div class="icon-card">
-                                                            <div v-if="loadingItems[product?.produit?.id]">
-                                                                <LoaderBtn class="loadingbtn"></LoaderBtn>
-                                                            </div>
-                                                            <div v-else>
-                                                                <i class="bi bi-cart2 fs-4"></i>
-                                                            </div>
-    
-                                                        </div>
-                                                    </span>
-                                            </div>
-               </div>
+      <div v-if="product?.SurCommande != 1">
+        <span
+          v-if="
+            product?.magasins_sum_quantite_reel === null ||
+            product?.magasins_sum_quantite_reel === 0
+          "
+          class="text-uppercase small Icons"
+          disabled
+        >
+          <div class="icon-cards" disabled>
+            <div v-if="loadingItems[product?.id]">
+              <LoaderBtn class="loadingbtn"></LoaderBtn>
             </div>
+            <div v-else>
+              <i class="bi bi-cart2 fs-4"></i>
+            </div>
+          </div>
+        </span>
+
+        <span
+          v-else
+          class="text-uppercase small"
+          @click="addProductToCart(product)"
+          :disabled="loadingItems[product?.id]"
+        >
+          <div class="icon-card">
+            <div v-if="loadingItems[product?.id]">
+              <LoaderBtn class="loadingbtn"></LoaderBtn>
+            </div>
+            <div v-else>
+              <i class="bi bi-cart2 fs-4"></i>
+            </div>
+          </div>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
          </div>
         
         
@@ -225,6 +257,22 @@ export default {
     }
     return `${symbol} ${formattedPrice}`;
     },
+    isPromotionActive(product) {
+    if (!product || !product.PrixPromo || !product.DateFinPromo) {
+      return false;
+    }
+    
+    const today = new Date();
+    const endDate = new Date(product.DateFinPromo);
+    
+    // Vérifier également la date de début si elle existe
+    if (product.DateDebutPromo) {
+      const startDate = new Date(product.DateDebutPromo);
+      return today >= startDate && today <= endDate;
+    }
+    
+    return today <= endDate;
+  },
   },
 
 }
