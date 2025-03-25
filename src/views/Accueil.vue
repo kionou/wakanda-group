@@ -102,7 +102,8 @@
                   <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
                      <div class="card me-1 p-md-0 mb-2 text-center">
                         <div class="card-body  row align-items-end">
-                          <div class="col-3">
+                          <div class="col-lg-2"></div>
+                          <div class="col-lg-1">
                             <div class="mb-1">
                               <!-- svg -->
                              
@@ -111,7 +112,7 @@
                               </svg>
                            </div>
                           </div>
-                          <div class="col-9">
+                          <div class="col-lg-7">
                             <!-- text -->
                             <h3 class="fs-5 mb-1">Livraison rapide</h3>
                             <p class="mb-0">livraison partout</p>
@@ -124,7 +125,9 @@
                   <div class="col-lg-3 col-md-6 col-sm-6  col-xs-12">
                      <div class="card p-md-0 me-1 mb-2 text-center">
                         <div class="card-body  row align-items-end">
-                          <div class="col-3">
+                          <div class="col-lg-1"></div>
+
+                          <div class="col-lg-2">
                             <div class="mb-1">
                               <!-- svg -->
                              
@@ -134,7 +137,7 @@
                               </svg>
                            </div>
                           </div>
-                         <div class="col-9">
+                         <div class="col-lg-8">
                           <!-- text -->
                           <h3 class="fs-5 mb-1">Support en ligne 24/7</h3>
                            <p class="mb-0">Disponible jours ouvrés.</p>
@@ -146,7 +149,9 @@
                   <div class="col-lg-3 col-md-6 col-sm-6  col-xs-12">
                      <div class="card p-md-0 me-1 mb-2 text-center">
                         <div class="card-body  row align-items-end">
-                          <div class="col-3">
+                          <div class="col-lg-2"></div>
+
+                          <div class="col-lg-1">
                             <div class="mb-1">
                               <!-- svg -->
                               <svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" fill="currentColor" class="bi bi-arrow-repeat text-primary" viewBox="0 0 16 16">
@@ -155,7 +160,7 @@
                               </svg>
                            </div>
                           </div>
-                          <div class="col-9">
+                          <div class="col-lg-7">
                             <!-- text -->
                             <h3 class="fs-5 mb-1">Money return</h3>
                             <p class="mb-0"> Garantie</p>
@@ -168,7 +173,9 @@
                   <div class="col-lg-3 col-md-6 col-sm-6  col-xs-12">
                      <div class="card p-md-0 mb-2 text-center">
                         <div class="card-body  row align-items-end">
-                          <div class="col-3">
+                          <div class="col-lg-2"></div>
+
+                          <div class="col-lg-1">
                             <div class="mb-1">
                               <!-- svg -->
                               <svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" fill="currentColor" class="bi bi-gift text-primary" viewBox="0 0 16 16">
@@ -176,7 +183,7 @@
                               </svg>
                            </div>
                           </div>
-                          <div class="col-9">
+                          <div class="col-lg-8">
                             <!-- text -->
                             <h3 class="fs-5 mb-1">Reduction</h3>
                             <p class="mb-0">
@@ -468,7 +475,7 @@
               :src="product?.PhotoCover ? product?.PhotoCover : defaultImage"
               :alt="product?.NomProduit"
               :title="product?.NomProduit"
-              style="width: 150px; height: auto"
+              style="width: 100%; height: auto"
               class="mb-3 img-fluid"
             />
           </router-link>
@@ -476,13 +483,13 @@
         <!-- action btn -->
       </div>
       <!-- title -->
-      <h2 class="fs-6">
+      <h2 class="fs-6 text-center">
         <router-link
           :to="{
             name: 'detail',
             params: { id: encodeId(product?.id) },
           }"
-          class="text-inherit text-decoration-none"
+          class="text-inherit text-decoration-none text-center"
           @click="addToRecent(product)"
         >
           {{ product?.NomProduit }}
@@ -641,7 +648,7 @@
             :src="product.produit?.PhotoCover ? product.produit?.PhotoCover : defaultImage"
             :alt="product.produit?.NomProduit"
             :title="product.produit?.NomProduit"
-            style="width: 200px; height: auto"
+            style="width: 100%; height: auto"
             class="mb-3 img-fluid"
           />
         </router-link>
@@ -649,7 +656,7 @@
       <!-- action btn -->
     </div>
     <!-- title -->
-    <h2 class="fs-6">
+    <h2 class="fs-6 text-center">
       <router-link
         :to="{
           name: 'detail',
@@ -878,18 +885,10 @@
                       tabindex="0"
                     >
                       <!-- row -->
-                      <div
-                        class="row g-4 row-cols-xl-6 row-cols-lg-6 row-cols-lg-6 row-cols-2 row-cols-md-3"
-                      >
-                        <div
-                          class="col mt-3"
-                          v-for="(product, index) in ProductFlash?.produits"
-                          :key="index"
-                        >
+                      <div class="row g-4 row-cols-xl-8 row-cols-lg-8 row-cols-md-4 row-cols-sm-3 row-cols-2 justify-content-center ">
+                        <div class="col mt-3" v-for="(product, index) in ProductFlash?.produits"  :key="index" style="max-width: 170px;">
                           <!-- card -->
-                        
-
-                          <div class="card card-product-v2 h-100">
+<div class="card card-product h-100" style="max-width: 170px;">
   <div class="card-body position-relative p-1">
     <div class="text-center position-relative d-flex ">
       <div class="position-absolute top-0 start-0">
@@ -929,13 +928,13 @@
       <!-- action btn -->
     </div>
     <!-- title -->
-    <h2 class="fs-6">
+    <h2 class="fs-6 text-center">
       <router-link
         :to="{
           name: 'detail',
           params: { id: encodeId(product.produit?.id) },
         }"
-        class="text-inherit text-decoration-none"
+        class="text-inherit text-decoration-none "
         @click="addToRecent(product.produit)"
       >
         {{ product.produit?.NomProduit }}
@@ -1142,7 +1141,7 @@
             :src="product.produit?.PhotoCover ? product.produit?.PhotoCover : defaultImage"
             :alt="product.produit?.NomProduit"
             :title="product.produit?.NomProduit"
-            style="width: 200px; height: auto"
+            style="width: 100%; height: auto"
             class="mb-3 img-fluid"
           />
         </router-link>
@@ -1150,7 +1149,7 @@
       <!-- action btn -->
     </div>
     <!-- title -->
-    <h2 class="fs-6">
+    <h2 class="fs-6 text-center">
       <router-link
         :to="{
           name: 'detail',
@@ -1322,7 +1321,7 @@
                                   "
                                   :alt="product.produit?.NomProduit"
                                   :title="product.produit?.NomProduit"
-                                  style="width: 150px; height: auto"
+                                  style="width: 100%; height: auto"
                                   class="mb-3 img-fluid"
                                 />
                               </router-link>
@@ -1331,7 +1330,7 @@
                             <!-- action btn -->
                           </div>
                           <!-- title -->
-                          <h2 class="fs-6">
+                          <h2 class="fs-6 text-center">
                             <router-link
                               :to="{
                                 name: 'detail',
@@ -1493,13 +1492,13 @@
                                   "
                                   :alt="product?.NomProduit"
                                   :title="product?.NomProduit"
-                                  style="width: 200px; height: auto"
+                                  style="width: 100%; height: auto"
                                   class="mb-3 img-fluid"
                                 />
                               </router-link>
                             </div>
                           </div>
-                          <h2 class="fs-6">
+                          <h2 class="fs-6 text-center">
                             <router-link
                               :to="{
                                 name: 'detail',

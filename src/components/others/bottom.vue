@@ -1,7 +1,12 @@
 <template>
-    <router-link to="/" v-show="visible" class="bottom-right">
-        <i class="bi bi-chat-dots"></i>
-    </router-link>
+    <!-- <router-link to="/" v-show="visible" class="bottom-right">
+      <i class="bi bi-arrow-up-circle"></i>
+      <i class="bi bi-arrow-up-short"></i>
+
+    </router-link> -->
+    <a href="#" v-show="visible" class="  bottom-right">
+      <i class="bi bi-arrow-up-circle"></i>
+      </a>
   </template>
   
   <script>
