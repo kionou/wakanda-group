@@ -123,7 +123,7 @@
                       <div class="my-2">
                         <div class="mt-6 mt-md-0">
                           <div class="row">
-                            <div class="col-6" v-if="product?.Videos">
+                            <div class="col-xl-6 col-lg-6 col-md-12" v-if="product?.Videos">
                               <div class="card">
                                 <video
                                   :src="product.Videos"
@@ -133,7 +133,7 @@
                                 ></video>
                               </div>
                             </div>
-                            <div class="col-6">
+                            <div class="col-xl-6 col-lg-6 col-md-12">
                               <div class="ms-3">
                                 <h3 class="mb-1">{{ product.NomProduit }}</h3>
 

@@ -810,7 +810,7 @@
                     </h3>
                   </div>
                 </div>
-                <div class="col-xl-9 col-md-7 col-lg-6">
+                <div class="col-xl-9 col-md-7 col-lg-6 d-none d-sm-block">
                   <div>
                     <!-- nav -->
                     <nav>
