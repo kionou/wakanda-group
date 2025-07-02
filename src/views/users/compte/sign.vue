@@ -415,9 +415,7 @@ for (let i = 1; i < step; i++) {
  switch (step) {
      case 1:
          stepData = {
-           
            ...stepData,
-
            email: this.step1.email,
            Nom: this.step1.Nom,
            Prenoms: this.step1.Prenoms,
@@ -432,8 +430,6 @@ for (let i = 1; i < step; i++) {
            ...stepData,
            password: this.step2.password,
            password_confirmation: this.step2.password_confirmation,
-          
-
          };
          break;
 
@@ -459,7 +455,6 @@ async registerClientData(Data) {
        
          return true;
      } else {
-         console.error("Erreur lors de la mise à ", response.data); 
          this.error = "An error has occurred. Please try again later";
          return false;
      }

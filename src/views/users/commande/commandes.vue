@@ -99,6 +99,13 @@ async  mounted() {
           "Erreur lors de la récupération des utilisateurs:",
           error
         );
+        if (
+          error.response.data.message === "Vous n'êtes pas autorisé." ||
+          error.response.status === 401
+        ) {
+          await this.$store.dispatch("auth/clearMyAuthenticatedUser");
+          this.$router.push("/"); //a revoir
+        }
       }
     },
    },

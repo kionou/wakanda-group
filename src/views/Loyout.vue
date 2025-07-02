@@ -3,7 +3,7 @@
         <Navbar  />
         <navbarMobile />
         <RouterView :style="{marginTop:'60px' , backgroundColor: ColorDay?.data?.Color ? ColorDay?.data?.Color : '#fff' }" class="p-1" />
-        
+       
             <Footer />
             <Bottom />
 
